@@ -15,6 +15,8 @@ MAP_NAMES = [
     'overworld',
     'tunnels_of_the_north',
     'cave_of_gadianton',
+    'sierra_pass',
+    'cavity_of_a_rock',
 ]
 HERO_MOVE_SPEED = 10  # tiles per second.
 TILE_SIZE = 16 # pixels

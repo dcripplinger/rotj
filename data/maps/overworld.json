@@ -28,5 +28,35 @@
       "y": 48,
       "direction": "n"
     }
+  },
+  {
+    "x": 124,
+    "y": 248,
+    "teleport": {
+      "map": "sierra_pass",
+      "x": 9,
+      "y": 10,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 128,
+    "y": 250,
+    "teleport": {
+      "map": "sierra_pass",
+      "x": 72,
+      "y": 34,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 255,
+    "y": 303,
+    "teleport": {
+      "map": "cavity_of_a_rock",
+      "x": 55,
+      "y": 28,
+      "direction": "w"
+    }
   }
 ]
