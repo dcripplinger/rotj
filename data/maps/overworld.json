@@ -1,0 +1,32 @@
+[
+  {
+    "x": 22,
+    "y": 129,
+    "teleport": {
+      "map": "tunnels_of_the_north",
+      "x": 69,
+      "y": 32,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 17,
+    "y": 126,
+    "teleport": {
+      "map": "tunnels_of_the_north",
+      "x": 33,
+      "y": 15,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 137,
+    "y": 233,
+    "teleport": {
+      "map": "cave_of_gadianton",
+      "x": 29,
+      "y": 48,
+      "direction": "n"
+    }
+  }
+]
