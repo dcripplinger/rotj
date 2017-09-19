@@ -58,5 +58,15 @@
       "y": 28,
       "direction": "w"
     }
+  },
+  {
+    "x": 165,
+    "y": 110,
+    "teleport": {
+      "map": "passage_to_gid",
+      "x": 27,
+      "y": 10,
+      "direction": "s"
+    }
   }
 ]
