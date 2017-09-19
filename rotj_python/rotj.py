@@ -17,6 +17,7 @@ MAP_NAMES = [
     'cave_of_gadianton',
     'sierra_pass',
     'cavity_of_a_rock',
+    'passage_to_gid',
 ]
 HERO_MOVE_SPEED = 10  # tiles per second.
 TILE_SIZE = 16 # pixels
