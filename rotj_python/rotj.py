@@ -200,13 +200,21 @@ class TitlePage(object):
     def __init__(self, screen):
         self.screen = screen
         self.title_image = load_image('../data/images/title.png').convert_alpha()
+        self.current_music = None
 
     def draw(self):
         self.screen.fill((0,0,0))
         self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
 
     def update(self, dt):
-        pass
+        if self.current_music is None:
+            pygame.mixer.music.load('../data/audio/music/title_theme_intro.wav')
+            pygame.mixer.music.play()
+            self.current_music = 'intro'
+        elif self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+            pygame.mixer.music.load('../data/audio/music/title_theme_body.wav')
+            pygame.mixer.music.play(-1)
+            self.current_music = 'body'
 
 
 class Game(object):
@@ -308,6 +316,8 @@ class Game(object):
                 elif self.screen_state == 'title':
                     if pressed[K_RETURN]:
                         self.screen_state = 'game'
+                        pygame.mixer.music.stop()
+                        time.sleep(0.5)
 
     def get_new_window_size_and_fit_screen(self):
         p = subprocess.Popen(['xwininfo', '-name', 'pygame window'], stdout=subprocess.PIPE)
@@ -340,6 +350,7 @@ class Game(object):
 
 if __name__ == '__main__':
     screen = pygame.display.set_mode((1600, 900))
+    pygame.mixer.init()
     try:
         game = Game(screen)
         game.run()
