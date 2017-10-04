@@ -134,7 +134,7 @@ CHARS = {
 
 
 class TextBox(object):
-    def __init__(self, text, width, height, adjust='left', border=True, double_space=False):
+    def __init__(self, text, width, height, adjust='left', border=True, double_space=False, appear='instant'):
         self.text = text
         self.lines = text.split('\n')
         self.words = {}
@@ -147,7 +147,9 @@ class TextBox(object):
         self.double_space = double_space
         self.text_width = width/8
         self.fix_lines()
-        self.surface = self.get_surface()
+        self.time_elapsed = 0
+        self.lines_to_show = 1 if appear=='fade' else len(self.lines)
+        self.update_surface()
 
     def fix_lines(self):
         new_lines = []
@@ -160,8 +162,8 @@ class TextBox(object):
                     left_over = left_over - (len(word)+1)
                 else:
                     new_lines.append(' '.join(fitting_words))
-                    fitting_words = []
-                    left_over = self.text_width
+                    fitting_words = [word]
+                    left_over = self.text_width - (len(word)+1)
             if len(fitting_words) > 0:
                 new_lines.append(' '.join(fitting_words))
         self.lines = new_lines
@@ -169,11 +171,13 @@ class TextBox(object):
         for line in self.lines:
             self.words[line] = line.split()
 
-    def get_surface(self):
+    def update_surface(self):
         y_space = 2 if self.double_space else 1
         surface = pygame.Surface((self.width, self.height))
         surface.fill(BLACK)
         for y, line in enumerate(self.lines):
+            if self.lines_to_show == y:
+                break
             x = (self.text_width-len(line))/2 if self.adjust=='center' else 0
             for word in self.words[line]:
                 for char in word:
@@ -181,7 +185,14 @@ class TextBox(object):
                     x += 1
                 surface.blit(CHARS[' '], (x*8, y*8*y_space))
                 x += 1
-        return surface
+        self.surface = surface
+
+    def update(self, dt):
+        self.time_elapsed += dt
+        if self.lines_to_show < len(self.lines) and self.time_elapsed > 1.5:
+            self.time_elapsed -= 1.5
+            self.lines_to_show += 1
+            self.update_surface()
 
 
 class Hero(pygame.sprite.Sprite):
@@ -328,7 +339,6 @@ class TitlePage(object):
     def __init__(self, screen):
         self.screen = screen
         self.title_image = load_image('../data/images/title.png').convert_alpha()
-        self.current_music = None
         copyright_text = (
             u'© DAVID RIPPLINGER, 2017\n'
             u'FREE UNDER THE MIT LICENSE\n'
@@ -337,26 +347,48 @@ class TitlePage(object):
         )
         self.copyright = TextBox(copyright_text, GAME_WIDTH, 4*16, adjust='center', double_space=True)
         self.press_start = TextBox('PRESS ENTER', GAME_WIDTH, 16, adjust='center')
+        intro_text = (
+            'This is the story of the wars fought among the great Nephite nation over two thousand years ago, '
+            'somewhere on the American continent.'
+        )
+        self.intro = TextBox(intro_text, GAME_WIDTH-8*4, 7*16, double_space=True, appear='fade')
+        self.reset()
 
     def draw(self):
         self.screen.fill((0,0,0))
-        self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
-        self.screen.blit(self.copyright.surface, (0, 136))
-        if is_half_second():
-            self.screen.blit(self.press_start.surface, (0, 112))
+        if self.current_page == 0:
+            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
+            self.screen.blit(self.copyright.surface, (0, 136))
+            if is_half_second():
+                self.screen.blit(self.press_start.surface, (0, 112))
+        elif self.current_page == 1:
+            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
+            if self.time_elapsed > 51:
+                self.to_update.add(self.intro)
+                self.screen.blit(self.intro.surface, (32, 112))
+
 
     def reset(self):
         self.current_music = None
+        self.time_elapsed = 0.0
+        self.current_page = 0
+        self.to_update = set()
 
     def update(self, dt):
-        if self.current_music is None:
-            pygame.mixer.music.load('../data/audio/music/title_theme_intro.wav')
-            pygame.mixer.music.play()
-            self.current_music = 'intro'
-        elif self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-            pygame.mixer.music.load('../data/audio/music/title_theme_body.wav')
-            pygame.mixer.music.play(-1)
-            self.current_music = 'body'
+        for update_obj in self.to_update:
+            update_obj.update(dt)
+        self.time_elapsed += dt
+        if self.current_page == 0:
+            if self.current_music is None:
+                pygame.mixer.music.load('../data/audio/music/title_theme_intro.wav')
+                pygame.mixer.music.play()
+                self.current_music = 'intro'
+            elif self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load('../data/audio/music/title_theme_body.wav')
+                pygame.mixer.music.play(-1)
+                self.current_music = 'body'
+            if self.time_elapsed > 48:
+                self.current_page = 1
 
 
 class Game(object):
