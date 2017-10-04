@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import json
 from math import ceil, floor
 import os
@@ -39,6 +41,8 @@ EVENT_NAMES = {
     VIDEORESIZE: 'VIDEORESIZE',
     VIDEOEXPOSE: 'VIDEOEXPOSE',
 }
+WHITE = (255,255,255)
+BLACK = (0,0,0)
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "0,0"
 
@@ -54,6 +58,130 @@ def load_image(filename):
 
 def get_map_filename(filename):
     return os.path.join(RESOURCES_DIR, "maps", filename)
+
+
+CHARS = {
+    '0': load_image('../data/images/font/0.png'),
+    '1': load_image('../data/images/font/1.png'),
+    '2': load_image('../data/images/font/2.png'),
+    '3': load_image('../data/images/font/3.png'),
+    '4': load_image('../data/images/font/4.png'),
+    '5': load_image('../data/images/font/5.png'),
+    '6': load_image('../data/images/font/6.png'),
+    '7': load_image('../data/images/font/7.png'),
+    '8': load_image('../data/images/font/8.png'),
+    '9': load_image('../data/images/font/9.png'),
+    'a': load_image('../data/images/font/a.png'),
+    'b': load_image('../data/images/font/b.png'),
+    'c': load_image('../data/images/font/c.png'),
+    'd': load_image('../data/images/font/d.png'),
+    'e': load_image('../data/images/font/e.png'),
+    'f': load_image('../data/images/font/f.png'),
+    'g': load_image('../data/images/font/g.png'),
+    'h': load_image('../data/images/font/h.png'),
+    'i': load_image('../data/images/font/i.png'),
+    'j': load_image('../data/images/font/j.png'),
+    'k': load_image('../data/images/font/k.png'),
+    'l': load_image('../data/images/font/l.png'),
+    'm': load_image('../data/images/font/m.png'),
+    'n': load_image('../data/images/font/n.png'),
+    'o': load_image('../data/images/font/o.png'),
+    'p': load_image('../data/images/font/p.png'),
+    'q': load_image('../data/images/font/q.png'),
+    'r': load_image('../data/images/font/r.png'),
+    's': load_image('../data/images/font/s.png'),
+    't': load_image('../data/images/font/t.png'),
+    'u': load_image('../data/images/font/u.png'),
+    'v': load_image('../data/images/font/v.png'),
+    'w': load_image('../data/images/font/w.png'),
+    'x': load_image('../data/images/font/x.png'),
+    'y': load_image('../data/images/font/y.png'),
+    'z': load_image('../data/images/font/z.png'),
+    'A': load_image('../data/images/font/A.png'),
+    'B': load_image('../data/images/font/B.png'),
+    'C': load_image('../data/images/font/C.png'),
+    'D': load_image('../data/images/font/D.png'),
+    'E': load_image('../data/images/font/E.png'),
+    'F': load_image('../data/images/font/F.png'),
+    'G': load_image('../data/images/font/G.png'),
+    'H': load_image('../data/images/font/H.png'),
+    'I': load_image('../data/images/font/I.png'),
+    'J': load_image('../data/images/font/J.png'),
+    'K': load_image('../data/images/font/K.png'),
+    'L': load_image('../data/images/font/L.png'),
+    'M': load_image('../data/images/font/M.png'),
+    'N': load_image('../data/images/font/N.png'),
+    'O': load_image('../data/images/font/O.png'),
+    'P': load_image('../data/images/font/P.png'),
+    'Q': load_image('../data/images/font/Q.png'),
+    'R': load_image('../data/images/font/R.png'),
+    'S': load_image('../data/images/font/S.png'),
+    'T': load_image('../data/images/font/T.png'),
+    'U': load_image('../data/images/font/U.png'),
+    'V': load_image('../data/images/font/V.png'),
+    'W': load_image('../data/images/font/W.png'),
+    'X': load_image('../data/images/font/X.png'),
+    'Y': load_image('../data/images/font/Y.png'),
+    'Z': load_image('../data/images/font/Z.png'),
+    ' ': load_image('../data/images/font/space.png'),
+    '.': load_image('../data/images/font/period.png'),
+    ',': load_image('../data/images/font/comma.png'),
+    "'": load_image('../data/images/font/apostrophe.png'),
+    '?': load_image('../data/images/font/question.png'),
+    '!': load_image('../data/images/font/exclamation.png'),
+    u'©': load_image('../data/images/font/copyright.png'),
+}
+
+
+class TextBox(object):
+    def __init__(self, text, width, height, adjust='left', border=True, double_space=False):
+        self.text = text
+        self.lines = text.split('\n')
+        self.words = {}
+        for line in self.lines:
+            self.words[line] = line.split()
+        self.width = width
+        self.height = height
+        self.adjust = adjust
+        self.border = border
+        self.double_space = double_space
+        self.text_width = width/8
+        self.fix_lines()
+        self.surface = self.get_surface()
+
+    def fix_lines(self):
+        new_lines = []
+        for line in self.lines:
+            fitting_words = []
+            left_over = self.text_width
+            for word in self.words[line]:
+                if len(word)+1 < left_over:
+                    fitting_words.append(word)
+                    left_over = left_over - (len(word)+1)
+                else:
+                    new_lines.append(' '.join(fitting_words))
+                    fitting_words = []
+                    left_over = self.text_width
+            if len(fitting_words) > 0:
+                new_lines.append(' '.join(fitting_words))
+        self.lines = new_lines
+        self.words = {}
+        for line in self.lines:
+            self.words[line] = line.split()
+
+    def get_surface(self):
+        y_space = 2 if self.double_space else 1
+        surface = pygame.Surface((self.width, self.height))
+        surface.fill(BLACK)
+        for y, line in enumerate(self.lines):
+            x = (self.text_width-len(line))/2 if self.adjust=='center' else 0
+            for word in self.words[line]:
+                for char in word:
+                    surface.blit(CHARS[char], (x*8, y*8*y_space))
+                    x += 1
+                surface.blit(CHARS[' '], (x*8, y*8*y_space))
+                x += 1
+        return surface
 
 
 class Hero(pygame.sprite.Sprite):
@@ -201,10 +329,24 @@ class TitlePage(object):
         self.screen = screen
         self.title_image = load_image('../data/images/title.png').convert_alpha()
         self.current_music = None
+        copyright_text = (
+            u'© DAVID RIPPLINGER, 2017\n'
+            u'FREE UNDER THE MIT LICENSE\n'
+            u'BASED ON DESTINY OF AN EMPEROR\n'
+            u'© HIROSHI MOTOMIYA, 1989'
+        )
+        self.copyright = TextBox(copyright_text, GAME_WIDTH, 4*16, adjust='center', double_space=True)
+        self.press_start = TextBox('PRESS ENTER', GAME_WIDTH, 16, adjust='center')
 
     def draw(self):
         self.screen.fill((0,0,0))
         self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
+        self.screen.blit(self.copyright.surface, (0, 136))
+        if is_half_second():
+            self.screen.blit(self.press_start.surface, (0, 112))
+
+    def reset(self):
+        self.current_music = None
 
     def update(self, dt):
         if self.current_music is None:
