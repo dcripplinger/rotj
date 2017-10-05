@@ -338,6 +338,17 @@ class Map(object):
 class TitlePage(object):
     def __init__(self, screen):
         self.screen = screen
+        self.transition_times = [48, 64]
+        self.warlords = ['moroni', 'teancum', 'amalickiah']
+        self.portraits = {
+            warlord: load_image('../data/images/portraits/{}.png'.format(warlord))
+            for warlord in self.warlords
+        }
+        self.biographies = {
+            'moroni': "The greatest captain in all of Nephite history.",
+            'teancum': "A legendary Nephite captain and spy. Unmatched in his skill with a javelin.",
+            'amalickiah': "Brother in arms with Moroni, endowed with equally great strength and cunning.",
+        }
         self.title_image = load_image('../data/images/title.png').convert_alpha()
         copyright_text = (
             u'© DAVID RIPPLINGER, 2017\n'
@@ -366,7 +377,24 @@ class TitlePage(object):
             if self.time_elapsed > 51:
                 self.to_update.add(self.intro)
                 self.screen.blit(self.intro.surface, (32, 112))
+        elif self.current_page == 2:
+            warlords = self.warlords[0:3]
+            t = self.time_elapsed-self.transition_times[1]
+            self.draw_portraits(warlords, t)
+            self.draw_biographies(warlords, t)
 
+    def draw_portraits(self, warlords, elapsed):
+        if elapsed > 1:
+            t = 1 if elapsed > 2 else elapsed-1
+            x_margin = 8
+            x_left = (x_margin-GAME_WIDTH)*t + GAME_WIDTH
+            x_right = (GAME_WIDTH-x_margin)*t - 48
+            self.screen.blit(self.portraits[warlords[0]], (x_left,16))
+            self.screen.blit(pygame.transform.flip(self.portraits[warlords[1]], True, False), (x_right,80))
+            self.screen.blit(self.portraits[warlords[2]], (x_left,144))
+
+    def draw_biographies(self, warlords, elapsed):
+        pass
 
     def reset(self):
         self.current_music = None
@@ -387,8 +415,11 @@ class TitlePage(object):
                 pygame.mixer.music.load('../data/audio/music/title_theme_body.wav')
                 pygame.mixer.music.play(-1)
                 self.current_music = 'body'
-            if self.time_elapsed > 48:
+            if self.time_elapsed > self.transition_times[0]:
                 self.current_page = 1
+        elif self.current_page == 1:
+            if self.time_elapsed > self.transition_times[1]:
+                self.current_page = 2
 
 
 class Game(object):
