@@ -148,7 +148,11 @@ class TextBox(object):
         self.text_width = width/8
         self.fix_lines()
         self.time_elapsed = 0
-        self.lines_to_show = 1 if appear=='fade' else len(self.lines)
+        self.lines_to_show = (
+            2 if appear=='fade' and not double_space
+            else 1 if appear=='fade' and double_space
+            else len(self.lines)
+        )
         self.update_surface()
 
     def fix_lines(self):
@@ -178,7 +182,11 @@ class TextBox(object):
         for y, line in enumerate(self.lines):
             if self.lines_to_show == y:
                 break
-            x = (self.text_width-len(line))/2 if self.adjust=='center' else 0
+            x = (
+                (self.text_width-len(line))/2 if self.adjust=='center'
+                else self.text_width-len(line) if self.adjust=='right'
+                else 0
+            )
             for word in self.words[line]:
                 for char in word:
                     surface.blit(CHARS[char], (x*8, y*8*y_space))
@@ -191,7 +199,7 @@ class TextBox(object):
         self.time_elapsed += dt
         if self.lines_to_show < len(self.lines) and self.time_elapsed > 1.5:
             self.time_elapsed -= 1.5
-            self.lines_to_show += 1
+            self.lines_to_show += 1 if self.double_space else 2
             self.update_surface()
 
 
@@ -338,8 +346,14 @@ class Map(object):
 class TitlePage(object):
     def __init__(self, screen):
         self.screen = screen
-        self.transition_times = [48, 64]
-        self.warlords = ['moroni', 'teancum', 'amalickiah']
+        self.transition_times = [48, 64, 85, 106, 127, 148, 169]
+        self.warlords = [
+            'moroni', 'teancum', 'amalickiah',
+            'nehor', 'amlici', 'mathoni',
+            'zerahemnah', 'zoram', 'lehi',
+            'alma', 'nephi', 'samuel',
+            'shiz', 'helaman', 'lachoneus',
+        ]
         self.portraits = {
             warlord: load_image('../data/images/portraits/{}.png'.format(warlord))
             for warlord in self.warlords
@@ -348,6 +362,26 @@ class TitlePage(object):
             'moroni': "The greatest captain in all of Nephite history.",
             'teancum': "A legendary Nephite captain and spy. Unmatched in his skill with a javelin.",
             'amalickiah': "Brother in arms with Moroni, endowed with equally great strength and cunning.",
+            'nehor': "Founder of a violent and rebellious religion known as the Order of the Nehors.",
+            'amlici': "The first of many to seek to dethrone the judges and set himself as a king over the Nephites.",
+            'mathoni': "King of the Lamanite nation, which sought continually to destroy the Nephites.",
+            'zerahemnah': "Lamanite captain whose men were feared everywhere for their ferocity and brutality.",
+            'zoram': "Believed his city to be the only ones saved by God. Seceded from the Nephites.",
+            'lehi': "The son of Zoram and the most experienced commander in warfare.",
+            'alma': "The first chief judge of the Nephites. Lauded for both his leadership and battle strategy.",
+            'nephi': "The greatest Nephite prophet ever. Single handedly defeated an entire generation of robbers.",
+            'samuel': "A Lamanite prophet and wanderer, nearly as famous as Nephi.",
+            'shiz': "Stronger even than Moroni, was rumored to be unkillable.",
+            'helaman': "The son of Alma and a great Nephite captain. Not one of his soliders ever perished.",
+            'lachoneus': "A courageous Nephite chief judge tasked with bringing peace during the nation's bloodiest era.",
+        }
+        self.bio_text_boxes = {
+            warlord: TextBox(self.biographies[warlord], GAME_WIDTH-72, 40, appear='fade')
+            for warlord in self.warlords
+        }
+        self.name_text_boxes = {
+            warlord: TextBox(warlord.title(), GAME_WIDTH-84, 8, adjust='right')
+            for warlord in self.warlords
         }
         self.title_image = load_image('../data/images/title.png').convert_alpha()
         copyright_text = (
@@ -363,6 +397,13 @@ class TitlePage(object):
             'somewhere on the American continent.'
         )
         self.intro = TextBox(intro_text, GAME_WIDTH-8*4, 7*16, double_space=True, appear='fade')
+        foreword_text = (
+            'Many of the 236 warlords in the game were designed based on the stories or characteristics of people in '
+            'the Book of Mormon, offering a massive and detailed retelling of '
+            'the book\'s war chapters. Travel back to that exciting period now in the full scale role playing '
+            'simulation of the Reign of the Judges.'
+        )
+        self.foreword = TextBox(foreword_text, GAME_WIDTH-32, 7*16, appear='fade')
         self.reset()
 
     def draw(self):
@@ -374,7 +415,7 @@ class TitlePage(object):
                 self.screen.blit(self.press_start.surface, (0, 112))
         elif self.current_page == 1:
             self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
-            if self.time_elapsed > 51:
+            if self.time_elapsed > self.transition_times[0]+3:
                 self.to_update.add(self.intro)
                 self.screen.blit(self.intro.surface, (32, 112))
         elif self.current_page == 2:
@@ -382,9 +423,33 @@ class TitlePage(object):
             t = self.time_elapsed-self.transition_times[1]
             self.draw_portraits(warlords, t)
             self.draw_biographies(warlords, t)
+        elif self.current_page == 3:
+            warlords = self.warlords[3:6]
+            t = self.time_elapsed-self.transition_times[2]
+            self.draw_portraits(warlords, t)
+            self.draw_biographies(warlords, t)
+        elif self.current_page == 4:
+            warlords = self.warlords[6:9]
+            t = self.time_elapsed-self.transition_times[3]
+            self.draw_portraits(warlords, t)
+            self.draw_biographies(warlords, t)
+        elif self.current_page == 5:
+            warlords = self.warlords[9:12]
+            t = self.time_elapsed-self.transition_times[4]
+            self.draw_portraits(warlords, t)
+            self.draw_biographies(warlords, t)
+        elif self.current_page == 6:
+            warlords = self.warlords[12:15]
+            t = self.time_elapsed-self.transition_times[5]
+            self.draw_portraits(warlords, t)
+            self.draw_biographies(warlords, t)
+        elif self.current_page == 7:
+            if self.time_elapsed > self.transition_times[6]+3:
+                self.to_update.add(self.foreword)
+                self.screen.blit(self.foreword.surface, (32, 80))
 
     def draw_portraits(self, warlords, elapsed):
-        if elapsed > 1:
+        if 1 < elapsed < 21:
             t = 1 if elapsed > 2 else elapsed-1
             x_margin = 8
             x_left = (x_margin-GAME_WIDTH)*t + GAME_WIDTH
@@ -394,7 +459,23 @@ class TitlePage(object):
             self.screen.blit(self.portraits[warlords[2]], (x_left,144))
 
     def draw_biographies(self, warlords, elapsed):
-        pass
+        if elapsed > 21:
+            return
+        if elapsed > 3:
+            self.to_update.add(self.bio_text_boxes[warlords[0]])
+            self.screen.blit(self.bio_text_boxes[warlords[0]].surface, (64, 16))
+        if elapsed > 6:
+            self.screen.blit(self.name_text_boxes[warlords[0]].surface, (64, 56))
+        if elapsed > 8:
+            self.to_update.add(self.bio_text_boxes[warlords[1]])
+            self.screen.blit(self.bio_text_boxes[warlords[1]].surface, (8, 80))
+        if elapsed > 11:
+            self.screen.blit(self.name_text_boxes[warlords[1]].surface, (8, 120))
+        if elapsed > 13:
+            self.to_update.add(self.bio_text_boxes[warlords[2]])
+            self.screen.blit(self.bio_text_boxes[warlords[2]].surface, (64, 144))
+        if elapsed > 16:
+            self.screen.blit(self.name_text_boxes[warlords[2]].surface, (64, 184))
 
     def reset(self):
         self.current_music = None
@@ -420,6 +501,27 @@ class TitlePage(object):
         elif self.current_page == 1:
             if self.time_elapsed > self.transition_times[1]:
                 self.current_page = 2
+                self.to_update.clear()
+        elif self.current_page == 2:
+            if self.time_elapsed > self.transition_times[2]:
+                self.current_page = 3
+                self.to_update.clear()
+        elif self.current_page == 3:
+            if self.time_elapsed > self.transition_times[3]:
+                self.current_page = 4
+                self.to_update.clear()
+        elif self.current_page == 4:
+            if self.time_elapsed > self.transition_times[4]:
+                self.current_page = 5
+                self.to_update.clear()
+        elif self.current_page == 5:
+            if self.time_elapsed > self.transition_times[5]:
+                self.current_page = 6
+                self.to_update.clear()
+        elif self.current_page == 6:
+            if self.time_elapsed > self.transition_times[6]:
+                self.current_page = 7
+                self.to_update.clear()
 
 
 class Game(object):
