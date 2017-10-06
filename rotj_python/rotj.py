@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
 import json
@@ -127,14 +128,25 @@ CHARS = {
     '.': load_image('../data/images/font/period.png'),
     ',': load_image('../data/images/font/comma.png'),
     "'": load_image('../data/images/font/apostrophe.png'),
+    '"': load_image('../data/images/font/quote.png'),
     '?': load_image('../data/images/font/question.png'),
     '!': load_image('../data/images/font/exclamation.png'),
+    '/': load_image('../data/images/font/slash.png'),
+    '-': load_image('../data/images/font/mdash.png'), # yes, the game uses mdashes like they were hyphens
+    # what looks like a hyphen in the game is not used as a hyphen, but it appears as a character you can
+    # include in creating a save file. Since what looks like an mdash in the game is used as a hyphen, I'm
+    # using the unicode character "ndash", or U+2013, to invoke this character that looks like a hyphen and
+    # is not commonly used in the game. Note that in some editors, like sublime, the ndash and mdash look
+    # the same. This unicode character is an ndash.
+    u'–': load_image('../data/images/font/hyphen.png'), # this unicode is an ndash, U+2013
     u'©': load_image('../data/images/font/copyright.png'),
 }
 
 
 class TextBox(object):
-    def __init__(self, text, width, height, adjust='left', border=True, double_space=False, appear='instant'):
+    def __init__(
+        self, text, width, height, adjust='left', border=True, double_space=False, appear='instant', fade_speed=1.5,
+    ):
         self.text = text
         self.lines = text.split('\n')
         self.words = {}
@@ -148,6 +160,7 @@ class TextBox(object):
         self.text_width = width/8
         self.fix_lines()
         self.time_elapsed = 0
+        self.fade_speed = fade_speed
         self.lines_to_show = (
             2 if appear=='fade' and not double_space
             else 1 if appear=='fade' and double_space
@@ -160,14 +173,16 @@ class TextBox(object):
         for line in self.lines:
             fitting_words = []
             left_over = self.text_width
-            for word in self.words[line]:
-                if len(word)+1 < left_over:
+            for words_index, word in enumerate(self.words[line]):
+                account_for_space = 0 if words_index==len(self.words[line])-1 else 1
+                to_consume = len(word) + account_for_space
+                if to_consume <= left_over:
                     fitting_words.append(word)
-                    left_over = left_over - (len(word)+1)
+                    left_over = left_over - to_consume
                 else:
                     new_lines.append(' '.join(fitting_words))
                     fitting_words = [word]
-                    left_over = self.text_width - (len(word)+1)
+                    left_over = self.text_width - to_consume
             if len(fitting_words) > 0:
                 new_lines.append(' '.join(fitting_words))
         self.lines = new_lines
@@ -197,8 +212,8 @@ class TextBox(object):
 
     def update(self, dt):
         self.time_elapsed += dt
-        if self.lines_to_show < len(self.lines) and self.time_elapsed > 1.5:
-            self.time_elapsed -= 1.5
+        if self.lines_to_show < len(self.lines) and self.time_elapsed > self.fade_speed:
+            self.time_elapsed -= self.fade_speed
             self.lines_to_show += 1 if self.double_space else 2
             self.update_surface()
 
@@ -342,11 +357,24 @@ class Map(object):
         self.hero.move(direction)
         # when I add followers, they would move here too
 
+    def handle_input(self, pressed):
+        if pressed[K_UP]:
+            self.move_hero('n')
+        elif pressed[K_DOWN]:
+            self.move_hero('s')
+        elif pressed[K_RIGHT]:
+            self.move_hero('e')
+        elif pressed[K_LEFT]:
+            self.move_hero('w')
+        else:
+            self.move_hero(None)
+
 
 class TitlePage(object):
-    def __init__(self, screen):
+    def __init__(self, screen, game):
         self.screen = screen
-        self.transition_times = [48, 64, 85, 106, 127, 148, 169]
+        self.game = game
+        self.transition_times = [48, 64, 85, 106, 127, 148, 169, 200]
         self.warlords = [
             'moroni', 'teancum', 'amalickiah',
             'nehor', 'amlici', 'mathoni',
@@ -369,7 +397,7 @@ class TitlePage(object):
             'zoram': "Believed his city to be the only ones saved by God. Seceded from the Nephites.",
             'lehi': "The son of Zoram and the most experienced commander in warfare.",
             'alma': "The first chief judge of the Nephites. Lauded for both his leadership and battle strategy.",
-            'nephi': "The greatest Nephite prophet ever. Single handedly defeated an entire generation of robbers.",
+            'nephi': "The greatest Nephite prophet ever. Single-handedly defeated an entire generation of robbers.",
             'samuel': "A Lamanite prophet and wanderer, nearly as famous as Nephi.",
             'shiz': "Stronger even than Moroni, was rumored to be unkillable.",
             'helaman': "The son of Alma and a great Nephite captain. Not one of his soliders ever perished.",
@@ -387,7 +415,7 @@ class TitlePage(object):
         copyright_text = (
             u'© DAVID RIPPLINGER, 2017\n'
             u'FREE UNDER THE MIT LICENSE\n'
-            u'BASED ON DESTINY OF AN EMPEROR\n'
+            u'BASED ON "DESTINY OF AN EMPEROR"\n'
             u'© HIROSHI MOTOMIYA, 1989'
         )
         self.copyright = TextBox(copyright_text, GAME_WIDTH, 4*16, adjust='center', double_space=True)
@@ -400,11 +428,20 @@ class TitlePage(object):
         foreword_text = (
             'Many of the 236 warlords in the game were designed based on the stories or characteristics of people in '
             'the Book of Mormon, offering a massive and detailed retelling of '
-            'the book\'s war chapters. Travel back to that exciting period now in the full scale role playing '
-            'simulation of the Reign of the Judges.'
+            'the book\'s war chapters. Travel back to that exciting period now in the full-scale Role Playing '
+            'Simulation of the "Reign of the Judges".'
         )
-        self.foreword = TextBox(foreword_text, GAME_WIDTH-32, 7*16, appear='fade')
+        self.foreword = TextBox(foreword_text, GAME_WIDTH-32, 7*16, appear='fade', fade_speed=3)
         self.reset()
+
+    def handle_input(self, pressed):
+        if pressed[K_RETURN]:
+            if self.current_page == 0:
+                self.game.screen_state = 'game'
+                pygame.mixer.music.stop()
+                time.sleep(0.5)
+            else:
+                self.reset()
 
     def draw(self):
         self.screen.fill((0,0,0))
@@ -444,7 +481,7 @@ class TitlePage(object):
             self.draw_portraits(warlords, t)
             self.draw_biographies(warlords, t)
         elif self.current_page == 7:
-            if self.time_elapsed > self.transition_times[6]+3:
+            if self.transition_times[6]+3 < self.time_elapsed < self.transition_times[7]-5:
                 self.to_update.add(self.foreword)
                 self.screen.blit(self.foreword.surface, (32, 80))
 
@@ -522,6 +559,9 @@ class TitlePage(object):
             if self.time_elapsed > self.transition_times[6]:
                 self.current_page = 7
                 self.to_update.clear()
+        elif self.current_page == 7:
+            if self.time_elapsed > self.transition_times[7]:
+                self.reset()
 
 
 class Game(object):
@@ -540,7 +580,7 @@ class Game(object):
         pygame.event.set_blocked(ACTIVEEVENT)
         pygame.event.set_blocked(VIDEORESIZE)
         pygame.event.set_blocked(KEYUP)
-        self.title_page = TitlePage(self.virtual_screen)
+        self.title_page = TitlePage(self.virtual_screen, self)
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
@@ -594,37 +634,21 @@ class Game(object):
             if event.type == QUIT:
                 self.running = False
                 pygame.quit()
-                break
-
-            elif event.type == KEYDOWN:
-                pressed = pygame.key.get_pressed()
-
-                if self.screen_state == "game":
-                    if pressed[K_UP]:
-                        self.current_map.move_hero('n')
-                    elif pressed[K_DOWN]:
-                        self.current_map.move_hero('s')
-                    elif pressed[K_RIGHT]:
-                        self.current_map.move_hero('e')
-                    elif pressed[K_LEFT]:
-                        self.current_map.move_hero('w')
-                    else:
-                        self.current_map.move_hero(None)
-
-                    if pressed[K_ESCAPE]:
-                        self.running = False
-                        pygame.quit()
-                        print(" ")
-                        time.sleep(0.5)
-                        print("Shutdown... Complete")
-                        sys.exit()
-                        break
-
-                elif self.screen_state == 'title':
-                    if pressed[K_RETURN]:
-                        self.screen_state = 'game'
-                        pygame.mixer.music.stop()
-                        time.sleep(0.5)
+                return
+            print event
+        pressed = pygame.key.get_pressed()
+        if pressed[K_ESCAPE]:
+            self.running = False
+            pygame.quit()
+            print(" ")
+            time.sleep(0.5)
+            print("Shutdown... Complete")
+            sys.exit()
+            return
+        if self.screen_state == "game":
+            self.current_map.handle_input(pressed)
+        elif self.screen_state == 'title':
+            self.title_page.handle_input(pressed)
 
     def get_new_window_size_and_fit_screen(self):
         p = subprocess.Popen(['xwininfo', '-name', 'pygame window'], stdout=subprocess.PIPE)
