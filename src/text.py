@@ -89,27 +89,34 @@ CHARS = {
 
 class TextBox(object):
     def __init__(
-        self, text, width, height, adjust='left', border=True, double_space=False, appear='instant', fade_speed=1.5,
+        self, text, width=None, height=None, adjust='left', border=False, double_space=False, appear='instant', fade_speed=1.5,
+        title=None,
     ):
         self.text = text
+        self.title = title
         self.lines = text.split('\n')
         self.words = {}
         for line in self.lines:
             self.words[line] = line.split()
-        self.width = width
-        self.height = height
+        self.width = width if width else max([len(line) for line in self.lines])*8 + (16 if border else 0)
         self.adjust = adjust
         self.border = border
         self.double_space = double_space
-        self.text_width = width/8
-        self.fix_lines()
+        self.text_width = (self.width - (16 if border else 0)) / 8
+        if width:
+            self.fix_lines()
+        self.height = height if height else (
+            len(self.lines) * (2 if double_space else 1) * 8 + (24 if border else 0) - (8 if border and double_space else 0)
+        )
         self.time_elapsed = 0
         self.fade_speed = fade_speed
+        self.lines_available = (self.height/8 - (24 if border else 0)) / (2 if double_space else 1)
         self.lines_to_show = (
             2 if appear=='fade' and not double_space
             else 1 if appear=='fade' and double_space
             else len(self.lines)
         )
+        self.lines_to_show = min(self.lines_to_show, self.lines_available)
         self.update_surface()
 
     def fix_lines(self):
@@ -141,22 +148,40 @@ class TextBox(object):
         for y, line in enumerate(self.lines):
             if self.lines_to_show == y:
                 break
-            x = (
+            x = (1 if self.border else 0) + (
                 (self.text_width-len(line))/2 if self.adjust=='center'
                 else self.text_width-len(line) if self.adjust=='right'
                 else 0
             )
+            vertical_pos = (y * y_space + (2 if self.border else 0)) * 8
             for word in self.words[line]:
                 for char in word:
-                    surface.blit(CHARS[char], (x*8, y*8*y_space))
+                    surface.blit(CHARS[char], (x*8, vertical_pos))
                     x += 1
-                surface.blit(CHARS[' '], (x*8, y*8*y_space))
+                surface.blit(CHARS[' '], (x*8, vertical_pos))
                 x += 1
+        if self.border:
+            pygame.draw.rect(surface, WHITE, (3, 3, self.width-6, self.height-6), 2)
         self.surface = surface
 
     def update(self, dt):
         self.time_elapsed += dt
-        if self.lines_to_show < len(self.lines) and self.time_elapsed > self.fade_speed:
+        if self.lines_to_show < self.lines_available and self.time_elapsed > self.fade_speed:
             self.time_elapsed -= self.fade_speed
             self.lines_to_show += 1 if self.double_space else 2
+            self.lines_to_show = min(self.lines_to_show, self.lines_available)
             self.update_surface()
+
+
+class MenuBox(object):
+    def __init__(self, choices):
+        self.choices = choices
+        self.text_box = TextBox('\n'.join(choices), double_space=True, border=True)
+        self.surface = self.text_box.surface
+
+    def update(self, dt):
+        self.text_box.update(dt)
+        self.surface = self.text_box.surface
+
+    def get_width(self):
+        return self.text_box.width

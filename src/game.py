@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 
 from constants import GAME_HEIGHT, GAME_WIDTH
+from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
 
@@ -35,17 +36,18 @@ class Game(object):
         pygame.event.set_blocked(VIDEORESIZE)
         pygame.event.set_blocked(KEYUP)
         self.title_page = TitlePage(self.virtual_screen, self)
+        self.menu_screen = MenuScreen(self.virtual_screen, self)
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game'
+        Valid screen states are 'title', 'game', 'menu'
         '''
         self._screen_state = state
-        if state == 'title':
-            pygame.key.set_repeat(300, 100)
+        if state in ['title', 'menu']:
+            pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
 
@@ -77,6 +79,8 @@ class Game(object):
             self.current_map.draw()
         elif self._screen_state == 'title':
             self.title_page.draw()
+        elif self._screen_state == 'menu':
+            self.menu_screen.draw()
         self.scale()
 
     def update(self, dt):
@@ -84,6 +88,8 @@ class Game(object):
             self.current_map.update(dt)
         elif self._screen_state == 'title':
             self.title_page.update(dt)
+        elif self._screen_state == 'menu':
+            self.menu_screen.update(dt)
 
     def is_a_wall(self, offset):
         x = self.hero.position[0] + offset[0]
@@ -113,6 +119,8 @@ class Game(object):
                     self.current_map.handle_input(pressed)
                 elif self._screen_state == 'title':
                     self.title_page.handle_input(pressed)
+                elif self._screen_state == 'menu':
+                    self.menu_screen.handle_input(pressed)
 
     def run(self):
         self.running = True
