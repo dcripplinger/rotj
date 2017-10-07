@@ -2,6 +2,7 @@
 
 import json
 
+from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 

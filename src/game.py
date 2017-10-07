@@ -27,10 +27,9 @@ class Game(object):
         self.virtual_screen = pygame.Surface((self.virtual_width, self.virtual_height))
         self.clock = pygame.time.Clock()
         self.fps = 1000
-        self.screen_state = "title"
         self.maps = {name: Map(self.virtual_screen, name, self) for name in MAP_NAMES}
         self.current_map = self.maps['overworld']
-        pygame.key.set_repeat(10, 10)
+        self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)
         pygame.event.set_blocked(VIDEORESIZE)
@@ -39,6 +38,16 @@ class Game(object):
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
+
+    def set_screen_state(self, state):
+        '''
+        Valid screen states are 'title', 'game'
+        '''
+        self._screen_state = state
+        if state == 'title':
+            pygame.key.set_repeat(300, 100)
+        else:
+            pygame.key.set_repeat(50, 50)
 
     def set_current_map(self, map_name, position, direction):
         self.current_map = self.maps[map_name]
@@ -64,16 +73,16 @@ class Game(object):
         pygame.transform.scale(self.virtual_screen, self.fitted_screen.get_size(), self.fitted_screen)
 
     def draw(self):
-        if self.screen_state == 'game':
+        if self._screen_state == 'game':
             self.current_map.draw()
-        elif self.screen_state == 'title':
+        elif self._screen_state == 'title':
             self.title_page.draw()
         self.scale()
 
     def update(self, dt):
-        if self.screen_state == 'game':
+        if self._screen_state == 'game':
             self.current_map.update(dt)
-        elif self.screen_state == 'title':
+        elif self._screen_state == 'title':
             self.title_page.update(dt)
 
     def is_a_wall(self, offset):
@@ -90,34 +99,20 @@ class Game(object):
                 self.running = False
                 pygame.quit()
                 return
-        pressed = pygame.key.get_pressed()
-        if pressed[K_ESCAPE]:
-            self.running = False
-            pygame.quit()
-            print(" ")
-            time.sleep(0.5)
-            print("Shutdown... Complete")
-            sys.exit()
-            return
-        if self.screen_state == "game":
-            self.current_map.handle_input(pressed)
-        elif self.screen_state == 'title':
-            self.title_page.handle_input(pressed)
-
-    def get_new_window_size_and_fit_screen(self):
-        p = subprocess.Popen(['xwininfo', '-name', 'pygame window'], stdout=subprocess.PIPE)
-        (win_info, _) = p.communicate()
-        for line in win_info.split('\n'):
-            data = line.split()
-            if len(data) != 2:
-                continue
-            if data[0] == 'Width:':
-                new_width = int(data[1])
-            elif data[0] == 'Height:':
-                new_height = int(data[1])
-        if self.window_size[0] != new_width or self.window_size[1] != new_height:
-            self.resize_window((new_width, new_height))
-
+            if event.type == KEYDOWN:
+                pressed = pygame.key.get_pressed()
+                if pressed[K_ESCAPE]:
+                    self.running = False
+                    pygame.quit()
+                    print(" ")
+                    time.sleep(0.5)
+                    print("Shutdown... Complete")
+                    sys.exit()
+                    return
+                if self._screen_state == "game":
+                    self.current_map.handle_input(pressed)
+                elif self._screen_state == 'title':
+                    self.title_page.handle_input(pressed)
 
     def run(self):
         self.running = True

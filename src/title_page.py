@@ -77,10 +77,12 @@ class TitlePage(object):
     def handle_input(self, pressed):
         if pressed[K_RETURN]:
             if self.current_page == 0:
-                self.game.screen_state = 'game'
+                self.game.set_screen_state('game')
                 pygame.mixer.music.stop()
                 time.sleep(0.5)
             else:
+                pygame.mixer.music.stop()
+                time.sleep(0.5)
                 self.reset()
 
     def draw(self):
