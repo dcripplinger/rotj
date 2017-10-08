@@ -22,6 +22,8 @@ class MenuScreen(object):
             pygame.mixer.music.load('data/audio/music/menu.wav')
             pygame.mixer.music.play(-1)
             self.started = True
+            self.main_menu.focus()
+        self.main_menu.update(dt)
 
     def handle_input(self, pressed):
-        pass
+        self.main_menu.handle_input(pressed)

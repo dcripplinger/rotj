@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import pygame
+from pygame.locals import *
 
 from constants import BLACK, WHITE
 from helpers import load_image
@@ -84,25 +85,27 @@ CHARS = {
     # the same. This unicode character is an ndash.
     u'–': load_image('font/hyphen.png'), # this unicode is an ndash, U+2013
     u'©': load_image('font/copyright.png'),
+    u'▶': load_image('font/arrow.png'),
 }
 
 
 class TextBox(object):
     def __init__(
         self, text, width=None, height=None, adjust='left', border=False, double_space=False, appear='instant', fade_speed=1.5,
-        title=None,
+        title=None, indent=0,
     ):
         self.text = text
         self.title = title
         self.lines = text.split('\n')
         self.words = {}
+        self.indent = indent
         for line in self.lines:
             self.words[line] = line.split()
-        self.width = width if width else max([len(line) for line in self.lines])*8 + (16 if border else 0)
+        self.width = width if width else max([len(line) for line in self.lines])*8 + (16 if border else 0) + 8*indent
         self.adjust = adjust
         self.border = border
         self.double_space = double_space
-        self.text_width = (self.width - (16 if border else 0)) / 8
+        self.text_width = (self.width - (16 if border else 0) - 8*indent) / 8
         if width:
             self.fix_lines()
         self.height = height if height else (
@@ -148,7 +151,7 @@ class TextBox(object):
         for y, line in enumerate(self.lines):
             if self.lines_to_show == y:
                 break
-            x = (1 if self.border else 0) + (
+            x = (1 if self.border else 0) + self.indent + (
                 (self.text_width-len(line))/2 if self.adjust=='center'
                 else self.text_width-len(line) if self.adjust=='right'
                 else 0
@@ -176,12 +179,53 @@ class TextBox(object):
 class MenuBox(object):
     def __init__(self, choices):
         self.choices = choices
-        self.text_box = TextBox('\n'.join(choices), double_space=True, border=True)
+        self.current_choice = 0
+        self.is_active = False
+        self.blink = False
+        self.text_box = TextBox('\n'.join(choices), double_space=True, border=True, indent=1)
         self.surface = self.text_box.surface
+        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+
+    def focus(self):
+        self.is_active = True
+        self.highlight_choice()
+
+    def highlight_choice(self):
+        self.blink = True
+        self.time_since_highlight_choice = 0
+
+    def unfocus(self):
+        self.is_active = False
+        self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+
+    def update_blink(self, dt):
+        self.time_since_highlight_choice += dt
+        self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
 
     def update(self, dt):
-        self.text_box.update(dt)
-        self.surface = self.text_box.surface
+        if self.is_active:
+            self.update_blink(dt)
+            pointer_location = (8, self.current_choice * 16 + 16)
+            if self.blink:
+                self.surface.blit(CHARS[u'▶'], pointer_location)
+            else:
+                self.surface.blit(CHARS[' '], pointer_location)
 
     def get_width(self):
         return self.text_box.width
+
+    def handle_input(self, pressed):
+        if pressed[K_UP]:
+            self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+            self.current_choice -= 1
+            if self.current_choice == -1:
+                self.current_choice = len(self.choices) - 1
+            self.highlight_choice()
+            self.switch_sound.play()
+        elif pressed[K_DOWN]:
+            self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+            self.current_choice += 1
+            if self.current_choice == len(self.choices):
+                self.current_choice = 0
+            self.highlight_choice()
+            self.switch_sound.play()
