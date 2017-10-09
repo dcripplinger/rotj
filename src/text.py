@@ -70,6 +70,7 @@ CHARS = {
     'Y': load_image('font/caps/y.png'),
     'Z': load_image('font/caps/z.png'),
     ' ': load_image('font/space.png'),
+    '~': load_image('font/space.png'), # cheap way to force space integrity by making multiple words and spaces look like one word
     '.': load_image('font/period.png'),
     ',': load_image('font/comma.png'),
     "'": load_image('font/apostrophe.png'),
@@ -202,6 +203,9 @@ class MenuBox(object):
         self.time_since_highlight_choice += dt
         self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
 
+    def get_choice(self):
+        return self.choices[self.current_choice]
+
     def update(self, dt):
         if self.is_active:
             self.update_blink(dt)
@@ -215,6 +219,8 @@ class MenuBox(object):
         return self.text_box.width
 
     def handle_input(self, pressed):
+        if not self.is_active:
+            return
         if pressed[K_UP]:
             self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
             self.current_choice -= 1

@@ -24,7 +24,7 @@ def is_half_second():
     return round(t - int(t)) == 0
 
 
-def load_state():
+def load_save_states():
     return [load_json_file_if_exists('data/state/{}.json'.format(x)) for x in [1,2,3]]
 
 
