@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+from math import ceil
+
 import pygame
 from pygame.locals import *
 
@@ -114,12 +116,19 @@ class TextBox(object):
         )
         self.time_elapsed = 0
         self.fade_speed = fade_speed
-        self.lines_available = (self.height/8 - (24 if border else 0)) / (2 if double_space else 1)
+        self.scroll_speed = 0.02 # seconds per character printed
+        self.lines_available = ceil((self.height/8 - (3 if border else 0)) / (2.0 if double_space else 1.0))
+        self.appear = appear
         self.lines_to_show = (
             2 if appear=='fade' and not double_space
             else 1 if appear=='fade' and double_space
+            else 1 if appear=='scroll'
             else len(self.lines)
         )
+
+        # chars to show on the last line to show
+        self.chars_to_show = 0
+        
         self.lines_to_show = min(self.lines_to_show, self.lines_available)
         self.update_surface()
 
@@ -146,10 +155,13 @@ class TextBox(object):
             self.words[line] = line.split()
 
     def update_surface(self):
+        # if self.text == 'Which history do you continue?':
+        #     import pdb; pdb.set_trace()
         y_space = 2 if self.double_space else 1
         surface = pygame.Surface((self.width, self.height))
         surface.fill(BLACK)
         for y, line in enumerate(self.lines):
+            chars_printed = 0
             if self.lines_to_show == y:
                 break
             x = (1 if self.border else 0) + self.indent + (
@@ -160,20 +172,36 @@ class TextBox(object):
             vertical_pos = (y * y_space + (2 if self.border else 0)) * 8
             for word in self.words[line]:
                 for char in word:
+                    if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
+                        break
                     surface.blit(CHARS[char], (x*8, vertical_pos))
                     x += 1
+                    chars_printed += 1
+                if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
+                    break
                 surface.blit(CHARS[' '], (x*8, vertical_pos))
                 x += 1
+                chars_printed += 1
         if self.border:
             pygame.draw.rect(surface, WHITE, (3, 3, self.width-6, self.height-6), 2)
         self.surface = surface
 
     def update(self, dt):
         self.time_elapsed += dt
-        if self.lines_to_show < self.lines_available and self.time_elapsed > self.fade_speed:
-            self.time_elapsed -= self.fade_speed
-            self.lines_to_show += 1 if self.double_space else 2
-            self.lines_to_show = min(self.lines_to_show, self.lines_available)
+        if self.appear == 'fade':
+            if self.lines_to_show < self.lines_available and self.time_elapsed > self.fade_speed:
+                self.time_elapsed -= self.fade_speed
+                self.lines_to_show += 1 if self.double_space else 2
+                self.lines_to_show = min(self.lines_to_show, self.lines_available)
+                self.update_surface()
+        elif self.appear == 'scroll':
+            while self.time_elapsed > self.scroll_speed:
+                self.time_elapsed -= self.scroll_speed
+                if self.chars_to_show < len(self.lines[self.lines_to_show - 1]):
+                    self.chars_to_show += 1
+                elif self.lines_to_show < self.lines_available and self.lines_to_show < len(self.lines):
+                    self.chars_to_show = 1
+                    self.lines_to_show += 1
             self.update_surface()
 
 

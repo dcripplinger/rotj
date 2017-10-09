@@ -22,7 +22,9 @@ class MenuScreen(object):
         self.game = game
         self.screen_state = 'unstarted'
         self.state = load_save_states()
-        self.start_prompt = TextBox('Which history do you continue?', width=160, height=80, border=True, double_space=True)
+        self.start_prompt = TextBox(
+            'Which history do you continue?', width=160, height=80, border=True, double_space=True, appear='scroll',
+        )
         self.start_menu = None
         self.main_menu = None
         self.load_main_menu()
@@ -57,6 +59,7 @@ class MenuScreen(object):
             self.main_menu.update(dt)
         elif self.screen_state == 'start':
             self.start_menu.update(dt)
+            self.start_prompt.update(dt)
 
     def handle_input(self, pressed):
         self.main_menu.handle_input(pressed)
