@@ -3,7 +3,16 @@
 import pygame
 
 from constants import GAME_WIDTH
+from helpers import load_state
 from text import MenuBox
+
+
+MAIN_MENU = [
+    'GAME START',
+    'REGISTER HISTORY BOOK',
+    'ERASE HISTORY BOOK',
+    'COPY HISTORY BOOK',
+]
 
 
 class MenuScreen(object):
@@ -11,7 +20,14 @@ class MenuScreen(object):
         self.screen = screen
         self.game = game
         self.started = False
-        self.main_menu = MenuBox(['choice 1', 'choice 2'])
+        self.state = load_state()
+        self.load_main_menu()
+
+    def load_main_menu(self):
+        if any(self.state): # if any of the three save slots is populated
+            self.main_menu = MenuBox(MAIN_MENU)
+        else:
+            self.main_menu = MenuBox([MAIN_MENU[1],])
 
     def draw(self):
         self.screen.fill((0,0,0))
