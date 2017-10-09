@@ -24,7 +24,9 @@ class MenuScreen(object):
         self.load_main_menu()
 
     def load_main_menu(self):
-        if any(self.state): # if any of the three save slots is populated
+        if all(self.state): # if all three save slots are full
+            self.main_menu = MenuBox([MAIN_MENU[0], MAIN_MENU[2]])
+        elif any(self.state): # if any of the three save slots is populated
             self.main_menu = MenuBox(MAIN_MENU)
         else:
             self.main_menu = MenuBox([MAIN_MENU[1],])
