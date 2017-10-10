@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import time
+
 import pygame
 from pygame.locals import *
 
@@ -27,6 +29,7 @@ class MenuScreen(object):
         )
         self.start_menu = None
         self.main_menu = None
+        self.speed_menu = None
         self.load_main_menu()
 
     def load_main_menu(self):
@@ -41,6 +44,9 @@ class MenuScreen(object):
         slots = ['{}~{:~<8}~L{:02}'.format(i+1, slot['name'], slot['level']) for i, slot in enumerate(self.state)]
         self.start_menu = MenuBox(slots)
 
+    def load_speed_menu(self):
+        self.speed_menu = MenuBox(['FAST', 'FAST', 'STILL FAST'])
+
     def draw(self):
         self.screen.fill((0,0,0))
         if self.screen_state == 'main':
@@ -48,6 +54,10 @@ class MenuScreen(object):
         elif self.screen_state == 'start':
             self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)/2, 160))
             self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())/2, 16))
+        elif self.screen_state == 'speed':
+            self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)/2, 160))
+            self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())/2, 16))
+            self.screen.blit(self.speed_menu.surface, (GAME_WIDTH - self.speed_menu.get_width(), 80))
 
     def update(self, dt):
         if self.screen_state == 'unstarted':
@@ -60,13 +70,28 @@ class MenuScreen(object):
         elif self.screen_state == 'start':
             self.start_menu.update(dt)
             self.start_prompt.update(dt)
+        elif self.screen_state == 'speed':
+            self.speed_menu.update(dt)
 
     def handle_input(self, pressed):
-        self.main_menu.handle_input(pressed)
-        if self.start_menu:
+        if self.screen_state == 'main':
+            self.main_menu.handle_input(pressed)
+            if pressed[K_x]:
+                if self.main_menu.get_choice() == MAIN_MENU[0]:
+                    self.screen_state = 'start'
+                    self.load_start_menu()
+                    self.start_menu.focus()
+                    self.main_menu = None
+        elif self.screen_state == 'start':
             self.start_menu.handle_input(pressed)
-        if pressed[K_x]:
-            if self.main_menu.get_choice() == MAIN_MENU[0]:
-                self.screen_state = 'start'
-                self.load_start_menu()
-                self.start_menu.focus()
+            if pressed[K_x]:
+                self.screen_state = 'speed'
+                self.load_speed_menu()
+                self.speed_menu.focus()
+                self.start_menu.unfocus()
+        elif self.screen_state == 'speed':
+            self.speed_menu.handle_input(pressed)
+            if pressed[K_x]:
+                pygame.mixer.music.stop()
+                time.sleep(.5)
+                self.game.set_screen_state('game')
