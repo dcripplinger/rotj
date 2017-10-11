@@ -25,9 +25,7 @@ class MenuScreen(object):
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.screen_state = 'unstarted'
         self.state = load_save_states()
-        self.start_prompt = TextBox(
-            'Which history do you continue?', width=160, height=80, border=True, double_space=True, appear='scroll',
-        )
+        self.start_prompt = None
         self.start_menu = None
         self.main_menu = None
         self.speed_menu = None
@@ -44,6 +42,9 @@ class MenuScreen(object):
     def load_start_menu(self):
         slots = ['{}~{:~<8}~L{:02}'.format(i+1, slot['name'], slot['level']) for i, slot in enumerate(self.state)]
         self.start_menu = MenuBox(slots)
+        self.start_prompt = TextBox(
+            'Which history do you wish to continue?', width=160, height=80, border=True, double_space=True, appear='scroll',
+        )
 
     def load_speed_menu(self):
         self.speed_menu = MenuBox(['FAST', 'FAST', 'STILL FAST'])
@@ -92,9 +93,19 @@ class MenuScreen(object):
                 self.load_speed_menu()
                 self.speed_menu.focus()
                 self.start_menu.unfocus()
+            elif pressed[K_z]:
+                self.screen_state = 'main'
+                self.load_main_menu()
+                self.start_menu = None
+                self.start_prompt = None
+                self.main_menu.focus()
         elif self.screen_state == 'speed':
             self.speed_menu.handle_input(pressed)
             if pressed[K_x]:
                 pygame.mixer.music.stop()
                 time.sleep(.5)
                 self.game.set_screen_state('game')
+            elif pressed[K_z]:
+                self.screen_state = 'start'
+                self.start_menu.focus()
+                self.speed_menu = None

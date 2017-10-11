@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from math import ceil
+from datetime import datetime
 
 import pygame
 from pygame.locals import *
@@ -125,6 +126,9 @@ class TextBox(object):
             else 1 if appear=='scroll'
             else len(self.lines)
         )
+        self.typing_sound = pygame.mixer.Sound('data/audio/typing.wav')
+        self.needs_update = False if appear=='instant' else True
+        self.started = False
 
         # chars to show on the last line to show
         self.chars_to_show = 0
@@ -186,22 +190,40 @@ class TextBox(object):
             pygame.draw.rect(surface, WHITE, (3, 3, self.width-6, self.height-6), 2)
         self.surface = surface
 
+    def has_more_stuff_to_show(self):
+        has_more_lines_to_show = self.lines_to_show < self.lines_available and self.lines_to_show < len(self.lines)
+        has_more_chars_to_show = self.appear == 'scroll' and self.chars_to_show < len(self.lines[self.lines_to_show - 1])
+        return has_more_lines_to_show or has_more_chars_to_show
+
     def update(self, dt):
+        if not self.started:
+            self.started = True
+            if self.appear == 'scroll':
+                self.typing_sound.play(-1)
+        if not self.needs_update:
+            return
         self.time_elapsed += dt
         if self.appear == 'fade':
-            if self.lines_to_show < self.lines_available and self.time_elapsed > self.fade_speed:
-                self.time_elapsed -= self.fade_speed
-                self.lines_to_show += 1 if self.double_space else 2
-                self.lines_to_show = min(self.lines_to_show, self.lines_available)
-                self.update_surface()
+            if self.has_more_stuff_to_show():
+                if self.time_elapsed > self.fade_speed:
+                    self.time_elapsed -= self.fade_speed
+                    self.lines_to_show += 1 if self.double_space else 2
+                    self.lines_to_show = min(self.lines_to_show, self.lines_available)
+                    self.update_surface()
+            else:
+                self.needs_update = False
         elif self.appear == 'scroll':
-            while self.time_elapsed > self.scroll_speed:
-                self.time_elapsed -= self.scroll_speed
-                if self.chars_to_show < len(self.lines[self.lines_to_show - 1]):
-                    self.chars_to_show += 1
-                elif self.lines_to_show < self.lines_available and self.lines_to_show < len(self.lines):
-                    self.chars_to_show = 1
-                    self.lines_to_show += 1
+            if self.has_more_stuff_to_show():
+                while self.time_elapsed > self.scroll_speed:
+                    self.time_elapsed -= self.scroll_speed
+                    if self.chars_to_show < len(self.lines[self.lines_to_show - 1]):
+                        self.chars_to_show += 1
+                    elif self.has_more_stuff_to_show():
+                        self.chars_to_show = 1
+                        self.lines_to_show += 1
+            else:
+                self.needs_update = False
+                self.typing_sound.stop()
             self.update_surface()
 
 
