@@ -28,6 +28,10 @@ def load_save_states():
     return [load_json_file_if_exists('data/state/{}.json'.format(x)) for x in [1,2,3]]
 
 
+def erase_save_state(slot):
+    os.remove('data/state/{}.json'.format(slot))
+
+
 def load_json_file_if_exists(filename):
     if os.path.isfile(filename):
         with open(filename) as f:

@@ -195,12 +195,12 @@ class TextBox(object):
         has_more_chars_to_show = self.appear == 'scroll' and self.chars_to_show < len(self.lines[self.lines_to_show - 1])
         return has_more_lines_to_show or has_more_chars_to_show
 
-    def update(self, dt):
+    def update(self, dt, force=False):
         if not self.started:
             self.started = True
             if self.appear == 'scroll':
                 self.typing_sound.play(-1)
-        if not self.needs_update:
+        if not self.needs_update and force == False:
             return
         self.time_elapsed += dt
         if self.appear == 'fade':
@@ -226,14 +226,18 @@ class TextBox(object):
                 self.typing_sound.stop()
             self.update_surface()
 
+    def shutdown(self):
+        self.typing_sound.stop()
+
 
 class MenuBox(object):
-    def __init__(self, choices):
+    def __init__(self, choices, border=True):
         self.choices = choices
         self.current_choice = 0
         self.is_active = False
         self.blink = False
-        self.text_box = TextBox('\n'.join(choices), double_space=True, border=True, indent=1)
+        self.border = border
+        self.text_box = TextBox('\n'.join(choices), double_space=True, border=border, indent=1)
         self.surface = self.text_box.surface
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
 
@@ -245,9 +249,9 @@ class MenuBox(object):
         self.blink = True
         self.time_since_highlight_choice = 0
 
-    def unfocus(self):
+    def unfocus(self, deselect=False):
         self.is_active = False
-        self.surface.blit(CHARS[u'▶'], (8, self.current_choice * 16 + 16))
+        self.surface.blit(CHARS[u' ' if deselect else u'▶'], self.get_pointer_location())
 
     def update_blink(self, dt):
         self.time_since_highlight_choice += dt
@@ -256,32 +260,133 @@ class MenuBox(object):
     def get_choice(self):
         return self.choices[self.current_choice]
 
+    def set_choice(self, index):
+        assert 0 <= index < len(self.choices)
+        self.current_choice = index
+
+    def get_pointer_location(self):
+        return (
+            (8 if self.border else 0),
+            self.current_choice * 16 + (16 if self.border else 0),
+        )
+
     def update(self, dt):
         if self.is_active:
             self.update_blink(dt)
-            pointer_location = (8, self.current_choice * 16 + 16)
+            self.text_box.update(dt, force=True)
+            pointer_location = self.get_pointer_location()
             if self.blink:
                 self.surface.blit(CHARS[u'▶'], pointer_location)
             else:
-                self.surface.blit(CHARS[' '], pointer_location)
+                self.surface.blit(CHARS[u' '], pointer_location)
 
     def get_width(self):
         return self.text_box.width
+
+    def get_height(self):
+        return self.text_box.height
 
     def handle_input(self, pressed):
         if not self.is_active:
             return
         if pressed[K_UP]:
-            self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+            self.surface.blit(CHARS[' '], self.get_pointer_location())
             self.current_choice -= 1
             if self.current_choice == -1:
                 self.current_choice = len(self.choices) - 1
             self.highlight_choice()
             self.switch_sound.play()
         elif pressed[K_DOWN]:
-            self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+            self.surface.blit(CHARS[' '], self.get_pointer_location())
             self.current_choice += 1
             if self.current_choice == len(self.choices):
                 self.current_choice = 0
             self.highlight_choice()
             self.switch_sound.play()
+
+
+class MenuGrid(object):
+    def __init__(self, choices, border=False, title=None):
+        '''
+        choices: A list of lists where each inner list corresponds to a column in the grid
+                 and gets implemented as a MenuBox.
+        '''
+        self.choices = choices
+        self.is_active = False
+        self.menus = []
+        for inner_choices in choices:
+            self.menus.append(MenuBox(inner_choices, border=False))
+        self.focused_menu = None
+        self.focused_menu_index = 0
+        self.border = border
+        self.title = title
+        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self.surface = None
+        self.set_focused_menu(self.focused_menu_index)
+        self.update_surface()
+
+    def focus(self):
+        self.is_active = True
+        if self.focused_menu:
+            self.focused_menu.focus()
+
+    def unfocus(self):
+        self.is_active = False
+        if self.focused_menu:
+            self.focused_menu.unfocus()
+
+    def get_choice(self):
+        return self.focused_menu.get_choice() if self.focused_menu else None
+
+    def set_focused_menu(self, index=None):
+        index = index if index else self.focused_menu_index
+        inner_choice = self.focused_menu.current_choice if self.focused_menu else 0
+        if self.focused_menu:
+            self.focused_menu.unfocus(deselect=True)
+        self.focused_menu = self.menus[index]
+        self.focused_menu.focus()
+        self.focused_menu.set_choice(inner_choice)
+        self.focused_menu_index = index
+
+    def handle_input(self, pressed):
+        self.focused_menu.handle_input(pressed)
+        if pressed[K_LEFT]:
+            valid_menu_found = False
+            while not valid_menu_found:
+                self.focused_menu_index -= 1
+                if self.focused_menu_index < 0:
+                    self.focused_menu_index = len(self.menus) - 1
+                if self.focused_menu.current_choice < len(self.choices[self.focused_menu_index]):
+                    valid_menu_found = True
+            self.set_focused_menu()
+            self.switch_sound.play()
+        elif pressed[K_RIGHT]:
+            valid_menu_found = False
+            while not valid_menu_found:
+                self.focused_menu_index += 1
+                if self.focused_menu_index >= len(self.menus):
+                    self.focused_menu_index = 0
+                if self.focused_menu.current_choice < len(self.choices[self.focused_menu_index]):
+                    valid_menu_found = True
+            self.set_focused_menu()
+            self.switch_sound.play()
+
+    def update(self, dt):
+        if self.is_active:
+            self.focused_menu.update(dt)
+            self.update_surface()
+
+    def update_surface(self):
+        surface = pygame.Surface((self.get_width(), self.get_height()))
+        x = 8 if self.border else 0
+        y = 16 if self.border else 0
+        for i, menu in enumerate(self.menus):
+            surface.blit(menu.surface, (x, y))
+            x += menu.get_width()
+        self.surface = surface
+
+    def get_width(self):
+        return sum([menu.get_width() for menu in self.menus]) + (16 if self.border else 0)
+
+    def get_height(self):
+        return max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)

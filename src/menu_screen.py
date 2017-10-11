@@ -6,8 +6,8 @@ import pygame
 from pygame.locals import *
 
 from constants import GAME_WIDTH, BLACK
-from helpers import load_save_states
-from text import MenuBox, TextBox
+from helpers import erase_save_state, load_save_states
+from text import MenuBox, MenuGrid, TextBox
 
 
 MAIN_MENU = [
@@ -34,6 +34,7 @@ class MenuScreen(object):
         self.erase_menu = None
         self.erase_prompt = None
         self.confirm_erase_menu = None
+        self.name_menu = None
 
     def load_main_menu(self):
         if all(self.state): # if all three save slots are full
@@ -68,8 +69,22 @@ class MenuScreen(object):
         self.erase_prompt = self.create_prompt('Which history book do you wish to erase?')
 
     def load_confirm_erase_menu(self):
-        self.confirm_erase_menu = MenuBox(['Yes', 'No'])
+        self.confirm_erase_menu = MenuBox(['YES', 'NO'])
         self.erase_prompt = self.create_prompt('Are you sure?')
+
+    def load_name_menu(self):
+        self.name_menu = MenuGrid([ # each list in this list is a column in the menu grid
+            ['0', 'A', 'I', 'Q',  'Y', 'a', 'i', 'q', 'y'],
+            ['1', 'B', 'J', 'R',  'Z', 'b', 'j', 'r', 'z'],
+            ['2', 'C', 'K', 'S',  '-', 'c', 'k', 's'],
+            ['3', 'D', 'L', 'T',  ',', 'd', 'l', 't'],
+            ['4', 'E', 'M', 'U',  '.', 'e', 'm', 'u'],
+            ['5', 'F', 'N', 'V',  '/', 'f', 'n', 'v'],
+            ['6', 'G', 'O', 'W',  '?', 'g', 'o', 'w'],
+            ['7', 'H', 'P', 'X', u'–', 'h', 'p', 'x'],
+            ['8', '~', '"', "'"],
+            ['9', '!', 'Back.', 'Fwd.', 'End.'],
+        ])
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -98,6 +113,8 @@ class MenuScreen(object):
                 self.confirm_erase_menu.surface,
                 ((GAME_WIDTH - self.confirm_erase_menu.get_width())/2, mid_menu_vert_pos),
             )
+        elif self.screen_state == 'name':
+            self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos))
 
     def update(self, dt):
         if self.screen_state == 'unstarted':
@@ -113,6 +130,7 @@ class MenuScreen(object):
             self.start_prompt.update(dt)
         elif self.screen_state == 'speed':
             self.speed_menu.update(dt)
+            self.start_prompt.update(dt)
         elif self.screen_state == 'register':
             self.register_menu.update(dt)
             self.register_prompt.update(dt)
@@ -122,6 +140,8 @@ class MenuScreen(object):
         elif self.screen_state == 'confirm_erase':
             self.confirm_erase_menu.update(dt)
             self.erase_prompt.update(dt)
+        elif self.screen_state == 'name':
+            self.name_menu.update(dt)
 
     def handle_input(self, pressed):
         if pressed[K_x]:
@@ -153,6 +173,7 @@ class MenuScreen(object):
                 self.screen_state = 'main'
                 self.load_main_menu()
                 self.start_menu = None
+                self.start_prompt.shutdown()
                 self.start_prompt = None
                 self.main_menu.focus()
         elif self.screen_state == 'speed':
@@ -167,10 +188,18 @@ class MenuScreen(object):
                 self.speed_menu = None
         elif self.screen_state == 'register':
             self.register_menu.handle_input(pressed)
-            if pressed[K_z]:
+            if pressed[K_x]:
+                self.screen_state = 'name'
+                self.load_name_menu()
+                self.register_menu = None
+                self.register_prompt.shutdown()
+                self.register_prompt = None
+                self.name_menu.focus()
+            elif pressed[K_z]:
                 self.screen_state = 'main'
                 self.load_main_menu()
                 self.register_menu = None
+                self.register_prompt.shutdown()
                 self.register_prompt = None
                 self.main_menu.focus()
         elif self.screen_state == 'erase':
@@ -184,12 +213,25 @@ class MenuScreen(object):
                 self.screen_state = 'main'
                 self.load_main_menu()
                 self.erase_menu = None
+                self.erase_prompt.shutdown()
                 self.erase_prompt = None
                 self.main_menu.focus()
         elif self.screen_state == 'confirm_erase':
             self.confirm_erase_menu.handle_input(pressed)
-            if pressed[K_z]:
+            if pressed[K_x] and self.confirm_erase_menu.get_choice() == 'YES':
+                erase_save_state(self.erase_menu.get_choice()[0])
+                self.state = load_save_states()
+                self.screen_state = 'main'
+                self.load_main_menu()
+                self.confirm_erase_menu = None
+                self.erase_menu = None
+                self.erase_prompt.shutdown()
+                self.erase_prompt = None
+                self.main_menu.focus()
+            elif pressed[K_z] or (pressed[K_x] and self.confirm_erase_menu.get_choice() == 'NO'):
                 self.screen_state = 'erase'
                 self.load_erase_menu()
                 self.confirm_erase_menu = None
                 self.erase_menu.focus()
+        elif self.screen_state == 'name':
+            self.name_menu.handle_input(pressed)
