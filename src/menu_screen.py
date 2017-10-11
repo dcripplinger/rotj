@@ -22,6 +22,7 @@ class MenuScreen(object):
     def __init__(self, screen, game):
         self.screen = screen
         self.game = game
+        self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.screen_state = 'unstarted'
         self.state = load_save_states()
         self.start_prompt = TextBox(
@@ -74,6 +75,8 @@ class MenuScreen(object):
             self.speed_menu.update(dt)
 
     def handle_input(self, pressed):
+        if pressed[K_x]:
+            self.select_sound.play()
         if self.screen_state == 'main':
             self.main_menu.handle_input(pressed)
             if pressed[K_x]:
