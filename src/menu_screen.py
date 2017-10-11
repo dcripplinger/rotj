@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 from constants import GAME_WIDTH, BLACK
-from helpers import erase_save_state, load_save_states
+from helpers import erase_save_state, is_half_second, load_save_states
 from text import MenuBox, MenuGrid, TextBox
 
 
@@ -35,6 +35,10 @@ class MenuScreen(object):
         self.erase_prompt = None
         self.confirm_erase_menu = None
         self.name_menu = None
+        self.name_blurb = None
+        self.name_field = None
+        self.name_underline = None
+        self.current_name_char = None
 
     def load_main_menu(self):
         if all(self.state): # if all three save slots are full
@@ -85,6 +89,10 @@ class MenuScreen(object):
             ['8', '~', '"', "'"],
             ['9', '!', 'Back.', 'Fwd.', 'End.'],
         ])
+        self.name_blurb = TextBox('Please enter your name')
+        self.name_field = TextBox('~~~~~~~~')
+        self.name_underline = TextBox('--------')
+        self.current_name_char = 0
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -114,7 +122,10 @@ class MenuScreen(object):
                 ((GAME_WIDTH - self.confirm_erase_menu.get_width())/2, mid_menu_vert_pos),
             )
         elif self.screen_state == 'name':
-            self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.name_blurb.surface, ((GAME_WIDTH - self.name_blurb.width)/2, top_menu_vert_pos))
+            self.screen.blit(self.name_field.surface, ((GAME_WIDTH - self.name_field.width)/2, top_menu_vert_pos + 16))
+            self.screen.blit(self.name_underline.surface, ((GAME_WIDTH - self.name_underline.width)/2, top_menu_vert_pos + 24))
+            self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos + 40))
 
     def update(self, dt):
         if self.screen_state == 'unstarted':
@@ -142,6 +153,12 @@ class MenuScreen(object):
             self.erase_prompt.update(dt)
         elif self.screen_state == 'name':
             self.name_menu.update(dt)
+            underline = '--------'
+            if is_half_second():
+                self.name_underline = TextBox(underline)
+            else:
+                i = self.current_name_char
+                self.name_underline = TextBox(underline[:i] + '~' + underline[i+1:])
 
     def handle_input(self, pressed):
         if pressed[K_x]:
@@ -235,3 +252,16 @@ class MenuScreen(object):
                 self.erase_menu.focus()
         elif self.screen_state == 'name':
             self.name_menu.handle_input(pressed)
+            if pressed[K_x]:
+                new_char = self.name_menu.get_choice()
+                if new_char == 'Back.':
+                    self.current_name_char = self.current_name_char-1 if self.current_name_char > 0 else 0
+                elif new_char == 'Fwd.':
+                    self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
+                elif new_char == 'End.':
+                    pass
+                else:
+                    text = self.name_field.text
+                    i = self.current_name_char
+                    self.name_field = TextBox(text[:i] + new_char + text[i+1:])
+                    self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
