@@ -247,7 +247,7 @@ class MenuBox(object):
 
     def unfocus(self):
         self.is_active = False
-        self.surface.blit(CHARS[' '], (8, self.current_choice * 16 + 16))
+        self.surface.blit(CHARS[u'▶'], (8, self.current_choice * 16 + 16))
 
     def update_blink(self, dt):
         self.time_since_highlight_choice += dt
