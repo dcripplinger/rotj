@@ -32,6 +32,11 @@ def erase_save_state(slot):
     os.remove('data/state/{}.json'.format(slot))
 
 
+def create_save_state(slot, name):
+    with open('data/state/{}.json'.format(slot), 'w') as f:
+        f.write(json.dumps({'name': name, 'level': 0}))
+
+
 def load_json_file_if_exists(filename):
     if os.path.isfile(filename):
         with open(filename) as f:

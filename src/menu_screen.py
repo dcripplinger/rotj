@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 from constants import GAME_WIDTH, BLACK
-from helpers import erase_save_state, is_half_second, load_save_states
+from helpers import create_save_state, erase_save_state, is_half_second, load_save_states
 from text import MenuBox, MenuGrid, TextBox
 
 
@@ -160,108 +160,138 @@ class MenuScreen(object):
                 i = self.current_name_char
                 self.name_underline = TextBox(underline[:i] + '~' + underline[i+1:])
 
+    def handle_input_main(self, pressed):
+        self.main_menu.handle_input(pressed)
+        if pressed[K_x]:
+            if self.main_menu.get_choice() == MAIN_MENU[0]:
+                self.screen_state = 'start'
+                self.load_start_menu()
+                self.start_menu.focus()
+            elif self.main_menu.get_choice() == MAIN_MENU[1]:
+                self.screen_state = 'register'
+                self.load_register_menu()
+                self.register_menu.focus()
+            elif self.main_menu.get_choice() == MAIN_MENU[2]:
+                self.screen_state = 'erase'
+                self.load_erase_menu()
+                self.erase_menu.focus()
+            self.main_menu = None
+
+    def handle_input_start(self, pressed):
+        self.start_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.screen_state = 'speed'
+            self.load_speed_menu()
+            self.speed_menu.focus()
+            self.start_menu.unfocus()
+        elif pressed[K_z]:
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.start_menu = None
+            self.start_prompt.shutdown()
+            self.start_prompt = None
+            self.main_menu.focus()
+
+    def handle_input_speed(self, pressed):
+        self.speed_menu.handle_input(pressed)
+        if pressed[K_x]:
+            pygame.mixer.music.stop()
+            time.sleep(.5)
+            self.game.set_screen_state('game')
+        elif pressed[K_z]:
+            self.screen_state = 'start'
+            self.start_menu.focus()
+            self.speed_menu = None
+
+    def handle_input_register(self, pressed):
+        self.register_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.screen_state = 'name'
+            self.load_name_menu()
+            self.register_prompt.shutdown()
+            self.register_prompt = None
+            self.name_menu.focus()
+        elif pressed[K_z]:
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.register_menu = None
+            self.register_prompt.shutdown()
+            self.register_prompt = None
+            self.main_menu.focus()
+
+    def handle_input_erase(self, pressed):
+        self.erase_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.screen_state = 'confirm_erase'
+            self.load_confirm_erase_menu()
+            self.confirm_erase_menu.focus()
+            self.erase_menu.unfocus()
+        elif pressed[K_z]:
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.erase_menu = None
+            self.erase_prompt.shutdown()
+            self.erase_prompt = None
+            self.main_menu.focus()
+
+    def handle_input_confirm_erase(self, pressed):
+        self.confirm_erase_menu.handle_input(pressed)
+        if pressed[K_x] and self.confirm_erase_menu.get_choice() == 'YES':
+            erase_save_state(self.erase_menu.get_choice()[0])
+            self.state = load_save_states()
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.confirm_erase_menu = None
+            self.erase_menu = None
+            self.erase_prompt.shutdown()
+            self.erase_prompt = None
+            self.main_menu.focus()
+        elif pressed[K_z] or (pressed[K_x] and self.confirm_erase_menu.get_choice() == 'NO'):
+            self.screen_state = 'erase'
+            self.load_erase_menu()
+            self.confirm_erase_menu = None
+            self.erase_menu.focus()
+
+    def handle_input_name(self, pressed):
+        self.name_menu.handle_input(pressed)
+        if pressed[K_x]:
+            new_char = self.name_menu.get_choice()
+            if new_char == 'Back.':
+                self.current_name_char = self.current_name_char-1 if self.current_name_char > 0 else 0
+            elif new_char == 'Fwd.':
+                self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
+            elif new_char == 'End.':
+                create_save_state(self.register_menu.get_choice()[0], self.name_field.text)
+                self.state = load_save_states()
+                self.screen_state = 'main'
+                self.load_main_menu()
+                self.register_menu = None
+                self.current_name_char = None
+                self.name_blurb = None
+                self.name_field = None
+                self.name_underline = None
+                self.name_menu = None
+                self.main_menu.focus()
+            else:
+                text = self.name_field.text
+                i = self.current_name_char
+                self.name_field = TextBox(text[:i] + new_char + text[i+1:])
+                self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
+
     def handle_input(self, pressed):
         if pressed[K_x]:
             self.select_sound.play()
         if self.screen_state == 'main':
-            self.main_menu.handle_input(pressed)
-            if pressed[K_x]:
-                if self.main_menu.get_choice() == MAIN_MENU[0]:
-                    self.screen_state = 'start'
-                    self.load_start_menu()
-                    self.start_menu.focus()
-                elif self.main_menu.get_choice() == MAIN_MENU[1]:
-                    self.screen_state = 'register'
-                    self.load_register_menu()
-                    self.register_menu.focus()
-                elif self.main_menu.get_choice() == MAIN_MENU[2]:
-                    self.screen_state = 'erase'
-                    self.load_erase_menu()
-                    self.erase_menu.focus()
-                self.main_menu = None
+            self.handle_input_main(pressed)
         elif self.screen_state == 'start':
-            self.start_menu.handle_input(pressed)
-            if pressed[K_x]:
-                self.screen_state = 'speed'
-                self.load_speed_menu()
-                self.speed_menu.focus()
-                self.start_menu.unfocus()
-            elif pressed[K_z]:
-                self.screen_state = 'main'
-                self.load_main_menu()
-                self.start_menu = None
-                self.start_prompt.shutdown()
-                self.start_prompt = None
-                self.main_menu.focus()
+            self.handle_input_start(pressed)
         elif self.screen_state == 'speed':
-            self.speed_menu.handle_input(pressed)
-            if pressed[K_x]:
-                pygame.mixer.music.stop()
-                time.sleep(.5)
-                self.game.set_screen_state('game')
-            elif pressed[K_z]:
-                self.screen_state = 'start'
-                self.start_menu.focus()
-                self.speed_menu = None
+            self.handle_input_speed(pressed)
         elif self.screen_state == 'register':
-            self.register_menu.handle_input(pressed)
-            if pressed[K_x]:
-                self.screen_state = 'name'
-                self.load_name_menu()
-                self.register_menu = None
-                self.register_prompt.shutdown()
-                self.register_prompt = None
-                self.name_menu.focus()
-            elif pressed[K_z]:
-                self.screen_state = 'main'
-                self.load_main_menu()
-                self.register_menu = None
-                self.register_prompt.shutdown()
-                self.register_prompt = None
-                self.main_menu.focus()
+            self.handle_input_register(pressed)
         elif self.screen_state == 'erase':
-            self.erase_menu.handle_input(pressed)
-            if pressed[K_x]:
-                self.screen_state = 'confirm_erase'
-                self.load_confirm_erase_menu()
-                self.confirm_erase_menu.focus()
-                self.erase_menu.unfocus()
-            elif pressed[K_z]:
-                self.screen_state = 'main'
-                self.load_main_menu()
-                self.erase_menu = None
-                self.erase_prompt.shutdown()
-                self.erase_prompt = None
-                self.main_menu.focus()
+            self.handle_input_erase(pressed)
         elif self.screen_state == 'confirm_erase':
-            self.confirm_erase_menu.handle_input(pressed)
-            if pressed[K_x] and self.confirm_erase_menu.get_choice() == 'YES':
-                erase_save_state(self.erase_menu.get_choice()[0])
-                self.state = load_save_states()
-                self.screen_state = 'main'
-                self.load_main_menu()
-                self.confirm_erase_menu = None
-                self.erase_menu = None
-                self.erase_prompt.shutdown()
-                self.erase_prompt = None
-                self.main_menu.focus()
-            elif pressed[K_z] or (pressed[K_x] and self.confirm_erase_menu.get_choice() == 'NO'):
-                self.screen_state = 'erase'
-                self.load_erase_menu()
-                self.confirm_erase_menu = None
-                self.erase_menu.focus()
+            self.handle_input_confirm_erase(pressed)
         elif self.screen_state == 'name':
-            self.name_menu.handle_input(pressed)
-            if pressed[K_x]:
-                new_char = self.name_menu.get_choice()
-                if new_char == 'Back.':
-                    self.current_name_char = self.current_name_char-1 if self.current_name_char > 0 else 0
-                elif new_char == 'Fwd.':
-                    self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
-                elif new_char == 'End.':
-                    pass
-                else:
-                    text = self.name_field.text
-                    i = self.current_name_char
-                    self.name_field = TextBox(text[:i] + new_char + text[i+1:])
-                    self.current_name_char = self.current_name_char+1 if self.current_name_char < 7 else 7
+            self.handle_input_name(pressed)
