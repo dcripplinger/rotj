@@ -2,6 +2,7 @@
 
 import json
 import os
+import shutil
 
 import pygame
 
@@ -35,6 +36,10 @@ def erase_save_state(slot):
 def create_save_state(slot, name):
     with open('data/state/{}.json'.format(slot), 'w') as f:
         f.write(json.dumps({'name': name, 'level': 0}))
+
+
+def copy_save_state(from_slot, to_slot):
+    shutil.copyfile('data/state/{}.json'.format(from_slot), 'data/state/{}.json'.format(to_slot))
 
 
 def load_json_file_if_exists(filename):

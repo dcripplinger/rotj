@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 from constants import GAME_WIDTH, BLACK
-from helpers import create_save_state, erase_save_state, is_half_second, load_save_states
+from helpers import create_save_state, erase_save_state, is_half_second, load_save_states, copy_save_state
 from text import MenuBox, MenuGrid, TextBox
 
 
@@ -39,6 +39,10 @@ class MenuScreen(object):
         self.name_field = None
         self.name_underline = None
         self.current_name_char = None
+        self.copy_prompt = None
+        self.copy_menu = None
+        self.paste_menu = None
+        self.paste_prompt = None
 
     def load_main_menu(self):
         if all(self.state): # if all three save slots are full
@@ -51,6 +55,14 @@ class MenuScreen(object):
     def load_start_menu(self):
         self.start_menu = MenuBox(self.format_populated_save_slots())
         self.start_prompt = self.create_prompt('Which history do you wish to continue?')
+
+    def load_copy_menu(self):
+        self.copy_menu = MenuBox(self.format_populated_save_slots())
+        self.copy_prompt = self.create_prompt('Which history book do you wish to copy?')
+
+    def load_paste_menu(self):
+        self.paste_menu = MenuBox(self.format_unpopulated_save_slots())
+        self.paste_prompt = self.create_prompt('Which book do you wish to copy to?')
 
     def load_register_menu(self):
         self.register_menu = MenuBox(self.format_unpopulated_save_slots())
@@ -126,6 +138,13 @@ class MenuScreen(object):
             self.screen.blit(self.name_field.surface, ((GAME_WIDTH - self.name_field.width)/2, top_menu_vert_pos + 16))
             self.screen.blit(self.name_underline.surface, ((GAME_WIDTH - self.name_underline.width)/2, top_menu_vert_pos + 24))
             self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos + 40))
+        elif self.screen_state == 'copy':
+            self.screen.blit(self.copy_prompt.surface, ((GAME_WIDTH - self.copy_prompt.width)/2, prompt_vert_pos))
+            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())/2, top_menu_vert_pos))
+        elif self.screen_state == 'paste':
+            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.paste_prompt.surface, ((GAME_WIDTH - self.paste_prompt.width)/2, prompt_vert_pos))
+            self.screen.blit(self.paste_menu.surface, ((GAME_WIDTH - self.paste_menu.get_width())/2, mid_menu_vert_pos))
 
     def update(self, dt):
         if self.screen_state == 'unstarted':
@@ -159,6 +178,12 @@ class MenuScreen(object):
             else:
                 i = self.current_name_char
                 self.name_underline = TextBox(underline[:i] + '~' + underline[i+1:])
+        elif self.screen_state == 'copy':
+            self.copy_menu.update(dt)
+            self.copy_prompt.update(dt)
+        elif self.screen_state == 'paste':
+            self.paste_menu.update(dt)
+            self.paste_prompt.update(dt)
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -175,6 +200,10 @@ class MenuScreen(object):
                 self.screen_state = 'erase'
                 self.load_erase_menu()
                 self.erase_menu.focus()
+            elif self.main_menu.get_choice() == MAIN_MENU[3]:
+                self.screen_state = 'copy'
+                self.load_copy_menu()
+                self.copy_menu.focus()
             self.main_menu = None
 
     def handle_input_start(self, pressed):
@@ -191,6 +220,41 @@ class MenuScreen(object):
             self.start_prompt.shutdown()
             self.start_prompt = None
             self.main_menu.focus()
+
+    def handle_input_copy(self, pressed):
+        self.copy_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.screen_state = 'paste'
+            self.load_paste_menu()
+            self.paste_menu.focus()
+            self.copy_menu.unfocus()
+        elif pressed[K_z]:
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.copy_menu = None
+            self.copy_prompt.shutdown()
+            self.copy_prompt = None
+            self.main_menu.focus()
+
+    def handle_input_paste(self, pressed):
+        self.paste_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.paste_prompt.shutdown()
+            copy_save_state(self.copy_menu.get_choice()[0], self.paste_menu.get_choice()[0])
+            self.state = load_save_states()
+            self.screen_state = 'main'
+            self.load_main_menu()
+            self.main_menu.focus()
+            self.copy_menu = None
+            self.paste_menu = None
+            self.paste_prompt = None
+        elif pressed[K_z]:
+            self.screen_state = 'copy'
+            self.load_copy_menu()
+            self.paste_menu = None
+            self.paste_prompt.shutdown()
+            self.paste_prompt = None
+            self.copy_menu.focus()
 
     def handle_input_speed(self, pressed):
         self.speed_menu.handle_input(pressed)
@@ -295,3 +359,7 @@ class MenuScreen(object):
             self.handle_input_confirm_erase(pressed)
         elif self.screen_state == 'name':
             self.handle_input_name(pressed)
+        elif self.screen_state == 'copy':
+            self.handle_input_copy(pressed)
+        elif self.screen_state == 'paste':
+            self.handle_input_paste(pressed)
