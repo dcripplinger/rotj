@@ -5,6 +5,7 @@ import time
 import pygame
 from pygame.locals import *
 
+from beginning import Beginning
 from constants import GAME_HEIGHT, GAME_WIDTH
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -37,13 +38,14 @@ class Game(object):
         pygame.event.set_blocked(KEYUP)
         self.title_page = TitlePage(self.virtual_screen, self)
         self.menu_screen = MenuScreen(self.virtual_screen, self)
+        self.beginning_screen = Beginning(self, self.virtual_screen)
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu'
+        Valid screen states are 'title', 'game', 'menu', 'beginning'
         '''
         self._screen_state = state
         if state in ['title', 'menu']:
@@ -81,6 +83,8 @@ class Game(object):
             self.title_page.draw()
         elif self._screen_state == 'menu':
             self.menu_screen.draw()
+        elif self._screen_state == 'beginning':
+            self.beginning_screen.draw()
         self.scale()
 
     def update(self, dt):
@@ -90,14 +94,8 @@ class Game(object):
             self.title_page.update(dt)
         elif self._screen_state == 'menu':
             self.menu_screen.update(dt)
-
-    def is_a_wall(self, offset):
-        x = self.hero.position[0] + offset[0]
-        y = self.hero.position[1] + offset[1]
-        if x < 0 or y < 0 or x >= self.tmx_data.width or y >= self.tmx_data.height:
-            return True
-        props = self.tmx_data.get_tile_properties(x, y, 0)
-        return props['wall'] == 'true'
+        elif self._screen_state == 'beginning':
+            self.beginning_screen.update(dt)
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -121,6 +119,8 @@ class Game(object):
                     self.title_page.handle_input(pressed)
                 elif self._screen_state == 'menu':
                     self.menu_screen.handle_input(pressed)
+                elif self._screen_state == 'beginning':
+                    self.beginning_screen.handle_input(pressed)
 
     def run(self):
         self.running = True
