@@ -20,20 +20,20 @@ class Hero(pygame.sprite.Sprite):
         self.cells = cells
         self.game = game
 
-        side_stand = pygame.image.load('gextract/tiles16/000000030.png').convert_alpha()
-        side_walk = pygame.image.load('gextract/tiles16/000000031.png').convert_alpha()
+        side_stand = pygame.image.load('data/images/sprites/moroni/e/stand.png').convert_alpha()
+        side_walk = pygame.image.load('data/images/sprites/moroni/e/walk.png').convert_alpha()
         self.images = {
             'e': {
                 'stand': side_stand,
                 'walk': side_walk,
             },
             'n': {
-                'stand': pygame.image.load('gextract/tiles16/000000028.png').convert_alpha(),
-                'walk': pygame.image.load('gextract/tiles16/000000029.png').convert_alpha(),
+                'stand': pygame.image.load('data/images/sprites/moroni/n/stand.png').convert_alpha(),
+                'walk': pygame.image.load('data/images/sprites/moroni/n/walk.png').convert_alpha(),
             },
             's': {
-                'stand': pygame.image.load('gextract/tiles16/000000026.png').convert_alpha(),
-                'walk': pygame.image.load('gextract/tiles16/000000027.png').convert_alpha(),
+                'stand': pygame.image.load('data/images/sprites/moroni/s/stand.png').convert_alpha(),
+                'walk': pygame.image.load('data/images/sprites/moroni/s/walk.png').convert_alpha(),
             },
             'w': {
                 'stand': pygame.transform.flip(side_stand, True, False),
