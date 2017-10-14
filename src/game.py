@@ -39,6 +39,7 @@ class Game(object):
         self.title_page = TitlePage(self.virtual_screen, self)
         self.menu_screen = MenuScreen(self.virtual_screen, self)
         self.beginning_screen = Beginning(self, self.virtual_screen)
+        self.game_state = None
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)

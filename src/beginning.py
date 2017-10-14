@@ -17,19 +17,29 @@ class Beginning(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
-        mid = tmx_data.width/2
-        self.moroni = Sprite(self.tmx_data, self.game, 'moroni', velocity=[0,-10], direction='s', position=[mid,0])
+        mid = self.tmx_data.width/2
+        speed = 1.5
+        self.moroni = Sprite(self.tmx_data, self.game, 'moroni', [mid,1], speed=speed, direction='s', walking=True)
         self.group.add(self.moroni)
-        self.teancum = Sprite(self.tmx_data, self.game, 'teancum', velocity=[10,0], direction='e', position=[mid,0])
+        self.teancum = Sprite(self.tmx_data, self.game, 'teancum', [1,mid], speed=speed, direction='e', walking=True)
         self.group.add(self.teancum)
-        self.amalickiah = Sprite(self.tmx_data, self.game, 'amalickiah', velocity=[-10,0], direction='w', position=[mid,mid*2])
+        self.amalickiah = Sprite(self.tmx_data, self.game, 'amalickiah', [mid*2-1,mid], speed=speed, direction='w', walking=True)
         self.group.add(self.amalickiah)
+        self.paces_left = 6
 
     def draw(self):
         self.group.draw(self.screen)
 
     def update(self, dt):
-        self.group.update(dt)
+        if self.paces_left > 0:
+            moved = False
+            for sprite in [self.moroni, self.teancum, self.amalickiah]:
+                m = sprite.move(sprite.direction)
+                if sprite == self.moroni:
+                    moved = m
+            if moved:
+                self.paces_left -= 1
+            self.group.update(dt)
 
     def handle_input(self, pressed):
         pass
