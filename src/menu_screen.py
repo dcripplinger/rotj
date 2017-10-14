@@ -7,7 +7,7 @@ from pygame.locals import *
 
 from constants import GAME_WIDTH, BLACK
 from helpers import create_save_state, erase_save_state, is_half_second, load_save_states, copy_save_state
-from text import MenuBox, MenuGrid, TextBox
+from text import create_prompt, MenuBox, MenuGrid, TextBox
 
 
 MAIN_MENU = [
@@ -54,22 +54,19 @@ class MenuScreen(object):
 
     def load_start_menu(self):
         self.start_menu = MenuBox(self.format_populated_save_slots())
-        self.start_prompt = self.create_prompt('Which history do you wish to continue?')
+        self.start_prompt = create_prompt('Which history do you wish to continue?')
 
     def load_copy_menu(self):
         self.copy_menu = MenuBox(self.format_populated_save_slots())
-        self.copy_prompt = self.create_prompt('Which history book do you wish to copy?')
+        self.copy_prompt = create_prompt('Which history book do you wish to copy?')
 
     def load_paste_menu(self):
         self.paste_menu = MenuBox(self.format_unpopulated_save_slots())
-        self.paste_prompt = self.create_prompt('Which book do you wish to copy to?')
+        self.paste_prompt = create_prompt('Which book do you wish to copy to?')
 
     def load_register_menu(self):
         self.register_menu = MenuBox(self.format_unpopulated_save_slots())
-        self.register_prompt = self.create_prompt('Which history book do you wish to begin?')
-
-    def create_prompt(self, text):
-        return TextBox(text, width=160, height=80, border=True, double_space=True, appear='scroll')
+        self.register_prompt = create_prompt('Which history book do you wish to begin?')
 
     def load_speed_menu(self):
         self.speed_menu = MenuBox(['FAST', 'FAST', 'STILL FAST'])
@@ -82,11 +79,11 @@ class MenuScreen(object):
 
     def load_erase_menu(self):
         self.erase_menu = MenuBox(self.format_populated_save_slots())
-        self.erase_prompt = self.create_prompt('Which history book do you wish to erase?')
+        self.erase_prompt = create_prompt('Which history book do you wish to erase?')
 
     def load_confirm_erase_menu(self):
         self.confirm_erase_menu = MenuBox(['YES', 'NO'])
-        self.erase_prompt = self.create_prompt('Are you sure?')
+        self.erase_prompt = create_prompt('Are you sure?')
 
     def load_name_menu(self):
         self.name_menu = MenuGrid([ # each list in this list is a column in the menu grid

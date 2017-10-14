@@ -390,3 +390,7 @@ class MenuGrid(object):
 
     def get_height(self):
         return max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)
+
+
+def create_prompt(text):
+    return TextBox(text, width=160, height=80, border=True, double_space=True, appear='scroll')

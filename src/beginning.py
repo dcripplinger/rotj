@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
 
+from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from helpers import get_map_filename
+from constants import BLACK
+from helpers import get_map_filename, load_image
 from sprite import Sprite
+from text import create_prompt
 
 
 class Beginning(object):
@@ -26,9 +29,16 @@ class Beginning(object):
         self.amalickiah = Sprite(self.tmx_data, self.game, 'amalickiah', [mid*2-1,mid], speed=speed, direction='w', walking=True)
         self.group.add(self.amalickiah)
         self.paces_left = 6
+        self.pledge_image = load_image('pledge.png')
+        self.prompt = create_prompt('Testing, testing, 1, 2, 3...')
 
     def draw(self):
-        self.group.draw(self.screen)
+        if self.paces_left > 0:
+            self.group.draw(self.screen)
+        else:
+            self.screen.fill(BLACK)
+            self.screen.blit(self.pledge_image, (0,0))
+            self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.get_width())/2, 160))
 
     def update(self, dt):
         if self.paces_left > 0:
@@ -40,6 +50,11 @@ class Beginning(object):
             if moved:
                 self.paces_left -= 1
             self.group.update(dt)
+        else:
+            self.prompt.update(dt)
 
     def handle_input(self, pressed):
-        pass
+        if self.paces_left == 0:
+            if pressed[K_x]:
+                self.game.screen_state = 'game'
+                self.prompt.shutdown()

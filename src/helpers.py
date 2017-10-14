@@ -6,6 +6,12 @@ import shutil
 
 import pygame
 
+# WARNING: Don't import anything from the rotj repo into here. To avoid circular imports,
+# we are restricting this module to only functions that do not depend on any other rotj
+# modules. If you need to make a function available to other modules but it also depends
+# on a module, perhaps make it in the same module it would depend on. See text.create_prompt
+# as an example.
+
 RESOURCES_DIR = 'data'
 
 
