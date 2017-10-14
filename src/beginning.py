@@ -30,7 +30,7 @@ class Beginning(object):
         self.group.add(self.amalickiah)
         self.paces_left = 6
         self.pledge_image = load_image('pledge.png')
-        self.prompt = create_prompt('Testing, testing, 1, 2, 3...')
+        self.prompt = create_prompt('Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... ')
 
     def draw(self):
         if self.paces_left > 0:
@@ -55,6 +55,7 @@ class Beginning(object):
 
     def handle_input(self, pressed):
         if self.paces_left == 0:
-            if pressed[K_x]:
+            self.prompt.handle_input(pressed)
+            if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
                 self.game.screen_state = 'game'
                 self.prompt.shutdown()

@@ -256,7 +256,6 @@ class MenuScreen(object):
     def handle_input_speed(self, pressed):
         self.speed_menu.handle_input(pressed)
         if pressed[K_x]:
-            pygame.mixer.music.stop()
             self.start_prompt.shutdown()
             time.sleep(.5)
             self.game.game_state = self.state[int(self.start_menu.get_choice()[0])-1]
@@ -264,6 +263,7 @@ class MenuScreen(object):
                 self.game.game_state['level'] = 1
                 self.game.set_screen_state('beginning')
             else:
+                pygame.mixer.music.stop()
                 self.game.set_screen_state('game')
         elif pressed[K_z]:
             self.screen_state = 'start'

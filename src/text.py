@@ -2,12 +2,13 @@
 
 from math import ceil
 from datetime import datetime
+import time
 
 import pygame
 from pygame.locals import *
 
 from constants import BLACK, WHITE
-from helpers import load_image
+from helpers import is_half_second, load_image
 
 CHARS = {
     '0': load_image('font/0.png'),
@@ -90,6 +91,7 @@ CHARS = {
     u'–': load_image('font/hyphen.png'), # this unicode is an ndash, U+2013
     u'©': load_image('font/copyright.png'),
     u'▶': load_image('font/arrow.png'),
+    u'▼': load_image('font/down_arrow.png'),
 }
 
 
@@ -117,8 +119,17 @@ class TextBox(object):
         )
         self.time_elapsed = 0
         self.fade_speed = fade_speed
+
+        # These variables are only relevant when appear == 'scroll'
+        self.lines_available_now = int(ceil((self.height/8 - (3 if border else 0)) / (2.0 if double_space else 1.0)))
         self.scroll_speed = 0.02 # seconds per character printed
-        self.lines_available = ceil((self.height/8 - (3 if border else 0)) / (2.0 if double_space else 1.0))
+        self.starting_line = 0
+        self.max_starting_line = 0
+
+        self.lines_available = (
+            len(self.lines) if appear=='scroll'
+            else self.lines_available_now
+        )
         self.appear = appear
         self.lines_to_show = (
             2 if appear=='fade' and not double_space
@@ -159,12 +170,10 @@ class TextBox(object):
             self.words[line] = line.split()
 
     def update_surface(self):
-        # if self.text == 'Which history do you continue?':
-        #     import pdb; pdb.set_trace()
         y_space = 2 if self.double_space else 1
         surface = pygame.Surface((self.width, self.height))
         surface.fill(BLACK)
-        for y, line in enumerate(self.lines):
+        for y, line in enumerate(self.lines[self.starting_line:]):
             chars_printed = 0
             if self.lines_to_show == y:
                 break
@@ -188,12 +197,32 @@ class TextBox(object):
                 chars_printed += 1
         if self.border:
             pygame.draw.rect(surface, WHITE, (3, 3, self.width-6, self.height-6), 2)
+        if self.show_down_arrow() and is_half_second():
+            surface.blit(CHARS[u'▼'], (self.width/2, vertical_pos + (16 if self.double_space else 8)))
         self.surface = surface
 
+    def show_down_arrow(self):
+        return self.appear == 'scroll' and not self.has_more_stuff_to_show_now() and self.has_more_stuff_to_show()
+
     def has_more_stuff_to_show(self):
-        has_more_lines_to_show = self.lines_to_show < self.lines_available and self.lines_to_show < len(self.lines)
-        has_more_chars_to_show = self.appear == 'scroll' and self.chars_to_show < len(self.lines[self.lines_to_show - 1])
+        lines_shown = self.lines_to_show + self.starting_line
+        has_more_lines_to_show = lines_shown < self.lines_available and lines_shown < len(self.lines)
+        has_more_chars_to_show = self.appear == 'scroll' and self.chars_to_show < len(self.lines[lines_shown - 1])
         return has_more_lines_to_show or has_more_chars_to_show
+
+    def has_more_stuff_to_show_now(self):
+        '''
+        Only ever use this in the case of appear == 'scroll'
+        '''
+        # This is to make room for the continuation arrow if it isn't the end of the whole text.
+        lines_available_now = (
+            self.lines_available_now if self.starting_line + self.lines_available_now >= len(self.lines)
+            else self.lines_available_now - 1
+        )
+
+        has_more_lines_to_show_now = self.lines_to_show < lines_available_now and self.lines_to_show < len(self.lines)
+        has_more_chars_to_show = self.chars_to_show < len(self.lines[self.starting_line + self.lines_to_show - 1])
+        return has_more_lines_to_show_now or has_more_chars_to_show
 
     def update(self, dt, force=False):
         if not self.started:
@@ -202,8 +231,8 @@ class TextBox(object):
                 self.typing_sound.play(-1)
         if not self.needs_update and force == False:
             return
-        self.time_elapsed += dt
         if self.appear == 'fade':
+            self.time_elapsed += dt
             if self.has_more_stuff_to_show():
                 if self.time_elapsed > self.fade_speed:
                     self.time_elapsed -= self.fade_speed
@@ -213,14 +242,25 @@ class TextBox(object):
             else:
                 self.needs_update = False
         elif self.appear == 'scroll':
-            if self.has_more_stuff_to_show():
+            if self.has_more_stuff_to_show_now():
+                self.time_elapsed += dt
                 while self.time_elapsed > self.scroll_speed:
                     self.time_elapsed -= self.scroll_speed
                     if self.chars_to_show < len(self.lines[self.lines_to_show - 1]):
                         self.chars_to_show += 1
-                    elif self.has_more_stuff_to_show():
+                    elif self.has_more_stuff_to_show_now():
                         self.chars_to_show = 1
                         self.lines_to_show += 1
+            elif self.has_more_stuff_to_show():
+                if self.starting_line < self.max_starting_line:
+                    self.starting_line += 1
+                    self.chars_to_show = 1
+                    self.typing_sound.stop()
+                    time.sleep(.2)
+                    self.typing_sound.play(17)
+                    time.sleep(.1)
+                else:
+                    self.typing_sound.stop()
             else:
                 self.needs_update = False
                 self.typing_sound.stop()
@@ -228,6 +268,11 @@ class TextBox(object):
 
     def shutdown(self):
         self.typing_sound.stop()
+
+    def handle_input(self, pressed):
+        if self.show_down_arrow() and pressed[K_x]:
+            self.typing_sound.play(-1)
+            self.max_starting_line += self.lines_available_now - 1
 
 
 class MenuBox(object):
