@@ -4,7 +4,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import BLACK
+from constants import BLACK, GAME_WIDTH
 from helpers import get_map_filename, load_image
 from sprite import Sprite
 from text import create_prompt
@@ -37,8 +37,8 @@ class Beginning(object):
             self.group.draw(self.screen)
         else:
             self.screen.fill(BLACK)
-            self.screen.blit(self.pledge_image, (0,0))
-            self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.get_width())/2, 160))
+            self.screen.blit(self.pledge_image, ((GAME_WIDTH - self.pledge_image.get_width())/2, 32))
+            self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.width)/2, 160))
 
     def update(self, dt):
         if self.paces_left > 0:
