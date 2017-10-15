@@ -30,7 +30,10 @@ class Beginning(object):
         self.group.add(self.amalickiah)
         self.paces_left = 6
         self.pledge_image = load_image('pledge.png')
-        self.prompt = create_prompt('Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... Testing, testing, 1, 2, 3... ')
+        self.prompt = create_prompt(
+            'So long as our enemies threaten our liberty and our families, we covenant before God to defend them. '
+            'May we stand side by side as fellow protectors of this land until the day we die.'
+        )
 
     def draw(self):
         if self.paces_left > 0:

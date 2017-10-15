@@ -246,7 +246,7 @@ class TextBox(object):
                 self.time_elapsed += dt
                 while self.time_elapsed > self.scroll_speed:
                     self.time_elapsed -= self.scroll_speed
-                    if self.chars_to_show < len(self.lines[self.lines_to_show - 1]):
+                    if self.chars_to_show < len(self.lines[self.starting_line + self.lines_to_show - 1]):
                         self.chars_to_show += 1
                     elif self.has_more_stuff_to_show_now():
                         self.chars_to_show = 1
