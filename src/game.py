@@ -18,7 +18,7 @@ MAP_NAMES = [
     'sierra_pass',
     'cavity_of_a_rock',
     'passage_to_gid',
-    'moronis_house',
+    'house_of_moroni',
 ]
 
 
@@ -31,7 +31,7 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.fps = 1000
         self.maps = {name: Map(self.virtual_screen, name, self) for name in MAP_NAMES}
-        self.current_map = self.maps['overworld']
+        self.current_map = None
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)

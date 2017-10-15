@@ -14,7 +14,7 @@ class Hero(pygame.sprite.Sprite):
     def __init__(self, tmx_data, cells, game):
         pygame.sprite.Sprite.__init__(self)
         self.velocity = [0.0, 0.0]
-        self.position = [13.0, 12.0]
+        self.position = [0.0, 0.0]
         self.old_position = self.position
         self.tmx_data = tmx_data
         self.cells = cells
