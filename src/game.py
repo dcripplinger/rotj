@@ -31,7 +31,7 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.fps = 1000
         self.maps = {name: Map(self.virtual_screen, name, self) for name in MAP_NAMES}
-        self.current_map = self.maps['moronis_house']
+        self.current_map = self.maps['overworld']
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)
@@ -112,6 +112,7 @@ class Game(object):
                     pygame.quit()
                     print(" ")
                     time.sleep(0.5)
+                    print self.current_map.name
                     print("Shutdown... Complete")
                     sys.exit()
                     return

@@ -257,7 +257,7 @@ class TextBox(object):
                     self.chars_to_show = 1
                     self.typing_sound.stop()
                     time.sleep(.2)
-                    self.typing_sound.play(17)
+                    self.typing_sound.play(20)
                     time.sleep(.1)
                 else:
                     self.typing_sound.stop()

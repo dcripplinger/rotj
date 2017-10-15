@@ -12,6 +12,7 @@ from hero import Hero
 
 class Map(object):
     def __init__(self, screen, map_name, game):
+        self.name = map_name
         self.game = game
         map_filename = get_map_filename('{}.tmx'.format(map_name))
         json_filename = get_map_filename('{}.json'.format(map_name))

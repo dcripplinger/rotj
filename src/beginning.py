@@ -60,5 +60,5 @@ class Beginning(object):
         if self.paces_left == 0:
             self.prompt.handle_input(pressed)
             if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
-                self.game.screen_state = 'game'
+                self.game.set_screen_state('game')
                 self.prompt.shutdown()
