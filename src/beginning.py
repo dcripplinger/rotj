@@ -61,4 +61,5 @@ class Beginning(object):
             self.prompt.handle_input(pressed)
             if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
                 self.game.set_screen_state('game')
+                self.game.set_current_map('house_of_moroni', [13,12], 'n')
                 self.prompt.shutdown()
