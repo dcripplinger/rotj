@@ -134,6 +134,9 @@ class Sprite(pygame.sprite.Sprite):
         pass # we use this in the class Hero (which inherits from here) to teleport to different maps
 
     def is_a_wall(self, offset):
+        # from hero import Hero
+        # if isinstance(self, Hero):
+        #     import pdb; pdb.set_trace()
         x = self.position[0] + offset[0]
         y = self.position[1] + offset[1]
         if x < 0 or y < 0 or x >= self.tmx_data.width or y >= self.tmx_data.height:
@@ -153,6 +156,7 @@ class AiSprite(Sprite):
         super(AiSprite, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.wander = wander
         self.elapsed_time = 0.0
+        self.tiled_map.ai_sprites[tuple(position)] = self
 
     def update(self, dt):
         self.elapsed_time += dt
@@ -168,7 +172,7 @@ class AiSprite(Sprite):
             direction = random.choice('n', 's', 'e', 'w')
             moved = self.move(direction)
             if moved:
-                self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self.tiled_map.ai_sprites[tuple(self.position)]
+                self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self
                 del self.tiled_map.ai_sprites[tuple(self.position)]
 
     def get_new_pos_from_direction(self, direction):
