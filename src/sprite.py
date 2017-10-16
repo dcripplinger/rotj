@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from math import ceil, floor
+import random
 
 import pygame
 
@@ -33,8 +34,9 @@ def load_character_images(character):
 
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, tmx_data, game, character, position, speed=10, direction='s', walking=False, follower=None):
+    def __init__(self, tmx_data, game, character, position, speed=10, direction='s', walking=False, follower=None, tiled_map=None):
         super(Sprite, self).__init__()
+        self.tiled_map = tiled_map
         self.name = character
         self.position = position
         self.old_position = self.position
@@ -42,8 +44,10 @@ class Sprite(pygame.sprite.Sprite):
         self.velocity = self.velocity_from_speed_direction_walking(speed, direction, walking)
         self.game = game
         self.character = character
+
         # tiles per second the character moves when moving. Differs from velocity, which is a combination of speed and direction.
         self.speed = speed
+        
         self.images = load_character_images(character)
         self.direction = direction
         self.image = self.images[self.direction]['stand']
@@ -135,4 +139,44 @@ class Sprite(pygame.sprite.Sprite):
         if x < 0 or y < 0 or x >= self.tmx_data.width or y >= self.tmx_data.height:
             return True
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
-        return props.get('wall') == 'true'
+        is_map_wall = props.get('wall') == 'true'
+        is_ai_sprite = False
+        if self.tiled_map:
+            is_ai_sprite = True if self.tiled_map.ai_sprites.get((x,y)) else False
+        return is_map_wall or is_ai_sprite
+
+
+class AiSprite(Sprite):
+    def __init__(
+        self, tmx_data, game, character, position, speed=5, direction='s', walking=False, wander=False, follower=None, tiled_map=None,
+    ):
+        super(AiSprite, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
+        self.wander = wander
+        self.elapsed_time = 0.0
+
+    def update(self, dt):
+        self.elapsed_time += dt
+        if self.elapsed_time > 1: # possibly move every second
+            self.elapsed_time -= 1
+            self.move_maybe()
+        super(AiSprite, self).update(dt)
+
+    def move_maybe(self):
+        if not self.wander:
+            return
+        if random.random() < 0.33: # every time we might move the ai_sprite, the probability is 0.33
+            direction = random.choice('n', 's', 'e', 'w')
+            moved = self.move(direction)
+            if moved:
+                self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self.tiled_map.ai_sprites[tuple(self.position)]
+                del self.tiled_map.ai_sprites[tuple(self.position)]
+
+    def get_new_pos_from_direction(self, direction):
+        if direction == 'n':
+            return (self.position[0], self.position[1]-1)
+        elif direction == 's':
+            return (self.position[0], self.position[1]+1)
+        elif direction == 'e':
+            return (self.position[0]+1, self.position[1])
+        elif direction == 'w':
+            return (self.position[0]-1, self.position[1])

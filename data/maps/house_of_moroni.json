@@ -1,1 +1,11 @@
-[]
+[
+  {
+  	"x": 13,
+  	"y": 11,
+  	"ai_sprite": {
+  		"name": "villager",
+  		"direction": "s",
+  		"wander": false
+  	}
+  }
+]

@@ -8,13 +8,14 @@ from pytmx.util_pygame import load_pygame
 
 from helpers import get_map_filename
 from hero import Hero
-from sprite import Sprite
+from sprite import AiSprite, Sprite
 
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s'):
         self.name = map_name
         self.game = game
+        self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
         map_filename = get_map_filename('{}.tmx'.format(map_name))
         json_filename = get_map_filename('{}.json'.format(map_name))
         self.screen = screen
@@ -26,25 +27,39 @@ class Map(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
+        self.load_ai_sprites()
         self.load_company_sprites(hero_position, direction)
+
+    def load_ai_sprites(self):
+        for cell in self.cells.values():
+            ai_sprite_data = cell.get('ai_sprite')
+            if ai_sprite_data:
+                ai_sprite = AiSprite(
+                    tmx_data=self.tmx_data, game=self.game, character=ai_sprite_data['name'], position=[cell['x'], cell['y']],
+                    direction=ai_sprite_data['direction'], wander=ai_sprite_data['wander'], tiled_map=self,
+                )
+                self.group.add(ai_sprite)
 
     def load_company_sprites(self, hero_position, direction):
         company_sprites = self.get_company_sprite_names()
         if len(company_sprites) == 3:
-            self.follower_two = Sprite(self.tmx_data, self.game, company_sprites[2], hero_position[:], direction=direction)
+            self.follower_two = Sprite(
+                self.tmx_data, self.game, company_sprites[2], hero_position[:], direction=direction, tiled_map=self,
+            )
             self.group.add(self.follower_two)
         else:
             self.follower_two = None
         if len(company_sprites) >= 2:
             self.follower_one = Sprite(
                 self.tmx_data, self.game, company_sprites[1], hero_position[:], direction=direction, follower=self.follower_two,
+                tiled_map=self,
             )
             self.group.add(self.follower_one)
         else:
             self.follower_one = None
         self.hero = Hero(
             self.tmx_data, self.game, company_sprites[0], hero_position[:], cells=self.cells, direction=direction,
-            follower=self.follower_one,
+            follower=self.follower_one, tiled_map=self,
         )
         self.group.add(self.hero)
 

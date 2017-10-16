@@ -10,8 +10,10 @@ from sprite import Sprite
 
 
 class Hero(Sprite):
-    def __init__(self, tmx_data, game, character, position, speed=10, direction='s', walking=False, cells=None, follower=None):
-        super(Hero, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower)
+    def __init__(
+        self, tmx_data, game, character, position, speed=10, direction='s', walking=False, cells=None, follower=None, tiled_map=None,
+    ):
+        super(Hero, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.cells = cells
 
     def handle_cell(self):
