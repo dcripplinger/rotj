@@ -11,7 +11,7 @@ from hero import Hero
 
 
 class Map(object):
-    def __init__(self, screen, map_name, game):
+    def __init__(self, screen, map_name, game, hero_position, direction='s'):
         self.name = map_name
         self.game = game
         map_filename = get_map_filename('{}.tmx'.format(map_name))
@@ -25,7 +25,7 @@ class Map(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
-        self.hero = Hero(self.tmx_data, self.cells, self.game)
+        self.hero = Hero(self.tmx_data, self.game, 'moroni', hero_position, cells=self.cells, direction=direction)
         self.group.add(self.hero)
 
     def draw(self):

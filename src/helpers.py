@@ -14,6 +14,17 @@ import pygame
 
 RESOURCES_DIR = 'data'
 
+MAX_SOLDIERS = {
+    'moroni': {'by_level': [100,100,100]},
+    'teancum': {'by_level': [100,100,100]},
+    'amalickiah': {'by_level': [100,100,100]},
+}
+
+
+def get_max_soldiers(warlord, level=None):
+    assert level is not None
+    return MAX_SOLDIERS[warlord]['by_level'][level]
+
 
 def load_image(filename):
     return pygame.image.load(os.path.join(RESOURCES_DIR, "images", filename))
@@ -41,7 +52,7 @@ def erase_save_state(slot):
 
 def create_save_state(slot, name):
     with open('data/state/{}.json'.format(slot), 'w') as f:
-        f.write(json.dumps({'name': name, 'level': 0}))
+        f.write(json.dumps({'name': name, 'level': 0, 'slot': int(slot)}))
 
 
 def copy_save_state(from_slot, to_slot):

@@ -5,7 +5,7 @@ import pyscroll
 from pytmx.util_pygame import load_pygame
 
 from constants import BLACK, GAME_WIDTH
-from helpers import get_map_filename, load_image
+from helpers import get_map_filename, get_max_soldiers, load_image
 from sprite import Sprite
 from text import create_prompt
 
@@ -61,5 +61,13 @@ class Beginning(object):
             self.prompt.handle_input(pressed)
             if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
                 self.game.set_screen_state('game')
-                self.game.set_current_map('house_of_moroni', [13,12], 'n')
+                self.game.update_game_state({
+                    'company': [
+                        {'name': 'moroni', 'soldiers': get_max_soldiers('moroni', 1)},
+                        {'name': 'teancum', 'soldiers': get_max_soldiers('teancum', 1)},
+                        {'name': 'amalickiah', 'soldiers': get_max_soldiers('amalickiah', 1)},
+                    ],
+                    'level': 1,
+                })
+                self.game.set_current_map('house_of_moroni', [13,12], 'n', followers='trail')
                 self.prompt.shutdown()

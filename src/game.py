@@ -30,7 +30,6 @@ class Game(object):
         self.virtual_screen = pygame.Surface((self.virtual_width, self.virtual_height))
         self.clock = pygame.time.Clock()
         self.fps = 1000
-        self.maps = {name: Map(self.virtual_screen, name, self) for name in MAP_NAMES}
         self.current_map = None
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
@@ -55,10 +54,15 @@ class Game(object):
         else:
             pygame.key.set_repeat(50, 50)
 
-    def set_current_map(self, map_name, position, direction):
-        self.current_map = self.maps[map_name]
-        self.current_map.hero.position = position
-        self.current_map.hero.direction = direction
+    def update_game_state(self, updates):
+        self.game_state.update(updates)
+
+    def set_current_map(self, map_name, position, direction, followers='under'):
+        assert followers in [
+            'trail', # position the followers trailing behind the hero
+            'under', # position the followers underneath the hero on the same tile
+        ]
+        self.current_map = Map(self.virtual_screen, map_name, self, position, direction=direction)
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)
