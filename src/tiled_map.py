@@ -8,6 +8,7 @@ from pytmx.util_pygame import load_pygame
 
 from helpers import get_map_filename
 from hero import Hero
+from sprite import Sprite
 
 
 class Map(object):
@@ -25,8 +26,41 @@ class Map(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
-        self.hero = Hero(self.tmx_data, self.game, 'moroni', hero_position, cells=self.cells, direction=direction)
+        self.load_company_sprites(hero_position, direction)
+
+    def load_company_sprites(self, hero_position, direction):
+        company_sprites = self.get_company_sprite_names()
+        if len(company_sprites) == 3:
+            self.follower_two = Sprite(self.tmx_data, self.game, company_sprites[2], hero_position[:], direction=direction)
+            self.group.add(self.follower_two)
+        else:
+            self.follower_two = None
+        if len(company_sprites) >= 2:
+            self.follower_one = Sprite(
+                self.tmx_data, self.game, company_sprites[1], hero_position[:], direction=direction, follower=self.follower_two,
+            )
+            self.group.add(self.follower_one)
+        else:
+            self.follower_one = None
+        self.hero = Hero(
+            self.tmx_data, self.game, company_sprites[0], hero_position[:], cells=self.cells, direction=direction,
+            follower=self.follower_one,
+        )
         self.group.add(self.hero)
+
+    def get_company_sprite_names(self):
+        '''
+        Returns a list of names of warlords from the company that should appear on the screen as sprites.
+        '''
+        company = self.game.game_state['company']
+        company_sprites = []
+        for character in company:
+            if len(company_sprites) == 3:
+                break
+            if character['soldiers'] == 0:
+                continue
+            company_sprites.append(character['name'])
+        return company_sprites
 
     def draw(self):
         self.group.center(self.hero.rect.center)
@@ -37,7 +71,7 @@ class Map(object):
 
     def move_hero(self, direction):
         self.hero.move(direction)
-        # when I add followers, they would move here too
+        # followers get moved automatically through moving the leaders
 
     def handle_input(self, pressed):
         if pressed[K_UP]:

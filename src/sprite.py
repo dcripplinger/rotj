@@ -33,8 +33,9 @@ def load_character_images(character):
 
 
 class Sprite(pygame.sprite.Sprite):
-    def __init__(self, tmx_data, game, character, position, speed=10, direction='s', walking=False):
+    def __init__(self, tmx_data, game, character, position, speed=10, direction='s', walking=False, follower=None):
         super(Sprite, self).__init__()
+        self.name = character
         self.position = position
         self.old_position = self.position
         self.tmx_data = tmx_data
@@ -46,9 +47,9 @@ class Sprite(pygame.sprite.Sprite):
         self.images = load_character_images(character)
         self.direction = direction
         self.image = self.images[self.direction]['stand']
-
         self.rect = self.image.get_rect()
         self.rect.topleft = [floor(TILE_SIZE*self.position[0]), floor(TILE_SIZE*self.position[1])]
+        self.follower = follower
 
     def velocity_from_speed_direction_walking(self, speed, direction, walking=True):
         if not walking:
@@ -82,7 +83,23 @@ class Sprite(pygame.sprite.Sprite):
             return False
         self.direction = direction
         self.velocity = self.velocity_from_speed_direction_walking(self.speed, self.direction)
-        return True
+        moved = self.velocity != [0,0]
+        if self.follower and moved: # the leader is actually starting a move to a new tile
+            self.follower.move_to(self.position)
+        return moved
+
+    def move_to(self, position):
+        if position[0] > self.position[0]:
+            direction = 'e'
+        elif position[0] < self.position[0]:
+            direction = 'w'
+        elif position[1] > self.position[1]:
+            direction = 's'
+        elif position[1] < self.position[1]:
+            direction = 'n'
+        else:
+            direction = None
+        self.move(direction)
 
     def update_position(self, dt):
         self.old_position = self.position[:]
