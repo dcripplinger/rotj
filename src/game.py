@@ -62,7 +62,7 @@ class Game(object):
             'trail', # position the followers trailing behind the hero
             'under', # position the followers underneath the hero on the same tile
         ]
-        self.current_map = Map(self.virtual_screen, map_name, self, position, direction=direction)
+        self.current_map = Map(self.virtual_screen, map_name, self, position, direction=direction, followers=followers)
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)

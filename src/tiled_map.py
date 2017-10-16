@@ -12,7 +12,7 @@ from sprite import AiSprite, Sprite
 
 
 class Map(object):
-    def __init__(self, screen, map_name, game, hero_position, direction='s'):
+    def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under'):
         self.name = map_name
         self.game = game
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
@@ -28,7 +28,7 @@ class Map(object):
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.load_ai_sprites()
-        self.load_company_sprites(hero_position, direction)
+        self.load_company_sprites(hero_position, direction, followers)
 
     def load_ai_sprites(self):
         for cell in self.cells.values():
@@ -40,18 +40,30 @@ class Map(object):
                 )
                 self.group.add(ai_sprite)
 
-    def load_company_sprites(self, hero_position, direction):
+    def get_pos_behind(self, pos, direction):
+        if direction == 'n':
+            return [pos[0], pos[1]+1]
+        elif direction == 's':
+            return [pos[0], pos[1]-1]
+        elif direction == 'e':
+            return [pos[0]-1, pos[1]]
+        elif direction == 'w':
+            return [pos[0]+1, pos[1]]
+
+    def load_company_sprites(self, hero_position, direction, followers):
         company_sprites = self.get_company_sprite_names()
+        follower_one_pos = self.get_pos_behind(hero_position, direction) if followers == 'trail' else hero_position[:]
+        follower_two_pos = self.get_pos_behind(follower_one_pos, direction) if followers == 'trail' else hero_position[:]
         if len(company_sprites) == 3:
             self.follower_two = Sprite(
-                self.tmx_data, self.game, company_sprites[2], hero_position[:], direction=direction, tiled_map=self,
+                self.tmx_data, self.game, company_sprites[2], follower_two_pos, direction=direction, tiled_map=self,
             )
             self.group.add(self.follower_two)
         else:
             self.follower_two = None
         if len(company_sprites) >= 2:
             self.follower_one = Sprite(
-                self.tmx_data, self.game, company_sprites[1], hero_position[:], direction=direction, follower=self.follower_two,
+                self.tmx_data, self.game, company_sprites[1], follower_one_pos, direction=direction, follower=self.follower_two,
                 tiled_map=self,
             )
             self.group.add(self.follower_one)
