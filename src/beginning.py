@@ -69,5 +69,9 @@ class Beginning(object):
                     ],
                     'level': 1,
                 })
-                self.game.set_current_map('house_of_moroni', [13,12], 'n', followers='trail')
+                dialog = create_prompt(
+                    'An epistle arrived while you were away. The chief judge is summoning you in the palace at Zarahemla. '
+                    'You can find the city of Zarahemla to the west.'
+                )
+                self.game.set_current_map('house_of_moroni', [13,12], 'n', followers='trail', dialog=dialog)
                 self.prompt.shutdown()

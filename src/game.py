@@ -57,12 +57,14 @@ class Game(object):
     def update_game_state(self, updates):
         self.game_state.update(updates)
 
-    def set_current_map(self, map_name, position, direction, followers='under'):
+    def set_current_map(self, map_name, position, direction, followers='under', dialog=None):
         assert followers in [
             'trail', # position the followers trailing behind the hero
             'under', # position the followers underneath the hero on the same tile
         ]
-        self.current_map = Map(self.virtual_screen, map_name, self, position, direction=direction, followers=followers)
+        self.current_map = Map(
+            self.virtual_screen, map_name, self, position, direction=direction, followers=followers, dialog=dialog,
+        )
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)

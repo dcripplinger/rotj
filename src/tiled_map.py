@@ -12,7 +12,7 @@ from sprite import AiSprite, Sprite
 
 
 class Map(object):
-    def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under'):
+    def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', dialog=None):
         self.name = map_name
         self.game = game
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
@@ -27,6 +27,7 @@ class Map(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
+        self.dialog = dialog
         self.load_ai_sprites()
         self.load_company_sprites(hero_position, direction, followers)
 
@@ -92,22 +93,31 @@ class Map(object):
     def draw(self):
         self.group.center(self.hero.rect.center)
         self.group.draw(self.screen)
+        if self.dialog:
+            self.screen.blit(self.dialog.surface, (0, 160))
 
     def update(self, dt):
         self.group.update(dt)
+        if self.dialog:
+            self.dialog.update(dt)
 
     def move_hero(self, direction):
         self.hero.move(direction)
         # followers get moved automatically through moving the leaders
 
     def handle_input(self, pressed):
-        if pressed[K_UP]:
-            self.move_hero('n')
-        elif pressed[K_DOWN]:
-            self.move_hero('s')
-        elif pressed[K_RIGHT]:
-            self.move_hero('e')
-        elif pressed[K_LEFT]:
-            self.move_hero('w')
+        if self.dialog:
+            self.dialog.handle_input(pressed)
+            if pressed[K_x] and not self.dialog.has_more_stuff_to_show():
+                self.dialog = None
         else:
-            self.move_hero(None)
+            if pressed[K_UP]:
+                self.move_hero('n')
+            elif pressed[K_DOWN]:
+                self.move_hero('s')
+            elif pressed[K_RIGHT]:
+                self.move_hero('e')
+            elif pressed[K_LEFT]:
+                self.move_hero('w')
+            else:
+                self.move_hero(None)
