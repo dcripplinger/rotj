@@ -199,6 +199,9 @@ class TextBox(object):
             pygame.draw.rect(surface, WHITE, (3, 3, self.width-6, self.height-6), 2)
         if self.show_down_arrow() and is_half_second():
             surface.blit(CHARS[u'▼'], (self.width/2, vertical_pos + (16 if self.double_space else 8)))
+        if self.title:
+            for i, char in enumerate(self.title):
+                surface.blit(CHARS[char], (i*8+16, 0))
         self.surface = surface
 
     def show_down_arrow(self):
@@ -276,13 +279,13 @@ class TextBox(object):
 
 
 class MenuBox(object):
-    def __init__(self, choices, border=True):
+    def __init__(self, choices, border=True, title=None):
         self.choices = choices
         self.current_choice = 0
         self.is_active = False
         self.blink = False
         self.border = border
-        self.text_box = TextBox('\n'.join(choices), double_space=True, border=border, indent=1)
+        self.text_box = TextBox('\n'.join(choices), double_space=True, border=border, indent=1, title=title)
         self.surface = self.text_box.surface
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
 

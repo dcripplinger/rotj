@@ -168,6 +168,8 @@ class AiSprite(Sprite):
     def move_maybe(self):
         if not self.wander:
             return
+        if self.tiled_map.map_menu: # don't do random movements if the menu is open
+            return
         if random.random() < 0.33: # every time we might move the ai_sprite, the probability is 0.33
             direction = random.choice('n', 's', 'e', 'w')
             moved = self.move(direction)

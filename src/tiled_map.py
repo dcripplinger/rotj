@@ -2,6 +2,7 @@
 
 import json
 
+import pygame
 from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
@@ -9,6 +10,25 @@ from pytmx.util_pygame import load_pygame
 from helpers import get_map_filename
 from hero import Hero
 from sprite import AiSprite, Sprite
+from text import MenuBox
+
+
+class MapMenu(object):
+    def __init__(self, screen):
+        self.screen = screen
+        self.current_text_box = MenuBox(['TALK', 'CHECK', 'FORMATION', 'GENERAL', 'ITEM'], title='Command')
+        self.current_text_box.focus()
+
+    def update(self, dt):
+        self.current_text_box.update(dt)
+
+    def draw(self):
+        self.screen.blit(self.current_text_box.surface, (160, 0))
+
+    def handle_input(self, pressed):
+        self.current_text_box.handle_input(pressed)
+        if pressed[K_z]:
+            return 'exit'
 
 
 class Map(object):
@@ -30,6 +50,7 @@ class Map(object):
         self.dialog = dialog
         self.load_ai_sprites()
         self.load_company_sprites(hero_position, direction, followers)
+        self.map_menu = None
 
     def load_ai_sprites(self):
         for cell in self.cells.values():
@@ -93,11 +114,15 @@ class Map(object):
     def draw(self):
         self.group.center(self.hero.rect.center)
         self.group.draw(self.screen)
+        if self.map_menu:
+            self.map_menu.draw()
         if self.dialog:
             self.screen.blit(self.dialog.surface, (0, 160))
 
     def update(self, dt):
         self.group.update(dt)
+        if self.map_menu:
+            self.map_menu.update(dt)
         if self.dialog:
             self.dialog.update(dt)
 
@@ -110,6 +135,11 @@ class Map(object):
             self.dialog.handle_input(pressed)
             if pressed[K_x] and not self.dialog.has_more_stuff_to_show():
                 self.dialog = None
+        elif self.map_menu:
+            action = self.map_menu.handle_input(pressed)
+            if action == 'exit':
+                self.map_menu = None
+                pygame.key.set_repeat(50, 50)
         else:
             if pressed[K_UP]:
                 self.move_hero('n')
@@ -119,5 +149,8 @@ class Map(object):
                 self.move_hero('e')
             elif pressed[K_LEFT]:
                 self.move_hero('w')
+            elif pressed[K_x]:
+                self.map_menu = MapMenu(self.screen)
+                pygame.key.set_repeat(300, 300)
             else:
                 self.move_hero(None)
