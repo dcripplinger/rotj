@@ -54,6 +54,10 @@ class Sprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [floor(TILE_SIZE*self.position[0]), floor(TILE_SIZE*self.position[1])]
         self.follower = follower
+        self.wall_sound = pygame.mixer.Sound('data/audio/wall.wav')
+        self.hitting_wall = False
+        self.playing_wall_sound = False
+        self.playing_wall_sound_time_elapsed = 0.0
 
     def velocity_from_speed_direction_walking(self, speed, direction, walking=True):
         if not walking:
@@ -72,6 +76,15 @@ class Sprite(pygame.sprite.Sprite):
     def update(self, dt):
         self.update_position(dt)
         self.update_image()
+        if self.playing_wall_sound:
+            self.playing_wall_sound_time_elapsed += dt
+            if self.playing_wall_sound_time_elapsed > 0.25:
+                self.playing_wall_sound_time_elapsed = 0.0
+                self.playing_wall_sound = False
+        elif self.hitting_wall:
+            self.playing_wall_sound = True
+            self.wall_sound.play()
+            self.hitting_wall = False # this is for when we don't change direction, we just stop trying to move
 
     def update_image(self):
         self.image = self.images[self.direction]['stand' if is_half_second() else 'walk']
@@ -133,10 +146,7 @@ class Sprite(pygame.sprite.Sprite):
     def handle_cell(self):
         pass # we use this in the class Hero (which inherits from here) to teleport to different maps
 
-    def is_a_wall(self, offset):
-        # from hero import Hero
-        # if isinstance(self, Hero):
-        #     import pdb; pdb.set_trace()
+    def is_a_wall(self, offset, update_hitting_wall=True):
         x = self.position[0] + offset[0]
         y = self.position[1] + offset[1]
         if x < 0 or y < 0 or x >= self.tmx_data.width or y >= self.tmx_data.height:
@@ -146,7 +156,10 @@ class Sprite(pygame.sprite.Sprite):
         is_ai_sprite = False
         if self.tiled_map:
             is_ai_sprite = True if self.tiled_map.ai_sprites.get((x,y)) else False
-        return is_map_wall or is_ai_sprite
+        is_a_wall = is_map_wall or is_ai_sprite
+        if update_hitting_wall:
+            self.hitting_wall = is_a_wall
+        return is_a_wall
 
 
 class AiSprite(Sprite):
