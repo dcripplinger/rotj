@@ -185,10 +185,14 @@ class Map(object):
             else:
                 self.move_hero(None)
 
+    def get_opposite_direction(self, direction):
+        return {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}[direction]
+
     def get_dialog(self):
         pos = self.get_pos_in_front(self.hero.position, self.hero.direction)
         ai_sprite = self.ai_sprites.get(tuple(pos))
         if ai_sprite:
+            ai_sprite.direction = self.get_opposite_direction(self.hero.direction)
             return ai_sprite.dialog
         cell = self.cells.get(tuple(pos))
         if cell:
