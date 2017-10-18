@@ -63,7 +63,7 @@ class Game(object):
             'under', # position the followers underneath the hero on the same tile
         ]
         self.current_map = Map(
-            self.virtual_screen, map_name, self, position, direction=direction, followers=followers, dialog=dialog,
+            self.virtual_screen, map_name, self, position, direction=direction, followers=followers, opening_dialog=dialog,
         )
 
     def resize_window(self, size):

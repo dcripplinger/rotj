@@ -5,7 +5,8 @@
   	"ai_sprite": {
   		"name": "villager",
   		"direction": "s",
-  		"wander": false
+  		"wander": false,
+  		"dialog": "The chief judge is waiting for you in the palace of Zarahemla, to the west."
   	}
   }
 ]

@@ -151,12 +151,14 @@ class Sprite(pygame.sprite.Sprite):
 
 class AiSprite(Sprite):
     def __init__(
-        self, tmx_data, game, character, position, speed=5, direction='s', walking=False, wander=False, follower=None, tiled_map=None,
+        self, tmx_data, game, character, position, speed=5, direction='s', walking=False, wander=False, follower=None,
+        tiled_map=None, dialog=None,
     ):
         super(AiSprite, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.wander = wander
         self.elapsed_time = 0.0
         self.tiled_map.ai_sprites[tuple(position)] = self
+        self.dialog = dialog
 
     def update(self, dt):
         self.elapsed_time += dt
