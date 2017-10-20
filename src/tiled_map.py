@@ -26,6 +26,7 @@ class MapMenu(object):
         self.formation_menu = None
         self.order_menu = None
         self.new_order = None
+        self.order_indices = []
 
     def update(self, dt):
         self.main_menu.update(dt)
@@ -85,6 +86,20 @@ class MapMenu(object):
                     self.formation_menu.focus()
                     self.order_menu = None
                     self.new_order = None
+                else:
+                    warlord = self.new_order.choices.pop()
+                    self.order_menu.choices.insert(self.order_indices.pop(), warlord)
+            elif pressed[K_x]:
+                choice = self.order_menu.get_choice()
+                index = self.order_menu.current_choice
+                if choice:
+                    self.order_menu.choices.remove(choice)
+                    if self.order_menu.current_choice == len(self.order_menu.choices):
+                        self.order_menu.current_choice = max(0, self.order_menu.current_choice-1)
+                    self.new_order.choices.append(choice)
+                    self.order_indices.append(index)
+                else:
+                    return 'exit'
 
     def handle_order(self):
         self.state = 'order'

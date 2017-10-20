@@ -285,11 +285,14 @@ class MenuBox(object):
         self.is_active = False
         self.blink = False
         self.border = border
+        self.create_text_box(title, width, height)
+        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+
+    def create_text_box(self, title, width, height):
         self.text_box = TextBox(
-            '\n'.join(choices), double_space=True, border=border, indent=1, title=title, width=width, height=height,
+            '\n'.join(self.choices), double_space=True, border=self.border, indent=1, title=title, width=width, height=height,
         )
         self.surface = self.text_box.surface
-        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
 
     def focus(self):
         self.is_active = True
@@ -308,7 +311,7 @@ class MenuBox(object):
         self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
 
     def get_choice(self):
-        return self.choices[self.current_choice]
+        return self.choices[self.current_choice] if len(self.choices) > self.current_choice else None
 
     def set_choice(self, index):
         assert 0 <= index < len(self.choices)
@@ -321,11 +324,12 @@ class MenuBox(object):
         )
 
     def update(self, dt):
+        self.create_text_box(self.text_box.title, self.text_box.width, self.text_box.height)
+        self.text_box.update(dt, force=True)
         if self.is_active:
             self.update_blink(dt)
-            self.text_box.update(dt, force=True)
             pointer_location = self.get_pointer_location()
-            if self.blink:
+            if self.blink and len(self.choices) > 0:
                 self.surface.blit(CHARS[u'▶'], pointer_location)
             else:
                 self.surface.blit(CHARS[u' '], pointer_location)
@@ -339,14 +343,14 @@ class MenuBox(object):
     def handle_input(self, pressed):
         if not self.is_active:
             return
-        if pressed[K_UP]:
+        if pressed[K_UP] and len(self.choices) > 0:
             self.surface.blit(CHARS[' '], self.get_pointer_location())
             self.current_choice -= 1
             if self.current_choice == -1:
                 self.current_choice = len(self.choices) - 1
             self.highlight_choice()
             self.switch_sound.play()
-        elif pressed[K_DOWN]:
+        elif pressed[K_DOWN] and len(self.choices) > 0:
             self.surface.blit(CHARS[' '], self.get_pointer_location())
             self.current_choice += 1
             if self.current_choice == len(self.choices):
