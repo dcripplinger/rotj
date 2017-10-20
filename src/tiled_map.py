@@ -23,16 +23,21 @@ class MapMenu(object):
         self.state = 'main'
         self.prompt = None
         self.map = tiled_map
+        self.formation_menu = None
 
     def update(self, dt):
         self.main_menu.update(dt)
         if self.state in ['talk', 'check']:
             self.prompt.update(dt)
+        if self.state == 'formation':
+            self.formation_menu.update(dt)
 
     def draw(self):
         self.screen.blit(self.main_menu.surface, (160, 0))
         if self.prompt:
             self.screen.blit(self.prompt.surface, (0, 160))
+        if self.formation_menu:
+            self.screen.blit(self.formation_menu.surface, (160, 128))
 
     def handle_input(self, pressed):
         if self.state == 'main':
@@ -45,10 +50,18 @@ class MapMenu(object):
                     self.handle_talk()
                 elif choice == 'CHECK':
                     self.handle_check()
+                elif choice == 'FORMATION':
+                    self.handle_formation()
         elif self.state in ['talk', 'check']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 return 'exit'
+        elif self.state == 'formation':
+            self.formation_menu.handle_input(pressed)
+            if pressed[K_z]:
+                self.formation_menu = None
+                self.state = 'main'
+                self.main_menu.focus()
 
     def handle_talk(self):
         self.prompt = create_prompt(self.map.get_dialog())
@@ -61,6 +74,12 @@ class MapMenu(object):
         self.prompt = create_prompt(text)
         self.state = 'check'
         self.main_menu.unfocus()
+
+    def handle_formation(self):
+        self.formation_menu = MenuBox(['ORDER', 'STRAT.'])
+        self.formation_menu.focus()
+        self.main_menu.unfocus()
+        self.state = 'formation'
 
 
 class Map(object):

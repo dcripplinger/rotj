@@ -64,7 +64,7 @@ class Game(object):
         company = copy.deepcopy(self.game_state['company'])
         placed = False
         for warlord in company:
-            if len(warlord['items']) == 8:
+            if len(warlord['items']) == 8 or warload['soldiers'] == 0:
                 continue
             placed = True
             warlord['items'].append(item['name'])
