@@ -49,57 +49,67 @@ class MapMenu(object):
         if self.order_menu:
             self.screen.blit(self.order_menu.surface, (0, 0))
 
+    def handle_input_main(self, pressed):
+        self.main_menu.handle_input(pressed)
+        if pressed[K_z]:
+            return 'exit'
+        elif pressed[K_x]:
+            choice = self.main_menu.get_choice()
+            if choice == 'TALK':
+                self.handle_talk()
+            elif choice == 'CHECK':
+                self.handle_check()
+            elif choice == 'FORMATION':
+                self.handle_formation()
+
     def handle_input(self, pressed):
         if self.state == 'main':
-            self.main_menu.handle_input(pressed)
-            if pressed[K_z]:
-                return 'exit'
-            elif pressed[K_x]:
-                choice = self.main_menu.get_choice()
-                if choice == 'TALK':
-                    self.handle_talk()
-                elif choice == 'CHECK':
-                    self.handle_check()
-                elif choice == 'FORMATION':
-                    self.handle_formation()
+            return self.handle_input_main(pressed)
         elif self.state in ['talk', 'check']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 return 'exit'
         elif self.state == 'formation':
-            self.formation_menu.handle_input(pressed)
-            if pressed[K_z]:
-                self.formation_menu = None
-                self.state = 'main'
-                self.main_menu.focus()
-            elif pressed[K_x]:
-                choice = self.formation_menu.get_choice()
-                if choice == 'ORDER':
-                    self.handle_order()
-                elif choice == 'STRAT.':
-                    self.handle_strat()
+            return self.handle_input_formation(pressed)
         elif self.state == 'order':
-            self.order_menu.handle_input(pressed)
-            if pressed[K_z]:
-                if len(self.new_order.choices) == 0:
-                    self.state = 'formation'
-                    self.formation_menu.focus()
-                    self.order_menu = None
-                    self.new_order = None
-                else:
-                    warlord = self.new_order.choices.pop()
-                    self.order_menu.choices.insert(self.order_indices.pop(), warlord)
-            elif pressed[K_x]:
-                choice = self.order_menu.get_choice()
-                index = self.order_menu.current_choice
-                if choice:
-                    self.order_menu.choices.remove(choice)
-                    if self.order_menu.current_choice == len(self.order_menu.choices):
-                        self.order_menu.current_choice = max(0, self.order_menu.current_choice-1)
-                    self.new_order.choices.append(choice)
-                    self.order_indices.append(index)
-                else:
-                    return 'exit'
+            return self.handle_input_order(pressed)
+
+    def handle_input_formation(self, pressed):
+        self.formation_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.formation_menu = None
+            self.state = 'main'
+            self.main_menu.focus()
+        elif pressed[K_x]:
+            choice = self.formation_menu.get_choice()
+            if choice == 'ORDER':
+                self.handle_order()
+            elif choice == 'STRAT.':
+                self.handle_strat()
+
+    def handle_input_order(self, pressed):
+        self.order_menu.handle_input(pressed)
+        if pressed[K_z]:
+            if len(self.new_order.choices) == 0:
+                self.state = 'formation'
+                self.formation_menu.focus()
+                self.order_menu = None
+                self.new_order = None
+            else:
+                warlord = self.new_order.choices.pop()
+                self.order_menu.choices.insert(self.order_indices.pop(), warlord)
+        elif pressed[K_x]:
+            choice = self.order_menu.get_choice()
+            index = self.order_menu.current_choice
+            if choice:
+                self.order_menu.choices.remove(choice)
+                if self.order_menu.current_choice == len(self.order_menu.choices):
+                    self.order_menu.current_choice = max(0, self.order_menu.current_choice-1)
+                self.new_order.choices.append(choice)
+                self.order_indices.append(index)
+            else:
+                self.map.update_company_order([choice.lower() for choice in self.new_order.choices])
+                return 'exit'
 
     def handle_order(self):
         self.state = 'order'
@@ -154,6 +164,10 @@ class Map(object):
     def get_company_names(self):
         return self.game.get_company_names()
 
+    def update_company_order(self, new_order):
+        self.game.update_company_order(new_order)
+        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
+
     def check_for_item(self):
         cell = self.cells.get(tuple(self.hero.position))
         item = cell.get('item') if cell else None
@@ -195,19 +209,27 @@ class Map(object):
 
     def load_company_sprites(self, hero_position, direction, followers):
         company_sprites = self.get_company_sprite_names()
-        follower_one_pos = self.get_pos_behind(hero_position, direction) if followers == 'trail' else hero_position[:]
-        follower_two_pos = self.get_pos_behind(follower_one_pos, direction) if followers == 'trail' else hero_position[:]
+        if followers == 'inplace':
+            follower_one_pos = self.follower_one.position if self.follower_one else None
+            follower_two_pos = self.follower_two.position if self.follower_two else None
+            follower_one_dir = self.follower_one.direction if self.follower_one else None
+            follower_two_dir = self.follower_two.direction if self.follower_two else None
+        else:
+            follower_one_pos = self.get_pos_behind(hero_position, direction) if followers == 'trail' else hero_position[:]
+            follower_two_pos = self.get_pos_behind(follower_one_pos, direction) if followers == 'trail' else hero_position[:]
+            follower_one_dir = direction
+            follower_two_dir = direction
         if len(company_sprites) == 3:
             self.follower_two = Sprite(
-                self.tmx_data, self.game, company_sprites[2], follower_two_pos, direction=direction, tiled_map=self,
+                self.tmx_data, self.game, company_sprites[2], follower_two_pos, direction=follower_two_dir, tiled_map=self,
             )
             self.group.add(self.follower_two)
         else:
             self.follower_two = None
         if len(company_sprites) >= 2:
             self.follower_one = Sprite(
-                self.tmx_data, self.game, company_sprites[1], follower_one_pos, direction=direction, follower=self.follower_two,
-                tiled_map=self,
+                self.tmx_data, self.game, company_sprites[1], follower_one_pos, direction=follower_one_dir,
+                follower=self.follower_two, tiled_map=self,
             )
             self.group.add(self.follower_one)
         else:

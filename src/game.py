@@ -47,6 +47,15 @@ class Game(object):
     def get_company_names(self):
         return [warlord['name'].title() for warlord in self.game_state['company']]
 
+    def update_company_order(self, new_order):
+        new_company = []
+        for name in new_order:
+            for warlord in self.game_state['company']:
+                if name == warlord['name']:
+                    new_company.append(warlord)
+                    break
+        self.update_game_state({'company': new_company})
+
     def set_screen_state(self, state):
         '''
         Valid screen states are 'title', 'game', 'menu', 'beginning'
