@@ -24,13 +24,18 @@ class MapMenu(object):
         self.prompt = None
         self.map = tiled_map
         self.formation_menu = None
+        self.order_menu = None
+        self.new_order = None
 
     def update(self, dt):
         self.main_menu.update(dt)
         if self.state in ['talk', 'check']:
             self.prompt.update(dt)
-        if self.state == 'formation':
+        elif self.state == 'formation':
             self.formation_menu.update(dt)
+        elif self.state == 'order':
+            self.order_menu.update(dt)
+            self.new_order.update(dt)
 
     def draw(self):
         self.screen.blit(self.main_menu.surface, (160, 0))
@@ -38,6 +43,10 @@ class MapMenu(object):
             self.screen.blit(self.prompt.surface, (0, 160))
         if self.formation_menu:
             self.screen.blit(self.formation_menu.surface, (160, 128))
+        if self.new_order:
+            self.screen.blit(self.new_order.surface, (128, 0))
+        if self.order_menu:
+            self.screen.blit(self.order_menu.surface, (0, 0))
 
     def handle_input(self, pressed):
         if self.state == 'main':
@@ -62,6 +71,30 @@ class MapMenu(object):
                 self.formation_menu = None
                 self.state = 'main'
                 self.main_menu.focus()
+            elif pressed[K_x]:
+                choice = self.formation_menu.get_choice()
+                if choice == 'ORDER':
+                    self.handle_order()
+                elif choice == 'STRAT.':
+                    self.handle_strat()
+        elif self.state == 'order':
+            self.order_menu.handle_input(pressed)
+            if pressed[K_z]:
+                if len(self.new_order.choices) == 0:
+                    self.state = 'formation'
+                    self.formation_menu.focus()
+                    self.order_menu = None
+                    self.new_order = None
+
+    def handle_order(self):
+        self.state = 'order'
+        self.formation_menu.unfocus()
+        self.order_menu = MenuBox(self.map.get_company_names())
+        self.order_menu.focus()
+        self.new_order = MenuBox([], width=self.order_menu.get_width(), height=self.order_menu.get_height())
+
+    def handle_strat(self):
+        pass
 
     def handle_talk(self):
         self.prompt = create_prompt(self.map.get_dialog())
@@ -102,6 +135,9 @@ class Map(object):
         self.load_ai_sprites()
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def get_company_names(self):
+        return self.game.get_company_names()
 
     def check_for_item(self):
         cell = self.cells.get(tuple(self.hero.position))

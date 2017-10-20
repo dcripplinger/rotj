@@ -279,13 +279,15 @@ class TextBox(object):
 
 
 class MenuBox(object):
-    def __init__(self, choices, border=True, title=None):
+    def __init__(self, choices, border=True, title=None, width=None, height=None):
         self.choices = choices
         self.current_choice = 0
         self.is_active = False
         self.blink = False
         self.border = border
-        self.text_box = TextBox('\n'.join(choices), double_space=True, border=border, indent=1, title=title)
+        self.text_box = TextBox(
+            '\n'.join(choices), double_space=True, border=border, indent=1, title=title, width=width, height=height,
+        )
         self.surface = self.text_box.surface
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
 

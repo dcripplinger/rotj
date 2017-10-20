@@ -44,6 +44,9 @@ class Game(object):
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
+    def get_company_names(self):
+        return [warlord['name'].title() for warlord in self.game_state['company']]
+
     def set_screen_state(self, state):
         '''
         Valid screen states are 'title', 'game', 'menu', 'beginning'
