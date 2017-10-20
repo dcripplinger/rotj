@@ -26,7 +26,7 @@ class MapMenu(object):
 
     def update(self, dt):
         self.main_menu.update(dt)
-        if self.state == 'talk':
+        if self.state in ['talk', 'check']:
             self.prompt.update(dt)
 
     def draw(self):
@@ -42,12 +42,25 @@ class MapMenu(object):
             elif pressed[K_x]:
                 choice = self.main_menu.get_choice()
                 if choice == 'TALK':
-                    self.prompt = create_prompt(self.map.get_dialog())
-                    self.state = 'talk'
-        elif self.state == 'talk':
+                    self.handle_talk()
+                elif choice == 'CHECK':
+                    self.handle_check()
+        elif self.state in ['talk', 'check']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 return 'exit'
+
+    def handle_talk(self):
+        self.prompt = create_prompt(self.map.get_dialog())
+        self.state = 'talk'
+        self.main_menu.unfocus()
+
+    def handle_check(self):
+        item = self.map.check_for_item()
+        text = "{} searched. ".format(self.map.hero.name.title()) + ("{} found.".format(item) if item else "But found nothing.")
+        self.prompt = create_prompt(text)
+        self.state = 'check'
+        self.main_menu.unfocus()
 
 
 class Map(object):
@@ -70,6 +83,14 @@ class Map(object):
         self.load_ai_sprites()
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def check_for_item(self):
+        cell = self.cells.get(tuple(self.hero.position))
+        item = cell.get('item') if cell else None
+        if not item or item['id'] in self.game.game_state['acquired_items']:
+            return None
+        self.game.add_to_inventory(item)
+        return item['name']
 
     def load_ai_sprites(self):
         for cell in self.cells.values():

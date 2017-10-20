@@ -57,6 +57,22 @@ class Game(object):
     def update_game_state(self, updates):
         self.game_state.update(updates)
 
+    def add_to_inventory(self, item):
+        acquired_items = list(self.game_state['acquired_items'])
+        if 'id' in item:
+            acquired_items.append(item['id'])
+        company = copy.deepcopy(self.game_state['company'])
+        placed = False
+        for warlord in company:
+            if len(warlord['items']) == 8:
+                continue
+            placed = True
+            warlord['items'].append(item['name'])
+        surplus = list(self.game_state['surplus'])
+        if not placed:
+            surplus.append(item['name'])
+        self.update_game_state({'acquired_items': acquired_items, 'company': company, 'surplus': surplus})
+
     def set_current_map(self, map_name, position, direction, followers='under', dialog=None):
         assert followers in [
             'trail', # position the followers trailing behind the hero

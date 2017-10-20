@@ -63,11 +63,13 @@ class Beginning(object):
                 self.game.set_screen_state('game')
                 self.game.update_game_state({
                     'company': [
-                        {'name': 'moroni', 'soldiers': get_max_soldiers('moroni', 1)},
-                        {'name': 'teancum', 'soldiers': get_max_soldiers('teancum', 1)},
-                        {'name': 'amalickiah', 'soldiers': get_max_soldiers('amalickiah', 1)},
+                        {'name': 'moroni', 'soldiers': get_max_soldiers('moroni', 1), 'items': []},
+                        {'name': 'teancum', 'soldiers': get_max_soldiers('teancum', 1), 'items': []},
+                        {'name': 'amalickiah', 'soldiers': get_max_soldiers('amalickiah', 1), 'items': []},
                     ],
                     'level': 1,
+                    'acquired_items': [],
+                    'surplus': [],
                 })
                 dialog = create_prompt(
                     'An epistle arrived while you were away. The chief judge is summoning you in the palace at Zarahemla. '
