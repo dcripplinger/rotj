@@ -54,6 +54,7 @@ class MapMenu(object):
         if pressed[K_z]:
             return 'exit'
         elif pressed[K_x]:
+            self.select_sound.play()
             choice = self.main_menu.get_choice()
             if choice == 'TALK':
                 self.handle_talk()
@@ -81,6 +82,7 @@ class MapMenu(object):
             self.state = 'main'
             self.main_menu.focus()
         elif pressed[K_x]:
+            self.select_sound.play()
             choice = self.formation_menu.get_choice()
             if choice == 'ORDER':
                 self.handle_order()
@@ -99,6 +101,7 @@ class MapMenu(object):
                 warlord = self.new_order.choices.pop()
                 self.order_menu.choices.insert(self.order_indices.pop(), warlord)
         elif pressed[K_x]:
+            self.select_sound.play()
             choice = self.order_menu.get_choice()
             index = self.order_menu.current_choice
             if choice:
@@ -158,6 +161,9 @@ class Map(object):
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = opening_dialog
         self.load_ai_sprites()
+        self.hero = None
+        self.follower_one = None
+        self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
 
@@ -208,6 +214,12 @@ class Map(object):
             return [pos[0]-1, pos[1]]
 
     def load_company_sprites(self, hero_position, direction, followers):
+        if self.follower_one:
+            self.group.remove(self.follower_one)
+        if self.follower_two:
+            self.group.remove(self.follower_two)
+        if self.hero:
+            self.group.remove(self.hero)
         company_sprites = self.get_company_sprite_names()
         if followers == 'inplace':
             follower_one_pos = self.follower_one.position if self.follower_one else None
