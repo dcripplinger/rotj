@@ -1,0 +1,11 @@
+{
+  "strength": 250,
+  "intelligence": 200,
+  "defense": 100,
+  "attack_points": 10,
+  "tactical_points": 10,
+  "max_soldiers": 300,
+  "ac": 30,
+  "agility": 150,
+  "evasion": 45
+}

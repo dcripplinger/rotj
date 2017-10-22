@@ -116,7 +116,7 @@ class MapMenu(object):
             self.select_sound.play()
             choice = self.general_menu.get_choice()
             self.state = 'report'
-            self.report = Report(choice)
+            self.report = Report(choice, self.map.get_level())
             self.general_menu = None
             self.main_menu = None
 
@@ -245,6 +245,9 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def get_level(self):
+        return self.game.get_level()
 
     def try_set_tactician(self, warlord):
         return self.game.try_set_tactician(warlord)

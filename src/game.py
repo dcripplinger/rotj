@@ -47,6 +47,9 @@ class Game(object):
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
+    def get_level(self):
+        return self.game_state['level']
+
     def try_set_tactician(self, warlord):
         warlord_name = warlord.lower()
         company = copy.deepcopy(self.game_state['company'])
