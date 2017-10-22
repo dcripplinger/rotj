@@ -3,9 +3,23 @@
   "intelligence": 200,
   "defense": 100,
   "attack_points": 10,
-  "tactical_points": 10,
-  "max_soldiers": 300,
+  "tactical_points_by_level": [
+  	10
+  ],
+  "max_soldiers_by_level": [
+  	300
+  ],
   "armor_class": 30,
   "agility": 150,
-  "evasion": 45
+  "evasion": 45,
+  "tactics_by_level": [
+  	[
+      "~~~~~~~~~~",
+      "~~~~~~~~~~",
+      "~~~~~~~~~~",
+      "~~~~~~~~~~",
+      "~~~~~~~~~~",
+      "~~~~~~~~~~"
+    ]
+  ]
 }

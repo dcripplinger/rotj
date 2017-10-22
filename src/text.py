@@ -459,6 +459,11 @@ class MenuGrid(object):
         for i, menu in enumerate(self.menus):
             surface.blit(menu.surface, (x, y))
             x += menu.get_width()
+        if self.border:
+            pygame.draw.rect(surface, WHITE, (3, 3, self.get_width()-6, self.get_height()-6), 2)
+        if self.title:
+            for i, char in enumerate(self.title):
+                surface.blit(CHARS[char], (i*8+16, 0))
         self.surface = surface
 
     def get_width(self):

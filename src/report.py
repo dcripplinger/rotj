@@ -6,7 +6,7 @@ import pygame
 
 from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT
 from helpers import load_image
-from text import TextBox
+from text import MenuGrid, TextBox
 
 STATS = [
     {
@@ -73,11 +73,35 @@ class Report(object):
 
     def blit_stats(self):
         self.surface.blit(self.portrait, (16, 32))
-        self.surface.blit(TextBox(self.name.title()).surface, (16, 96))
+        self.surface.blit(TextBox(self.name.title()).surface, (16, 16))
         for i, stat in enumerate(STATS):
             if stat['name'] in ['attack_points', 'armor_class']:
                 stat_value = self.get_equip_based_stat_value(stat['name'])
+            elif stat['name'] == 'tactical_points':
+                stat_value = self.get_tactical_points()
             else:
                 stat_value = self.stats[stat['name']]
-            self.surface.blit(TextBox("{}~~{:~<3}".format(stat['abbr'], stat_value)).surface, (80, i*16+32))
+            self.surface.blit(TextBox("{}~{:~>3}".format(stat['abbr'], stat_value)).surface, (88, i*16+32))
             self.surface.blit(Bars(stat_value).surface, (160, i*16+32))
+        tactics = self.get_tactics()
+        tactics = [tactics[:3], tactics[3:]]
+        grid = MenuGrid(tactics, border=True, title='TACTICS')
+        self.surface.blit(grid.surface, (48, 160))
+        self.surface.blit(TextBox("SOLDIER").surface, (16, 96))
+        soldiers = "{:~>7}".format(self.get_max_soldiers())
+        self.surface.blit(TextBox(soldiers).surface, (16, 112))
+
+    def get_max_soldiers(self):
+        if 'max_soldiers_by_level' in self.stats:
+            return self.stats['max_soldiers_by_level'][self.level-1]
+        return self.stats['max_soldiers']
+
+    def get_tactical_points(self):
+        if 'tactical_points_by_level' in self.stats:
+            return self.stats['tactical_points_by_level'][self.level-1]
+        return self.stats['tactical_points']
+
+    def get_tactics(self):
+        if 'tactics_by_level' in self.stats:
+            return self.stats['tactics_by_level'][self.level-1]
+        return self.stats['tactics']
