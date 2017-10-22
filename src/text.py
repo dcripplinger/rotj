@@ -92,6 +92,7 @@ CHARS = {
     u'©': load_image('font/copyright.png'),
     u'▶': load_image('font/arrow.png'),
     u'▼': load_image('font/down_arrow.png'),
+    u'★': load_image('font/star.png'),
 }
 
 
@@ -298,6 +299,14 @@ class MenuBox(object):
         self.is_active = True
         self.highlight_choice()
 
+    def remove_stars(self):
+        choices = []
+        for choice in self.choices:
+            if choice.startswith(u'★'):
+                choice = choice[1:]
+            choices.append(choice)
+        self.choices = choices
+
     def highlight_choice(self):
         self.blink = True
         self.time_since_highlight_choice = 0
@@ -310,8 +319,21 @@ class MenuBox(object):
         self.time_since_highlight_choice += dt
         self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
 
-    def get_choice(self):
-        return self.choices[self.current_choice] if len(self.choices) > self.current_choice else None
+    def get_choice(self, strip_star=True):
+        choice = self.choices[self.current_choice] if len(self.choices) > self.current_choice else None
+        if choice and strip_star and choice.startswith(u'★'):
+            choice = choice[1:]
+        return choice
+
+    def get_choices(self, strip_star=True):
+        if not strip_star:
+            return list(self.choices)
+        choices = []
+        for choice in self.choices:
+            if choice and choice.startswith(u'★'):
+                choice = choice[1:]
+            choices.append(choice)
+        return choices
 
     def set_choice(self, index):
         assert 0 <= index < len(self.choices)

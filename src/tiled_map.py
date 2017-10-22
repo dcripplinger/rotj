@@ -27,16 +27,19 @@ class MapMenu(object):
         self.order_menu = None
         self.new_order = None
         self.order_indices = []
+        self.strat_menu = None
 
     def update(self, dt):
         self.main_menu.update(dt)
-        if self.state in ['talk', 'check']:
+        if self.state in ['talk', 'check', 'confirm_strat']:
             self.prompt.update(dt)
-        elif self.state == 'formation':
+        if self.state == 'formation':
             self.formation_menu.update(dt)
-        elif self.state == 'order':
+        if self.state == 'order':
             self.order_menu.update(dt)
             self.new_order.update(dt)
+        if self.state in ['strat', 'confirm_strat']:
+            self.strat_menu.update(dt)
 
     def draw(self):
         self.screen.blit(self.main_menu.surface, (160, 0))
@@ -48,6 +51,8 @@ class MapMenu(object):
             self.screen.blit(self.new_order.surface, (128, 0))
         if self.order_menu:
             self.screen.blit(self.order_menu.surface, (0, 0))
+        if self.strat_menu:
+            self.screen.blit(self.strat_menu.surface, (0, 0))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -74,6 +79,38 @@ class MapMenu(object):
             return self.handle_input_formation(pressed)
         elif self.state == 'order':
             return self.handle_input_order(pressed)
+        elif self.state == 'strat':
+            return self.handle_input_strat(pressed)
+
+    def handle_input_strat(self, pressed):
+        self.strat_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.strat_menu = None
+            self.formation_menu.focus()
+        elif pressed[K_x]:
+            self.select_sound.play()
+            choice = self.strat_menu.get_choice(strip_star=False)
+            if choice.startswith(u'★'):
+                choice = choice[1:]
+                already_tactician = True
+            else:
+                already_tactician = False
+            if already_tactician:
+                self.map.retire_tactician(choice)
+                self.strat_menu.remove_stars()
+                text = "{} resigned as tactician.".format(choice.title())
+            else:
+                success = self.map.try_set_tactician(choice)
+                if success:
+                    self.strat_menu.remove_stars()
+                    self.strat_menu.choices[self.strat_menu.current_choice] = u"★" + self.strat_menu.get_choice()
+                    text = "{} is the acting tactician.".format(choice.title())
+                else:
+                    text = "{} can't be a tactician.".format(choice.title())
+            self.prompt = create_prompt(text)
+            self.state = 'confirm_strat'
+            self.strat_menu.create_text_box(None, None, None)
+            self.strat_menu.unfocus()
 
     def handle_input_formation(self, pressed):
         self.formation_menu.handle_input(pressed)
@@ -102,16 +139,16 @@ class MapMenu(object):
                 self.order_menu.choices.insert(self.order_indices.pop(), warlord)
         elif pressed[K_x]:
             self.select_sound.play()
-            choice = self.order_menu.get_choice()
+            choice_with_star = self.order_menu.get_choice(strip_star=False)
             index = self.order_menu.current_choice
-            if choice:
-                self.order_menu.choices.remove(choice)
+            if choice_with_star:
+                self.order_menu.choices.remove(choice_with_star)
                 if self.order_menu.current_choice == len(self.order_menu.choices):
                     self.order_menu.current_choice = max(0, self.order_menu.current_choice-1)
-                self.new_order.choices.append(choice)
+                self.new_order.choices.append(choice_with_star)
                 self.order_indices.append(index)
             else:
-                self.map.update_company_order([choice.lower() for choice in self.new_order.choices])
+                self.map.update_company_order([choice.lower() for choice in self.new_order.get_choices()])
                 return 'exit'
 
     def handle_order(self):
@@ -122,7 +159,10 @@ class MapMenu(object):
         self.new_order = MenuBox([], width=self.order_menu.get_width(), height=self.order_menu.get_height())
 
     def handle_strat(self):
-        pass
+        self.state = 'strat'
+        self.formation_menu.unfocus()
+        self.strat_menu = MenuBox(self.map.get_company_names())
+        self.strat_menu.focus()
 
     def handle_talk(self):
         self.prompt = create_prompt(self.map.get_dialog())
@@ -166,6 +206,12 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def try_set_tactician(self, warlord):
+        return self.game.try_set_tactician(warlord)
+
+    def retire_tactician(self, warlord):
+        self.game.retire_tactician(warlord)
 
     def get_company_names(self):
         return self.game.get_company_names()

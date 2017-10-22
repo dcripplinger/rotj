@@ -1,3 +1,6 @@
+# -*- coding: UTF-8 -*-
+
+import copy
 import subprocess
 import sys
 import time
@@ -44,8 +47,31 @@ class Game(object):
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
+    def try_set_tactician(self, warlord):
+        warlord_name = warlord.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == warlord_name:
+                warlord['tactician'] = True
+            else:
+                warlord['tactician'] = False
+        self.update_game_state({'company': company})
+        return True
+
+    def retire_tactician(self, warlord):
+        warlord_name = warlord.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == warlord_name:
+                warlord['tactician'] = False
+                break
+        self.update_game_state({'company': company})
+
     def get_company_names(self):
-        return [warlord['name'].title() for warlord in self.game_state['company']]
+        return [
+            (u'★' if warlord.get('tactician') else '') + warlord['name'].title()
+            for warlord in self.game_state['company']
+        ]
 
     def update_company_order(self, new_order):
         new_company = []
