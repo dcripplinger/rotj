@@ -9,6 +9,7 @@ from pytmx.util_pygame import load_pygame
 
 from helpers import get_map_filename
 from hero import Hero
+from report import Report
 from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 
@@ -28,9 +29,12 @@ class MapMenu(object):
         self.new_order = None
         self.order_indices = []
         self.strat_menu = None
+        self.general_menu = None
+        self.report = None
 
     def update(self, dt):
-        self.main_menu.update(dt)
+        if self.main_menu:
+            self.main_menu.update(dt)
         if self.state in ['talk', 'check', 'confirm_strat']:
             self.prompt.update(dt)
         if self.state == 'formation':
@@ -40,9 +44,12 @@ class MapMenu(object):
             self.new_order.update(dt)
         if self.state in ['strat', 'confirm_strat']:
             self.strat_menu.update(dt)
+        if self.state == 'general':
+            self.general_menu.update(dt)
 
     def draw(self):
-        self.screen.blit(self.main_menu.surface, (160, 0))
+        if self.main_menu:
+            self.screen.blit(self.main_menu.surface, (160, 0))
         if self.prompt:
             self.screen.blit(self.prompt.surface, (0, 160))
         if self.formation_menu:
@@ -53,6 +60,10 @@ class MapMenu(object):
             self.screen.blit(self.order_menu.surface, (0, 0))
         if self.strat_menu:
             self.screen.blit(self.strat_menu.surface, (0, 0))
+        if self.general_menu:
+            self.screen.blit(self.general_menu.surface, (0, 0))
+        if self.report:
+            self.screen.blit(self.report.surface, (0, 0))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -67,11 +78,19 @@ class MapMenu(object):
                 self.handle_check()
             elif choice == 'FORMATION':
                 self.handle_formation()
+            elif choice == 'GENERAL':
+                self.handle_general()
+
+    def handle_general(self):
+        self.general_menu = MenuBox(self.map.get_company_names())
+        self.main_menu.unfocus()
+        self.general_menu.focus()
+        self.state = 'general'
 
     def handle_input(self, pressed):
         if self.state == 'main':
             return self.handle_input_main(pressed)
-        elif self.state in ['talk', 'check']:
+        elif self.state in ['talk', 'check', 'confirm_strat']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 return 'exit'
@@ -81,12 +100,32 @@ class MapMenu(object):
             return self.handle_input_order(pressed)
         elif self.state == 'strat':
             return self.handle_input_strat(pressed)
+        elif self.state == 'general':
+            return self.handle_input_general(pressed)
+        elif self.state == 'report':
+            if pressed[K_x] or pressed[K_z]:
+                return 'exit'
+
+    def handle_input_general(self, pressed):
+        self.general_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.general_menu = None
+            self.main_menu.focus()
+            self.state = 'main'
+        elif pressed[K_x]:
+            self.select_sound.play()
+            choice = self.general_menu.get_choice()
+            self.state = 'report'
+            self.report = Report(choice)
+            self.general_menu = None
+            self.main_menu = None
 
     def handle_input_strat(self, pressed):
         self.strat_menu.handle_input(pressed)
         if pressed[K_z]:
             self.strat_menu = None
             self.formation_menu.focus()
+            self.state = 'formation'
         elif pressed[K_x]:
             self.select_sound.play()
             choice = self.strat_menu.get_choice(strip_star=False)
