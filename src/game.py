@@ -50,6 +50,13 @@ class Game(object):
     def get_level(self):
         return self.game_state['level']
 
+    def get_equips(self, warlord):
+        for info in self.game_state['company']:
+            if info['name'] == warlord:
+                warlord_info = info
+                break
+        return [item for item in warlord_info['items'] if item.get('equipped')]
+
     def try_set_tactician(self, warlord):
         warlord_name = warlord.lower()
         company = copy.deepcopy(self.game_state['company'])

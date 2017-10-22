@@ -14,24 +14,12 @@ STATS = [
         'abbr': 'STR',
     },
     {
-        'name': 'intelligence',
-        'abbr': 'INT',
-    },
-    {
-        'name': 'attack_points',
-        'abbr': 'A.P',
-    },
-    {
-        'name': 'ac',
-        'abbr': 'A.C',
-    },
-    {
-        'name': 'tactical_points',
-        'abbr': 'T.P',
-    },
-    {
         'name': 'defense',
         'abbr': 'DEF',
+    },
+    {
+        'name': 'intelligence',
+        'abbr': 'INT',
     },
     {
         'name': 'agility',
@@ -40,6 +28,18 @@ STATS = [
     {
         'name': 'evasion',
         'abbr': 'EVA',
+    },
+    {
+        'name': 'tactical_points',
+        'abbr': 'T.P',
+    },
+    {
+        'name': 'attack_points',
+        'abbr': 'A.P',
+    },
+    {
+        'name': 'armor_class',
+        'abbr': 'A.C',
     },
 ]
 
@@ -53,7 +53,8 @@ class Bars(object):
 
 
 class Report(object):
-    def __init__(self, name, level):
+    def __init__(self, name, level, equips):
+        self.equips = equips
         self.name = name.lower()
         self.level = level
         self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
@@ -67,9 +68,16 @@ class Report(object):
             json_data = json.loads(f.read())
         return json_data
 
+    def get_equip_based_stat_value(self, stat):
+        return sum([equip.get(stat, 0) for equip in self.equips])
+
     def blit_stats(self):
         self.surface.blit(self.portrait, (16, 32))
         self.surface.blit(TextBox(self.name.title()).surface, (16, 96))
         for i, stat in enumerate(STATS):
-            self.surface.blit(TextBox("{}~~{:~<3}".format(stat['abbr'], self.stats[stat['name']])).surface, (80, i*16+32))
-            self.surface.blit(Bars(self.stats[stat['name']]).surface, (160, i*16+32))
+            if stat['name'] in ['attack_points', 'armor_class']:
+                stat_value = self.get_equip_based_stat_value(stat['name'])
+            else:
+                stat_value = self.stats[stat['name']]
+            self.surface.blit(TextBox("{}~~{:~<3}".format(stat['abbr'], stat_value)).surface, (80, i*16+32))
+            self.surface.blit(Bars(stat_value).surface, (160, i*16+32))

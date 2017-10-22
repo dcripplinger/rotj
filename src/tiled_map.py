@@ -114,9 +114,9 @@ class MapMenu(object):
             self.state = 'main'
         elif pressed[K_x]:
             self.select_sound.play()
-            choice = self.general_menu.get_choice()
+            choice = self.general_menu.get_choice().lower()
             self.state = 'report'
-            self.report = Report(choice, self.map.get_level())
+            self.report = Report(choice, self.map.get_level(), self.map.get_equips(choice))
             self.general_menu = None
             self.main_menu = None
 
@@ -248,6 +248,9 @@ class Map(object):
 
     def get_level(self):
         return self.game.get_level()
+
+    def get_equips(self, warlord):
+        return self.game.get_equips(warlord)
 
     def try_set_tactician(self, warlord):
         return self.game.try_set_tactician(warlord)
