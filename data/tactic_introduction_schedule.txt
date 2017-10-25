@@ -1,0 +1,97 @@
+This says which level a tactic is introduced to a level-up ally
+at the earliest possible. If you have a company member who has
+high enough intelligence, you will gain this tactic at this level.
+
+Level   Tactic      INT Required    Number of Tactics Introduced
+01      -                           00
+02      fire        100             01
+03      firewall    100             02
+04      flood       100             03
+05      salve       100             04
+06      provoke     130             05
+07      ninja       150             06
+08      -                           06
+09      bomb        110             07
+10      geyser      115             08
+11      extinguish  120             09
+12      disable     160             10
+13      double tap  220             11
+14      -                           11
+15      remedy      160             12
+16      lava        130             13
+17      hailstorm   130             14
+18      rejuvenate  180             15
+19      shield      170             16
+20      confuse     150             17
+21      -                           17
+22      monsoon     160             18
+23      brimstone   180             19
+24      restore     220             20
+25      repel       200             21
+26      dispel      160             22
+27      -                           22
+28      heal        230             23
+29      tsunami     190             24
+30      backdraft   190             25
+31      plunder     190             26
+32      assassin    180             27
+33      deflect     240             28
+34      -                           28
+35      blue flame  210             29
+36      train       220             30
+37      hulk out    240             31
+38      -                           31
+39      -                           31
+40      blizzard    225             32
+41      volcano     225             33
+42      -                           33
+43      -                           33
+44      -                           33
+45      healmore    240             34
+46      -                           34
+47      -                           34
+48      -                           34
+49      -                           34
+50      surrender   250             35
+51      -                           35
+52      napalm      235             36
+53      -                           36
+54      -                           36
+55      -                           36
+56      -                           36
+57      -                           36
+58      -                           36
+59      sharknado   240             37
+60      -                           37
+61      arise       250             38
+62      -                           38
+63      -                           38
+64      -                           38
+65      -                           38
+66      -                           38
+67      -                           38
+68      -                           38
+69      -                           38
+70      -                           38
+71      -                           38
+72      -                           38
+73      baby nuke   245             39
+74      -                           39
+75      -                           39
+76      hurricane   255             40
+77      -                           40
+78      revive      255             41
+79      -                           41
+80      -                           41
+81      -                           41
+82      -                           41
+83      -                           41
+84      -                           41
+85      -                           41
+86      -                           41
+87      -                           41
+88      -                           41
+89      -                           41
+90      -                           41
+91      -                           41
+92      -                           41

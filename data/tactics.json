@@ -1,0 +1,171 @@
+{
+  "fire": {
+    "points": 2,
+    "slot": 1
+  },
+  "bomb": {
+    "points": 4,
+    "slot": 1
+  },
+  "lava": {
+    "points": 6,
+    "slot": 1
+  },
+  "brimstone": {
+    "points": 8,
+    "slot": 1
+  },
+  "backdraft": {
+    "points": 12,
+    "slot": 1
+  },
+  "blue flame": {
+    "points": 16,
+    "slot": 1
+  },
+  "volcano": {
+    "points": 20,
+    "slot": 1
+  },
+  "napalm": {
+    "points": 24,
+    "slot": 1
+  },
+  "baby nuke": {
+    "points": 32,
+    "slot": 1
+  },
+
+  "flood": {
+    "points": 3,
+    "slot": 2
+  },
+  "geyser": {
+    "points": 6,
+    "slot": 2
+  },
+  "hailstorm": {
+    "points": 9,
+    "slot": 2
+  },
+  "monsoon": {
+    "points": 12,
+    "slot": 2
+  },
+  "tsunami": {
+    "points": 15,
+    "slot": 2
+  },
+  "blizzard": {
+    "points": 21,
+    "slot": 2
+  },
+  "sharknado": {
+    "points": 27,
+    "slot": 2
+  },
+  "hurricane": {
+    "points": 36,
+    "slot": 2
+  },
+
+  "salve": {
+    "points": 3,
+    "slot": 3
+  },
+  "remedy": {
+    "points": 6,
+    "slot": 3
+  },
+  "rejuvenate": {
+    "points": 9,
+    "slot": 3
+  },
+  "restore": {
+    "points": 12,
+    "slot": 3
+  },
+  "heal": {
+    "points": 4,
+    "slot": 3
+  },
+  "healmore": {
+    "points": 8,
+    "slot": 3
+  },
+  "arise": {
+    "points": 12,
+    "slot": 3
+  },
+  "revive": {
+    "points": 48,
+    "slot": 3
+  },
+
+  "firewall": {
+    "points": 4,
+    "slot": 4
+  },
+  "extinguish": {
+    "points": 8,
+    "slot": 4
+  },
+  "shield": {
+    "points": 12,
+    "slot": 4
+  },
+  "repel": {
+    "points": 16,
+    "slot": 4
+  },
+  "deflect": {
+    "points": 20,
+    "slot": 4
+  },
+
+  "provoke": {
+    "points": 5,
+    "slot": 5
+  },
+  "disable": {
+    "points": 10,
+    "slot": 5
+  },
+  "dispel": {
+    "points": 15,
+    "slot": 5
+  },
+  "plunder": {
+    "points": 20,
+    "slot": 5
+  },
+  "train": {
+    "points": 25,
+    "slot": 5
+  },
+  "surrender": {
+    "points": 30,
+    "slot": 5
+  },
+
+  "ninja": {
+    "points": 4,
+    "slot": 6
+  },
+  "double tap": {
+    "points": 6,
+    "slot": 6
+  },
+  "confuse": {
+    "points": 6,
+    "slot": 6
+  },
+  "assassin": {
+    "points": 10,
+    "slot": 6
+  },
+  "hulk out": {
+    "points": 10,
+    "slot": 6
+  }
+}

@@ -1,0 +1,71 @@
+.....Slot 1 = Fire tactics......................................................
+Fire (2 TP) - Deals about 30-50 fire damage to one enemy.
+Bomb (4 TP) - Deals about 70-150 fire damage to one enemy.
+Lava (6 TP) - Deals about 100-200 fire damage to ALL enemies.
+Brimstone (8 TP) - Deals about 700-1100 fire damage to one enemy.
+Backdraft (12 TP) - Deals about 1000-2000 fire damage to ALL enemies.
+Blue Flame (16 TP) - Deals about 3000-6000 fire damage to one enemy.
+Volcano (20 TP) - Deals about 10000-20000 fire damage to ALL enemies.
+Napalm (24 TP) - Deals about 50000-100000 fire damage to one enemy.
+Baby Nuke (32 TP) - Deals about 1000000-2000000 fire damage to ALL enemies.
+................................................................................
+
+.....Slot 2 = Water tactics.....................................................
+Flood (3 TP) - Deals about 50-70 water damage to one enemy.
+Geyser (6 TP) - Deals about 90-200 water damage to one enemy.
+Hailstorm (9 TP) - Deals about 130-250 water damage to ALL enemies.
+Monsoon (12 TP) - Deals about 1000-1600 water damage to ALL enemies.
+Tsunami (15 TP) - Deals about 1800-3000 water damage to ALL enemies.
+Blizzard (21 TP) - Deals about 8000-15000 water damage to ALL enemies and stuns them
+     so they lose one turn.
+Sharknado (27 TP) - Deals about 100000-300000 water damage to ALL enemies and stuns
+     them so they lose one turn.
+Hurricane (36 TP) - Deals about 1000000-4000000 water damage to ALL enemies and
+     stuns them so they lose one turn.
+................................................................................
+
+.....Slot 3 = Healing tactics...................................................
+Salve (3 TP) - Restores about 70-100 soldiers to one team member.
+Remedy (6 TP) - Restores about 400-700 soldiers to one team member.
+Rejuvenate (9 TP) - Restores about 900-1500 soldiers to the whole team.
+Restore (12 TP) - Fully restores one team member!
+Heal (4 TP) - Restores about 4000-6000 soldiers to the whole team.
+Healmore (8 TP) - Restores about 40000-60000 soldiers to the whole team.
+Arise (12 TP) - Restores about 400000-600000 soldiers to the whole team.
+Revive (48 TP) - Fully restores all team members!
+................................................................................
+
+.....Slot 4 = Defensive tactics.................................................
+Firewall (4 TP) - Reduces damage from fire tactics by half. Random duration.
+Extinguish (8 TP) - Prevents ALL enemies' fire tactics from working. Random duration.
+Shield (12 TP) - Reduces damage from physical attacks by half. Random duration.
+Repel (16 TP) - Prevents ALL enemies' physical attacks from working. Random duration.
+Deflect (20 TP) - Prevents ALL enemies' tactics from working. Random duration.
+................................................................................
+
+.....Slot 5 = Miscellaneous.....................................................
+Provoke (5 TP) - Causes an enemy to only do physical attacks and to direct them to the
+     team member using this tactic. Permanent unless dispelled.
+Disable (10 TP) - Disables one enemy from taking any action. Permanent unless dispelled.
+Dispel (15 TP) - Cancels out all of the enemy's tactics that are currently in
+     effect.
+Plunder (20 TP) - Steal money from the enemy during battle. Immediate, cannot be
+     undone by Dispel and you keep the money even if you retreat after.
+Train (25 TP) - Triple the EXP earned at the end of the battle. Can be undone by
+     Dispel.
+Surrender (30 TP) - Surrender to the enemy.
+................................................................................
+
+.....Slot 6 = Indirect offensive................................................
+Ninja (4 TP) - Raises AGI of one team member to the max allowed in the game, 255.
+     Lasts for the duration of the battle unless dispelled.
+Double Tap (6 TP) - Target team member of tactic attacks twice on the same enemy
+     for each turn doing a physical attack, with a 50% chance of the 2nd attack
+     occurring. Lasts for the duration of the battle unless dispelled.
+Confuse (6 TP) - Tricks an enemy into attacking his own allies. Lasts for the
+     duration of the battle unless dispelled or the enemy suffers a physical attack.
+Assassin (10 TP) - Instantly kills one enemy, when it works.
+Hulk Out (10 TP) - Increases damage of all types of attacks done by the team member
+     targeted for this tactic. Each increase is 20% and can be stacked up to
+     five times. Lasts for the duration of the battle and immune to Dispel.
+................................................................................

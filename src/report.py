@@ -81,14 +81,14 @@ class Report(object):
                 stat_value = self.get_tactical_points()
             else:
                 stat_value = self.stats[stat['name']]
-            self.surface.blit(TextBox("{}~{:~>3}".format(stat['abbr'], stat_value)).surface, (88, i*16+32))
+            self.surface.blit(TextBox("{}~{:~>3}".format(stat['abbr'], stat_value)).surface, (96, i*16+32))
             self.surface.blit(Bars(stat_value).surface, (160, i*16+32))
         tactics = self.get_tactics()
         tactics = [tactics[:3], tactics[3:]]
         grid = MenuGrid(tactics, border=True, title='TACTICS')
         self.surface.blit(grid.surface, (48, 160))
-        self.surface.blit(TextBox("SOLDIER").surface, (16, 96))
-        soldiers = "{:~>7}".format(self.get_max_soldiers())
+        self.surface.blit(TextBox("SOLDIERS").surface, (16, 96))
+        soldiers = "{:~>8}".format(self.get_max_soldiers())
         self.surface.blit(TextBox(soldiers).surface, (16, 112))
 
     def get_max_soldiers(self):
@@ -103,5 +103,7 @@ class Report(object):
 
     def get_tactics(self):
         if 'tactics_by_level' in self.stats:
-            return self.stats['tactics_by_level'][self.level-1]
-        return self.stats['tactics']
+            tactics = self.stats['tactics_by_level'][self.level-1]
+        else:
+            tactics = self.stats['tactics']
+        return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
