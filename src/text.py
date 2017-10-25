@@ -82,6 +82,7 @@ CHARS = {
     '?': load_image('font/question.png'),
     '!': load_image('font/exclamation.png'),
     '/': load_image('font/slash.png'),
+    '*': load_image('font/asterisk.png'),
     '-': load_image('font/mdash.png'), # yes, the game uses mdashes like they were hyphens
     # what looks like a hyphen in the game is not used as a hyphen, but it appears as a character you can
     # include in creating a save file. Since what looks like an mdash in the game is used as a hyphen, I'm
