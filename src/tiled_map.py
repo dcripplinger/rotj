@@ -31,21 +31,24 @@ class MapMenu(object):
         self.strat_menu = None
         self.general_menu = None
         self.report = None
+        self.items_menu = None
 
     def update(self, dt):
-        if self.main_menu:
+        if self.state == 'main':
             self.main_menu.update(dt)
-        if self.state in ['talk', 'check', 'confirm_strat']:
+        if self.state in ['talk', 'check', 'confirm_strat', 'empty']:
             self.prompt.update(dt)
         if self.state == 'formation':
             self.formation_menu.update(dt)
         if self.state == 'order':
             self.order_menu.update(dt)
             self.new_order.update(dt)
-        if self.state in ['strat', 'confirm_strat']:
+        if self.state in ['strat', 'confirm_strat', 'item']:
             self.strat_menu.update(dt)
         if self.state == 'general':
             self.general_menu.update(dt)
+        if self.state == 'items':
+            self.items_menu.update(dt)
 
     def draw(self):
         if self.main_menu:
@@ -80,6 +83,14 @@ class MapMenu(object):
                 self.handle_formation()
             elif choice == 'GENERAL':
                 self.handle_general()
+            elif choice == 'ITEM':
+                self.handle_item()
+
+    def handle_item(self):
+        self.state = 'item'
+        self.main_menu.unfocus()
+        self.strat_menu = MenuBox(self.map.get_company_names())
+        self.strat_menu.focus()    
 
     def handle_general(self):
         self.general_menu = MenuBox(self.map.get_company_names())
@@ -105,6 +116,38 @@ class MapMenu(object):
         elif self.state == 'report':
             if pressed[K_x] or pressed[K_z]:
                 return 'exit'
+        elif self.state == 'item':
+            return self.handle_input_item(pressed)
+        elif self.state == 'empty':
+            return self.handle_input_empty(pressed)
+
+    def handle_input_empty(self, pressed):
+        if pressed[K_x]:
+            return 'exit'
+        if pressed[K_z]:
+            self.prompt = None
+            self.strat_menu.focus()
+            self.state = 'item'
+
+    def handle_input_item(self, pressed):
+        self.strat_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.strat_menu = None
+            self.main_menu.focus()
+            self.state = 'main'
+        elif pressed[K_x]:
+            self.select_sound.play()
+            warlord = self.strat_menu.get_choice()
+            items = self.map.get_items(warlord)
+            if not items:
+                self.state = 'empty'
+                self.strat_menu.unfocus()
+                self.prompt = create_prompt(u"{} doesn't have anything.".format(warlord))
+            else:
+                self.state = 'items'
+                self.strat_menu.unfocus()
+                self.items_menu = MenuBox(items)
+                self.items_menu.focus()
 
     def handle_input_general(self, pressed):
         self.general_menu.handle_input(pressed)
@@ -245,6 +288,9 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def get_items(self, warlord):
+        return self.game.get_items(warlord)
 
     def get_level(self):
         return self.game.get_level()

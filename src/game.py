@@ -47,6 +47,14 @@ class Game(object):
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
 
+    def get_items(self, warlord):
+        warlord = warlord.lower()
+        for info in self.game_state['company']:
+            if info['name'] == warlord:
+                warlord_info = info
+                break
+        return warlord_info['items']
+
     def get_level(self):
         return self.game_state['level']
 
