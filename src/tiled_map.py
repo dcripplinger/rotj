@@ -32,6 +32,7 @@ class MapMenu(object):
         self.general_menu = None
         self.report = None
         self.items_menu = None
+        self.item_selected_menu = None
 
     def update(self, dt):
         if self.state == 'main':
@@ -49,6 +50,8 @@ class MapMenu(object):
             self.general_menu.update(dt)
         if self.state == 'items':
             self.items_menu.update(dt)
+        if self.state == 'item_selected':
+            self.item_selected_menu.update(dt)
 
     def draw(self):
         if self.main_menu:
@@ -67,6 +70,10 @@ class MapMenu(object):
             self.screen.blit(self.general_menu.surface, (0, 0))
         if self.report:
             self.screen.blit(self.report.surface, (0, 0))
+        if self.items_menu:
+            self.screen.blit(self.items_menu.surface, (112, 0))
+        if self.item_selected_menu:
+            self.screen.blit(self.item_selected_menu.surface, (160, 128))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -120,11 +127,24 @@ class MapMenu(object):
             return self.handle_input_item(pressed)
         elif self.state == 'empty':
             return self.handle_input_empty(pressed)
+        elif self.state == 'items':
+            return self.handle_input_items(pressed)
+        elif self.state == 'item_selected':
+            return self.handle_item_selected(pressed)
+
+    def handle_item_selected(self, pressed):
+        self.item_selected_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.item_selected_menu = None
+            self.items_menu.focus()
+            self.state = 'items'
+        elif pressed[K_x]:
+            self.select_sound.play()
 
     def handle_input_empty(self, pressed):
         if pressed[K_x]:
             return 'exit'
-        if pressed[K_z]:
+        elif pressed[K_z]:
             self.prompt = None
             self.strat_menu.focus()
             self.state = 'item'
@@ -146,8 +166,21 @@ class MapMenu(object):
             else:
                 self.state = 'items'
                 self.strat_menu.unfocus()
-                self.items_menu = MenuBox(items)
+                self.items_menu = MenuBox([item.title() for item in items])
                 self.items_menu.focus()
+
+    def handle_input_items(self, pressed):
+        self.items_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.items_menu = None
+            self.strat_menu.focus()
+            self.state = 'item'
+        elif pressed[K_x]:
+            self.select_sound.play()
+            self.item_selected_menu = MenuBox(['USE', 'PASS', 'EQUIP', 'DROP'])
+            self.state = 'item_selected'
+            self.items_menu.unfocus()
+            self.item_selected_menu.focus()
 
     def handle_input_general(self, pressed):
         self.general_menu.handle_input(pressed)

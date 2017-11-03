@@ -53,7 +53,7 @@ class Game(object):
             if info['name'] == warlord:
                 warlord_info = info
                 break
-        return warlord_info['items']
+        return [item['name'] for item in warlord_info['items']]
 
     def get_level(self):
         return self.game_state['level']

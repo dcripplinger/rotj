@@ -4,7 +4,7 @@ import json
 
 import pygame
 
-from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT
+from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT, ITEMS
 from helpers import load_image
 from text import MenuGrid, TextBox
 
@@ -69,7 +69,7 @@ class Report(object):
         return json_data
 
     def get_equip_based_stat_value(self, stat):
-        return sum([equip.get(stat, 0) for equip in self.equips])
+        return sum([ITEMS[equip['name']].get(stat, 0) for equip in self.equips])
 
     def blit_stats(self):
         self.surface.blit(self.portrait, (16, 32))

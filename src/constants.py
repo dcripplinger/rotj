@@ -12,6 +12,15 @@ TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
 
+ITEMS = {
+    'knife': {
+        'attack_points': 10,
+    },
+    'robe': {
+        'armor_class': 10,
+    },
+}
+
 # we may or may not reference these
 EVENT_NAMES = {
     QUIT: 'QUIT',

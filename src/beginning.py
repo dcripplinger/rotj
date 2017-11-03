@@ -63,9 +63,21 @@ class Beginning(object):
                 self.game.set_screen_state('game')
                 self.game.update_game_state({
                     'company': [
-                        {'name': 'moroni', 'soldiers': get_max_soldiers('moroni', 1), 'items': []},
-                        {'name': 'teancum', 'soldiers': get_max_soldiers('teancum', 1), 'items': []},
-                        {'name': 'amalickiah', 'soldiers': get_max_soldiers('amalickiah', 1), 'items': []},
+                        {
+                            'name': 'moroni',
+                            'soldiers': get_max_soldiers('moroni', 1),
+                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                        },
+                        {
+                            'name': 'teancum',
+                            'soldiers': get_max_soldiers('teancum', 1),
+                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                        },
+                        {
+                            'name': 'amalickiah',
+                            'soldiers': get_max_soldiers('amalickiah', 1),
+                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                        },
                     ],
                     'level': 1,
                     'acquired_items': [],
