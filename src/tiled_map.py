@@ -363,6 +363,11 @@ class Map(object):
             follower_two_pos = self.follower_two.position if self.follower_two else None
             follower_one_dir = self.follower_one.direction if self.follower_one else None
             follower_two_dir = self.follower_two.direction if self.follower_two else None
+        elif followers == 'under':
+            follower_one_pos = list(hero_position)
+            follower_two_pos = list(hero_position)
+            follower_one_dir = direction
+            follower_two_dir = direction
         else:
             follower_one_pos = self.get_pos_behind(hero_position, direction) if followers == 'trail' else hero_position[:]
             follower_two_pos = self.get_pos_behind(follower_one_pos, direction) if followers == 'trail' else hero_position[:]

@@ -27,5 +27,4 @@ class Hero(Sprite):
             if new_map:
                 self.game.set_current_map(new_map, [teleport['x'], teleport['y']], new_direction)
             else:
-                self.position = [teleport['x'], teleport['y']]
-                self.direction = new_direction
+                self.tiled_map.load_company_sprites([teleport['x'], teleport['y']], new_direction, 'under')
