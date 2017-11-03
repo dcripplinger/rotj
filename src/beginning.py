@@ -71,6 +71,8 @@ class Beginning(object):
                                 {'name': 'dagger', 'equipped': True},
                                 {'name': 'robe', 'equipped': True},
                                 {'name': 'elixir~a'},
+                                {'name': 'gullwing'},
+                                {'name': 'key'},
                             ],
                         },
                         {
@@ -87,10 +89,16 @@ class Beginning(object):
                     'level': 1,
                     'acquired_items': [],
                     'surplus': [],
+                    'cities': [
+                        {
+                            'name': 'zarahemla',
+                            'teleport': True,
+                        }
+                    ],
                 })
                 dialog = create_prompt(
-                    'An epistle arrived while you were away. The chief judge is summoning you in the palace at Zarahemla. '
-                    'You can find the city of Zarahemla to the west.'
+                    'An epistle arrived while you were away. The chief judge is summoning you in the palace at '
+                    'Zarahemla. You can find the city of Zarahemla to the west.'
                 )
                 self.game.set_current_map('house_of_moroni', [13,12], 'n', followers='trail', dialog=dialog)
                 self.prompt.shutdown()

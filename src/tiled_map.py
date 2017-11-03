@@ -7,7 +7,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import ITEMS
+from constants import ITEMS, NAMED_TELEPORTS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
@@ -35,11 +35,12 @@ class MapMenu(object):
         self.items_menu = None
         self.item_selected_menu = None
         self.recipient_menu = None
+        self.city_menu = None
 
     def update(self, dt):
         if self.state == 'main':
             self.main_menu.update(dt)
-        if self.state in ['talk', 'check', 'confirm_strat', 'empty']:
+        if self.state in ['talk', 'check', 'confirm_strat', 'empty', 'item_prompt']:
             self.prompt.update(dt)
         if self.state == 'formation':
             self.formation_menu.update(dt)
@@ -56,6 +57,8 @@ class MapMenu(object):
             self.item_selected_menu.update(dt)
         if self.state == 'recipient':
             self.recipient_menu.update(dt)
+        if self.state == 'city':
+            self.city_menu.update(dt)
 
     def draw(self):
         if self.main_menu:
@@ -80,6 +83,8 @@ class MapMenu(object):
             self.screen.blit(self.item_selected_menu.surface, (176, 128))
         if self.recipient_menu:
             self.screen.blit(self.recipient_menu.surface, (144, 0))
+        if self.city_menu:
+            self.screen.blit(self.city_menu.surface, (160, 0))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -114,7 +119,7 @@ class MapMenu(object):
     def handle_input(self, pressed):
         if self.state == 'main':
             return self.handle_input_main(pressed)
-        elif self.state in ['talk', 'check', 'confirm_strat']:
+        elif self.state in ['talk', 'check', 'confirm_strat', 'item_prompt']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 return 'exit'
@@ -139,6 +144,19 @@ class MapMenu(object):
             return self.handle_input_item_selected(pressed)
         elif self.state == 'recipient':
             return self.handle_input_recipient(pressed)
+        elif self.state == 'city':
+            return self.handle_input_city(pressed)
+
+    def handle_input_city(self, pressed):
+        self.city_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.city_menu = None
+            self.state = 'item_selected'
+            self.item_selected_menu.focus()
+        elif pressed[K_x]:
+            self.select_sound.play()
+            self.map.teleport(self.city_menu.get_choice().lower())
+            return 'exit'
 
     def handle_input_recipient(self, pressed):
         self.recipient_menu.handle_input(pressed)
@@ -162,13 +180,24 @@ class MapMenu(object):
                 self.handle_use()
 
     def handle_use(self):
+        self.item_selected_menu.unfocus()
         item_name = self.items_menu.get_choice().lower()
         map_usage = ITEMS[item_name].get('map_usage')
         if map_usage == 'company':
             self.state = 'recipient'
             self.recipient_menu = MenuBox(self.map.get_company_names())
             self.recipient_menu.focus()
-            self.item_selected_menu.unfocus()
+        elif map_usage == 'city':
+            self.state = 'city'
+            self.city_menu = MenuBox(self.map.get_teleport_cities())
+            self.city_menu.focus()
+        elif map_usage == 'map':
+            self.state = 'item_prompt'
+            warlord = self.strat_menu.get_choice().title()
+            self.prompt = create_prompt("{} used {}. But nothing happened.".format(warlord, item_name.title()))
+        else:
+            self.state = 'item_prompt'
+            self.prompt = create_prompt("That can't be used here.")
 
     def handle_input_empty(self, pressed):
         if pressed[K_x]:
@@ -352,6 +381,12 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def teleport(self, place):
+        self.game.set_current_map('overworld', NAMED_TELEPORTS[place], 's')
+
+    def get_teleport_cities(self):
+        return self.game.get_teleport_cities()
 
     def get_items(self, warlord):
         return self.game.get_items(warlord)

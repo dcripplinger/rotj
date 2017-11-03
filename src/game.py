@@ -55,6 +55,9 @@ class Game(object):
                 break
         return list(warlord_info['items'])
 
+    def get_teleport_cities(self):
+        return [city['name'].title() for city in self.game_state['cities'] if city.get('teleport')]
+
     def get_level(self):
         return self.game_state['level']
 

@@ -58,7 +58,22 @@ ITEMS = {
     'resurrect': {
         'map_usage': 'company',
         'cost': 100,
-    }
+    },
+
+    # gullwing (city map usage)
+    'gullwing': {
+        'map_usage': 'city', # means it brings up a menu of main visited cities to teleport to
+        'cost': 200,
+    },
+
+    # map items
+    'key': {
+        'map_usage': 'map', # means it interacts with the cell/tile you're on
+    },
+}
+
+NAMED_TELEPORTS = {
+    'zarahemla': [152,187],
 }
 
 # we may or may not reference these
