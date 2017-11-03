@@ -166,7 +166,9 @@ class MapMenu(object):
             else:
                 self.state = 'items'
                 self.strat_menu.unfocus()
-                self.items_menu = MenuBox([item.title() for item in items])
+                self.items_menu = MenuBox(
+                    [u"{}{}".format(('*' if item.get('equipped') else ''), item['name'].title()) for item in items]
+                )
                 self.items_menu.focus()
 
     def handle_input_items(self, pressed):

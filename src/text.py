@@ -322,7 +322,7 @@ class MenuBox(object):
 
     def get_choice(self, strip_star=True):
         choice = self.choices[self.current_choice] if len(self.choices) > self.current_choice else None
-        if choice and strip_star and choice.startswith(u'★'):
+        if choice and strip_star and choice[0] in (u'★', '*'):
             choice = choice[1:]
         return choice
 
