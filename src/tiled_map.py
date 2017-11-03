@@ -166,6 +166,37 @@ class MapMenu(object):
             self.item_selected_menu.focus()
         elif pressed[K_x]:
             self.select_sound.play()
+            action_choice = self.item_selected_menu.get_choice()
+            item_name = self.items_menu.get_choice().lower()
+            user = self.strat_menu.get_choice().lower()
+            recipient = self.recipient_menu.get_choice().lower()
+            recipient_is_dead = '*' in self.recipient_menu.get_choice(strip_star=False)
+            if action_choice == 'USE':
+                healing_points = ITEMS[item_name].get('healing_points')
+                if healing_points:
+                    if recipient_is_dead:
+                        self.state = 'item_prompt'
+                        text = "{} used {}. But nothing happened.".format(user.title(), item_name.title())
+                        self.prompt = create_prompt(text)
+                    else:
+                        self.map.remove_item(user, self.items_menu.current_choice)
+                        self.map.heal(recipient, healing_points)
+                        text = "{} used {}. {}'s soldiers recovered their strength.".format(
+                            user.title(), item_name.title(), recipient.title(),
+                        )
+                        self.prompt = create_prompt(text)
+                        self.state = 'item_prompt'
+            elif action_choice == 'PASS':
+                self.map.pass_item(user, recipient, self.items_menu.current_choice)
+                self.items_menu = self.create_items_menu()
+                if self.items_menu:
+                    self.state = 'items'
+                    self.items_menu.focus()
+                else:
+                    self.state = 'item'
+                    self.strat_menu.focus()
+                self.recipient_menu = None
+                self.item_selected_menu = None
 
     def handle_input_item_selected(self, pressed):
         self.item_selected_menu.handle_input(pressed)
@@ -178,12 +209,26 @@ class MapMenu(object):
             choice = self.item_selected_menu.get_choice()
             if choice == 'USE':
                 self.handle_use()
+            elif choice == 'PASS':
+                self.handle_pass()
+
+    def handle_pass(self):
+        self.item_selected_menu.unfocus()
+        self.state = 'recipient'
+        user = self.strat_menu.get_choice().lower()
+        self.recipient_menu = MenuBox(self.map.get_company_names(with_empty_item_slots=True, omit=user))
+        self.recipient_menu.focus()
 
     def handle_use(self):
         self.item_selected_menu.unfocus()
         item_name = self.items_menu.get_choice().lower()
         map_usage = ITEMS[item_name].get('map_usage')
-        if map_usage == 'company':
+        user = self.strat_menu.get_choice()
+        user_is_dead = '*' in self.strat_menu.get_choice(strip_star=False)
+        if user_is_dead:
+            self.state = 'item_prompt'
+            self.prompt = create_prompt("{} has been injured and can't move.".format(user.title()))
+        elif map_usage == 'company':
             self.state = 'recipient'
             self.recipient_menu = MenuBox(self.map.get_company_names())
             self.recipient_menu.focus()
@@ -193,8 +238,7 @@ class MapMenu(object):
             self.city_menu.focus()
         elif map_usage == 'map':
             self.state = 'item_prompt'
-            warlord = self.strat_menu.get_choice().title()
-            self.prompt = create_prompt("{} used {}. But nothing happened.".format(warlord, item_name.title()))
+            self.prompt = create_prompt("{} used {}. But nothing happened.".format(user, item_name.title()))
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")
@@ -216,18 +260,22 @@ class MapMenu(object):
         elif pressed[K_x]:
             self.select_sound.play()
             warlord = self.strat_menu.get_choice()
-            items = self.map.get_items(warlord)
-            if not items:
+            self.items_menu = self.create_items_menu()
+            if not self.items_menu:
                 self.state = 'empty'
                 self.strat_menu.unfocus()
                 self.prompt = create_prompt(u"{} doesn't have anything.".format(warlord))
             else:
                 self.state = 'items'
                 self.strat_menu.unfocus()
-                self.items_menu = MenuBox(
-                    [u"{}{}".format(('*' if item.get('equipped') else ''), item['name'].title()) for item in items]
-                )
                 self.items_menu.focus()
+
+    def create_items_menu(self):
+        warlord = self.strat_menu.get_choice()
+        items = self.map.get_items(warlord)
+        return MenuBox(
+            [u"{}{}".format(('*' if item.get('equipped') else ''), item['name'].title()) for item in items]
+        ) if items else None
 
     def handle_input_items(self, pressed):
         self.items_menu.handle_input(pressed)
@@ -382,6 +430,15 @@ class Map(object):
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
 
+    def pass_item(self, user, recipient, item_index):
+        self.game.pass_item(user, recipient, item_index)
+
+    def heal(self, warlord, amount):
+        self.game.heal(warlord, amount)
+
+    def remove_item(self, warlord, index):
+        self.game.remove_item(warlord, index)
+
     def teleport(self, place):
         self.game.set_current_map('overworld', NAMED_TELEPORTS[place], 's')
 
@@ -403,8 +460,8 @@ class Map(object):
     def retire_tactician(self, warlord):
         self.game.retire_tactician(warlord)
 
-    def get_company_names(self):
-        return self.game.get_company_names()
+    def get_company_names(self, **kwargs):
+        return self.game.get_company_names(**kwargs)
 
     def update_company_order(self, new_order):
         self.game.update_company_order(new_order)

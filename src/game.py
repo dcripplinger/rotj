@@ -10,6 +10,7 @@ from pygame.locals import *
 
 from beginning import Beginning
 from constants import GAME_HEIGHT, GAME_WIDTH
+from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
@@ -46,6 +47,23 @@ class Game(object):
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
+
+    def pass_item(self, user, recipient, item_index):
+        user_name = user.lower()
+        recipient_name = recipient.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == recipient_name:
+                recipient_dict = warlord
+            elif warlord['name'] == user_name:
+                user_dict = warlord
+        assert recipient_dict
+        assert user_dict
+        item = user_dict['items'].pop(item_index)
+        if 'equipped' in item:
+            item['equipped'] = False
+        recipient_dict['items'].append(item)
+        self.update_game_state({'company': company})        
 
     def get_items(self, warlord):
         warlord = warlord.lower()
@@ -88,11 +106,33 @@ class Game(object):
                 break
         self.update_game_state({'company': company})
 
-    def get_company_names(self):
+    def get_company_names(self, omit=None, with_empty_item_slots=False):
         return [
-            (u'★' if warlord.get('tactician') else '') + warlord['name'].title()
+            (u'★' if warlord.get('tactician') else '')
+            + ('*' if warlord['soldiers'] == 0 else '')
+            + warlord['name'].title()
             for warlord in self.game_state['company']
+            if warlord['name'] != omit and (not with_empty_item_slots or len(warlord['items']) < 8)
         ]
+
+    def heal(self, warlord, amount):
+        warlord_name = warlord.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == warlord_name:
+                max_soldiers = get_max_soldiers(warlord_name, self.game_state['level'])
+                warlord['soldiers'] = min(warlord['soldiers']+amount, max_soldiers)
+                break
+        self.update_game_state({'company': company})
+
+    def remove_item(self, warlord, index):
+        warlord_name = warlord.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == warlord_name:
+                del warlord['items'][index]
+                break
+        self.update_game_state({'company': company})
 
     def update_company_order(self, new_order):
         new_company = []
