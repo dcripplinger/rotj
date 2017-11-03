@@ -66,17 +66,22 @@ class Beginning(object):
                         {
                             'name': 'moroni',
                             'soldiers': get_max_soldiers('moroni', 1),
-                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                            'items': [
+                                {'name': 'elixir~a'},
+                                {'name': 'dagger', 'equipped': True},
+                                {'name': 'robe', 'equipped': True},
+                                {'name': 'elixir~a'},
+                            ],
                         },
                         {
                             'name': 'teancum',
                             'soldiers': get_max_soldiers('teancum', 1),
-                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                            'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
                         },
                         {
                             'name': 'amalickiah',
                             'soldiers': get_max_soldiers('amalickiah', 1),
-                            'items': [{'name': 'knife', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                            'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
                         },
                     ],
                     'level': 1,

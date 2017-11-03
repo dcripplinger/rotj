@@ -7,6 +7,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
+from constants import ITEMS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
@@ -33,6 +34,7 @@ class MapMenu(object):
         self.report = None
         self.items_menu = None
         self.item_selected_menu = None
+        self.recipient_menu = None
 
     def update(self, dt):
         if self.state == 'main':
@@ -52,6 +54,8 @@ class MapMenu(object):
             self.items_menu.update(dt)
         if self.state == 'item_selected':
             self.item_selected_menu.update(dt)
+        if self.state == 'recipient':
+            self.recipient_menu.update(dt)
 
     def draw(self):
         if self.main_menu:
@@ -71,9 +75,11 @@ class MapMenu(object):
         if self.report:
             self.screen.blit(self.report.surface, (0, 0))
         if self.items_menu:
-            self.screen.blit(self.items_menu.surface, (112, 0))
+            self.screen.blit(self.items_menu.surface, (64, 0))
         if self.item_selected_menu:
-            self.screen.blit(self.item_selected_menu.surface, (160, 128))
+            self.screen.blit(self.item_selected_menu.surface, (176, 128))
+        if self.recipient_menu:
+            self.screen.blit(self.recipient_menu.surface, (144, 0))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -130,9 +136,20 @@ class MapMenu(object):
         elif self.state == 'items':
             return self.handle_input_items(pressed)
         elif self.state == 'item_selected':
-            return self.handle_item_selected(pressed)
+            return self.handle_input_item_selected(pressed)
+        elif self.state == 'recipient':
+            return self.handle_input_recipient(pressed)
 
-    def handle_item_selected(self, pressed):
+    def handle_input_recipient(self, pressed):
+        self.recipient_menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.recipient_menu = None
+            self.state = 'item_selected'
+            self.item_selected_menu.focus()
+        elif pressed[K_x]:
+            self.select_sound.play()
+
+    def handle_input_item_selected(self, pressed):
         self.item_selected_menu.handle_input(pressed)
         if pressed[K_z]:
             self.item_selected_menu = None
@@ -140,6 +157,18 @@ class MapMenu(object):
             self.state = 'items'
         elif pressed[K_x]:
             self.select_sound.play()
+            choice = self.item_selected_menu.get_choice()
+            if choice == 'USE':
+                self.handle_use()
+
+    def handle_use(self):
+        item_name = self.items_menu.get_choice().lower()
+        map_usage = ITEMS[item_name].get('map_usage')
+        if map_usage == 'company':
+            self.state = 'recipient'
+            self.recipient_menu = MenuBox(self.map.get_company_names())
+            self.recipient_menu.focus()
+            self.item_selected_menu.unfocus()
 
     def handle_input_empty(self, pressed):
         if pressed[K_x]:
