@@ -213,6 +213,17 @@ class MapMenu(object):
                 self.handle_pass()
             elif choice == 'EQUIP':
                 self.handle_equip()
+            elif choice == 'DROP':
+                self.handle_drop()
+
+    def handle_drop(self):
+        item_index = self.items_menu.current_choice
+        user = self.strat_menu.get_choice().lower()
+        self.map.remove_item(user, item_index)
+        self.items_menu = self.create_items_menu()
+        self.item_selected_menu = None
+        self.items_menu.focus()
+        self.state = 'items'
 
     def handle_equip(self):
         item_index = self.items_menu.current_choice
