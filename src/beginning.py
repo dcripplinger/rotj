@@ -73,6 +73,7 @@ class Beginning(object):
                                 {'name': 'elixir~a'},
                                 {'name': 'gullwing'},
                                 {'name': 'key'},
+                                {'name': 'flail'}
                             ],
                         },
                         {

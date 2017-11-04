@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 
 from beginning import Beginning
-from constants import GAME_HEIGHT, GAME_WIDTH
+from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS
 from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -47,6 +47,28 @@ class Game(object):
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
+
+    def try_toggle_equip_on_item(self, user, item_index):
+        user_name = user.lower()
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == user_name:
+                user_dict = warlord
+                break
+        assert user_dict
+        item = user_dict['items'][item_index]
+        equip_type = ITEMS[item['name']].get('equip_type')
+        if not equip_type:
+            return
+        equipped_before = item.get('equipped', False)
+        item['equipped'] = not equipped_before
+        if not equipped_before:
+            for other_item in user_dict['items']:
+                if other_item == item:
+                    continue
+                if ITEMS[other_item['name']].get('equip_type') == equip_type:
+                    other_item['equipped'] = False
+        self.update_game_state({'company': company})
 
     def pass_item(self, user, recipient, item_index):
         user_name = user.lower()

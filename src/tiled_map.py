@@ -211,6 +211,17 @@ class MapMenu(object):
                 self.handle_use()
             elif choice == 'PASS':
                 self.handle_pass()
+            elif choice == 'EQUIP':
+                self.handle_equip()
+
+    def handle_equip(self):
+        item_index = self.items_menu.current_choice
+        user = self.strat_menu.get_choice().lower()
+        self.map.try_toggle_equip_on_item(user, item_index)
+        self.items_menu = self.create_items_menu()
+        self.item_selected_menu = None
+        self.items_menu.focus()
+        self.state = 'items'
 
     def handle_pass(self):
         self.item_selected_menu.unfocus()
@@ -429,6 +440,9 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+
+    def try_toggle_equip_on_item(self, user, item_index):
+        self.game.try_toggle_equip_on_item(user, item_index)
 
     def pass_item(self, user, recipient, item_index):
         self.game.pass_item(user, recipient, item_index)

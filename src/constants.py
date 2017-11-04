@@ -19,6 +19,11 @@ ITEMS = {
         'equip_type': 'weapon',
         'cost': 50,
     },
+    'flail': {
+        'attack_points': 15,
+        'equip_type': 'weapon',
+        'cost': 100,
+    },
 
     # armor
     'robe': {
