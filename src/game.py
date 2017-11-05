@@ -9,22 +9,11 @@ import pygame
 from pygame.locals import *
 
 from beginning import Beginning
-from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS
+from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC
 from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
-
-MAP_NAMES = [
-    'overworld',
-    'tunnels_of_the_north',
-    'cave_of_gadianton',
-    'sierra_pass',
-    'cavity_of_a_rock',
-    'passage_to_gid',
-    'house_of_moroni',
-    'melek',
-]
 
 
 class Game(object):
@@ -201,8 +190,12 @@ class Game(object):
             'under', # position the followers underneath the hero on the same tile
         ]
         self.current_map = Map(
-            self.virtual_screen, map_name, self, position, direction=direction, followers=followers, opening_dialog=dialog,
+            self.virtual_screen, map_name, self, position, direction=direction, followers=followers,
+            opening_dialog=dialog, continue_current_music=False,
         )
+        if not continue_current_music:
+            pygame.mixer.music.load(MAP_MUSIC[map_name])
+            pygame.mixer.music.play(-1)
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)

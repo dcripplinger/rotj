@@ -12,6 +12,23 @@ TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
 
+MAP_NAMES = [
+    'overworld',
+    'tunnels_of_the_north',
+    'cave_of_gadianton',
+    'sierra_pass',
+    'cavity_of_a_rock',
+    'passage_to_gid',
+    'house_of_moroni',
+    'melek',
+]
+
+MAP_MUSIC = {
+    'melek': 'data/audio/music/menu.wav',
+    'house_of_moroni': 'data/audio/music/shop.wav',
+    'overworld': 'data/audio/music/march.wav',
+}
+
 ITEMS = {
     # weapons
     'dagger': {
