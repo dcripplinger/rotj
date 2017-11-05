@@ -23,6 +23,7 @@ MAP_NAMES = [
     'cavity_of_a_rock',
     'passage_to_gid',
     'house_of_moroni',
+    'melek',
 ]
 
 

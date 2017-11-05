@@ -1,0 +1,62 @@
+[
+  {
+    "x": 8,
+    "y": 19,
+    "teleport": {
+      "map": "overworld",
+      "x": 169,
+      "y": 190,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 25,
+    "y": 33,
+    "teleport": {
+      "map": "overworld",
+      "x": 169,
+      "y": 190,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 26,
+    "y": 33,
+    "teleport": {
+      "map": "overworld",
+      "x": 169,
+      "y": 190,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 27,
+    "y": 33,
+    "teleport": {
+      "map": "overworld",
+      "x": 169,
+      "y": 190,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 30,
+    "y": 8,
+    "teleport": {
+      "map": "overworld",
+      "x": 169,
+      "y": 190,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 14,
+    "teleport": {
+      "map": "house_of_moroni",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  }
+]

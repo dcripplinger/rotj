@@ -68,5 +68,15 @@
       "y": 10,
       "direction": "s"
     }
+  },
+  {
+    "x": 169,
+    "y": 190,
+    "teleport": {
+      "map": "melek",
+      "x": 26,
+      "y": 32,
+      "direction": "n"
+    }
   }
 ]

@@ -8,5 +8,15 @@
   		"wander": false,
   		"dialog": "The chief judge is waiting for you in the palace of Zarahemla, to the west."
   	}
+  },
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "melek",
+      "x": 16,
+      "y": 14,
+      "direction": "s"
+    }
   }
 ]
