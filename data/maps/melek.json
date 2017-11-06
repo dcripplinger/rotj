@@ -58,5 +58,15 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 16,
+    "y": 27,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "I wish I could be like Moroni."
+    }
   }
 ]

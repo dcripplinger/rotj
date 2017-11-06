@@ -15,6 +15,9 @@ class Hero(Sprite):
     ):
         super(Hero, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.cells = cells
+        self.wall_sound = pygame.mixer.Sound('data/audio/wall.wav')
+        self.playing_wall_sound = False
+        self.playing_wall_sound_time_elapsed = 0.0
 
     def handle_cell(self):
         props = self.cells.get(tuple(self.position))
@@ -28,3 +31,15 @@ class Hero(Sprite):
                 self.game.set_current_map(new_map, [teleport['x'], teleport['y']], new_direction)
             else:
                 self.tiled_map.load_company_sprites([teleport['x'], teleport['y']], new_direction, 'under')
+
+    def update(self, dt):
+        super(Hero, self).update(dt)
+        if self.playing_wall_sound:
+            self.playing_wall_sound_time_elapsed += dt
+            if self.playing_wall_sound_time_elapsed > 0.25:
+                self.playing_wall_sound_time_elapsed = 0.0
+                self.playing_wall_sound = False
+        elif self.hitting_wall:
+            self.playing_wall_sound = True
+            self.wall_sound.play()
+            self.hitting_wall = False # this is for when we don't change direction, we just stop trying to move

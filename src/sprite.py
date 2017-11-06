@@ -54,10 +54,7 @@ class Sprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = [floor(TILE_SIZE*self.position[0]), floor(TILE_SIZE*self.position[1])]
         self.follower = follower
-        self.wall_sound = pygame.mixer.Sound('data/audio/wall.wav')
-        self.hitting_wall = False
-        self.playing_wall_sound = False
-        self.playing_wall_sound_time_elapsed = 0.0
+        self.hitting_wall = False # actually only needed for Hero
 
     def velocity_from_speed_direction_walking(self, speed, direction, walking=True):
         if not walking:
@@ -76,15 +73,6 @@ class Sprite(pygame.sprite.Sprite):
     def update(self, dt):
         self.update_position(dt)
         self.update_image()
-        if self.playing_wall_sound:
-            self.playing_wall_sound_time_elapsed += dt
-            if self.playing_wall_sound_time_elapsed > 0.25:
-                self.playing_wall_sound_time_elapsed = 0.0
-                self.playing_wall_sound = False
-        elif self.hitting_wall:
-            self.playing_wall_sound = True
-            self.wall_sound.play()
-            self.hitting_wall = False # this is for when we don't change direction, we just stop trying to move
 
     def update_image(self):
         self.image = self.images[self.direction]['stand' if is_half_second() else 'walk']
@@ -173,6 +161,19 @@ class AiSprite(Sprite):
         self.tiled_map.ai_sprites[tuple(position)] = self
         self.dialog = dialog
 
+    def is_a_wall(self, offset, update_hitting_wall=True):
+        if super(AiSprite, self).is_a_wall(offset, update_hitting_wall):
+            return True
+        x = self.position[0] + offset[0]
+        y = self.position[1] + offset[1]
+        if self.tiled_map.hero.position == [x,y]:
+            return True
+        if self.tiled_map.follower_one and self.tiled_map.follower_one.position == [x,y]:
+            return True
+        if self.tiled_map.follower_two and self.tiled_map.follower_two.position == [x,y]:
+            return True
+        return False
+
     def update(self, dt):
         self.elapsed_time += dt
         if self.elapsed_time > 1: # possibly move every second
@@ -186,7 +187,7 @@ class AiSprite(Sprite):
         if self.tiled_map.map_menu: # don't do random movements if the menu is open
             return
         if random.random() < 0.33: # every time we might move the ai_sprite, the probability is 0.33
-            direction = random.choice('n', 's', 'e', 'w')
+            direction = random.choice(['n', 's', 'e', 'w'])
             moved = self.move(direction)
             if moved:
                 self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self
