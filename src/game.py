@@ -184,14 +184,16 @@ class Game(object):
             surplus.append(item['name'])
         self.update_game_state({'acquired_items': acquired_items, 'company': company, 'surplus': surplus})
 
-    def set_current_map(self, map_name, position, direction, followers='under', dialog=None):
+    def set_current_map(
+        self, map_name, position, direction, followers='under', dialog=None, continue_current_music=False,
+    ):
         assert followers in [
             'trail', # position the followers trailing behind the hero
             'under', # position the followers underneath the hero on the same tile
         ]
         self.current_map = Map(
             self.virtual_screen, map_name, self, position, direction=direction, followers=followers,
-            opening_dialog=dialog, continue_current_music=False,
+            opening_dialog=dialog,
         )
         if not continue_current_music:
             pygame.mixer.music.load(MAP_MUSIC[map_name])
