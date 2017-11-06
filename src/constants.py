@@ -23,10 +23,29 @@ MAP_NAMES = [
     'melek',
 ]
 
+CAVE_MUSIC = {
+    'intro': 'data/audio/music/cave_intro.wav',
+    'repeat': 'data/audio/music/cave.wav',
+}
+
 MAP_MUSIC = {
-    'melek': 'data/audio/music/menu.wav',
-    'house_of_moroni': 'data/audio/music/shop.wav',
-    'overworld': 'data/audio/music/march.wav',
+    'melek': {
+        'intro': None,
+        'repeat': 'data/audio/music/menu.wav',
+    },
+    'house_of_moroni': {
+        'intro': None,
+        'repeat': 'data/audio/music/shop.wav',
+    },
+    'overworld': {
+        'intro': None,
+        'repeat': 'data/audio/music/march.wav',
+    },
+    'tunnels_of_the_north': CAVE_MUSIC,
+    'cave_of_gadianton': CAVE_MUSIC,
+    'sierra_pass': CAVE_MUSIC,
+    'cavity_of_a_rock': CAVE_MUSIC,
+    'passage_to_gid': CAVE_MUSIC,
 }
 
 ITEMS = {

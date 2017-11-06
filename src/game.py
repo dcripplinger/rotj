@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 
 from beginning import Beginning
-from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC
+from constants import BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC
 from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -37,6 +37,13 @@ class Game(object):
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
+        self.change_map_time_elapsed = None
+        self.walk_sound = pygame.mixer.Sound('data/audio/walk.wav')
+        self.fade_out = False
+        self.continue_current_music = False
+        self.next_map = None
+        self.fade_alpha = None
+        self.current_music = None
 
     def try_toggle_equip_on_item(self, user, item_index):
         user_name = user.lower()
@@ -157,13 +164,15 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map'
         '''
         self._screen_state = state
         if state in ['title', 'menu']:
             pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
+        if state == 'change_map':
+            self.fade_out = True
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
@@ -191,13 +200,13 @@ class Game(object):
             'trail', # position the followers trailing behind the hero
             'under', # position the followers underneath the hero on the same tile
         ]
-        self.current_map = Map(
+        self.next_map = Map(
             self.virtual_screen, map_name, self, position, direction=direction, followers=followers,
             opening_dialog=dialog,
         )
-        if not continue_current_music:
-            pygame.mixer.music.load(MAP_MUSIC[map_name])
-            pygame.mixer.music.play(-1)
+        self.continue_current_music = continue_current_music
+        self.fade_alpha = 0
+        self.set_screen_state('change_map')
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)
@@ -214,7 +223,7 @@ class Game(object):
         )
 
     def scale(self):
-        self.real_screen.fill((0,0,0))
+        self.real_screen.fill(BLACK)
         pygame.transform.scale(self.virtual_screen, self.fitted_screen.get_size(), self.fitted_screen)
 
     def draw(self):
@@ -231,12 +240,65 @@ class Game(object):
     def update(self, dt):
         if self._screen_state == 'game':
             self.current_map.update(dt)
+            if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load(MAP_MUSIC[self.current_map.name]['repeat'])
+                pygame.mixer.music.play(-1)
+                self.current_music = 'repeat'
         elif self._screen_state == 'title':
             self.title_page.update(dt)
         elif self._screen_state == 'menu':
             self.menu_screen.update(dt)
         elif self._screen_state == 'beginning':
             self.beginning_screen.update(dt)
+        elif self._screen_state == 'change_map':
+            self.update_change_map(dt)
+
+    def update_change_map(self, dt):
+        if self.change_map_time_elapsed is None:
+            self.change_map_time_elapsed = 0
+            self.fade_out = True
+            if not self.continue_current_music:
+                pygame.mixer.music.stop()
+                self.current_music = None
+                time.sleep(.1)
+                self.walk_sound.play()
+        self.change_map_time_elapsed += dt
+        update_interval = .1
+        alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
+        if self.change_map_time_elapsed >= update_interval:
+            self.change_map_time_elapsed -= update_interval
+            if self.fade_out:
+                self.fade_alpha = min(255, self.fade_alpha + alpha_step)
+                if self.fade_alpha == 255:
+                    self.fade_out = False # next we need to fade in
+            else:
+                if self.fade_alpha == 255:
+                    self.fade_alpha = 254
+                    self.current_map = self.next_map
+                    self.next_map = None
+                else:
+                    self.fade_alpha = max(0, self.fade_alpha - alpha_step)
+                if self.fade_alpha == 0:
+                    self.set_screen_state('game')
+                    if not self.continue_current_music:
+                        music = MAP_MUSIC[self.current_map.name]
+                        if music['intro']:
+                            pygame.mixer.music.load(music['intro'])
+                            pygame.mixer.music.play()
+                            self.current_music = 'intro'
+                        else:
+                            pygame.mixer.music.load(music['repeat'])
+                            pygame.mixer.music.play(-1)
+                            self.current_music = 'repeat'
+                    self.change_map_time_elapsed = None
+                    self.fade_alpha = None
+                    return
+        fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+        fade_box.set_alpha(self.fade_alpha)
+        fade_box.fill(BLACK)
+        if self.current_map:
+            self.current_map.draw()
+        self.virtual_screen.blit(fade_box, (0,0))
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -251,7 +313,6 @@ class Game(object):
                     pygame.quit()
                     print(" ")
                     time.sleep(0.5)
-                    print self.current_map.name
                     print("Shutdown... Complete")
                     sys.exit()
                     return
