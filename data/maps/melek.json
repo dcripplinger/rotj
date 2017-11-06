@@ -68,5 +68,35 @@
       "wander": true,
       "dialog": "I wish I could be like Moroni."
     }
+  },
+  {
+    "x": 30,
+    "y": 21,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "s",
+      "wander": false,
+      "dialog": "I don't know why this empty house is just sitting here."
+    }
+  },
+  {
+    "x": 30,
+    "y": 24,
+    "ai_sprite": {
+      "name": "ammah",
+      "direction": "n",
+      "wander": false,
+      "dialog": "I am Ammah and this is Manti. We wish to join your army, if you will have us."
+    }
+  },
+  {
+    "x": 31,
+    "y": 24,
+    "ai_sprite": {
+      "name": "manti",
+      "direction": "n",
+      "wander": false,
+      "dialog": "I am Manti and this is Ammah. We wish to join your army, if you will have us."
+    }
   }
 ]
