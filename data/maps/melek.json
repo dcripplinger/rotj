@@ -98,5 +98,35 @@
       "wander": false,
       "dialog": "I am Manti and this is Ammah. We wish to join your army, if you will have us."
     }
+  },
+  {
+    "x": 13,
+    "y": 16,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "My family joined the Order of the Nehors. They're giving all their money to the preachers, and they keep persecuting me and others for not believing as they do. I wish I knew what to do."
+    }
+  },
+  {
+    "x": 15,
+    "y": 21,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Hello. I am no warrior but a simple merchant who has had some good fortune. If it will further your cause, I want you to accept this small gift so you can buy weapons and prepare for battle. You received 200 senines of gold and 1000 rations."
+    }
+  },
+  {
+    "x": 19,
+    "y": 22,
+    "ai_sprite": {
+      "name": "horse",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Neigh..."
+    }
   }
 ]
