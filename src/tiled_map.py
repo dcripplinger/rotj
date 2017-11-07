@@ -505,9 +505,9 @@ class Map(object):
             ai_sprite_data = cell.get('ai_sprite')
             if ai_sprite_data:
                 ai_sprite = AiSprite(
-                    tmx_data=self.tmx_data, game=self.game, character=ai_sprite_data['name'], position=[cell['x'], cell['y']],
-                    direction=ai_sprite_data['direction'], wander=ai_sprite_data['wander'], tiled_map=self,
-                    dialog=ai_sprite_data['dialog'],
+                    tmx_data=self.tmx_data, game=self.game, character=ai_sprite_data['name'],
+                    position=[cell['x'], cell['y']], direction=ai_sprite_data['direction'],
+                    wander=ai_sprite_data['wander'], tiled_map=self, dialog=ai_sprite_data['dialog'],
                 )
                 self.group.add(ai_sprite)
 
@@ -641,11 +641,11 @@ class Map(object):
         ai_sprite = self.ai_sprites.get(tuple(pos))
         if ai_sprite:
             ai_sprite.direction = self.get_opposite_direction(self.hero.direction)
-            return ai_sprite.dialog
+            return self.game.get_dialog_for_condition(ai_sprite.dialog)
         cell = self.cells.get(tuple(pos))
         if cell:
             # this is for having to talk to a tile instead of a sprite, giving the appearance of talking over a counter.
             dialog = cell.get('dialog')
             if dialog:
-                return dialog
+                return self.game.get_dialog_for_condition(dialog)
         return "There's no one there."

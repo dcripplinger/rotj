@@ -62,6 +62,9 @@ class Beginning(object):
             if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
                 self.game.set_screen_state('game')
                 self.game.update_game_state({
+                    'money': 0,
+                    'food': 0,
+                    'experience': 0,
                     'company': [
                         {
                             'name': 'moroni',
@@ -96,6 +99,7 @@ class Beginning(object):
                             'teleport': True,
                         }
                     ],
+                    'conditions': set(),
                 })
                 dialog = create_prompt(
                     'An epistle arrived while you were away. The chief judge is summoning you in the palace at '

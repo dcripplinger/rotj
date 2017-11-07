@@ -45,6 +45,40 @@ class Game(object):
         self.fade_alpha = None
         self.current_music = None
 
+        # See the bottom of this class for the defs of all these handlers
+        self.condition_side_effects = {
+            'talked_with_melek_merchant': self.handle_talked_with_melek_merchant,
+        }
+
+    def get_dialog_for_condition(self, dialog):
+        """
+        Returns the first dialog text with a condition matching the game state.
+        """
+        if isinstance(dialog, basestring):
+            return dialog
+        if isinstance(dialog, (list, tuple)):
+            for (i, potential_dialog) in enumerate(dialog):
+                if potential_dialog.get('condition') in self.game_state.get('conditions', set()):
+                    dialog = potential_dialog
+                    break
+                if i == len(dialog)-1:
+                    dialog = potential_dialog
+
+        # Now dialog is a dict with the correct dialog for the game state.
+        if dialog.get('game_state_action'):
+            self.set_game_state_condition(dialog['game_state_action'])
+        return dialog['text']
+
+    def set_game_state_condition(self, condition):
+        side_effect = self.condition_side_effects.get(condition)
+        if side_effect:
+            side_effect()
+        conditions = set(self.game_state['conditions'])
+        conditions.add(condition)
+        self.update_game_state({
+            'conditions': conditions,
+        })
+
     def try_toggle_equip_on_item(self, user, item_index):
         user_name = user.lower()
         company = copy.deepcopy(self.game_state['company'])
@@ -337,3 +371,18 @@ class Game(object):
         except KeyboardInterrupt:
             self.running = False
             pygame.quit()
+
+    ###########################################################
+    # Condition side effect handlers get defined here         #
+    ###########################################################
+
+    # Handlers should be added to self.condition_side_effects in __init__().
+    # The handler cannot take any args (other than self).
+    # The handler does not add the condition to self.game_state['conditions'].
+    # That is the job of set_game_state_condition().
+
+    def handle_talked_with_melek_merchant(self):
+        self.update_game_state({
+            'money': self.game_state['money'] + 200,
+            'food': self.game_state['food'] + 1000,
+        })

@@ -126,7 +126,16 @@
       "name": "merchant",
       "direction": "e",
       "wander": true,
-      "dialog": "Hello. I am no warrior but a simple merchant who has had some good fortune. If it will further your cause, I want you to accept this small gift so you can buy weapons and prepare for battle. You received 200 senines of gold and 1000 rations."
+      "dialog": [
+        {
+          "text": "Your fame will spread throughout the land.",
+          "condition": "talked_with_melek_merchant"
+        },
+        {
+          "text": "Hello. I am no warrior but a simple merchant who has had some good fortune. If it will further your cause, I want you to accept this small gift so you can buy weapons and prepare for battle. You received 200 senines of gold and 1000 rations.",
+          "game_state_action": "talked_with_melek_merchant"
+        }
+      ]
     }
   },
   {
