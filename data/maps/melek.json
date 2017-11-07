@@ -60,6 +60,16 @@
     }
   },
   {
+    "x": 28,
+    "y": 21,
+    "teleport": {
+      "map": "melek_empty_house",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
     "x": 16,
     "y": 27,
     "ai_sprite": {

@@ -21,6 +21,7 @@ MAP_NAMES = [
     'passage_to_gid',
     'house_of_moroni',
     'melek',
+    'melek_empty_house',
 ]
 
 CAVE_MUSIC = {
@@ -28,15 +29,18 @@ CAVE_MUSIC = {
     'repeat': 'data/audio/music/cave.wav',
 }
 
+SHOP_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/shop.wav',
+}
+
 MAP_MUSIC = {
     'melek': {
         'intro': None,
         'repeat': 'data/audio/music/menu.wav',
     },
-    'house_of_moroni': {
-        'intro': None,
-        'repeat': 'data/audio/music/shop.wav',
-    },
+    'house_of_moroni': SHOP_MUSIC,
+    'melek_empty_house': SHOP_MUSIC,
     'overworld': {
         'intro': None,
         'repeat': 'data/audio/music/march.wav',
