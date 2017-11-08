@@ -36,12 +36,16 @@ class MapMenu(object):
         self.item_selected_menu = None
         self.recipient_menu = None
         self.city_menu = None
+        self.dialog_choice = None
+        self.dialog_choice_menu = None
 
     def update(self, dt):
         if self.state == 'main':
             self.main_menu.update(dt)
         if self.state in ['talk', 'check', 'confirm_strat', 'empty', 'item_prompt']:
             self.prompt.update(dt)
+            if self.dialog_choice and not self.prompt.has_more_stuff_to_show():
+                self.handle_dialog_choice()
         if self.state == 'formation':
             self.formation_menu.update(dt)
         if self.state == 'order':
@@ -59,6 +63,13 @@ class MapMenu(object):
             self.recipient_menu.update(dt)
         if self.state == 'city':
             self.city_menu.update(dt)
+        if self.state == 'choice':
+            self.dialog_choice_menu.update(dt)
+
+    def handle_dialog_choice(self):
+        self.state = 'choice'
+        self.dialog_choice_menu = MenuBox([choice['choice'] for choice in self.dialog_choice])
+        self.dialog_choice_menu.focus()
 
     def draw(self):
         if self.main_menu:
@@ -85,6 +96,8 @@ class MapMenu(object):
             self.screen.blit(self.recipient_menu.surface, (144, 0))
         if self.city_menu:
             self.screen.blit(self.city_menu.surface, (160, 0))
+        if self.dialog_choice_menu:
+            self.screen.blit(self.dialog_choice_menu.surface, (160, 128))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -146,6 +159,13 @@ class MapMenu(object):
             return self.handle_input_recipient(pressed)
         elif self.state == 'city':
             return self.handle_input_city(pressed)
+        elif self.state == 'choice':
+            return self.handle_input_choice(pressed)
+
+    def handle_input_choice(self, pressed):
+        self.dialog_choice_menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.select_sound.play()
 
     def handle_input_city(self, pressed):
         self.city_menu.handle_input(pressed)
@@ -410,9 +430,13 @@ class MapMenu(object):
         self.strat_menu.focus()
 
     def handle_talk(self):
-        self.prompt = create_prompt(self.map.get_dialog())
+        dialog = self.map.get_dialog()
+        text = dialog if isinstance(dialog, basestring) else dialog['text']
+        self.prompt = create_prompt(text)
         self.state = 'talk'
         self.main_menu.unfocus()
+        if isinstance(dialog, dict) and 'prompt' in dialog:
+            self.dialog_choice = dialog['prompt']
 
     def handle_check(self):
         item = self.map.check_for_item()

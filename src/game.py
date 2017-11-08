@@ -67,7 +67,7 @@ class Game(object):
         # Now dialog is a dict with the correct dialog for the game state.
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
-        return dialog['text']
+        return dialog
 
     def set_game_state_condition(self, condition):
         side_effect = self.condition_side_effects.get(condition)
