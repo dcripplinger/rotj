@@ -135,6 +135,7 @@ class MapMenu(object):
         elif self.state in ['talk', 'check', 'confirm_strat', 'item_prompt']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
+                self.prompt.shutdown()
                 return 'exit'
         elif self.state == 'formation':
             return self.handle_input_formation(pressed)
@@ -166,6 +167,16 @@ class MapMenu(object):
         self.dialog_choice_menu.handle_input(pressed)
         if pressed[K_x]:
             self.select_sound.play()
+            for choice in self.dialog_choice:
+                if choice['choice'] == self.dialog_choice_menu.get_choice():
+                    selected_choice = choice
+                    break
+            if 'game_state_action' in selected_choice:
+                self.map.set_game_state_condition(selected_choice['game_state_action'])
+            self.state = 'talk'
+            self.dialog_choice_menu = None
+            self.prompt = create_prompt(selected_choice['next_dialog'])
+            self.dialog_choice = None
 
     def handle_input_city(self, pressed):
         self.city_menu.handle_input(pressed)
@@ -289,6 +300,7 @@ class MapMenu(object):
         if pressed[K_x]:
             return 'exit'
         elif pressed[K_z]:
+            self.promopt.shutdown()
             self.prompt = None
             self.strat_menu.focus()
             self.state = 'item'

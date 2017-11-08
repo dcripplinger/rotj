@@ -107,7 +107,7 @@
             },
             {
               "choice": "No",
-              "next_dialog": "We hope you change your mind."
+              "next_dialog": "We hope you will accept our services at a later date."
             }
           ]
         }

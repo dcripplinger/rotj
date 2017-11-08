@@ -40,6 +40,13 @@ class Map(object):
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
 
+    def set_game_state_condition(self, condition):
+        if condition == 'ammah_and_manti_join':
+            for sprite in self.group.sprites():
+                if sprite.name in ['ammah', 'manti']:
+                    self.group.remove(sprite)
+        self.game.set_game_state_condition(condition)
+
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
 
