@@ -96,7 +96,22 @@
       "name": "ammah",
       "direction": "n",
       "wander": false,
-      "dialog": "I am Ammah and this is Manti. We wish to join your army, if you will have us."
+      "dialog": [
+        {
+          "text": "I am Ammah and this is Manti. We wish to join your army, if you will have us.",
+          "prompt": [
+            {
+              "choice": "Yes",
+              "game_state_action": "ammah_and_manti_join",
+              "next_dialog": "We will serve you faithfully."
+            },
+            {
+              "choice": "No",
+              "next_dialog": "We hope you change your mind."
+            }
+          ]
+        }
+      ]
     }
   },
   {
