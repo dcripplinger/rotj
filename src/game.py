@@ -50,6 +50,16 @@ class Game(object):
             'talked_with_melek_merchant': self.handle_talked_with_melek_merchant,
         }
 
+    def conditions_are_met(self, conditions):
+        if conditions is None:
+            return True
+        for condition, expected in conditions.items():
+            if expected and condition not in self.game_state['conditions']:
+                return False
+            if not expected and condition in self.game_state['conditions']:
+                return False
+        return True
+
     def get_dialog_for_condition(self, dialog):
         """
         Returns the first dialog text with a condition matching the game state.

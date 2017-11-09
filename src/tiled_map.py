@@ -45,6 +45,10 @@ class Map(object):
             for sprite in self.group.sprites():
                 if sprite.name in ['ammah', 'manti']:
                     self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['ammah', 'manti']
+            }
+            self.ai_sprites = ai_sprites
         self.game.set_game_state_condition(condition)
 
     def try_toggle_equip_on_item(self, user, item_index):
@@ -98,7 +102,7 @@ class Map(object):
     def load_ai_sprites(self):
         for cell in self.cells.values():
             ai_sprite_data = cell.get('ai_sprite')
-            if ai_sprite_data:
+            if ai_sprite_data and self.game.conditions_are_met(ai_sprite_data.get('conditions')):
                 ai_sprite = AiSprite(
                     tmx_data=self.tmx_data, game=self.game, character=ai_sprite_data['name'],
                     position=[cell['x'], cell['y']], direction=ai_sprite_data['direction'],

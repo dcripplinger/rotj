@@ -94,6 +94,9 @@
     "y": 24,
     "ai_sprite": {
       "name": "ammah",
+      "conditions": {
+        "ammah_and_manti_join": false
+      },
       "direction": "n",
       "wander": false,
       "dialog": [
@@ -119,9 +122,27 @@
     "y": 24,
     "ai_sprite": {
       "name": "manti",
+      "conditions": {
+        "ammah_and_manti_join": false
+      },
       "direction": "n",
       "wander": false,
-      "dialog": "I am Manti and this is Ammah. We wish to join your army, if you will have us."
+      "dialog": [
+        {
+          "text": "I am Manti and this is Ammah. We wish to join your army, if you will have us.",
+          "prompt": [
+            {
+              "choice": "Yes",
+              "game_state_action": "ammah_and_manti_join",
+              "next_dialog": "We will serve you faithfully."
+            },
+            {
+              "choice": "No",
+              "next_dialog": "We hope you will accept our services at a later date."
+            }
+          ]
+        }
+      ]
     }
   },
   {

@@ -1,7 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-import json
-
 import pygame
 from pygame.locals import *
 import pyscroll
@@ -11,7 +9,6 @@ from constants import ITEMS, NAMED_TELEPORTS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
-from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 
 
