@@ -103,7 +103,7 @@ class Report(object):
 
     def get_tactics(self):
         if 'tactics_by_level' in self.stats:
-            tactics = self.stats['tactics_by_level'][self.level-1]
+            tactics = self.stats['tactics_by_level'][min(self.level, len(self.stats['tactics_by_level'])) - 1]
         else:
             tactics = self.stats['tactics']
         return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]

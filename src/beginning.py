@@ -100,6 +100,7 @@ class Beginning(object):
                         }
                     ],
                     'conditions': set(),
+                    'reserve': [],
                 })
                 dialog = create_prompt(
                     'An epistle arrived while you were away. The chief judge is summoning you in the palace at '

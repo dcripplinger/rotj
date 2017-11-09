@@ -14,16 +14,16 @@ import pygame
 
 RESOURCES_DIR = 'data'
 
-MAX_SOLDIERS = {
-    'moroni': {'by_level': [100,100,100]},
-    'teancum': {'by_level': [100,100,100]},
-    'amalickiah': {'by_level': [100,100,100]},
-}
-
 
 def get_max_soldiers(warlord, level=None):
     assert level is not None
-    return MAX_SOLDIERS[warlord]['by_level'][level]
+    with open('data/stats/{}.json'.format(warlord)) as f:
+        json_data = json.loads(f.read())
+    if 'max_soldiers_by_level' in json_data:
+        soldiers = json_data['max_soldiers_by_level'][level-1]
+    else:
+        soldiers = json_data['max_soldiers']
+    return soldiers
 
 
 def load_image(filename):

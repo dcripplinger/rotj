@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 
 from beginning import Beginning
-from constants import BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC
+from constants import BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
 from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -48,6 +48,7 @@ class Game(object):
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
             'talked_with_melek_merchant': self.handle_talked_with_melek_merchant,
+            'ammah_and_manti_join': self.handle_ammah_and_manti_join,
         }
 
     def conditions_are_met(self, conditions):
@@ -220,6 +221,26 @@ class Game(object):
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
+
+    def add_to_company(self, names):
+        company = copy.deepcopy(self.game_state['company'])
+        reserve = copy.deepcopy(self.game_state['reserve'])
+        level = self.game_state['level']
+        if isinstance(names, basestring):
+            names = [names]
+        for name in names:
+            if len(company) < MAX_COMPANY_SIZE:
+                company.append({
+                    'name': name,
+                    'soldiers': get_max_soldiers(name, level),
+                    'items': [],
+                })
+            else:
+                reserve.append(name)
+        self.update_game_state({
+            'company': company,
+            'reserve': reserve,
+        })
 
     def add_to_inventory(self, item):
         acquired_items = list(self.game_state['acquired_items'])
@@ -396,3 +417,6 @@ class Game(object):
             'money': self.game_state['money'] + 200,
             'food': self.game_state['food'] + 1000,
         })
+
+    def handle_ammah_and_manti_join(self):
+        self.add_to_company(['ammah', 'manti'])

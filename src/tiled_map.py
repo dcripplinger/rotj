@@ -41,6 +41,7 @@ class Map(object):
         self.map_menu = None
 
     def set_game_state_condition(self, condition):
+        self.game.set_game_state_condition(condition)
         if condition == 'ammah_and_manti_join':
             for sprite in self.group.sprites():
                 if sprite.name in ['ammah', 'manti']:
@@ -49,7 +50,6 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['ammah', 'manti']
             }
             self.ai_sprites = ai_sprites
-        self.game.set_game_state_condition(condition)
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)

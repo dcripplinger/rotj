@@ -1,0 +1,17 @@
+{
+  "strength": 60,
+  "intelligence": 40,
+  "defense": 21,
+  "agility": 30,
+  "evasion": 68,
+  "tactical_points": 0,
+  "max_soldiers": 104,
+  "tactics": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

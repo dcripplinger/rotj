@@ -121,6 +121,8 @@ NAMED_TELEPORTS = {
     'zarahemla': [152,187],
 }
 
+MAX_COMPANY_SIZE = 7
+
 # we may or may not reference these
 EVENT_NAMES = {
     QUIT: 'QUIT',
