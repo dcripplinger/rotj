@@ -8,6 +8,7 @@ import time
 import pygame
 from pygame.locals import *
 
+from battle import Battle
 from beginning import Beginning
 from constants import BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
 from helpers import get_max_soldiers
@@ -44,6 +45,7 @@ class Game(object):
         self.next_map = None
         self.fade_alpha = None
         self.current_music = None
+        self.battle = None
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -209,15 +211,24 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle'
         '''
         self._screen_state = state
-        if state in ['title', 'menu']:
+        if state in ['title', 'menu', 'battle']:
             pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
         if state == 'change_map':
             self.fade_out = True
+
+    def start_battle(self):
+        self.set_screen_state('battle')
+        allies = copy.deepcopy(self.game_state['company'][0:5])
+        enemies = self.get_random_encounter_enemies()
+        self.battle = Battle(self.virtual_screen, self, allies, enemies)
+
+    def get_random_encounter_enemies(self):
+        return [{'name': 'bandit'}, {'name': 'bandit'}]
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
@@ -300,6 +311,8 @@ class Game(object):
             self.menu_screen.draw()
         elif self._screen_state == 'beginning':
             self.beginning_screen.draw()
+        elif self._screen_state == 'battle':
+            self.battle.draw()
         self.scale()
 
     def update(self, dt):

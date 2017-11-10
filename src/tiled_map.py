@@ -1,13 +1,14 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import random
 
 import pygame
 from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import ITEMS, NAMED_TELEPORTS
+from constants import DEFAULT_ENCOUNTER_CHANCE, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
@@ -205,7 +206,16 @@ class Map(object):
 
     def move_hero(self, direction):
         self.hero.move(direction)
-        # followers get moved automatically through moving the leaders
+        if self.try_getting_random_encounter():
+            self.game.start_battle()
+
+    def try_getting_random_encounter(self):
+        if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:
+            return False
+        (x,y) = self.hero.position
+        props = self.tmx_data.get_tile_properties(x, y, 0) or {}
+        encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
+        return random.random() < encounter_chance
 
     def handle_input(self, pressed):
         if self.opening_dialog:
