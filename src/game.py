@@ -221,10 +221,9 @@ class Game(object):
         if state == 'change_map':
             self.fade_out = True
 
-    def start_battle(self):
+    def start_battle(self, enemies):
         self.set_screen_state('battle')
         allies = copy.deepcopy(self.game_state['company'][0:5])
-        enemies = self.get_random_encounter_enemies()
         self.battle = Battle(self.virtual_screen, self, allies, enemies)
 
     def get_random_encounter_enemies(self):

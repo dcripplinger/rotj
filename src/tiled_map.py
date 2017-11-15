@@ -9,7 +9,7 @@ import pyscroll
 from pytmx.util_pygame import load_pygame
 
 from constants import DEFAULT_ENCOUNTER_CHANCE, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS
-from helpers import get_map_filename
+from helpers import get_enemy_stats, get_map_filename
 from hero import Hero
 from report import Report
 from sprite import AiSprite, Sprite
@@ -24,13 +24,20 @@ class Map(object):
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
         map_filename = get_map_filename('{}.tmx'.format(map_name))
         json_filename = get_map_filename('{}.json'.format(map_name))
+        encounter_filename = get_map_filename('{}_encounters.json'.format(map_name))
         self.screen = screen
         self.tmx_data = load_pygame(map_filename)
         with open(json_filename) as f:
             json_data = json.loads(f.read())
+        try:
+            with open(encounter_filename) as f:
+                encounter_data = json.loads(f.read())
+        except IOError:
+            encounter_data = []
         self.cells = {(cell['x'], cell['y']): cell for cell in json_data}
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
+        self.encounter_regions = {(region['x'], region['y']): region for region in encounter_data}
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = opening_dialog
@@ -207,7 +214,10 @@ class Map(object):
     def move_hero(self, direction):
         self.hero.move(direction)
         if self.try_getting_random_encounter():
-            self.game.start_battle()
+            enemies = self.get_random_encounter_enemies()
+            if not enemies:
+                return
+            self.game.start_battle(enemies)
 
     def try_getting_random_encounter(self):
         if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:
@@ -216,6 +226,22 @@ class Map(object):
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
         encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
         return random.random() < encounter_chance
+
+    def get_random_encounter_enemies(self):
+        x = int(self.hero.position[0]) / 50
+        y = int(self.hero.position[1]) / 50
+        region = self.encounter_regions.get((x,y))
+        if not region:
+            return None
+        enemy_names = random.choice(region['encounters'])
+        return [
+            {
+                'name': name,
+                'stats': region['stats'][name] if name in region['stats'] else get_enemy_stats(name),
+            }
+            for name in enemy_names
+        ]
+
 
     def handle_input(self, pressed):
         if self.opening_dialog:

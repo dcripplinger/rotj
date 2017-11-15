@@ -26,6 +26,23 @@ def get_max_soldiers(warlord, level=None):
     return soldiers
 
 
+def get_enemy_stats(warlord):
+    with open('data/stats/{}.json'.format(warlord)) as f:
+        json_data = json.loads(f.read())
+    return {
+        'strength': json_data['strength'],
+        'defense': json_data['defense'],
+        'intelligence': json_data['intelligence'],
+        'agility': json_data['agility'],
+        'evasion': json_data['evasion'],
+        'tactical_points': json_data['tactical_points'],
+        'attack_points': json_data['attack_points'],
+        'armor_class': json_data['armor_class'],
+        'tactics': json_data['tactics'],
+        'soldiers': json_data['soldiers'],
+    }
+
+
 def load_image(filename):
     return pygame.image.load(os.path.join(RESOURCES_DIR, "images", filename))
 
