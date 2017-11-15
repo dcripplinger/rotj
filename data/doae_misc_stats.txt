@@ -1,0 +1,51 @@
+doae_misc_stats.txt
+
+zhang jao:
+    attack power 50
+    armor class 35
+
+lu bu 1:
+    attack power 30
+    armor class 45
+    soldiers 439
+
+dong zhuo 1:
+    attack power 50
+    armor class 45
+    soldiers 439
+
+yuan shu:
+    attack power 70
+    armor class 48
+
+yuan shao:
+    attack power 70
+    armor class 45
+    soldiers 1754
+
+...
+
+yan yan:
+    attack power 120
+    armor class 110
+    soldiers 3262
+
+ling tong:
+    attack power 150
+    armor class 160
+    soldiers 5500
+
+many guys after defeating qun suan:
+    attack power 190
+
+cao pi:
+    attack power 190
+    armor class 170
+    soldiers 20000
+
+si ma yi:
+    strength 180
+    intelligence 250
+    attack power 240
+    armor class 180
+    soldiers 40972

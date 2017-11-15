@@ -1,0 +1,84 @@
+doae_minion_stats.txt
+
+bandit force 1:
+    strength 32
+    intelligence 25
+    attack power 20
+    armor class 10
+    soldiers 100,120,140
+
+rebel force 1:
+    strength 42
+    intelligence 30
+    attack power 15
+    armor class 10
+    soldiers 100,120,140
+
+rebel force 2:
+    strength 48,52
+    intelligence 35,40
+    attack power 20
+    armor class 20
+    soldiers 120,150,180
+
+rebel force 3:
+    strength 61,64
+    intelligence 40,43
+    attack power 20
+    armor class 25
+    soldiers 220,250
+
+rebel force 4:
+    strength 83
+    intelligence 52
+    attack power 30
+    armor class 40
+    soldiers 300,320,350,380
+
+rebel force 5:
+    strength 100
+    intelligence 60
+    attack power 50
+    armor class 45
+    soldiers 700,900,1000
+
+rebel force 6:
+    strength 97
+    intelligence 69
+    attack power 50
+    armor class 48
+    soldiers 1000,1100,1200
+
+rebel force 7:
+    strength 121
+    intelligence 80
+    attack power 70
+    armor class 50
+    soldiers 1500,1650,1800,1900
+
+brigand force 1:
+    strength 32
+    intelligence 23
+    attack power 20
+    armor class 10
+    soldiers 100,120,140
+
+brigand force 2:
+    strength 39
+    intelligence 20
+    attack power 30
+    armor class 20
+    soldiers 120,180
+
+pirate force 2:
+    strength 36
+    intelligence 26
+    attack power 30
+    armor class 20
+
+special pirate force:
+    strength 140
+    intelligence 60
+    attack power 190
+    armor class 100
+    soldiers 10600

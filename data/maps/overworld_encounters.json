@@ -1,0 +1,164 @@
+[
+  {
+    "x": 2,
+    "y": 2,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 10
+      }
+    }
+  },
+  {
+    "x": 2,
+    "y": 3,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 10
+      }
+    }
+  },
+  {
+    "x": 2,
+    "y": 4,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 42,
+        "defense": 70,
+        "intelligence": 30,
+        "agility": 31,
+        "evasion": 15,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 20
+      }
+    }
+  },
+  {
+    "x": 3,
+    "y": 2,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 10
+      }
+    }
+  },
+  {
+    "x": 3,
+    "y": 3,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 10
+      }
+    }
+  },
+  {
+    "x": 3,
+    "y": 4,
+    "encounters": [
+      [
+        "bandit",
+        "bandit"
+      ]
+    ],
+    "stats": {
+      "bandit": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 20,
+        "armor_class": 10
+      }
+    }
+  },
+]
