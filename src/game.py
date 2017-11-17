@@ -40,6 +40,7 @@ class Game(object):
         self.resize_window(self.window_size)
         self.change_map_time_elapsed = None
         self.walk_sound = pygame.mixer.Sound('data/audio/walk.wav')
+        self.encounter_sound = pygame.mixer.Sound('data/audio/encounter.wav')
         self.fade_out = False
         self.continue_current_music = False
         self.next_map = None
@@ -225,6 +226,11 @@ class Game(object):
         self.set_screen_state('battle')
         allies = copy.deepcopy(self.game_state['company'][0:5])
         self.battle = Battle(self.virtual_screen, self, allies, enemies)
+        pygame.mixer.music.stop()
+        self.continue_current_music = False
+        self.current_music = None
+        time.sleep(.1)
+        self.encounter_sound.play()
 
     def get_random_encounter_enemies(self):
         return [{'name': 'bandit'}, {'name': 'bandit'}]
