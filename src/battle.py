@@ -24,13 +24,18 @@ class Battle(object):
         self.game = game
 
     def update(self, dt):
-        pass
+        for ally in self.allies:
+            ally.update(dt)
+        for enemy in self.enemies:
+            enemy.update(dt)
 
     def draw(self):
         self.screen.fill(BLACK)
         for i, ally in enumerate(self.allies):
+            ally.draw()
             self.screen.blit(ally.surface, (0, i*24))
         for i, enemy in enumerate(self.enemies):
+            enemy.draw()
             self.screen.blit(enemy.surface, (GAME_WIDTH/2, i*24))
         if self.portrait:
             self.screen.blit(self.portrait, self.get_portrait_position())
