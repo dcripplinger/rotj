@@ -17,6 +17,11 @@ from text import create_prompt, MenuBox
 from map_menu import MapMenu
 
 
+FACELESS_ENEMIES = [
+    'bandit',
+]
+
+
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
         self.name = map_name
@@ -217,7 +222,11 @@ class Map(object):
             enemies = self.get_random_encounter_enemies()
             if not enemies:
                 return
-            self.game.start_battle(enemies)
+            if enemies[0]['name'] not in FACELESS_ENEMIES:
+                battle_type = 'warlord'
+            else:
+                battle_type = 'regular'
+            self.game.start_battle(enemies, battle_type)
 
     def try_getting_random_encounter(self):
         if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:

@@ -8,7 +8,8 @@ from helpers import load_image
 
 
 class Battle(object):
-    def __init__(self, screen, game, allies, enemies):
+    def __init__(self, screen, game, allies, enemies, battle_type):
+        self.battle_type = battle_type
         self.allies = [Ally(ally) for ally in allies]
         self.enemies = [Enemy(enemy) for enemy in enemies]
         self.state = 'start' # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic, tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute

@@ -63,6 +63,29 @@ MAP_MUSIC = {
     'passage_to_gid': CAVE_MUSIC,
 }
 
+BATTLE_MUSIC = {
+    'regular': {
+        'intro': 'data/audio/music/regular_battle_intro.wav',
+        'repeat': 'data/audio/music/regular_battle_repeat.wav',
+    },
+    'warlord': {
+        'intro': 'data/audio/music/warlord_battle_intro.wav',
+        'repeat': 'data/audio/music/warlord_battle_repeat.wav',
+    },
+    'story': {
+        'intro': 'data/audio/music/story_battle_intro.wav',
+        'repeat': 'data/audio/music/story_battle_repeat.wav',
+    },
+    'giddianhi': {
+        'intro': 'data/audio/music/giddianhi_intro.wav',
+        'repeat': 'data/audio/music/giddianhi_repeat.wav',
+    },
+    'zemnarihah': {
+        'intro': None,
+        'repeat': 'data/audio/music/zemnarihah.wav',
+    },
+}
+
 ITEMS = {
     # weapons
     'dagger': {

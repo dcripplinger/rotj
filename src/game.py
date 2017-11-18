@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import copy
+import math
 import subprocess
 import sys
 import time
@@ -10,7 +11,7 @@ from pygame.locals import *
 
 from battle import Battle
 from beginning import Beginning
-from constants import BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
+from constants import BATTLE_MUSIC, BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
 from helpers import get_max_soldiers
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -212,7 +213,7 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle'
         '''
         self._screen_state = state
         if state in ['title', 'menu', 'battle']:
@@ -221,11 +222,21 @@ class Game(object):
             pygame.key.set_repeat(50, 50)
         if state == 'change_map':
             self.fade_out = True
+        if state == 'battle':
+            battle_music_files = BATTLE_MUSIC[self.battle.battle_type]
+            if battle_music_files.get('intro'):
+                self.current_music = 'intro'
+                music_file = battle_music_files['intro']
+            else:
+                self.current_music = 'repeat'
+                music_file = battle_music_files['repeat']
+            pygame.mixer.music.load(music_file)
+            pygame.mixer.music.play()
 
-    def start_battle(self, enemies):
-        self.set_screen_state('battle')
+    def start_battle(self, enemies, battle_type):
+        self.set_screen_state('start_battle')
         allies = copy.deepcopy(self.game_state['company'][0:5])
-        self.battle = Battle(self.virtual_screen, self, allies, enemies)
+        self.battle = Battle(self.virtual_screen, self, allies, enemies, battle_type)
         pygame.mixer.music.stop()
         self.continue_current_music = False
         self.current_music = None
@@ -335,6 +346,44 @@ class Game(object):
             self.beginning_screen.update(dt)
         elif self._screen_state == 'change_map':
             self.update_change_map(dt)
+        elif self._screen_state == 'start_battle':
+            self.update_battle_fade(dt)
+        elif self._screen_state == 'battle':
+            self.battle.update(dt)
+            if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+                pygame.mixer.music.load(BATTLE_MUSIC[self.battle.battle_type]['repeat'])
+                pygame.mixer.music.play(-1)
+                self.current_music = 'repeat'
+
+    def update_battle_fade(self, dt):
+        if self.change_map_time_elapsed is None:
+            self.change_map_time_elapsed = 0
+            self.show_map = True
+            self.triangle_size = 0
+        self.change_map_time_elapsed += dt
+        update_interval = .02
+        if self.change_map_time_elapsed >= update_interval:
+            self.change_map_time_elapsed -= update_interval
+            self.show_map = not self.show_map
+            self.triangle_size += 10*update_interval
+            if self.show_map and self.current_map:
+                self.current_map.draw()
+                self.draw_triangle_transition()
+            else:
+                self.virtual_screen.fill(BLACK)
+
+    def draw_triangle_transition(self):
+        block_size = 8
+        for x in range(0, GAME_WIDTH, block_size):
+            for y in range(0, GAME_HEIGHT, block_size):
+                pygame.draw.rect(
+                    self.virtual_screen,
+                    BLACK,
+                    (x,y,block_size,block_size),
+                    min(int(math.ceil(self.triangle_size)), block_size),
+                )
+        if self.triangle_size > block_size:
+            self.set_screen_state('battle')
 
     def update_change_map(self, dt):
         if self.change_map_time_elapsed is None:
