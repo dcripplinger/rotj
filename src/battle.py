@@ -7,6 +7,54 @@ from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
 from helpers import get_max_soldiers, get_max_tactical_points, load_image, load_stats
 
+COLORS = [
+    {
+        'soldiers': 640,
+        'color': (255,127,127), # pink
+        'soldiers_per_pixel': 10,
+    },
+    {
+        'soldiers': 2560,
+        'color': (255,106,0), # orange
+        'soldiers_per_pixel': 40,
+    },
+    {
+        'soldiers': 10240,
+        'color': (255,216,0), # yellow
+        'soldiers_per_pixel': 160,
+    },
+    {
+        'soldiers': 40960,
+        'color': (0,148,255), # light blue
+        'soldiers_per_pixel': 640,
+    },
+    {
+        'soldiers': 163840,
+        'color': (0,51,255), # dark blue
+        'soldiers_per_pixel': 2560,
+    },
+    {
+        'soldiers': 655360,
+        'color': (0,228,0), # green
+        'soldiers_per_pixel': 10240,
+    },
+    {
+        'soldiers': 2621440,
+        'color': (160,160,160), # gray
+        'soldiers_per_pixel': 40960,
+    },
+    {
+        'soldiers': 10485760,
+        'color': (160,160,160), # gray
+        'soldiers_per_pixel': 40960,
+    },
+    {
+        'soldiers': 1000000000,
+        'color': (210,64,64), # dark red
+        'soldiers_per_pixel': 81920,
+    },
+]
+
 
 class Battle(object):
     def __init__(self, screen, game, allies, enemies, battle_type):
@@ -52,6 +100,23 @@ class Battle(object):
         }
         self.portrait = None
         self.screen = screen
+        self.set_bar_color()
+
+    def set_bar_color(self):
+        max_max_soldiers = max([ally.max_soldiers for ally in self.allies])
+        for color_info in COLORS:
+            if max_max_soldiers < color_info['soldiers']:
+                color = color_info['color']
+                soldiers_per_pixel = color_info['soldiers_per_pixel']
+                break
+        for ally in self.allies:
+            ally.color = color
+            ally.soldiers_per_pixel = soldiers_per_pixel
+            ally.build_soldiers_bar()
+        for enemy in self.enemies:
+            enemy.color = color
+            enemy.soldiers_per_pixel = soldiers_per_pixel
+            enemy.build_soldiers_bar()
 
     def update(self, dt):
         for ally in self.allies:

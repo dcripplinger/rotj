@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import math
+
 import pygame
 
 from constants import BLACK, GAME_WIDTH
@@ -24,6 +26,9 @@ class BattleWarlordRectBase(object):
             )
         self.name_box = TextBox(name_in_box)
         self.soldiers = warlord['soldiers']
+        self.max_soldiers = warlord['max_soldiers']
+        self.color = None
+        self.soldiers_per_pixel = None
         self.build_soldiers_box()
 
     def get_healed(soldiers):
@@ -35,6 +40,10 @@ class BattleWarlordRectBase(object):
     def update_soldiers_change(delta):
         pass
 
+    def build_soldiers_bar(self):
+        self.soldiers_bar = pygame.Surface((math.ceil(self.soldiers/self.soldiers_per_pixel), 8))
+        self.soldiers_bar.fill(self.color)
+
     def build_soldiers_box(self):
         self.soldiers_box = TextBox(str(self.soldiers), width=TEXT_AREA_WIDTH, adjust='right')
 
@@ -42,6 +51,7 @@ class BattleWarlordRectBase(object):
         self.surface.fill(BLACK)
         self.surface.blit(self.name_box.surface, self.name_box_position)
         self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
+        self.surface.blit(self.soldiers_bar, self.soldiers_bar_position)
 
     def update(self, dt):
         pass
@@ -53,9 +63,17 @@ class Ally(BattleWarlordRectBase):
         self.name_box_position = (0,0)
         self.soldiers_box_position = (0, 16)
 
+    def build_soldiers_bar(self):
+        super(Ally, self).build_soldiers_bar()
+        self.soldiers_bar_position = (TEXT_AREA_WIDTH, 16)
+
 
 class Enemy(BattleWarlordRectBase):
     def __init__(self, name):
         super(Enemy, self).__init__(name)
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
         self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)
+
+    def build_soldiers_bar(self):
+        super(Enemy, self).build_soldiers_bar()
+        self.soldiers_bar_position = (WIDTH - TEXT_AREA_WIDTH - self.soldiers_bar.get_width(), 16)
