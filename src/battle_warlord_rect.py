@@ -5,6 +5,7 @@ import math
 import pygame
 
 from constants import BLACK, GAME_WIDTH
+from helpers import load_image
 from text import TextBox
 
 WIDTH = GAME_WIDTH/2
@@ -30,6 +31,9 @@ class BattleWarlordRectBase(object):
         self.color = None
         self.soldiers_per_pixel = None
         self.build_soldiers_box()
+        self.stand = load_image('sprites/{}/e/stand.png'.format(self.name))
+        self.walk = load_image('sprites/{}/e/walk.png'.format(self.name))
+        self.sprite = self.stand
 
     def get_healed(soldiers):
         pass
@@ -52,6 +56,7 @@ class BattleWarlordRectBase(object):
         self.surface.blit(self.name_box.surface, self.name_box_position)
         self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
         self.surface.blit(self.soldiers_bar, self.soldiers_bar_position)
+        self.surface.blit(self.sprite, self.sprite_position)
 
     def update(self, dt):
         pass
@@ -62,6 +67,7 @@ class Ally(BattleWarlordRectBase):
         super(Ally, self).__init__(name)
         self.name_box_position = (0,0)
         self.soldiers_box_position = (0, 16)
+        self.sprite_position = (TEXT_AREA_WIDTH, 0)
 
     def build_soldiers_bar(self):
         super(Ally, self).build_soldiers_bar()
@@ -73,6 +79,10 @@ class Enemy(BattleWarlordRectBase):
         super(Enemy, self).__init__(name)
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
         self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)
+        self.stand = pygame.transform.flip(self.stand, True, False)
+        self.walk = pygame.transform.flip(self.walk, True, False)
+        self.sprite = self.stand
+        self.sprite_position = (WIDTH - TEXT_AREA_WIDTH - 16, 0)
 
     def build_soldiers_bar(self):
         super(Enemy, self).build_soldiers_bar()
