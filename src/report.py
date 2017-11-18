@@ -5,7 +5,7 @@ import json
 import pygame
 
 from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT, ITEMS
-from helpers import load_image
+from helpers import load_image, load_stats
 from text import MenuGrid, TextBox
 
 STATS = [
@@ -59,14 +59,9 @@ class Report(object):
         self.level = level
         self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         self.surface.fill(BLACK)
-        self.stats = self.load_stats()
+        self.stats = load_stats(self.name)
         self.portrait = load_image('portraits/{}.png'.format(self.name))
         self.blit_stats()
-
-    def load_stats(self):
-        with open('data/stats/{}.json'.format(self.name)) as f:
-            json_data = json.loads(f.read())
-        return json_data
 
     def get_equip_based_stat_value(self, stat):
         return sum([ITEMS[equip['name']].get(stat, 0) for equip in self.equips])

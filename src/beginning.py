@@ -5,7 +5,7 @@ import pyscroll
 from pytmx.util_pygame import load_pygame
 
 from constants import BLACK, GAME_WIDTH
-from helpers import get_map_filename, get_max_soldiers, load_image
+from helpers import get_map_filename, get_max_soldiers, get_max_tactical_points, load_image
 from sprite import Sprite
 from text import create_prompt
 
@@ -78,16 +78,19 @@ class Beginning(object):
                                 {'name': 'key'},
                                 {'name': 'flail'}
                             ],
+                            'tactical_points': get_max_tactical_points('moroni', 1),
                         },
                         {
                             'name': 'teancum',
                             'soldiers': get_max_soldiers('teancum', 1),
                             'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                            'tactical_points': get_max_tactical_points('teancum', 1),
                         },
                         {
                             'name': 'amalickiah',
                             'soldiers': get_max_soldiers('amalickiah', 1),
                             'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                            'tactical_points': get_max_tactical_points('amalickiah', 1),
                         },
                     ],
                     'level': 1,

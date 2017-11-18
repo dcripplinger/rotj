@@ -15,6 +15,12 @@ import pygame
 RESOURCES_DIR = 'data'
 
 
+def load_stats(name):
+    with open('data/stats/{}.json'.format(name)) as f:
+        json_data = json.loads(f.read())
+    return json_data
+
+
 def get_max_soldiers(warlord, level=None):
     assert level is not None
     with open('data/stats/{}.json'.format(warlord)) as f:
@@ -24,6 +30,17 @@ def get_max_soldiers(warlord, level=None):
     else:
         soldiers = json_data['max_soldiers']
     return soldiers
+
+
+def get_max_tactical_points(warlord, level=None):
+    assert level is not None
+    with open('data/stats/{}.json'.format(warlord)) as f:
+        json_data = json.loads(f.read())
+    if 'tactical_points_by_level' in json_data:
+        tactical_points = json_data['tactical_points_by_level'][level-1]
+    else:
+        tactical_points = json_data['tactical_points']
+    return tactical_points
 
 
 def get_enemy_stats(warlord):

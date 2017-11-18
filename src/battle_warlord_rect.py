@@ -23,10 +23,25 @@ class BattleWarlordRectBase(object):
                 name_in_box[7:],
             )
         self.name_box = TextBox(name_in_box)
+        self.soldiers = warlord['soldiers']
+        self.build_soldiers_box()
+
+    def get_healed(soldiers):
+        pass
+
+    def get_damaged(soldiers):
+        pass
+
+    def update_soldiers_change(delta):
+        pass
+
+    def build_soldiers_box(self):
+        self.soldiers_box = TextBox(str(self.soldiers), width=TEXT_AREA_WIDTH, adjust='right')
 
     def draw(self):
         self.surface.fill(BLACK)
         self.surface.blit(self.name_box.surface, self.name_box_position)
+        self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
 
     def update(self, dt):
         pass
@@ -36,9 +51,11 @@ class Ally(BattleWarlordRectBase):
     def __init__(self, name):
         super(Ally, self).__init__(name)
         self.name_box_position = (0,0)
+        self.soldiers_box_position = (0, 16)
 
 
 class Enemy(BattleWarlordRectBase):
     def __init__(self, name):
         super(Enemy, self).__init__(name)
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
+        self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)

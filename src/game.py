@@ -12,7 +12,7 @@ from pygame.locals import *
 from battle import Battle
 from beginning import Beginning
 from constants import BATTLE_MUSIC, BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
-from helpers import get_max_soldiers
+from helpers import get_max_soldiers, get_max_tactical_points
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
@@ -261,6 +261,7 @@ class Game(object):
                     'name': name,
                     'soldiers': get_max_soldiers(name, level),
                     'items': [],
+                    'tactical_points': get_max_tactical_points(name, level),
                 })
             else:
                 reserve.append(name)
