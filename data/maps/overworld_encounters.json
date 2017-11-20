@@ -4,12 +4,12 @@
     "y": 2,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           100,
           120,
@@ -31,12 +31,12 @@
     "y": 3,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           100,
           120,
@@ -58,12 +58,12 @@
     "y": 4,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           120,
           150,
@@ -85,12 +85,12 @@
     "y": 2,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           100,
           120,
@@ -112,12 +112,12 @@
     "y": 3,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           100,
           120,
@@ -139,12 +139,12 @@
     "y": 4,
     "encounters": [
       [
-        "bandit",
-        "bandit"
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
-      "bandit": {
+      "robbers": {
         "soldiers": [
           100,
           120,
