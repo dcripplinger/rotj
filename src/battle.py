@@ -6,6 +6,7 @@ import random
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
 from helpers import get_max_soldiers, get_max_tactical_points, load_image, load_stats
+from text import create_prompt
 
 COLORS = [
     {
@@ -58,6 +59,7 @@ COLORS = [
 
 class Battle(object):
     def __init__(self, screen, game, allies, enemies, battle_type):
+        self.time_elapsed = 0.0
         self.game = game
         self.battle_type = battle_type
         level = self.game.game_state['level']
@@ -101,6 +103,13 @@ class Battle(object):
         self.portrait = None
         self.screen = screen
         self.set_bar_color()
+        self.set_start_dialog()
+
+    def set_start_dialog(self):
+        script = ''
+        for enemy in self.enemies:
+            script += '{} approaching.\n'.format(enemy.name.title())
+        self.left_dialog = create_prompt(script, silent=True)
 
     def set_bar_color(self):
         max_max_soldiers = max([ally.max_soldiers for ally in self.allies])
@@ -119,21 +128,31 @@ class Battle(object):
             enemy.build_soldiers_bar()
 
     def update(self, dt):
+        self.time_elapsed += dt
         for ally in self.allies:
             ally.update(dt)
         for enemy in self.enemies:
             enemy.update(dt)
+        if self.state == 'start':
+            self.left_dialog.update(dt)
+
+    def handle_input(self, pressed):
+        if self.stat == 'start':
+            self.left_dialog.handle_input(pressed)
 
     def draw(self):
         self.screen.fill(BLACK)
+        top_margin = 16
         for i, ally in enumerate(self.allies):
             ally.draw()
-            self.screen.blit(ally.surface, (0, i*24))
+            self.screen.blit(ally.surface, (0, i*24+top_margin))
         for i, enemy in enumerate(self.enemies):
             enemy.draw()
-            self.screen.blit(enemy.surface, (GAME_WIDTH/2, i*24))
+            self.screen.blit(enemy.surface, (GAME_WIDTH/2, i*24+top_margin))
         if self.portrait:
             self.screen.blit(self.portrait, self.get_portrait_position())
+        if self.left_dialog:
+            self.screen.blit(self.left_dialog.surface, (0, 128+top_margin))
 
     def get_portrait_position(self):
         return ((0 if self.is_ally_turn() else GAME_WIDTH-48), 192)

@@ -100,7 +100,7 @@ CHARS = {
 class TextBox(object):
     def __init__(
         self, text, width=None, height=None, adjust='left', border=False, double_space=False, appear='instant', fade_speed=1.5,
-        title=None, indent=0,
+        title=None, indent=0, silent=False,
     ):
         self.text = text
         self.title = title
@@ -148,6 +148,7 @@ class TextBox(object):
         
         self.lines_to_show = min(self.lines_to_show, self.lines_available)
         self.update_surface()
+        self.silent = silent
 
     def fix_lines(self):
         new_lines = []
@@ -232,7 +233,7 @@ class TextBox(object):
     def update(self, dt, force=False):
         if not self.started:
             self.started = True
-            if self.appear == 'scroll':
+            if self.appear == 'scroll' and not self.silent:
                 self.typing_sound.play(-1)
         if not self.needs_update and force == False:
             return
@@ -260,23 +261,29 @@ class TextBox(object):
                 if self.starting_line < self.max_starting_line:
                     self.starting_line += 1
                     self.chars_to_show = 1
-                    self.typing_sound.stop()
+                    if not self.silent:
+                        self.typing_sound.stop()
                     time.sleep(.2)
-                    self.typing_sound.play(20)
+                    if not self.silent:
+                        self.typing_sound.play(20)
                     time.sleep(.1)
                 else:
-                    self.typing_sound.stop()
+                    if not self.silent:
+                        self.typing_sound.stop()
             else:
                 self.needs_update = False
-                self.typing_sound.stop()
+                if not self.silent:
+                    self.typing_sound.stop()
             self.update_surface()
 
     def shutdown(self):
-        self.typing_sound.stop()
+        if not self.silent:
+            self.typing_sound.stop()
 
     def handle_input(self, pressed):
         if self.show_down_arrow() and pressed[K_x]:
-            self.typing_sound.play(-1)
+            if not self.silent:
+                self.typing_sound.play(-1)
             self.max_starting_line += self.lines_available_now - 1
 
 
@@ -474,5 +481,5 @@ class MenuGrid(object):
         return max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)
 
 
-def create_prompt(text):
-    return TextBox(text, width=160, height=80, border=True, double_space=True, appear='scroll')
+def create_prompt(text, silent=False):
+    return TextBox(text, width=160, height=80, border=True, double_space=True, appear='scroll', silent=silent)

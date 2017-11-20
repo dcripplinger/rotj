@@ -457,6 +457,8 @@ class Game(object):
                     self.menu_screen.handle_input(pressed)
                 elif self._screen_state == 'beginning':
                     self.beginning_screen.handle_input(pressed)
+                elif self._screen_state == 'battle':
+                    self.battle.handle_input(pressed)
 
     def run(self):
         self.running = True
