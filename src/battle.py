@@ -115,6 +115,7 @@ class Battle(object):
         self.set_start_dialog()
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.selected_enemy_index = None
+        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
 
     def set_start_dialog(self):
         script = ''
@@ -195,6 +196,43 @@ class Battle(object):
                     self.handle_retreat()
                 elif self.menu.get_choice() == 'REPORT':
                     self.handle_report()
+        elif self.state == 'report':
+            if pressed[K_UP]:
+                self.switch_sound.play()
+                self.selected_enemy_index = self.get_previous_live_enemy_index()
+            elif pressed[K_DOWN]:
+                self.switch_sound.play()
+                self.selected_enemy_index = self.get_next_live_enemy_index()
+
+    def get_next_live_enemy_index(self):
+        if self.selected_enemy_index is None:
+            return self.get_first_live_enemy_index()
+        found = False
+        index = self.selected_enemy_index
+        while not found:
+            index += 1
+            if index >= len(self.enemies):
+                index = 0
+            enemy = self.enemies[index]
+            if enemy.soldiers == 0:
+                continue
+            found = True
+        return index
+
+    def get_previous_live_enemy_index(self):
+        if self.selected_enemy_index is None:
+            return self.get_first_live_enemy_index()
+        found = False
+        index = self.selected_enemy_index
+        while not found:
+            index -= 1
+            if index < 0:
+                index = len(self.enemies)-1
+            enemy = self.enemies[index]
+            if enemy.soldiers == 0:
+                continue
+            found = True
+        return index
 
     def handle_report(self):
         self.state = 'report'
