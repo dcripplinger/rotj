@@ -6,6 +6,8 @@ import shutil
 
 import pygame
 
+from constants import ITEMS
+
 # WARNING: Don't import anything from the rotj repo into here. To avoid circular imports,
 # we are restricting this module to only functions that do not depend on any other rotj
 # modules. If you need to make a function available to other modules but it also depends
@@ -13,6 +15,18 @@ import pygame
 # as an example.
 
 RESOURCES_DIR = 'data'
+
+
+def get_tactics(stats, level):
+    if 'tactics_by_level' in stats:
+        tactics = stats['tactics_by_level'][min(level, len(stats['tactics_by_level'])) - 1]
+    else:
+        tactics = stats['tactics']
+    return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
+
+
+def get_equip_based_stat_value(stat, equips):
+    return sum([ITEMS[equip['name']].get(stat, 0) for equip in equips])
 
 
 def load_stats(name):

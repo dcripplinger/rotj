@@ -17,6 +17,7 @@ MAX_BAR_WIDTH = 64
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord):
+        self.stats = warlord
         self.name = warlord['name']
         self.surface = pygame.Surface((WIDTH, HEIGHT))
         name_in_box = self.name.title()

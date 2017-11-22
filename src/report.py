@@ -4,8 +4,8 @@ import json
 
 import pygame
 
-from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT, ITEMS
-from helpers import load_image, load_stats
+from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT
+from helpers import get_equip_based_stat_value, get_tactics, load_image, load_stats
 from text import MenuGrid, TextBox
 
 STATS = [
@@ -53,27 +53,39 @@ class Bars(object):
 
 
 class Report(object):
-    def __init__(self, name, level, equips):
+    def __init__(self, name=None, level=None, equips=None, stats=None):
+        '''
+        Either provide (name, level, equips) or provide (stats)
+        '''
         self.equips = equips
-        self.name = name.lower()
+        self.name = name.lower() if name else None
         self.level = level
         self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         self.surface.fill(BLACK)
-        self.stats = load_stats(self.name)
+        if name == None: # This is an enemy report
+            self.stats = stats
+            self.name = stats['name']
+            self.stats_provided = True
+        else:
+            self.stats = load_stats(self.name)
+            self.stats_provided = False
         self.portrait = load_image('portraits/{}.png'.format(self.name))
         self.blit_stats()
-
-    def get_equip_based_stat_value(self, stat):
-        return sum([ITEMS[equip['name']].get(stat, 0) for equip in self.equips])
 
     def blit_stats(self):
         self.surface.blit(self.portrait, (16, 32))
         self.surface.blit(TextBox(self.name.title()).surface, (16, 16))
         for i, stat in enumerate(STATS):
             if stat['name'] in ['attack_points', 'armor_class']:
-                stat_value = self.get_equip_based_stat_value(stat['name'])
+                if self.stats_provided:
+                    stat_value = self.stats[stat['name']]
+                else:
+                    stat_value = get_equip_based_stat_value(stat['name'], self.equips)
             elif stat['name'] == 'tactical_points':
-                stat_value = self.get_tactical_points()
+                if self.stats_provided:
+                    stat_value = self.stats[stat['name']]
+                else:
+                    stat_value = self.get_tactical_points()
             else:
                 stat_value = self.stats[stat['name']]
             self.surface.blit(TextBox("{}~{:~>3}".format(stat['abbr'], stat_value)).surface, (96, i*16+32))
@@ -97,8 +109,4 @@ class Report(object):
         return self.stats['tactical_points']
 
     def get_tactics(self):
-        if 'tactics_by_level' in self.stats:
-            tactics = self.stats['tactics_by_level'][min(self.level, len(self.stats['tactics_by_level'])) - 1]
-        else:
-            tactics = self.stats['tactics']
-        return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
+        return get_tactics(self.stats, self.level)

@@ -7,7 +7,10 @@ from pygame.locals import *
 
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
-from helpers import get_max_soldiers, get_max_tactical_points, load_image, load_stats
+from helpers import (
+    get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, load_image, load_stats,
+)
+from report import Report
 from text import create_prompt, MenuGrid
 
 COLORS = [
@@ -70,6 +73,7 @@ class Battle(object):
         self.allies = []
         for ally in allies:
             json_stats = load_stats(ally['name'])
+            equips = self.game.get_equips(ally['name'])
             self.allies.append(Ally({
                 'name': ally['name'],
                 'strength': json_stats['strength'],
@@ -77,10 +81,13 @@ class Battle(object):
                 'defense': json_stats['defense'],
                 'agility': json_stats['agility'],
                 'evasion': json_stats['evasion'],
+                'attack_points': get_equip_based_stat_value('attack_points', equips),
+                'armor_class': get_equip_based_stat_value('armor_class', equips),
                 'tactical_points': ally['tactical_points'],
                 'max_tactical_points': get_max_tactical_points(ally['name'], level),
                 'soldiers': ally['soldiers'],
                 'max_soldiers': get_max_soldiers(ally['name'], level),
+                'tactics': get_tactics(json_stats, level),
             }))
         self.enemies = []
         for enemy in enemies:
@@ -92,10 +99,13 @@ class Battle(object):
                 'defense': enemy['stats']['defense'],
                 'agility': enemy['stats']['agility'],
                 'evasion': enemy['stats']['evasion'],
+                'attack_points': enemy['stats']['attack_points'],
+                'armor_class': enemy['stats']['armor_class'],
                 'tactical_points': enemy['stats']['tactical_points'],
                 'max_tactical_points': enemy['stats']['tactical_points'],
                 'soldiers': soldiers,
                 'max_soldiers': soldiers,
+                'tactics': enemy['stats'].get('tactics', ['','','','','','']),
             }))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
@@ -116,6 +126,7 @@ class Battle(object):
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.selected_enemy_index = None
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self.report = None
 
     def set_start_dialog(self):
         script = ''
@@ -208,6 +219,9 @@ class Battle(object):
             self.state = 'menu'
             self.menu.focus()
             self.selected_enemy_index = None
+        elif pressed[K_x]:
+            self.state = 'report_selected'
+            self.report = Report(stats=self.enemies[self.selected_enemy_index].stats)
 
     def handle_input(self, pressed):
         if self.state == 'start':
@@ -296,6 +310,12 @@ class Battle(object):
 
     def draw(self):
         self.screen.fill(BLACK)
+        
+        # If showing a report, we don't need to show anything else.
+        if self.report:
+            self.screen.blit(self.report.surface, (0,0))
+            return
+
         top_margin = 16
         for i, ally in enumerate(self.allies):
             ally.draw()
