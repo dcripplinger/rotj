@@ -8,7 +8,7 @@ from pygame.locals import *
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
 from helpers import get_max_soldiers, get_max_tactical_points, load_image, load_stats
-from text import create_prompt
+from text import create_prompt, MenuGrid
 
 COLORS = [
     {
@@ -137,6 +137,8 @@ class Battle(object):
             enemy.update(dt)
         if self.state == 'start':
             self.left_dialog.update(dt)
+        if self.state == 'menu':
+            self.menu.update(dt)
 
     def handle_input(self, pressed):
         if self.state == 'start':
@@ -145,6 +147,25 @@ class Battle(object):
                 self.state = 'menu'
                 self.left_dialog = None
                 self.warlord = self.allies[0].name
+                self.portrait = self.portraits[self.warlord]
+                self.create_menu()
+        elif self.state == 'menu':
+            self.menu.handle_input(pressed)
+
+    def create_menu(self):
+        first_column = ['BATTLE', 'TACTIC', 'DEFEND', 'ITEM']
+        if self.warlord == self.get_leader().name:
+            choices = [first_column, ['ALL-OUT', 'RETREAT', 'REPORT', 'RISK-IT']]
+        else:
+            choices = first_column
+        self.menu = MenuGrid(choices, border=True)
+        self.menu.focus()
+
+    def get_leader(self):
+        for ally in self.allies:
+            if ally.soldiers > 0:
+                return ally
+        assert False, 'should not call this function if everyone is dead'
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -159,9 +180,11 @@ class Battle(object):
             self.screen.blit(self.portrait, self.get_portrait_position())
         if self.left_dialog:
             self.screen.blit(self.left_dialog.surface, (0, 128+top_margin))
+        if self.menu:
+            self.screen.blit(self.menu.surface, ((GAME_WIDTH - self.menu.get_width())/2, 128 + top_margin))
 
     def get_portrait_position(self):
-        return ((0 if self.is_ally_turn() else GAME_WIDTH-48), 192)
+        return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)
 
     def is_ally_turn(self):
         return self.warlord in [ally.name for ally in self.allies]
