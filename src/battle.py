@@ -178,31 +178,44 @@ class Battle(object):
                 return ally.name
         return None
 
+    def handle_input_start(self, pressed):
+        self.left_dialog.handle_input(pressed)
+        if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
+            self.state = 'menu'
+            self.left_dialog = None
+            self.warlord = self.allies[0].name
+            self.portrait = self.portraits[self.warlord]
+            self.create_menu()
+            self.move_current_warlord_forward()
+
+    def handle_input_menu(self, pressed):
+        self.menu.handle_input(pressed)
+        if pressed[K_x]:
+            self.select_sound.play()
+            if self.menu.get_choice() == 'RETREAT':
+                self.handle_retreat()
+            elif self.menu.get_choice() == 'REPORT':
+                self.handle_report()
+
+    def handle_input_report(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_previous_live_enemy_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_next_live_enemy_index()
+        elif pressed[K_z]:
+            self.state = 'menu'
+            self.menu.focus()
+            self.selected_enemy_index = None
+
     def handle_input(self, pressed):
         if self.state == 'start':
-            self.left_dialog.handle_input(pressed)
-            if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
-                self.state = 'menu'
-                self.left_dialog = None
-                self.warlord = self.allies[0].name
-                self.portrait = self.portraits[self.warlord]
-                self.create_menu()
-                self.move_current_warlord_forward()
+            self.handle_input_start(pressed)
         elif self.state == 'menu':
-            self.menu.handle_input(pressed)
-            if pressed[K_x]:
-                self.select_sound.play()
-                if self.menu.get_choice() == 'RETREAT':
-                    self.handle_retreat()
-                elif self.menu.get_choice() == 'REPORT':
-                    self.handle_report()
+            self.handle_input_menu(pressed)
         elif self.state == 'report':
-            if pressed[K_UP]:
-                self.switch_sound.play()
-                self.selected_enemy_index = self.get_previous_live_enemy_index()
-            elif pressed[K_DOWN]:
-                self.switch_sound.play()
-                self.selected_enemy_index = self.get_next_live_enemy_index()
+            self.handle_input_report(pressed)
 
     def get_next_live_enemy_index(self):
         if self.selected_enemy_index is None:
@@ -236,6 +249,7 @@ class Battle(object):
 
     def handle_report(self):
         self.state = 'report'
+        self.menu.unfocus()
         self.selected_enemy_index = self.get_first_live_enemy_index()
 
     def get_first_live_enemy_index(self):
