@@ -222,6 +222,7 @@ class Battle(object):
         elif pressed[K_x]:
             self.state = 'report_selected'
             self.report = Report(stats=self.enemies[self.selected_enemy_index].stats)
+            self.selected_enemy_index = None
 
     def handle_input(self, pressed):
         if self.state == 'start':
@@ -230,6 +231,14 @@ class Battle(object):
             self.handle_input_menu(pressed)
         elif self.state == 'report':
             self.handle_input_report(pressed)
+        elif self.state == 'report_selected':
+            self.handle_input_report_selected(pressed)
+
+    def handle_input_report_selected(self, pressed):
+        if pressed[K_x] or pressed[K_z]:
+            self.state = 'menu'
+            self.menu.focus()
+            self.report = None
 
     def get_next_live_enemy_index(self):
         if self.selected_enemy_index is None:
