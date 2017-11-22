@@ -12,7 +12,7 @@ TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
 
-DEFAULT_ENCOUNTER_CHANCE = 0.03
+DEFAULT_ENCOUNTER_CHANCE = 0.01
 
 MAP_NAMES = [
     'overworld',
