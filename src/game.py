@@ -243,6 +243,13 @@ class Game(object):
         time.sleep(.1)
         self.encounter_sound.play()
 
+    def end_battle(self):
+        self.next_map = self.current_map
+        self.current_map = None
+        self.fade_alpha = 0
+        self.continue_current_music = False
+        self.set_screen_state('change_map')
+
     def get_random_encounter_enemies(self):
         return [{'name': 'bandit'}, {'name': 'bandit'}]
 
@@ -431,6 +438,8 @@ class Game(object):
         fade_box.fill(BLACK)
         if self.current_map:
             self.current_map.draw()
+        elif self.battle:
+            self.battle.draw()
         self.virtual_screen.blit(fade_box, (0,0))
 
     def handle_input(self):

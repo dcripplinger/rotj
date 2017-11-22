@@ -58,6 +58,8 @@ COLORS = [
     },
 ]
 
+RETREAT_TIME_PER_PERSON = 0.2
+
 
 class Battle(object):
     def __init__(self, screen, game, allies, enemies, battle_type):
@@ -95,7 +97,9 @@ class Battle(object):
                 'soldiers': soldiers,
                 'max_soldiers': soldiers,
             }))
-        self.state = 'start' # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic, tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute
+        self.state = 'start'
+            # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
+            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {
@@ -104,6 +108,7 @@ class Battle(object):
         }
         self.portrait = None
         self.screen = screen
+        self.right_dialog = None
         self.set_bar_color()
         self.set_start_dialog()
 
@@ -130,15 +135,43 @@ class Battle(object):
             enemy.build_soldiers_bar()
 
     def update(self, dt):
-        # self.time_elapsed += dt
+        self.time_elapsed += dt
         for ally in self.allies:
             ally.update(dt)
         for enemy in self.enemies:
             enemy.update(dt)
         if self.state == 'start':
             self.left_dialog.update(dt)
-        if self.state == 'menu':
+        elif self.state == 'menu':
             self.menu.update(dt)
+        elif self.state == 'retreat':
+            if not self.warlord:
+                self.right_dialog.update(dt)
+                if not self.right_dialog.has_more_stuff_to_show() and self.get_leader().state == 'wait':
+                    self.warlord = self.get_leader().name
+                    self.time_elapsed = 0.0
+                    self.right_dialog.shutdown()
+            else:
+                if self.time_elapsed > RETREAT_TIME_PER_PERSON:
+                    self.time_elapsed -= RETREAT_TIME_PER_PERSON
+                    self.get_current_warlord().flip_sprite()
+                    self.warlord = self.get_next_ally_name()
+                    if not self.warlord:
+                        self.game.end_battle()
+
+    def get_next_ally_name(self):
+        if not self.warlord:
+            return self.get_leader().name
+        found = False
+        for ally in self.allies:
+            if ally.soldiers == 0:
+                continue
+            if ally.name == self.warlord:
+                found = True
+                continue
+            if found: # This happens on the ally AFTER the one found
+                return ally.name
+        return None
 
     def handle_input(self, pressed):
         if self.state == 'start':
@@ -152,10 +185,23 @@ class Battle(object):
                 self.move_current_warlord_forward()
         elif self.state == 'menu':
             self.menu.handle_input(pressed)
+            if pressed[K_x]:
+                if self.menu.get_choice() == 'RETREAT':
+                    self.handle_retreat()
+
+    def handle_retreat(self):
+        self.state = 'retreat'
+        self.move_current_warlord_back()
+        self.right_dialog = create_prompt("{}'s army retreated.".format(self.get_leader().name.title()))
+        self.warlord = None
 
     def move_current_warlord_forward(self):
         warlord = self.get_current_warlord()
         warlord.move_forward()
+
+    def move_current_warlord_back(self):
+        warlord = self.get_current_warlord()
+        warlord.move_back()
 
     def get_current_warlord(self):
         if not self.warlord:
@@ -194,9 +240,13 @@ class Battle(object):
             self.screen.blit(self.left_dialog.surface, (0, 128+top_margin))
         if self.menu:
             self.screen.blit(self.menu.surface, ((GAME_WIDTH - self.menu.get_width())/2, 128 + top_margin))
+        if self.right_dialog:
+            self.screen.blit(self.right_dialog.surface, (GAME_WIDTH-self.right_dialog.width, 128+top_margin))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)
 
     def is_ally_turn(self):
+        if not self.warlord:
+            return True
         return self.warlord in [ally.name for ally in self.allies]

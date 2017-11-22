@@ -44,8 +44,15 @@ class BattleWarlordRectBase(object):
         self.state = 'forward'
         self.rel_target_pos = 16
 
+    def move_back(self):
+        self.state = 'backward'
+        self.rel_target_pos = 0
+
     def get_healed(soldiers):
         pass
+
+    def flip_sprite(self):
+        self.sprite = pygame.transform.flip(self.sprite, True, False)
 
     def get_damaged(soldiers):
         pass
@@ -73,6 +80,12 @@ class BattleWarlordRectBase(object):
             self.rel_pos += int(dt*100)
             if self.rel_pos > self.rel_target_pos:
                 self.rel_pos = self.rel_target_pos
+                self.state = 'wait'
+        elif self.state == 'backward':
+            self.switch_sprite()
+            self.rel_pos -= int(dt*100)
+            if self.rel_pos < 0:
+                self.rel_pos = 0.0
                 self.state = 'wait'
 
     def switch_sprite(self):
