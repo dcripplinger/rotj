@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
 
-import pygame
 import random
+
+import pygame
+from pygame.locals import *
 
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
@@ -137,8 +139,12 @@ class Battle(object):
             self.left_dialog.update(dt)
 
     def handle_input(self, pressed):
-        if self.stat == 'start':
+        if self.state == 'start':
             self.left_dialog.handle_input(pressed)
+            if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
+                self.state = 'menu'
+                self.left_dialog = None
+                self.warlord = self.allies[0].name
 
     def draw(self):
         self.screen.fill(BLACK)
@@ -159,6 +165,3 @@ class Battle(object):
 
     def is_ally_turn(self):
         return self.warlord in [ally.name for ally in self.allies]
-
-    def handle_input(self, pressed):
-        pass
