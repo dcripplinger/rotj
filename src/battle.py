@@ -107,10 +107,14 @@ class Battle(object):
             for warlord in (allies + enemies)
         }
         self.portrait = None
+        self.pointer_right = load_image('pointer.png')
+        self.pointer_left = pygame.transform.flip(self.pointer_right, True, False)
         self.screen = screen
         self.right_dialog = None
         self.set_bar_color()
         self.set_start_dialog()
+        self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
+        self.selected_enemy_index = None
 
     def set_start_dialog(self):
         script = ''
@@ -186,8 +190,21 @@ class Battle(object):
         elif self.state == 'menu':
             self.menu.handle_input(pressed)
             if pressed[K_x]:
+                self.select_sound.play()
                 if self.menu.get_choice() == 'RETREAT':
                     self.handle_retreat()
+                elif self.menu.get_choice() == 'REPORT':
+                    self.handle_report()
+
+    def handle_report(self):
+        self.state = 'report'
+        self.selected_enemy_index = self.get_first_live_enemy_index()
+
+    def get_first_live_enemy_index(self):
+        for i, enemy in enumerate(self.enemies):
+            if enemy.soldiers > 0:
+                return i
+        return None
 
     def handle_retreat(self):
         self.state = 'retreat'
@@ -242,6 +259,8 @@ class Battle(object):
             self.screen.blit(self.menu.surface, ((GAME_WIDTH - self.menu.get_width())/2, 128 + top_margin))
         if self.right_dialog:
             self.screen.blit(self.right_dialog.surface, (GAME_WIDTH-self.right_dialog.width, 128+top_margin))
+        if self.selected_enemy_index is not None:
+            self.screen.blit(self.pointer_right, (GAME_WIDTH-96, self.selected_enemy_index*24+top_margin))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)
