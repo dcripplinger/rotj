@@ -18,7 +18,12 @@ from map_menu import MapMenu
 
 
 FACELESS_ENEMIES = [
-    'bandit',
+    'king men',
+    'robbers',
+    'lamanites',
+    'amlicites',
+    'zoramites',
+    'amalekites',
 ]
 
 

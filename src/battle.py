@@ -130,7 +130,7 @@ class Battle(object):
             enemy.build_soldiers_bar()
 
     def update(self, dt):
-        self.time_elapsed += dt
+        # self.time_elapsed += dt
         for ally in self.allies:
             ally.update(dt)
         for enemy in self.enemies:
@@ -149,8 +149,20 @@ class Battle(object):
                 self.warlord = self.allies[0].name
                 self.portrait = self.portraits[self.warlord]
                 self.create_menu()
+                self.move_current_warlord_forward()
         elif self.state == 'menu':
             self.menu.handle_input(pressed)
+
+    def move_current_warlord_forward(self):
+        warlord = self.get_current_warlord()
+        warlord.move_forward()
+
+    def get_current_warlord(self):
+        if not self.warlord:
+            return None
+        for warlord in self.allies + self.enemies:
+            if warlord.name == self.warlord:
+                return warlord
 
     def create_menu(self):
         first_column = ['BATTLE', 'TACTIC', 'DEFEND', 'ITEM']

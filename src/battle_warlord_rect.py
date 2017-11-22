@@ -12,6 +12,7 @@ WIDTH = GAME_WIDTH/2
 HEIGHT = 24
 TEXT_AREA_CHAR_LEN = 8
 TEXT_AREA_WIDTH = TEXT_AREA_CHAR_LEN*8
+MAX_BAR_WIDTH = 64
 
 
 class BattleWarlordRectBase(object):
@@ -34,6 +35,14 @@ class BattleWarlordRectBase(object):
         self.stand = load_image('sprites/{}/e/stand.png'.format(self.name))
         self.walk = load_image('sprites/{}/e/walk.png'.format(self.name))
         self.sprite = self.stand
+        self.state = 'wait'
+        self.rel_pos = 0
+        self.rel_target_pos = None
+            # relative target position when advancing or retreating the sprite (0 to MAX_BAR_WIDTH-16)
+
+    def move_forward(self):
+        self.state = 'forward'
+        self.rel_target_pos = 16
 
     def get_healed(soldiers):
         pass
@@ -56,10 +65,21 @@ class BattleWarlordRectBase(object):
         self.surface.blit(self.name_box.surface, self.name_box_position)
         self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
         self.surface.blit(self.soldiers_bar, self.soldiers_bar_position)
-        self.surface.blit(self.sprite, self.sprite_position)
+        self.surface.blit(self.sprite, self.get_sprite_position())
 
     def update(self, dt):
-        pass
+        if self.state == 'forward':
+            self.switch_sprite()
+            self.rel_pos += int(dt*100)
+            if self.rel_pos > self.rel_target_pos:
+                self.rel_pos = self.rel_target_pos
+                self.state = 'wait'
+
+    def switch_sprite(self):
+        if self.sprite == self.walk:
+            self.sprite = self.stand
+        else:
+            self.sprite = self.walk
 
 
 class Ally(BattleWarlordRectBase):
@@ -67,7 +87,9 @@ class Ally(BattleWarlordRectBase):
         super(Ally, self).__init__(name)
         self.name_box_position = (0,0)
         self.soldiers_box_position = (0, 16)
-        self.sprite_position = (TEXT_AREA_WIDTH, 0)
+
+    def get_sprite_position(self):
+        return (TEXT_AREA_WIDTH + self.rel_pos, 0)
 
     def build_soldiers_bar(self):
         super(Ally, self).build_soldiers_bar()
@@ -82,7 +104,9 @@ class Enemy(BattleWarlordRectBase):
         self.stand = pygame.transform.flip(self.stand, True, False)
         self.walk = pygame.transform.flip(self.walk, True, False)
         self.sprite = self.stand
-        self.sprite_position = (WIDTH - TEXT_AREA_WIDTH - 16, 0)
+
+    def get_sprite_position(self):
+        return (WIDTH - TEXT_AREA_WIDTH - 16 - self.rel_pos, 0)
 
     def build_soldiers_bar(self):
         super(Enemy, self).build_soldiers_bar()
