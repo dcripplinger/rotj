@@ -1,10 +1,11 @@
 # -*- coding: UTF-8 -*-
 
 import math
+import random
 
 import pygame
 
-from constants import BLACK, GAME_WIDTH
+from constants import BLACK, GAME_WIDTH, TACTICS
 from helpers import load_image
 from text import TextBox
 
@@ -40,6 +41,45 @@ class BattleWarlordRectBase(object):
         self.rel_pos = 0
         self.rel_target_pos = None
             # relative target position when advancing or retreating the sprite (0 to MAX_BAR_WIDTH-16)
+        self.strength = warlord['strength']
+        self.attack_points = warlord['attack_points']
+        self.weapon_power = int(100*math.exp(0.0155*self.attack_points)-88)
+        self.compounded_strength = self.strength * self.weapon_power / 256.0 / 256.0
+        self.tactics = warlord['tactics']
+        self.intelligence = warlord['intelligence']
+        self.tactic_danger = self.compute_tactic_danger()
+
+    def get_danger(self):
+        return max(self.tactic_danger, self.get_preliminary_damage())
+
+    def compute_tactic_danger(self):
+        assassin = self.intelligence / 255.0 / 3.0 * self.max_soldiers if 'assassin' in self.tactics else 0.0
+        fire = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=1)
+        water = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=2)
+        heal = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=3)
+        return max(assassin, fire, water, heal)
+
+    def get_max_tactic_damage(self, slot=None):
+        if slot is None:
+            return 0
+        tactic = self.tactics[slot-1]
+        if tactic == '':
+            return 0
+        return TACTICS[tactic].get('max_damage', 0)
+
+    def get_preliminary_damage(self):
+        return self.compounded_strength * self.get_soldier_gain()
+
+    def get_damage(self, excellent=False):
+        return self.get_preliminary_damage() * self.get_damage_potential(excellent=excellent)
+
+    def get_damage_potential(self, excellent=False):
+        if excellent:
+            return 51
+        return random.choice([25, 25, 25, 25, 25, 25, 25, 25, 23, 23, 23, 23, 23, 23, 20, 20])
+
+    def get_soldier_gain(self):
+        return int(math.pow(2, len(str(self.soldiers))-1))
 
     def move_forward(self):
         self.state = 'forward'

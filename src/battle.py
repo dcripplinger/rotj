@@ -87,7 +87,7 @@ class Battle(object):
                 'max_tactical_points': get_max_tactical_points(ally['name'], level),
                 'soldiers': ally['soldiers'],
                 'max_soldiers': get_max_soldiers(ally['name'], level),
-                'tactics': get_tactics(json_stats, level),
+                'tactics': get_tactics(json_stats, level, pretty=False),
             }))
         self.enemies = []
         for enemy in enemies:
@@ -109,7 +109,7 @@ class Battle(object):
             }))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
-            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute
+            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {
@@ -127,6 +127,8 @@ class Battle(object):
         self.selected_enemy_index = None
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
         self.report = None
+        self.submitted_moves = []
+        self.enemy_moves = []
 
     def set_start_dialog(self):
         script = ''
@@ -174,6 +176,30 @@ class Battle(object):
                     self.warlord = self.get_next_ally_name()
                     if not self.warlord:
                         self.game.end_battle()
+        elif self.state == 'risk_it':
+            if self.get_leader().state == 'wait':
+                self.simulate_battle()
+
+    def simulate_battle(self):
+        for ally in self.get_live_allies():
+            self.submit_move({'agent': ally, 'action': 'BATTLE', 'target': random.choice(self.get_live_enemies())})
+        self.generate_enemy_moves()
+
+    def generate_enemy_moves(self):
+        for enemy in self.get_live_enemies():
+            self.enemy_moves.append(self.generate_enemy_move(enemy))
+
+    def generate_enemy_move(self, enemy):
+        pass # TODO: Develop ruleset for deciding an enemy's attack
+
+    def get_live_allies(self):
+        return [ally for ally in self.allies if ally.soldiers > 0]
+
+    def submit_move(self, move):
+        self.submitted_moves.append(move)
+
+    def get_live_enemies(self):
+        return [enemy for enemy in self.enemies if enemy.soldiers > 0]
 
     def get_next_ally_name(self):
         if not self.warlord:
@@ -207,6 +233,13 @@ class Battle(object):
                 self.handle_retreat()
             elif self.menu.get_choice() == 'REPORT':
                 self.handle_report()
+            elif self.menu.get_choice() == 'RISK-IT':
+                self.handle_risk_it()
+
+    def handle_risk_it(self):
+        self.move_current_warlord_back()
+        self.state = 'risk_it'
+        self.menu.unfocus()
 
     def handle_input_report(self, pressed):
         if pressed[K_UP]:

@@ -17,12 +17,15 @@ from constants import ITEMS
 RESOURCES_DIR = 'data'
 
 
-def get_tactics(stats, level):
+def get_tactics(stats, level, pretty=True):
     if 'tactics_by_level' in stats:
         tactics = stats['tactics_by_level'][min(level, len(stats['tactics_by_level'])) - 1]
     else:
         tactics = stats['tactics']
-    return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
+    if pretty:
+        return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
+    else:
+        return tactics
 
 
 def get_equip_based_stat_value(stat, equips):
