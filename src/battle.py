@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 from battle_warlord_rect import Ally, Enemy
-from constants import BLACK, GAME_WIDTH, GAME_HEIGHT
+from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, TACTICS
 from helpers import (
     get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, load_image, load_stats,
 )
@@ -71,10 +71,11 @@ class Battle(object):
         self.battle_type = battle_type
         level = self.game.game_state['level']
         self.allies = []
-        for ally in allies:
+        for i, ally in enumerate(allies):
             json_stats = load_stats(ally['name'])
             equips = self.game.get_equips(ally['name'])
             self.allies.append(Ally({
+                'index': i,
                 'name': ally['name'],
                 'strength': json_stats['strength'],
                 'intelligence': json_stats['intelligence'],
@@ -90,9 +91,10 @@ class Battle(object):
                 'tactics': get_tactics(json_stats, level, pretty=False),
             }))
         self.enemies = []
-        for enemy in enemies:
+        for i, enemy in enumerate(enemies):
             soldiers = random.choice(enemy['stats']['soldiers'])
             self.enemies.append(Enemy({
+                'index': i,
                 'name': enemy['name'],
                 'strength': enemy['stats']['strength'],
                 'intelligence': enemy['stats']['intelligence'],
@@ -129,6 +131,9 @@ class Battle(object):
         self.report = None
         self.submitted_moves = []
         self.enemy_moves = []
+        self.good_enemy_statuses = {}
+        self.good_ally_statuses = {}
+        self.near_water = False
 
     def set_start_dialog(self):
         script = ''
@@ -166,14 +171,14 @@ class Battle(object):
             if not self.warlord:
                 self.right_dialog.update(dt)
                 if not self.right_dialog.has_more_stuff_to_show() and self.get_leader().state == 'wait':
-                    self.warlord = self.get_leader().name
+                    self.warlord = self.get_leader()
                     self.time_elapsed = 0.0
                     self.right_dialog.shutdown()
             else:
                 if self.time_elapsed > RETREAT_TIME_PER_PERSON:
                     self.time_elapsed -= RETREAT_TIME_PER_PERSON
-                    self.get_current_warlord().flip_sprite()
-                    self.warlord = self.get_next_ally_name()
+                    self.warlord.flip_sprite()
+                    self.warlord = self.get_next_live_ally_after(self.warlord)
                     if not self.warlord:
                         self.game.end_battle()
         elif self.state == 'risk_it':
@@ -182,15 +187,131 @@ class Battle(object):
 
     def simulate_battle(self):
         for ally in self.get_live_allies():
-            self.submit_move({'agent': ally, 'action': 'BATTLE', 'target': random.choice(self.get_live_enemies())})
+            self.submit_move({'agent': ally, 'action': 'battle', 'target': random.choice(self.get_live_enemies())})
         self.generate_enemy_moves()
 
     def generate_enemy_moves(self):
+        ally_dangers = {ally.index: ally.get_danger() for ally in self.allies if ally.soldiers > 0}
+        sum_dangers = sum(ally_dangers.values())
+        ally_target_probabilities = {index: danger*1.0 / sum_dangers for index, danger in ally_dangers.items()}
         for enemy in self.get_live_enemies():
-            self.enemy_moves.append(self.generate_enemy_move(enemy))
+            ally_target_index = self.choose_random_target(ally_target_probabilities)
+            self.enemy_moves.append(self.generate_enemy_move(enemy, ally_target_index, sum_dangers))
 
-    def generate_enemy_move(self, enemy):
-        pass # TODO: Develop ruleset for deciding an enemy's attack
+    def choose_random_target(self, target_probabilities):
+        sample = random.random()
+        for target in sorted(target_probabilities, key=target_probabilities.get):
+            prob = target_probabilities[target]
+            if sample < prob:
+                return target
+            sample -= prob
+
+    def generate_enemy_move(self, enemy, ally_target_index, sum_dangers):
+        ally_target = self.allies[ally_target_index]
+        random_other_enemy = random.choice([e for e in self.enemies if e.index != enemy.index and e.soldiers > 0])
+
+        # forced action
+        if 'disable' in enemy.bad_statuses:
+            return {'agent': enemy, 'action': 'disable'}
+        if 'confuse' in enemy.bad_statuses:
+            return {'agent': enemy, 'action': 'confuse', 'target': random_other_enemy}
+        if 'provoke' in enemy.bad_statuses:
+            return {'agent': enemy, 'action': 'provoke', 'target': enemy.provoker}
+
+        # heal
+        heal_tactic = enemy.tactics[2]
+        tactical_points = enemy.tactical_points
+        heal_cost = TACTICS.get(heal_tactic, {}).get('tactical_points', 0)
+        if (
+            heal_tactic and heal_cost < tactical_points and enemy.soldiers*1.0/enemy.max_soldiers < .5
+            and sum_dangers > enemy.soldiers and random.random() < .8
+        ):
+            action = {'agent': enemy, 'action': 'tactic', 'tactic': heal_tactic}
+            if TACTICS[heal_tactic]['type'] == 'ally':
+                action.update({'target': enemy})
+            return action
+
+        # dispel
+        if (
+            enemy.tactics[4] == 'dispel'
+            and (
+                len(self.good_ally_statuses) > 0
+                or any([len(enemy.bad_statuses) > 0 for enemy in self.enemies if enemy.soldiers > 0])
+            )
+            and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
+            and random.random() < .5
+        ):
+            return {'agent': enemy, 'action': 'tactic', 'tactic': 'dispel'}
+
+        # defense
+        defense_tactic = enemy.tactics[3]
+        defense_cost = TACTICS.get(defense_tactic, {}).get('tactical_points', 0)
+        if (
+            defense_tactic and heal_cost + defense_cost < tactical_points
+            and defense_tactic not in self.good_enemy_statuses and random.random() < .3
+        ):
+            return {'agent': enemy, 'action': 'tactic', 'tactic': defense_tactic}
+
+        # provoke, disable
+        enemy_prob = self.get_enemy_prob(enemy, ally_target)
+        if (
+            enemy.tactics[4] in ['provoke', 'disable']
+            and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
+            and enemy.tactics[4] not in ally_target.bad_statuses
+            and random.random() < enemy_prob
+        ):
+            return {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[4], 'target': ally_target}
+
+        # confuse, assassin
+        if (
+            enemy.tactics[5] in ['confuse', 'assassin']
+            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
+            and enemy.tactics[5] not in ally_target.bad_statuses
+            and random.random() < enemy_prob
+        ):
+            return {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[5], 'target': ally_target}
+
+        # boost_tactic: ninja, double tap, hulk out
+        boost_tactic = enemy.tactics[5]
+        if boost_tactic in ['ninja', 'double~tap', 'hulk~out']:
+            if (
+                (boost_tactic == 'hulk~out' or boost_tactic not in random_other_enemy.good_statuses)
+                and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
+                and random.random() < .6
+            ):
+                return {'agent': enemy, 'action': 'tactic', 'tactic': boost_tactic, 'target': random_other_enemy}
+
+        # water
+        maybe_do_tactic_damage = enemy.tactic_danger > enemy.get_preliminary_damage()
+        if (
+            maybe_do_tactic_damage
+            and enemy.tactics[1]
+            and self.near_water
+            and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] < tactical_points
+            and random.random() < enemy_prob
+        ):
+            action = {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[1]}
+            if TACTICS[enemy.tactics[1]]['type'] == 'enemy':
+                action.update({'target': ally_target})
+            return action
+
+        # fire
+        if (
+            maybe_do_tactic_damage
+            and enemy.tactics[0]
+            and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
+            and random.random() < enemy_prob
+        ):
+            action = {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[0]}
+            if TACTICS[enemy.tactics[0]]['type'] == 'enemy':
+                action.update({'target': ally_target})
+            return action
+
+        # battle
+        return {'agent': enemy, 'action': 'battle', 'target': ally_target}
+
+    def get_enemy_prob(self, attacker, target):
+        return ((attacker.intelligence - target.intelligence)/255.0+1)/2
 
     def get_live_allies(self):
         return [ally for ally in self.allies if ally.soldiers > 0]
@@ -201,29 +322,15 @@ class Battle(object):
     def get_live_enemies(self):
         return [enemy for enemy in self.enemies if enemy.soldiers > 0]
 
-    def get_next_ally_name(self):
-        if not self.warlord:
-            return self.get_leader().name
-        found = False
-        for ally in self.allies:
-            if ally.soldiers == 0:
-                continue
-            if ally.name == self.warlord:
-                found = True
-                continue
-            if found: # This happens on the ally AFTER the one found
-                return ally.name
-        return None
-
     def handle_input_start(self, pressed):
         self.left_dialog.handle_input(pressed)
         if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
             self.state = 'menu'
             self.left_dialog = None
-            self.warlord = self.allies[0].name
-            self.portrait = self.portraits[self.warlord]
+            self.warlord = self.allies[0]
+            self.portrait = self.portraits[self.warlord.name]
             self.create_menu()
-            self.move_current_warlord_forward()
+            self.warlord.move_forward()
 
     def handle_input_menu(self, pressed):
         self.menu.handle_input(pressed)
@@ -237,7 +344,7 @@ class Battle(object):
                 self.handle_risk_it()
 
     def handle_risk_it(self):
-        self.move_current_warlord_back()
+        self.warlord.move_back()
         self.state = 'risk_it'
         self.menu.unfocus()
 
@@ -272,6 +379,36 @@ class Battle(object):
             self.state = 'menu'
             self.menu.focus()
             self.report = None
+
+    def get_next_live_ally_after(self, warlord):
+        if warlord is None:
+            return self.get_leader()
+        found = False
+        index = warlord.index
+        while not found:
+            index += 1
+            if index >= len(self.allies):
+                index = 0
+            ally = self.allies[index]
+            if ally.soldiers == 0:
+                continue
+            found = True
+        return ally
+
+    def get_previous_live_ally_before(self, warlord):
+        if warlord is None:
+            return self.get_leader()
+        found = False
+        index = warlord.index
+        while not found:
+            index -= 1
+            if index < 0:
+                index = len(self.allies)-1
+            ally = self.ally[index]
+            if ally.soldiers == 0:
+                continue
+            found = True
+        return ally
 
     def get_next_live_enemy_index(self):
         if self.selected_enemy_index is None:
@@ -316,28 +453,13 @@ class Battle(object):
 
     def handle_retreat(self):
         self.state = 'retreat'
-        self.move_current_warlord_back()
+        self.warlord.move_back()
         self.right_dialog = create_prompt("{}'s army retreated.".format(self.get_leader().name.title()))
         self.warlord = None
 
-    def move_current_warlord_forward(self):
-        warlord = self.get_current_warlord()
-        warlord.move_forward()
-
-    def move_current_warlord_back(self):
-        warlord = self.get_current_warlord()
-        warlord.move_back()
-
-    def get_current_warlord(self):
-        if not self.warlord:
-            return None
-        for warlord in self.allies + self.enemies:
-            if warlord.name == self.warlord:
-                return warlord
-
     def create_menu(self):
         first_column = ['BATTLE', 'TACTIC', 'DEFEND', 'ITEM']
-        if self.warlord == self.get_leader().name:
+        if self.warlord == self.get_leader():
             choices = [first_column, ['ALL-OUT', 'RETREAT', 'REPORT', 'RISK-IT']]
         else:
             choices = first_column
@@ -382,4 +504,4 @@ class Battle(object):
     def is_ally_turn(self):
         if not self.warlord:
             return True
-        return self.warlord in [ally.name for ally in self.allies]
+        return self.warlord in self.allies
