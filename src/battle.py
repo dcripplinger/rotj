@@ -184,21 +184,44 @@ class Battle(object):
         elif self.state == 'risk_it':
             if self.get_leader().state == 'wait':
                 self.simulate_battle()
-                self.state = 'menu' # FIXME
-                self.menu.focus()
-                self.warlord = self.get_leader()
+        elif self.state == 'win':
+            self.right_dialog.update(dt)
+        elif self.state == 'lose':
+            self.right_dialog.update(dt)
 
     def simulate_battle(self):
-        enemies = self.get_live_enemies()
-        for ally in self.get_live_allies():
-            move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
-            self.submit_move(move)
-        self.generate_enemy_moves()
-        for move in self.get_moves_in_order_of_agility():
-            move = self.change_move_if_dead_or_cursed(move)
-            if move is not None:
-                action_handler = move['action']
-                action_handler(move)
+        while self.state == 'risk_it':
+            enemies = self.get_live_enemies()
+            for ally in self.get_live_allies():
+                move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
+                self.submit_move(move)
+            self.generate_enemy_moves()
+            for move in self.get_moves_in_order_of_agility():
+                move = self.change_move_if_dead_or_cursed(move)
+                if move is not None:
+                    action_handler = move['action']
+                    results = action_handler(move)
+                    if results.get('killed'):
+                        if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
+                            self.handle_win()
+                            break
+                        elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
+                            self.handle_lose()
+                            break
+            self.submitted_moves = []
+            self.enemy_moves = []
+
+    def handle_win(self):
+        self.state = 'win'
+        self.right_dialog = create_prompt('You won the fight!')
+        self.menu = None
+        self.portrait = None
+
+    def handle_lose(self):
+        self.state = 'lose'
+        self.right_dialog = create_prompt('Oh no, you lost!')
+        self.menu = None
+        self.portrait = None
 
     def get_moves_in_order_of_agility(self):
         the_moves = self.submitted_moves + self.enemy_moves
@@ -206,9 +229,12 @@ class Battle(object):
         return the_moves
 
     def execute_move_battle(self, move):
+        is_ally_move = move['agent'] in self.allies
+        if move['target'].soldiers == 0:
+            targets = self.get_live_enemies() if is_ally_move else self.get_live_allies()
+            return self.execute_move_battle({'agent': move['agent'], 'target': random.choice(targets)})
         if 'defend' in move['agent'].boosts:
             del move['agent'].boosts['defend']
-        is_ally_move = move['agent'] in self.allies
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
         if 'repel' in good_target_team_statuses:
             return {'repel': True}
