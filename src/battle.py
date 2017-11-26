@@ -184,11 +184,103 @@ class Battle(object):
         elif self.state == 'risk_it':
             if self.get_leader().state == 'wait':
                 self.simulate_battle()
+                self.state = 'menu' # FIXME
+                self.menu.focus()
+                self.warlord = self.get_leader()
 
     def simulate_battle(self):
+        enemies = self.get_live_enemies()
         for ally in self.get_live_allies():
-            self.submit_move({'agent': ally, 'action': 'battle', 'target': random.choice(self.get_live_enemies())})
+            move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
+            self.submit_move(move)
         self.generate_enemy_moves()
+        for move in self.get_moves_in_order_of_agility():
+            move = self.change_move_if_dead_or_cursed(move)
+            if move is not None:
+                action_handler = move['action']
+                action_handler(move)
+
+    def get_moves_in_order_of_agility(self):
+        the_moves = self.submitted_moves + self.enemy_moves
+        the_moves.sort(key=lambda move: move['agent'].agility, reverse=True)
+        return the_moves
+
+    def execute_move_battle(self, move):
+        if 'defend' in move['agent'].boosts:
+            del move['agent'].boosts['defend']
+        is_ally_move = move['agent'] in self.allies
+        good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+        if 'repel' in good_target_team_statuses:
+            return {'repel': True}
+        evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 2.0
+        if random.random() < evade_prob / 2.0: # divide by 2 so that evades aren't too common
+            return {'evade': True}
+        excellent = random.random() < 1.0/16
+        inflicted_damage = int( move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1 )
+        if move['agent'].boosts.get('double_tap'):
+            double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
+        else:
+            double_tap = None
+        if 'shield' in good_target_team_statuses:
+            inflicted_damage = max(inflicted_damage/2, 1)
+            if double_tap:
+                double_tap = max(double_tap/2, 1)
+        if 'defend' in move['target'].boosts:
+            inflicted_damage = max(inflicted_damage/2, 1)
+            if double_tap:
+                double_tap = max(double_tap/2, 1)
+        if move['target'].soldiers <= inflicted_damage:
+            inflicted_damage = move['target'].soldiers
+            move['target'].get_damaged(inflicted_damage)
+            return {'damage': inflicted_damage, 'killed': True}
+        move['target'].get_damaged(inflicted_damage)
+        if double_tap:
+            if move['target'].soldiers <= double_tap:
+                double_tap = move['target'].soldiers
+                move['target'].get_damaged(double_tap)
+                return {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True}
+            move['target'].get_damaged(double_tap)
+            return {'damage': inflicted_damage, 'double_tap': double_tap}
+        return {'damage': inflicted_damage}
+
+    def execute_move_confuse(self, move):
+        result = execute_move_battle(move)
+        result.update({'status': 'confuse'})
+        return result
+
+    def execute_move_disable(self, move):
+        return {'status': 'disable'}
+
+    def execute_move_provoke(self, move):
+        result = execute_move_battle(move)
+        result.update({'status': 'provoke'})
+        return result
+
+    def execute_move_tactic(self, move):
+        return {}
+
+    def execute_move_defend(self, move):
+        move['agent'].boosts['defend'] = True
+        return {'defend': True}
+
+    def execute_move_item(self, move):
+        return {}
+
+    def change_move_if_dead_or_cursed(self, move):
+        if move['agent'].soldiers == 0:
+            move = None
+        elif move['agent'].bad_statuses:
+            if 'disable' in move['agent'].bad_statuses:
+                move = {'agent': move['agent'], 'action': self.execute_move_disable}
+            elif 'confuse' in move['agent'].bad_statuses:
+                if move['agent'] in self.allies:
+                    random_target = random.choice(self.get_live_allies())
+                else:
+                    random_target = random.choice(self.get_live_enemies())
+                move = {'agent': move['agent'], 'action': self.execute_move_confuse, 'target': random_target}
+            else: # provoke
+                move = {'agent': move['agent'], 'action': self.execute_move_provoke, 'target': move['agent'].provoker}
+        return move
 
     def generate_enemy_moves(self):
         ally_dangers = {ally.index: ally.get_danger() for ally in self.allies if ally.soldiers > 0}
@@ -208,15 +300,7 @@ class Battle(object):
 
     def generate_enemy_move(self, enemy, ally_target_index, sum_dangers):
         ally_target = self.allies[ally_target_index]
-        random_other_enemy = random.choice([e for e in self.enemies if e.index != enemy.index and e.soldiers > 0])
-
-        # forced action
-        if 'disable' in enemy.bad_statuses:
-            return {'agent': enemy, 'action': 'disable'}
-        if 'confuse' in enemy.bad_statuses:
-            return {'agent': enemy, 'action': 'confuse', 'target': random_other_enemy}
-        if 'provoke' in enemy.bad_statuses:
-            return {'agent': enemy, 'action': 'provoke', 'target': enemy.provoker}
+        random_enemy = random.choice(self.get_live_enemies())
 
         # heal
         heal_tactic = enemy.tactics[2]
@@ -226,7 +310,7 @@ class Battle(object):
             heal_tactic and heal_cost < tactical_points and enemy.soldiers*1.0/enemy.max_soldiers < .5
             and sum_dangers > enemy.soldiers and random.random() < .8
         ):
-            action = {'agent': enemy, 'action': 'tactic', 'tactic': heal_tactic}
+            action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': heal_tactic}
             if TACTICS[heal_tactic]['type'] == 'ally':
                 action.update({'target': enemy})
             return action
@@ -241,7 +325,7 @@ class Battle(object):
             and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
             and random.random() < .5
         ):
-            return {'agent': enemy, 'action': 'tactic', 'tactic': 'dispel'}
+            return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'dispel'}
 
         # defense
         defense_tactic = enemy.tactics[3]
@@ -250,7 +334,7 @@ class Battle(object):
             defense_tactic and heal_cost + defense_cost < tactical_points
             and defense_tactic not in self.good_enemy_statuses and random.random() < .3
         ):
-            return {'agent': enemy, 'action': 'tactic', 'tactic': defense_tactic}
+            return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': defense_tactic}
 
         # provoke, disable
         enemy_prob = self.get_enemy_prob(enemy, ally_target)
@@ -260,7 +344,9 @@ class Battle(object):
             and enemy.tactics[4] not in ally_target.bad_statuses
             and random.random() < enemy_prob
         ):
-            return {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[4], 'target': ally_target}
+            return {
+                'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[4], 'target': ally_target,
+            }
 
         # confuse, assassin
         if (
@@ -269,17 +355,21 @@ class Battle(object):
             and enemy.tactics[5] not in ally_target.bad_statuses
             and random.random() < enemy_prob
         ):
-            return {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[5], 'target': ally_target}
+            return {
+                'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[5], 'target': ally_target,
+            }
 
         # boost_tactic: ninja, double tap, hulk out
         boost_tactic = enemy.tactics[5]
         if boost_tactic in ['ninja', 'double~tap', 'hulk~out']:
             if (
-                (boost_tactic == 'hulk~out' or boost_tactic not in random_other_enemy.good_statuses)
+                (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
                 and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
                 and random.random() < .6
             ):
-                return {'agent': enemy, 'action': 'tactic', 'tactic': boost_tactic, 'target': random_other_enemy}
+                return {
+                    'agent': enemy, 'action': self.execute_move_tactic, 'tactic': boost_tactic, 'target': random_enemy,
+                }
 
         # water
         maybe_do_tactic_damage = enemy.tactic_danger > enemy.get_preliminary_damage()
@@ -290,7 +380,7 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
         ):
-            action = {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[1]}
+            action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[1]}
             if TACTICS[enemy.tactics[1]]['type'] == 'enemy':
                 action.update({'target': ally_target})
             return action
@@ -302,13 +392,13 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
         ):
-            action = {'agent': enemy, 'action': 'tactic', 'tactic': enemy.tactics[0]}
+            action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[0]}
             if TACTICS[enemy.tactics[0]]['type'] == 'enemy':
                 action.update({'target': ally_target})
             return action
 
         # battle
-        return {'agent': enemy, 'action': 'battle', 'target': ally_target}
+        return {'agent': enemy, 'action': self.execute_move_battle, 'target': ally_target}
 
     def get_enemy_prob(self, attacker, target):
         return ((attacker.intelligence - target.intelligence)/255.0+1)/2

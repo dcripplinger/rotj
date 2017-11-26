@@ -51,6 +51,10 @@ class BattleWarlordRectBase(object):
         self.tactical_points = warlord['tactical_points']
         self.bad_statuses = set()
         self.index = warlord['index']
+        self.boosts = {}
+        self.attack_exposure = 1.0 - warlord['defense'] / 255.0
+        self.agility = warlord['agility']
+        self.evasion = warlord['evasion']
 
     def get_danger(self):
         return max(self.tactic_danger, self.get_preliminary_damage())
@@ -71,15 +75,18 @@ class BattleWarlordRectBase(object):
         return TACTICS[tactic].get('max_damage', 0)
 
     def get_preliminary_damage(self):
-        return self.compounded_strength * self.get_soldier_gain()
+        # including *25 for accurate get_danger() results, simulating a good damage potential
+        hulk_boost = self.boosts.get('hulk_boost', 1.0)
+        return self.compounded_strength * self.get_soldier_gain() * 25 * hulk_boost
 
     def get_damage(self, excellent=False):
         return self.get_preliminary_damage() * self.get_damage_potential(excellent=excellent)
 
     def get_damage_potential(self, excellent=False):
+        # including /25.0 to make up for the *25 in get_preliminary_damage()
         if excellent:
-            return 51
-        return random.choice([25, 25, 25, 25, 25, 25, 25, 25, 23, 23, 23, 23, 23, 23, 20, 20])
+            return 51 / 25.0
+        return random.choice([25, 25, 25, 25, 25, 25, 25, 25, 23, 23, 23, 23, 23, 23, 20, 20]) / 25.0
 
     def get_soldier_gain(self):
         return int(math.pow(2, len(str(self.soldiers))-1))
@@ -92,17 +99,19 @@ class BattleWarlordRectBase(object):
         self.state = 'backward'
         self.rel_target_pos = 0
 
-    def get_healed(soldiers):
-        pass
+    def get_healed(self, soldiers):
+        self.update_soldiers_change(soldiers)
 
     def flip_sprite(self):
         self.sprite = pygame.transform.flip(self.sprite, True, False)
 
-    def get_damaged(soldiers):
-        pass
+    def get_damaged(self, soldiers):
+        self.update_soldiers_change(-soldiers)
 
-    def update_soldiers_change(delta):
-        pass
+    def update_soldiers_change(self, delta):
+        self.soldiers += delta
+        self.build_soldiers_bar()
+        self.build_soldiers_box()
 
     def build_soldiers_bar(self):
         self.soldiers_bar = pygame.Surface((math.ceil(self.soldiers/self.soldiers_per_pixel), 8))
