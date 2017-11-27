@@ -57,6 +57,7 @@ class Map(object):
         self.follower_two = None
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
+        self.random_encounter = False
 
     def set_game_state_condition(self, condition):
         self.game.set_game_state_condition(condition)
@@ -220,10 +221,8 @@ class Map(object):
             self.map_menu.update(dt)
         if self.opening_dialog:
             self.opening_dialog.update(dt)
-
-    def move_hero(self, direction):
-        self.hero.move(direction)
-        if self.try_getting_random_encounter():
+        if self.random_encounter and self.hero.velocity == [0,0]:
+            self.random_encounter = False
             enemies = self.get_random_encounter_enemies()
             if not enemies:
                 return
@@ -232,6 +231,11 @@ class Map(object):
             else:
                 battle_type = 'regular'
             self.game.start_battle(enemies, battle_type)
+
+    def move_hero(self, direction):
+        self.hero.move(direction)
+        if self.try_getting_random_encounter():
+            self.random_encounter = True
 
     def try_getting_random_encounter(self):
         if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:
