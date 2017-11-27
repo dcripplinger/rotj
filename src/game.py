@@ -289,6 +289,7 @@ class Game(object):
             'food': self.game_state['food'] + food,
             'experience': self.game_state['experience'] + experience,
         })
+        self.next_map.load_company_sprites(self.next_map.hero.position, self.next_map.hero.direction, 'inplace')
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
