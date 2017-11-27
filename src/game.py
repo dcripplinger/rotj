@@ -27,12 +27,12 @@ class Game(object):
         self.clock = pygame.time.Clock()
         self.fps = 1000
         self.current_map = None
+        self.title_page = TitlePage(self.virtual_screen, self)
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)
         pygame.event.set_blocked(VIDEORESIZE)
         pygame.event.set_blocked(KEYUP)
-        self.title_page = TitlePage(self.virtual_screen, self)
         self.menu_screen = MenuScreen(self.virtual_screen, self)
         self.beginning_screen = Beginning(self, self.virtual_screen)
         self.game_state = None
@@ -225,9 +225,10 @@ class Game(object):
             pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
+
         if state == 'change_map':
             self.fade_out = True
-        if state == 'battle':
+        elif state == 'battle':
             battle_music_files = BATTLE_MUSIC[self.battle.battle_type]
             if battle_music_files.get('intro'):
                 self.current_music = 'intro'
@@ -237,10 +238,16 @@ class Game(object):
                 music_file = battle_music_files['repeat']
             pygame.mixer.music.load(music_file)
             pygame.mixer.music.play()
+        elif state == 'title':
+            self.battle = None
+            self.current_map = None
+            self.title_page.reset()
+            self.menu_screen = MenuScreen(self.virtual_screen, self)
+            self.beginning_screen = Beginning(self, self.virtual_screen)
 
     def start_battle(self, enemies, battle_type):
         self.set_screen_state('start_battle')
-        allies = copy.deepcopy(self.game_state['company'][0:5])
+        allies = copy.deepcopy([warlord for warlord in self.game_state['company'][0:5] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
         if tactician:
             tactical_points = tactician['tactical_points']

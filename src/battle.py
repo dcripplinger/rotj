@@ -139,6 +139,7 @@ class Battle(object):
         self.good_ally_statuses = {}
         self.near_water = False
         self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
+        self.heavy_damage_sound = pygame.mixer.Sound('data/audio/heavy_damage.wav')
         self.ally_tactical_points = ally_tactical_points
 
     def set_start_dialog(self):
@@ -208,7 +209,22 @@ class Battle(object):
                     for ally in self.get_live_allies():
                         ally.sprite = ally.walk_s
         elif self.state == 'lose':
-            self.right_dialog.update(dt)
+            if not self.heavy_damage_sound_played:
+                pygame.mixer.music.stop()
+                self.heavy_damage_sound.play()
+                self.heavy_damage_sound_played = True
+                time.sleep(1)
+                self.right_dialog = create_prompt('Oh no, you lost!')
+                pygame.mixer.music.load('data/audio/music/game_over.wav')
+                pygame.mixer.music.play()
+            else:
+                self.right_dialog.update(dt)
+                if is_quarter_second():
+                    for enemy in self.get_live_enemies():
+                        enemy.sprite = enemy.stand_s
+                else:
+                    for enemy in self.get_live_enemies():
+                        enemy.sprite = enemy.walk_s
 
     def get_company(self):
         return {
@@ -240,6 +256,7 @@ class Battle(object):
                             break
                         elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
                             self.handle_lose()
+                            self.heavy_damage_sound_played = False
                             break
             self.submitted_moves = []
             self.enemy_moves = []
@@ -251,7 +268,6 @@ class Battle(object):
 
     def handle_lose(self):
         self.state = 'lose'
-        self.right_dialog = create_prompt('Oh no, you lost!')
         self.menu = None
         self.portrait = None
 
@@ -487,6 +503,13 @@ class Battle(object):
                 self.right_dialog.shutdown()
                 self.game.end_battle(self.get_company(), self.ally_tactical_points, 0, 0, 0)
 
+    def handle_input_lose(self, pressed):
+        if self.right_dialog:
+            self.right_dialog.handle_input(pressed)
+            if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
+                self.right_dialog.shutdown()
+                self.game.set_screen_state('title')
+
     def handle_input_menu(self, pressed):
         self.menu.handle_input(pressed)
         if pressed[K_x]:
@@ -531,6 +554,8 @@ class Battle(object):
             self.handle_input_report_selected(pressed)
         elif self.state == 'win':
             self.handle_input_win(pressed)
+        elif self.state == 'lose':
+            self.handle_input_lose(pressed)
 
     def handle_input_report_selected(self, pressed):
         if pressed[K_x] or pressed[K_z]:
