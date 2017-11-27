@@ -17,7 +17,8 @@ MAX_BAR_WIDTH = 64
 
 
 class BattleWarlordRectBase(object):
-    def __init__(self, warlord):
+    def __init__(self, warlord, battle):
+        self.battle = battle
         self.stats = warlord
         self.name = warlord['name']
         self.surface = pygame.Surface((WIDTH, HEIGHT))
@@ -57,6 +58,13 @@ class BattleWarlordRectBase(object):
         self.attack_exposure = 1.0 - warlord['defense'] / 255.0
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
+        self.items = warlord['items']
+
+    def get_tactical_points(self):
+        if 'liahona' in [item['name'] for item in self.items]:
+            return self.tactical_points
+        else:
+            return self.battle.ally_tactical_points
 
     def get_danger(self):
         return max(self.tactic_danger, self.get_preliminary_damage())
@@ -116,7 +124,11 @@ class BattleWarlordRectBase(object):
         self.build_soldiers_box()
 
     def build_soldiers_bar(self):
-        self.soldiers_bar = pygame.Surface((math.ceil(self.soldiers/self.soldiers_per_pixel), 8))
+        if self.soldiers == 0:
+            width = 0
+        else:
+            width = max(math.ceil(self.soldiers/self.soldiers_per_pixel), 1)
+        self.soldiers_bar = pygame.Surface((width, 8))
         self.soldiers_bar.fill(self.color)
 
     def build_soldiers_box(self):
@@ -151,8 +163,8 @@ class BattleWarlordRectBase(object):
 
 
 class Ally(BattleWarlordRectBase):
-    def __init__(self, name):
-        super(Ally, self).__init__(name)
+    def __init__(self, name, battle):
+        super(Ally, self).__init__(name, battle)
         self.name_box_position = (0,0)
         self.soldiers_box_position = (0, 16)
 
@@ -165,8 +177,8 @@ class Ally(BattleWarlordRectBase):
 
 
 class Enemy(BattleWarlordRectBase):
-    def __init__(self, name):
-        super(Enemy, self).__init__(name)
+    def __init__(self, name, battle):
+        super(Enemy, self).__init__(name, battle)
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
         self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)
         self.stand = pygame.transform.flip(self.stand, True, False)

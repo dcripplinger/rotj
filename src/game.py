@@ -154,6 +154,11 @@ class Game(object):
                 break
         return [item for item in warlord_info['items'] if item.get('equipped')]
 
+    def get_tactician(self):
+        for warlord in self.game_state['company']:
+            if warlord.get('tactician'):
+                return warlord
+
     def try_set_tactician(self, warlord):
         warlord_name = warlord.lower()
         company = copy.deepcopy(self.game_state['company'])
@@ -236,22 +241,54 @@ class Game(object):
     def start_battle(self, enemies, battle_type):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy(self.game_state['company'][0:5])
-        self.battle = Battle(self.virtual_screen, self, allies, enemies, battle_type)
+        tactician = self.get_tactician()
+        if tactician:
+            tactical_points = tactician['tactical_points']
+            tactics = get_tactics(load_stats(tactician['name']), self.game_state['level'], pretty=False)
+        else:
+            tactical_points = 0
+            tactics = None
+        self.battle = Battle(
+            self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics,
+        )
         pygame.mixer.music.stop()
         self.continue_current_music = False
         self.current_music = None
         time.sleep(.1)
         self.encounter_sound.play()
 
-    def end_battle(self):
+    def end_battle(self, battle_company, tactical_points, experience, money, food):
         self.next_map = self.current_map
         self.current_map = None
         self.fade_alpha = 0
         self.continue_current_music = False
         self.set_screen_state('change_map')
-
-    def get_random_encounter_enemies(self):
-        return [{'name': 'bandit'}, {'name': 'bandit'}]
+        company = []
+        for warlord in self.game_state['company']:
+            if warlord['name'] in battle_company:
+                battle_guy = battle_company[warlord['name']]
+                new_warlord = {
+                    'name': warlord['name'],
+                    'soldiers': battle_guy['soldiers'],
+                    'tactical_points': (
+                        battle_guy['tactical_points']
+                        if 'liahona' in (item['name'] for item in battle_guy['items'])
+                        else warlord['tactical_points']
+                    ),
+                    'items': battle_guy['items'],
+                    'tactician': False if battle_guy['soldiers'] == 0 else warlord.get('tactician', False),
+                }
+            else:
+                new_warlord = warlord
+            if warlord.get('tactician'):
+                new_warlord['tactical_points'] = tactical_points
+            company.append(new_warlord)
+        self.update_game_state({
+            'company': company,
+            'money': self.game_state['money'] + money,
+            'food': self.game_state['food'] + food,
+            'experience': self.game_state['experience'] + experience,
+        })
 
     def update_game_state(self, updates):
         self.game_state.update(updates)

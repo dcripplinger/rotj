@@ -67,7 +67,7 @@ RETREAT_TIME_PER_PERSON = 0.2
 
 
 class Battle(object):
-    def __init__(self, screen, game, allies, enemies, battle_type):
+    def __init__(self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics):
         self.time_elapsed = 0.0
         self.game = game
         self.battle_type = battle_type
@@ -91,7 +91,8 @@ class Battle(object):
                 'soldiers': ally['soldiers'],
                 'max_soldiers': get_max_soldiers(ally['name'], level),
                 'tactics': get_tactics(json_stats, level, pretty=False),
-            }))
+                'items': ally['items'],
+            }, self))
         self.enemies = []
         for i, enemy in enumerate(enemies):
             soldiers = random.choice(enemy['stats']['soldiers'])
@@ -110,7 +111,8 @@ class Battle(object):
                 'soldiers': soldiers,
                 'max_soldiers': soldiers,
                 'tactics': enemy['stats'].get('tactics', ['','','','','','']),
-            }))
+                'items': [],
+            }, self))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
             # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it
@@ -137,6 +139,7 @@ class Battle(object):
         self.good_ally_statuses = {}
         self.near_water = False
         self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
+        self.ally_tactical_points = ally_tactical_points
 
     def set_start_dialog(self):
         script = ''
@@ -183,7 +186,7 @@ class Battle(object):
                     self.warlord.flip_sprite()
                     self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
                     if not self.warlord:
-                        self.game.end_battle()
+                        self.game.end_battle(self.get_company(), self.ally_tactical_points, 0, 0, 0)
         elif self.state == 'risk_it':
             if self.get_leader().state == 'wait':
                 self.simulate_battle()
@@ -206,6 +209,17 @@ class Battle(object):
                         ally.sprite = ally.walk_s
         elif self.state == 'lose':
             self.right_dialog.update(dt)
+
+    def get_company(self):
+        return {
+            ally.name: {
+                'name': ally.name,
+                'tactical_points': ally.get_tactical_points(),
+                'soldiers': ally.soldiers,
+                'items': ally.items,
+            }
+            for ally in self.allies
+        }
 
     def simulate_battle(self):
         while self.state == 'risk_it':
@@ -466,6 +480,13 @@ class Battle(object):
             self.create_menu()
             self.warlord.move_forward()
 
+    def handle_input_win(self, pressed):
+        if self.right_dialog:
+            self.right_dialog.handle_input(pressed)
+            if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
+                self.right_dialog.shutdown()
+                self.game.end_battle(self.get_company(), self.ally_tactical_points, 0, 0, 0)
+
     def handle_input_menu(self, pressed):
         self.menu.handle_input(pressed)
         if pressed[K_x]:
@@ -508,6 +529,8 @@ class Battle(object):
             self.handle_input_report(pressed)
         elif self.state == 'report_selected':
             self.handle_input_report_selected(pressed)
+        elif self.state == 'win':
+            self.handle_input_win(pressed)
 
     def handle_input_report_selected(self, pressed):
         if pressed[K_x] or pressed[K_z]:
