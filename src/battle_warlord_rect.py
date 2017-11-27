@@ -139,7 +139,8 @@ class BattleWarlordRectBase(object):
         self.surface.blit(self.name_box.surface, self.name_box_position)
         self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
         self.surface.blit(self.soldiers_bar, self.soldiers_bar_position)
-        self.surface.blit(self.sprite, self.get_sprite_position())
+        if self.soldiers > 0:
+            self.surface.blit(self.sprite, self.get_sprite_position())
 
     def update(self, dt):
         if self.state == 'forward':
