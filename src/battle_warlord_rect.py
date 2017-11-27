@@ -36,6 +36,8 @@ class BattleWarlordRectBase(object):
         self.build_soldiers_box()
         self.stand = load_image('sprites/{}/e/stand.png'.format(self.name))
         self.walk = load_image('sprites/{}/e/walk.png'.format(self.name))
+        self.stand_s = load_image('sprites/{}/s/stand.png'.format(self.name))
+        self.walk_s = load_image('sprites/{}/s/walk.png'.format(self.name))
         self.sprite = self.stand
         self.state = 'wait'
         self.rel_pos = 0

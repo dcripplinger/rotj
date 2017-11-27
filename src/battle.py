@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import random
+import time
 
 import pygame
 from pygame.locals import *
@@ -8,7 +9,8 @@ from pygame.locals import *
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, TACTICS
 from helpers import (
-    get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, load_image, load_stats,
+    get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, is_quarter_second, load_image,
+    load_stats,
 )
 from report import Report
 from text import create_prompt, MenuGrid
@@ -134,6 +136,7 @@ class Battle(object):
         self.good_enemy_statuses = {}
         self.good_ally_statuses = {}
         self.near_water = False
+        self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
 
     def set_start_dialog(self):
         script = ''
@@ -178,14 +181,29 @@ class Battle(object):
                 if self.time_elapsed > RETREAT_TIME_PER_PERSON:
                     self.time_elapsed -= RETREAT_TIME_PER_PERSON
                     self.warlord.flip_sprite()
-                    self.warlord = self.get_next_live_ally_after(self.warlord)
+                    self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
                     if not self.warlord:
                         self.game.end_battle()
         elif self.state == 'risk_it':
             if self.get_leader().state == 'wait':
                 self.simulate_battle()
         elif self.state == 'win':
-            self.right_dialog.update(dt)
+            if not self.excellent_sound_played:
+                pygame.mixer.music.stop()
+                self.excellent_sound.play()
+                self.excellent_sound_played = True
+                time.sleep(1)
+                self.right_dialog = create_prompt('You won the fight!')
+                pygame.mixer.music.load('data/audio/music/victory.wav')
+                pygame.mixer.music.play()
+            else:
+                self.right_dialog.update(dt)
+                if is_quarter_second():
+                    for ally in self.get_live_allies():
+                        ally.sprite = ally.stand_s
+                else:
+                    for ally in self.get_live_allies():
+                        ally.sprite = ally.walk_s
         elif self.state == 'lose':
             self.right_dialog.update(dt)
 
@@ -204,6 +222,7 @@ class Battle(object):
                     if results.get('killed'):
                         if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
                             self.handle_win()
+                            self.excellent_sound_played = False
                             break
                         elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
                             self.handle_lose()
@@ -213,7 +232,6 @@ class Battle(object):
 
     def handle_win(self):
         self.state = 'win'
-        self.right_dialog = create_prompt('You won the fight!')
         self.menu = None
         self.portrait = None
 
@@ -463,6 +481,7 @@ class Battle(object):
         self.warlord.move_back()
         self.state = 'risk_it'
         self.menu.unfocus()
+        time.sleep(1)
 
     def handle_input_report(self, pressed):
         if pressed[K_UP]:
@@ -496,7 +515,7 @@ class Battle(object):
             self.menu.focus()
             self.report = None
 
-    def get_next_live_ally_after(self, warlord):
+    def get_next_live_ally_after(self, warlord, nowrap=False):
         if warlord is None:
             return self.get_leader()
         found = False
@@ -504,7 +523,10 @@ class Battle(object):
         while not found:
             index += 1
             if index >= len(self.allies):
-                index = 0
+                if nowrap:
+                    return None
+                else:
+                    index = 0
             ally = self.allies[index]
             if ally.soldiers == 0:
                 continue
