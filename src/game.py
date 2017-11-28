@@ -11,7 +11,10 @@ from pygame.locals import *
 
 from battle import Battle
 from beginning import Beginning
-from constants import BATTLE_MUSIC, BLACK, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE
+from constants import (
+    BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE,
+    MAX_NUM,
+)
 from helpers import get_max_soldiers, get_max_tactical_points
 from menu_screen import MenuScreen
 from tiled_map import Map
@@ -264,7 +267,32 @@ class Game(object):
         time.sleep(.1)
         self.encounter_sound.play()
 
-    def end_battle(self, battle_company, tactical_points, experience, money, food):
+    def collect_spoils(self, experience, money, food):
+        self.update_game_state({
+            'money': min(self.game_state['money'] + money, MAX_NUM),
+            'food': min(self.game_state['food'] + food, MAX_NUM),
+            'experience': min(self.game_state['experience'] + experience, EXP_REQUIRED_BY_LEVEL[90]),
+        })
+        adjustments = 0
+        if 'talked_with_exp_guy' in self.game_state['conditions']:
+            adjustments += 1
+        if 'talked_with_exp_guy_again' in self.game_state['conditions']:
+            adjustments += 1
+        levels_earned = []
+        level_to_check = self.game_state['level'] + 1
+        level_reached = True
+        while level_reached:
+            exp_required = EXP_REQUIRED_BY_LEVEL.get(level_to_check - adjustments)
+            if exp_required is not None and self.game_state['experience'] >= exp_required:
+                levels_earned.append(level_to_check)
+                level_to_check += 1
+            else:
+                level_reached = False
+        if len(levels_earned) > 0:
+            self.update_game_state({'level': levels_earned[-1]})
+        return levels_earned
+
+    def end_battle(self, battle_company, tactical_points):
         self.next_map = self.current_map
         self.current_map = None
         self.fade_alpha = 0
@@ -290,12 +318,7 @@ class Game(object):
             if warlord.get('tactician'):
                 new_warlord['tactical_points'] = tactical_points
             company.append(new_warlord)
-        self.update_game_state({
-            'company': company,
-            'money': self.game_state['money'] + money,
-            'food': self.game_state['food'] + food,
-            'experience': self.game_state['experience'] + experience,
-        })
+        self.update_game_state({'company': company})
         self.next_map.load_company_sprites(self.next_map.hero.position, self.next_map.hero.direction, 'inplace')
 
     def update_game_state(self, updates):

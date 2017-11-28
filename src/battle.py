@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import math
 import random
 import time
 
@@ -187,7 +188,7 @@ class Battle(object):
                     self.warlord.flip_sprite()
                     self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
                     if not self.warlord:
-                        self.game.end_battle(self.get_company(), self.ally_tactical_points, 0, 0, 0)
+                        self.game.end_battle(self.get_company(), self.ally_tactical_points)
         elif self.state == 'risk_it':
             if self.get_leader().state == 'wait':
                 self.simulate_battle()
@@ -197,7 +198,18 @@ class Battle(object):
                 self.excellent_sound.play()
                 self.excellent_sound_played = True
                 time.sleep(1)
-                self.right_dialog = create_prompt('You won the fight!')
+                if self.food > 0:
+                    victory_script = "{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
+                    victory_script = victory_script.format(
+                        self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
+                        self.food,
+                    )
+                else:
+                    victory_script = "{}'s army has conquered {}. We got {} exp. points and {} senines."
+                    victory_script = victory_script.format(
+                        self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
+                    )
+                self.right_dialog = create_prompt(victory_script)
                 pygame.mixer.music.load('data/audio/music/victory.wav')
                 pygame.mixer.music.play()
             else:
@@ -214,7 +226,7 @@ class Battle(object):
                 self.heavy_damage_sound.play()
                 self.heavy_damage_sound_played = True
                 time.sleep(1)
-                self.right_dialog = create_prompt('Oh no, you lost!')
+                self.right_dialog = create_prompt('Your army has been overcome by the enemy. Game over.')
                 pygame.mixer.music.load('data/audio/music/game_over.wav')
                 pygame.mixer.music.play()
             else:
@@ -265,6 +277,16 @@ class Battle(object):
         self.state = 'win'
         self.menu = None
         self.portrait = None
+        self.collect_spoils()
+
+    def collect_spoils(self):
+        story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
+        story_battle_gain = 3 if story_battle else 1
+        base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
+        self.experience = int(0.001 * base_num) * story_battle_gain
+        self.money = int(0.004 * base_num) * story_battle_gain
+        self.food = int(0.009 * base_num) if story_battle else 0
+        self.levels = self.game.collect_spoils(self.experience, self.money, self.food)
 
     def handle_lose(self):
         self.state = 'lose'
@@ -501,7 +523,7 @@ class Battle(object):
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
                 self.right_dialog.shutdown()
-                self.game.end_battle(self.get_company(), self.ally_tactical_points, 0, 0, 0)
+                self.game.end_battle(self.get_company(), self.ally_tactical_points)
 
     def handle_input_lose(self, pressed):
         if self.right_dialog:
