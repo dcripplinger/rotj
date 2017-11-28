@@ -6,15 +6,32 @@ import shutil
 
 import pygame
 
-from constants import ITEMS
+from constants import ITEMS, TACTICS
 
 # WARNING: Don't import anything from the rotj repo into here. To avoid circular imports,
 # we are restricting this module to only functions that do not depend on any other rotj
-# modules. If you need to make a function available to other modules but it also depends
+# modules except constants. If you need to make a function available to other modules but it also depends
 # on a module, perhaps make it in the same module it would depend on. See text.create_prompt
 # as an example.
 
 RESOURCES_DIR = 'data'
+
+
+def get_intelligence(warlord):
+    stats = load_stats(warlord)
+    return stats['intelligence']
+
+
+def can_level_up(warlord):
+    stats = load_stats(warlord)
+    return 'max_soldiers_by_level' in stats
+
+
+def get_tactic_for_level(level):
+    for tactic in TACTICS:
+        if TACTICS[tactic]['min_level'] == level:
+            return tactic
+    return None
 
 
 def get_tactics(stats, level, pretty=True):

@@ -10,7 +10,15 @@ from pygame.locals import *
 from battle_warlord_rect import Ally, Enemy
 from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, TACTICS
 from helpers import (
-    get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, is_quarter_second, load_image,
+    can_level_up,
+    get_equip_based_stat_value,
+    get_intelligence,
+    get_max_soldiers,
+    get_max_tactical_points,
+    get_tactic_for_level,
+    get_tactics,
+    is_quarter_second,
+    load_image,
     load_stats,
 )
 from report import Report
@@ -215,6 +223,8 @@ class Battle(object):
             else:
                 for ally in self.get_live_allies():
                     ally.sprite = ally.walk_s
+        elif self.win_state == 'level_up':
+            self.right_dialog.update(dt)
 
     def update_lose(self, dt):
         if self.lose_state == 'start':
@@ -531,11 +541,52 @@ class Battle(object):
             self.warlord.move_forward()
 
     def handle_input_win(self, pressed):
-        if self.right_dialog:
+        if self.win_state == 'main':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
-                self.right_dialog.shutdown()
-                self.game.end_battle(self.get_company(), self.ally_tactical_points)
+                leveled_up = self.level_up()
+                if not leveled_up:
+                    self.right_dialog.shutdown()
+                    self.game.end_battle(self.get_company(), self.ally_tactical_points)
+                else:
+                    self.win_state = 'level_up'
+        elif self.win_state == 'level_up':
+            self.right_dialog.handle_input(pressed)
+            if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
+                leveled_up = self.level_up()
+                if not leveled_up:
+                    self.right_dialog.shutdown()
+                    self.game.end_battle(self.get_company(), self.ally_tactical_points)
+
+    def level_up(self):
+        if len(self.levels) == 0:
+            return False
+        level = self.levels.pop(0)
+        pygame.mixer.music.load('data/audio/music/level.wav')
+        pygame.mixer.music.play()
+        self.right_dialog.shutdown()
+        dialog = "{}'s army has advanced one skill level. ".format(self.get_leader().name.title())
+        tactic_guys = []
+        tactic = get_tactic_for_level(level)
+        for warlord in self.game.game_state['company']:
+            if can_level_up(warlord['name']):
+                dialog += "{} now has {} soldiers. ".format(
+                    warlord['name'].title(), get_max_soldiers(warlord['name'], level),
+                )
+                if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
+                    tactic_guys.append(warlord)
+        if len(tactic_guys) > 1:
+            for warlord in tactic_guys[0:-1]:
+                dialog += "{}, ".format(warlord['name'].title())
+        if len(tactic_guys) > 0:
+            dialog += "{} learned the {} tactic. ".format(tactic_guys[-1]['name'].title(), tactic.title())
+        tactician = self.game.get_tactician()
+        if tactician:
+            dialog += "{}'s tactical ability increased to {}.".format(
+                tactician['name'].title(), get_max_tactical_points(tactician['name']),
+            )
+        self.right_dialog = create_prompt(dialog)
+        return True
 
     def handle_input_lose(self, pressed):
         if self.right_dialog:
