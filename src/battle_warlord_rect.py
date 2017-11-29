@@ -105,6 +105,10 @@ class BattleWarlordRectBase(object):
         self.state = 'forward'
         self.rel_target_pos = 16
 
+    def move_to_front(self):
+        self.state = 'forward'
+        self.rel_target_pos = 48
+
     def move_back(self):
         self.state = 'backward'
         self.rel_target_pos = 0

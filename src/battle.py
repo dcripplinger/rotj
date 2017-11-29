@@ -144,6 +144,7 @@ class Battle(object):
         self.report = None
         self.submitted_moves = []
         self.enemy_moves = []
+        self.ordered_moves = []
         self.good_enemy_statuses = {}
         self.good_ally_statuses = {}
         self.near_water = False
@@ -259,6 +260,24 @@ class Battle(object):
             self.update_win(dt)
         elif self.state == 'lose':
             self.update_lose(dt)
+        elif self.state == 'all_out':
+            self.update_all_out(dt)
+
+    def update_all_out(self, dt):
+        if self.all_out_state == 'move_back_leader':
+            if self.warlord.state == 'wait':
+                self.all_out_state = 'charge'
+                for warlord in self.get_live_allies() + self.get_live_enemies():
+                    warlord.move_to_front()
+                self.warlord = None
+        elif self.all_out_state == 'charge':
+            if self.get_leader().state == 'wait':
+                self.all_out_state = 'main'
+        elif self.all_out_state == 'main':
+            if len(self.submitted_moves) == 0:
+                self.submit_ai_moves()
+            # else:
+            #     next_move = 
 
     def get_company(self):
         return {
@@ -273,25 +292,42 @@ class Battle(object):
 
     def simulate_battle(self):
         while self.state == 'risk_it':
-            enemies = self.get_live_enemies()
-            for ally in self.get_live_allies():
-                move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
-                self.submit_move(move)
-            self.generate_enemy_moves()
-            for move in self.get_moves_in_order_of_agility():
-                move = self.change_move_if_dead_or_cursed(move)
-                if move is not None:
-                    action_handler = move['action']
-                    results = action_handler(move)
-                    if results.get('killed'):
-                        if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
-                            self.handle_win()
-                            break
-                        elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
-                            self.handle_lose()
-                            break
+            self.simulate_volley()
             self.submitted_moves = []
             self.enemy_moves = []
+            self.ordered_moves = []
+
+    def submit_ai_moves(self):
+        enemies = self.get_live_enemies()
+        for ally in self.get_live_allies():
+            move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
+            self.submit_move(move)
+        self.generate_enemy_moves()
+        self.ordered_moves = self.get_moves_in_order_of_agility()
+
+    def simulate_volley(self):
+        self.submit_ai_moves()
+        self.execute_moves()
+
+    def execute_moves(self):
+        for move in self.ordered_moves:
+            result = self.execute_move(move)
+            if result != 'continue':
+                break
+
+    def execute_move(self, move):
+        move = self.change_move_if_dead_or_cursed(move)
+        if move is not None:
+            action_handler = move['action']
+            results = action_handler(move)
+            if results.get('killed'):
+                if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
+                    self.handle_win()
+                    return 'win'
+                elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
+                    self.handle_lose()
+                    return 'lose'
+        return 'continue'
 
     def handle_win(self):
         self.state = 'win'
@@ -319,6 +355,15 @@ class Battle(object):
         the_moves = self.submitted_moves + self.enemy_moves
         the_moves.sort(key=lambda move: move['agent'].agility, reverse=True)
         return the_moves
+
+    def get_move_sound(self, move, results):
+        if results.get('repel') or results.get('evade'):
+            return self.repel_sound
+        elif move['action'] == self.execute_move_battle:
+            if move['agent'] in self.allies:
+                return self.excellent_sound if results.get('excellent') else self.hit_sound
+            else:
+                return self.heavy_damage_sound if results.get('excellent') else self.damage_sound
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
@@ -350,16 +395,16 @@ class Battle(object):
         if move['target'].soldiers <= inflicted_damage:
             inflicted_damage = move['target'].soldiers
             move['target'].get_damaged(inflicted_damage)
-            return {'damage': inflicted_damage, 'killed': True}
+            return {'damage': inflicted_damage, 'killed': True, 'excellent': excellent}
         move['target'].get_damaged(inflicted_damage)
         if double_tap:
             if move['target'].soldiers <= double_tap:
                 double_tap = move['target'].soldiers
                 move['target'].get_damaged(double_tap)
-                return {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True}
+                return {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True, 'excellent': excellent}
             move['target'].get_damaged(double_tap)
-            return {'damage': inflicted_damage, 'double_tap': double_tap}
-        return {'damage': inflicted_damage}
+            return {'damage': inflicted_damage, 'double_tap': double_tap, 'excellent': excellent}
+        return {'damage': inflicted_damage, 'excellent': excellent}
 
     def execute_move_confuse(self, move):
         result = execute_move_battle(move)
@@ -599,12 +644,22 @@ class Battle(object):
         self.menu.handle_input(pressed)
         if pressed[K_x]:
             self.select_sound.play()
-            if self.menu.get_choice() == 'RETREAT':
+            choice = self.menu.get_choice()
+            if choice == 'RETREAT':
                 self.handle_retreat()
-            elif self.menu.get_choice() == 'REPORT':
+            elif choice == 'REPORT':
                 self.handle_report()
-            elif self.menu.get_choice() == 'RISK-IT':
+            elif choice == 'RISK-IT':
                 self.handle_risk_it()
+            elif choice == 'ALL-OUT':
+                self.handle_all_out()
+
+    def handle_all_out(self):
+        self.warlord.move_back()
+        self.state = 'all_out'
+        self.menu.unfocus()
+        self.portrait = None
+        self.all_out_state = 'move_back_leader'
 
     def handle_risk_it(self):
         self.warlord.move_back()

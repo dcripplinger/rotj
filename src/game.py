@@ -15,7 +15,7 @@ from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE,
     MAX_NUM,
 )
-from helpers import get_max_soldiers, get_max_tactical_points
+from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
