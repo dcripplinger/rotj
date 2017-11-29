@@ -59,10 +59,18 @@ class BattleWarlordRectBase(object):
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
         self.items = warlord['items']
+        self.hit_type = None
+        self.hit_image_a = True
+        self.hit_time = 0
 
     def animate_all_out(self):
         self.state = 'animate_all_out'
         self.animate_time = 0
+
+    def animate_hit(self, hit_type):
+        self.hit_type = hit_type
+        self.hit_image_a = True
+        self.hit_time = 0
 
     def get_tactical_points(self):
         if 'liahona' in [item['name'] for item in self.items]:
@@ -148,9 +156,14 @@ class BattleWarlordRectBase(object):
         self.surface.blit(self.soldiers_box.surface, self.soldiers_box_position)
         self.surface.blit(self.soldiers_bar, self.soldiers_bar_position)
         if self.soldiers > 0:
-            self.surface.blit(self.sprite, self.get_sprite_position())
+            sprite_pos = self.get_sprite_position()
+            self.surface.blit(self.sprite, sprite_pos)
+            if self.hit_type:
+                self.surface.blit(self.hit_images[self.hit_type][self.hit_image_a], sprite_pos)
 
     def update(self, dt):
+        animate_time = 0.5
+
         if self.state == 'forward':
             self.switch_sprite()
             self.rel_pos += int(dt*100)
@@ -166,8 +179,15 @@ class BattleWarlordRectBase(object):
         elif self.state == 'animate_all_out':
             self.switch_sprite()
             self.animate_time += dt
-            if self.animate_time > 0.5:
+            if self.animate_time > animate_time:
                 self.state = 'wait'
+
+        # animate the hits independent of the overall state, use hit_type instead
+        if self.hit_type:
+            self.hit_time += dt
+            self.hit_image_a = not self.hit_image_a
+            if self.hit_time > animate_time:
+                self.hit_type = None
 
     def switch_sprite(self):
         if self.sprite == self.walk:
@@ -181,6 +201,20 @@ class Ally(BattleWarlordRectBase):
         super(Ally, self).__init__(name, battle)
         self.name_box_position = (0,0)
         self.soldiers_box_position = (0, 16)
+        self.hit_images = {
+            'attack': {
+                True: pygame.transform.flip(load_image('hits/attack/a.png'), True, False),
+                False: pygame.transform.flip(load_image('hits/attack/b.png'), True, False),
+            },
+            'fire': {
+                True: pygame.transform.flip(load_image('hits/fire/a.png'), True, False),
+                False: pygame.transform.flip(load_image('hits/fire/b.png'), True, False),
+            },
+            'water': {
+                True: pygame.transform.flip(load_image('hits/water/a.png'), True, False),
+                False: pygame.transform.flip(load_image('hits/water/b.png'), True, False),
+            },
+        }
 
     def get_sprite_position(self):
         return (TEXT_AREA_WIDTH + self.rel_pos, 0)
@@ -198,6 +232,20 @@ class Enemy(BattleWarlordRectBase):
         self.stand = pygame.transform.flip(self.stand, True, False)
         self.walk = pygame.transform.flip(self.walk, True, False)
         self.sprite = self.stand
+        self.hit_images = {
+            'attack': {
+                True: load_image('hits/attack/a.png'),
+                False: load_image('hits/attack/b.png'),
+            },
+            'fire': {
+                True: load_image('hits/fire/a.png'),
+                False: load_image('hits/fire/b.png'),
+            },
+            'water': {
+                True: load_image('hits/water/a.png'),
+                False: load_image('hits/water/b.png'),
+            },
+        }
 
     def get_sprite_position(self):
         return (WIDTH - TEXT_AREA_WIDTH - 16 - self.rel_pos, 0)

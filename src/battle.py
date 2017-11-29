@@ -285,9 +285,16 @@ class Battle(object):
             for warlord in self.get_live_allies() + self.get_live_enemies():
                 warlord.animate_all_out()
             self.get_move_sound(self.move, self.results).play()
+            self.animate_move_hit(self.move, self.results)
             if len(self.ordered_moves) == 0:
                 self.submitted_moves = []
                 self.enemy_moves = []
+
+    def animate_move_hit(self, move, results):
+        if results.get('repel') or results.get('evade'):
+            return
+        elif move['action'] == self.execute_move_battle:
+            move['target'].animate_hit('attack')
 
     def get_company(self):
         return {
