@@ -60,6 +60,10 @@ class BattleWarlordRectBase(object):
         self.evasion = warlord['evasion']
         self.items = warlord['items']
 
+    def animate_all_out(self):
+        self.state = 'animate_all_out'
+        self.animate_time = 0
+
     def get_tactical_points(self):
         if 'liahona' in [item['name'] for item in self.items]:
             return self.tactical_points
@@ -158,6 +162,11 @@ class BattleWarlordRectBase(object):
             self.rel_pos -= int(dt*100)
             if self.rel_pos < 0:
                 self.rel_pos = 0.0
+                self.state = 'wait'
+        elif self.state == 'animate_all_out':
+            self.switch_sprite()
+            self.animate_time += dt
+            if self.animate_time > 0.5:
                 self.state = 'wait'
 
     def switch_sprite(self):

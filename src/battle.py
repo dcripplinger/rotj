@@ -150,6 +150,9 @@ class Battle(object):
         self.near_water = False
         self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
         self.heavy_damage_sound = pygame.mixer.Sound('data/audio/heavy_damage.wav')
+        self.hit_sound = pygame.mixer.Sound('data/audio/hit.wav')
+        self.damage_sound = pygame.mixer.Sound('data/audio/damage.wav')
+        self.fail_sound = pygame.mixer.Sound('data/audio/fail.wav')
         self.ally_tactical_points = ally_tactical_points
 
     def set_start_dialog(self):
@@ -273,11 +276,18 @@ class Battle(object):
         elif self.all_out_state == 'charge':
             if self.get_leader().state == 'wait':
                 self.all_out_state = 'main'
-        elif self.all_out_state == 'main':
+        elif self.all_out_state == 'main' and self.get_leader().state == 'wait':
+            time.sleep(.2) # pause between each all-out animation
             if len(self.submitted_moves) == 0:
                 self.submit_ai_moves()
-            # else:
-            #     next_move = 
+            next_move = self.ordered_moves.pop(0)
+            self.execute_move(next_move)
+            for warlord in self.get_live_allies() + self.get_live_enemies():
+                warlord.animate_all_out()
+            self.get_move_sound(self.move, self.results).play()
+            if len(self.ordered_moves) == 0:
+                self.submitted_moves = []
+                self.enemy_moves = []
 
     def get_company(self):
         return {
@@ -319,7 +329,9 @@ class Battle(object):
         move = self.change_move_if_dead_or_cursed(move)
         if move is not None:
             action_handler = move['action']
-            results = action_handler(move)
+            move, results = action_handler(move)
+            self.results = results
+            self.move = move
             if results.get('killed'):
                 if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
                     self.handle_win()
@@ -358,7 +370,7 @@ class Battle(object):
 
     def get_move_sound(self, move, results):
         if results.get('repel') or results.get('evade'):
-            return self.repel_sound
+            return self.fail_sound
         elif move['action'] == self.execute_move_battle:
             if move['agent'] in self.allies:
                 return self.excellent_sound if results.get('excellent') else self.hit_sound
@@ -374,10 +386,10 @@ class Battle(object):
             del move['agent'].boosts['defend']
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
         if 'repel' in good_target_team_statuses:
-            return {'repel': True}
+            return move, {'repel': True}
         evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 2.0
         if random.random() < evade_prob / 2.0: # divide by 2 so that evades aren't too common
-            return {'evade': True}
+            return move, {'evade': True}
         excellent = random.random() < 1.0/16
         inflicted_damage = int( move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1 )
         if move['agent'].boosts.get('double_tap'):
@@ -395,16 +407,16 @@ class Battle(object):
         if move['target'].soldiers <= inflicted_damage:
             inflicted_damage = move['target'].soldiers
             move['target'].get_damaged(inflicted_damage)
-            return {'damage': inflicted_damage, 'killed': True, 'excellent': excellent}
+            return move, {'damage': inflicted_damage, 'killed': True, 'excellent': excellent}
         move['target'].get_damaged(inflicted_damage)
         if double_tap:
             if move['target'].soldiers <= double_tap:
                 double_tap = move['target'].soldiers
                 move['target'].get_damaged(double_tap)
-                return {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True, 'excellent': excellent}
+                return move, {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True, 'excellent': excellent}
             move['target'].get_damaged(double_tap)
-            return {'damage': inflicted_damage, 'double_tap': double_tap, 'excellent': excellent}
-        return {'damage': inflicted_damage, 'excellent': excellent}
+            return move, {'damage': inflicted_damage, 'double_tap': double_tap, 'excellent': excellent}
+        return move, {'damage': inflicted_damage, 'excellent': excellent}
 
     def execute_move_confuse(self, move):
         result = execute_move_battle(move)
@@ -628,7 +640,7 @@ class Battle(object):
         tactician = self.game.get_tactician()
         if tactician:
             dialog += "{}'s tactical ability increased to {}.".format(
-                tactician['name'].title(), get_max_tactical_points(tactician['name']),
+                tactician['name'].title(), get_max_tactical_points(tactician['name'], level),
             )
         self.right_dialog = create_prompt(dialog)
         return True
