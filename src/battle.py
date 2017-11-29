@@ -277,7 +277,7 @@ class Battle(object):
             if self.get_leader().state == 'wait':
                 self.all_out_state = 'main'
         elif self.all_out_state == 'main' and self.get_leader().state == 'wait':
-            time.sleep(.2) # pause between each all-out animation
+            time.sleep(.1) # pause between each all-out animation
             if len(self.submitted_moves) == 0:
                 self.submit_ai_moves()
             next_move = self.ordered_moves.pop(0)
@@ -381,14 +381,18 @@ class Battle(object):
         is_ally_move = move['agent'] in self.allies
         if move['target'].soldiers == 0:
             targets = self.get_live_enemies() if is_ally_move else self.get_live_allies()
-            return self.execute_move_battle({'agent': move['agent'], 'target': random.choice(targets)})
+            return self.execute_move_battle({
+                'agent': move['agent'],
+                'target': random.choice(targets),
+                'action': self.execute_move_battle,
+            })
         if 'defend' in move['agent'].boosts:
             del move['agent'].boosts['defend']
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
         if 'repel' in good_target_team_statuses:
             return move, {'repel': True}
         evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 2.0
-        if random.random() < evade_prob / 2.0: # divide by 2 so that evades aren't too common
+        if random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
             return move, {'evade': True}
         excellent = random.random() < 1.0/16
         inflicted_damage = int( move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1 )
