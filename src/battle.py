@@ -271,7 +271,6 @@ class Battle(object):
             if self.get_leader().state == 'wait':
                 self.init_menu_state()
 
-
     def update_all_out(self, dt):
         if self.all_out_state == 'move_back_leader':
             if self.warlord.state == 'wait':
@@ -327,11 +326,12 @@ class Battle(object):
             self.enemy_moves = []
             self.ordered_moves = []
 
-    def submit_ai_moves(self):
-        enemies = self.get_live_enemies()
-        for ally in self.get_live_allies():
-            move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
-            self.submit_move(move)
+    def submit_ai_moves(self, include_allies=True):
+        if include_allies:
+            enemies = self.get_live_enemies()
+            for ally in self.get_live_allies():
+                move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
+                self.submit_move(move)
         self.generate_enemy_moves()
         self.ordered_moves = self.get_moves_in_order_of_agility()
 
@@ -620,7 +620,7 @@ class Battle(object):
         self.state = 'menu'
         self.left_dialog = None
         self.right_dialog = None
-        self.warlord = self.get_leader()
+        self.warlord = self.warlord or self.get_leader()
         self.portrait = self.portraits[self.warlord.name]
         self.create_menu()
         self.warlord.move_forward()
@@ -693,6 +693,13 @@ class Battle(object):
                 self.handle_risk_it()
             elif choice == 'ALL-OUT':
                 self.handle_all_out()
+            elif choice == 'BATTLE':
+                self.handle_battle()
+
+    def handle_battle(self):
+        self.state = 'battle'
+        self.selected_enemy_index = self.get_first_live_enemy_index()
+        self.menu.unfocus()
 
     def handle_all_out(self):
         self.warlord.move_back()
@@ -738,6 +745,42 @@ class Battle(object):
             self.handle_input_lose(pressed)
         elif self.state == 'all_out':
             self.handle_input_all_out(pressed)
+        elif self.state == 'battle':
+            self.handle_input_battle(pressed)
+
+    def handle_input_battle(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_previous_live_enemy_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_next_live_enemy_index()
+        elif pressed[K_z]:
+            self.state = 'menu'
+            self.menu.focus()
+            self.selected_enemy_index = None
+        elif pressed[K_x]:
+            self.submit_move({
+                'agent': self.warlord,
+                'target': self.enemies[self.selected_enemy_index],
+                'action': self.execute_move_battle,
+            })
+            self.do_next_menu()
+
+    def do_next_menu(self):
+        self.warlord.move_back()
+        self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
+        self.selected_enemy_index = None
+        if self.warlord:
+            self.init_menu_state()
+        else:
+            self.init_execute_state()
+
+    def init_execute_state(self):
+        self.state = 'execute'
+        self.menu = None
+        self.portrait = None
+        self.submit_ai_moves(include_allies=False)
 
     def handle_input_all_out(self, pressed):
         if pressed[K_z]:
@@ -834,7 +877,7 @@ class Battle(object):
         if self.warlord == self.get_leader():
             choices = [first_column, ['ALL-OUT', 'RETREAT', 'REPORT', 'RISK-IT']]
         else:
-            choices = first_column
+            choices = [first_column]
         self.menu = MenuGrid(choices, border=True)
         self.menu.focus()
 
