@@ -695,6 +695,15 @@ class Battle(object):
                 self.handle_all_out()
             elif choice == 'BATTLE':
                 self.handle_battle()
+        elif pressed[K_z]:
+            warlord = self.get_previous_live_ally_before(self.warlord, nowrap=True)
+            self.warlord.move_back()
+            self.menu = None
+            self.portrait = None
+            if warlord:
+                self.submitted_moves.pop()
+                self.warlord = warlord
+            self.init_menu_state()
 
     def handle_battle(self):
         self.state = 'battle'
@@ -810,7 +819,7 @@ class Battle(object):
             found = True
         return ally
 
-    def get_previous_live_ally_before(self, warlord):
+    def get_previous_live_ally_before(self, warlord, nowrap=False):
         if warlord is None:
             return self.get_leader()
         found = False
@@ -818,8 +827,11 @@ class Battle(object):
         while not found:
             index -= 1
             if index < 0:
-                index = len(self.allies)-1
-            ally = self.ally[index]
+                if nowrap:
+                    return None
+                else:
+                    index = len(self.allies)-1
+            ally = self.allies[index]
             if ally.soldiers == 0:
                 continue
             found = True
