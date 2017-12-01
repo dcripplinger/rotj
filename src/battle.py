@@ -124,7 +124,8 @@ class Battle(object):
             }, self))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
-            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it
+            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it,
+            # cancel_all_out
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {
@@ -154,6 +155,7 @@ class Battle(object):
         self.damage_sound = pygame.mixer.Sound('data/audio/damage.wav')
         self.fail_sound = pygame.mixer.Sound('data/audio/fail.wav')
         self.ally_tactical_points = ally_tactical_points
+        self.cancel_all_out = False
 
     def set_start_dialog(self):
         script = ''
@@ -265,6 +267,10 @@ class Battle(object):
             self.update_lose(dt)
         elif self.state == 'all_out':
             self.update_all_out(dt)
+        elif self.state == 'cancel_all_out':
+            if self.get_leader().state == 'wait':
+                self.init_menu_state()
+
 
     def update_all_out(self, dt):
         if self.all_out_state == 'move_back_leader':
@@ -279,7 +285,14 @@ class Battle(object):
         elif self.all_out_state == 'main' and self.get_leader().state == 'wait':
             time.sleep(.1) # pause between each all-out animation
             if len(self.submitted_moves) == 0:
-                self.submit_ai_moves()
+                if self.cancel_all_out == True:
+                    for warlord in self.get_live_allies() + self.get_live_enemies():
+                        warlord.move_back()
+                    self.state = 'cancel_all_out'
+                    self.cancel_all_out = False
+                    return
+                else:
+                    self.submit_ai_moves()
             next_move = self.ordered_moves.pop(0)
             self.execute_move(next_move)
             for warlord in self.get_live_allies() + self.get_live_enemies():
@@ -601,12 +614,16 @@ class Battle(object):
     def handle_input_start(self, pressed):
         self.left_dialog.handle_input(pressed)
         if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
-            self.state = 'menu'
-            self.left_dialog = None
-            self.warlord = self.allies[0]
-            self.portrait = self.portraits[self.warlord.name]
-            self.create_menu()
-            self.warlord.move_forward()
+            self.init_menu_state()
+
+    def init_menu_state(self):
+        self.state = 'menu'
+        self.left_dialog = None
+        self.right_dialog = None
+        self.warlord = self.get_leader()
+        self.portrait = self.portraits[self.warlord.name]
+        self.create_menu()
+        self.warlord.move_forward()
 
     def handle_input_win(self, pressed):
         if self.win_state == 'main':
@@ -719,6 +736,12 @@ class Battle(object):
             self.handle_input_win(pressed)
         elif self.state == 'lose':
             self.handle_input_lose(pressed)
+        elif self.state == 'all_out':
+            self.handle_input_all_out(pressed)
+
+    def handle_input_all_out(self, pressed):
+        if pressed[K_z]:
+            self.cancel_all_out = True
 
     def handle_input_report_selected(self, pressed):
         if pressed[K_x] or pressed[K_z]:
