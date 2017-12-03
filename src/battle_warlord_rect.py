@@ -7,7 +7,7 @@ import pygame
 
 from constants import BLACK, GAME_WIDTH, TACTICS
 from helpers import load_image
-from text import TextBox
+from text import MenuGrid, TextBox
 
 WIDTH = GAME_WIDTH/2
 HEIGHT = 24
@@ -62,6 +62,17 @@ class BattleWarlordRectBase(object):
         self.hit_type = None
         self.hit_image_a = True
         self.hit_time = 0
+
+    def get_item_menu(self):
+        column1 = []
+        column2 = []
+        for index, item in enumerate(self.items):
+            item = item['name'].title()
+            if index < 4:
+                column1.append(item)
+            else:
+                column2.append(item)
+        return MenuGrid([column1, column2], border=True)
 
     def animate_all_out(self):
         self.state = 'animate_all_out'

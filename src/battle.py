@@ -126,7 +126,7 @@ class Battle(object):
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
             # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it,
-            # cancel_all_out
+            # cancel_all_out, error
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {
@@ -280,6 +280,10 @@ class Battle(object):
                     self.init_menu_state()
                 else:
                     self.init_execute_state()
+        elif self.state == 'item':
+            self.menu.update(dt)
+        elif self.state == 'error':
+            self.right_dialog.update(dt)
 
     def update_execute(self, dt):
         if self.execute_state == 'move_back':
@@ -820,6 +824,8 @@ class Battle(object):
                 self.handle_battle()
             elif choice == 'DEFEND':
                 self.handle_defend()
+            elif choice == 'ITEM':
+                self.handle_item()
         elif pressed[K_z]:
             warlord = self.get_previous_live_ally_before(self.warlord, nowrap=True)
             self.warlord.move_back()
@@ -829,6 +835,11 @@ class Battle(object):
                 self.submitted_moves.pop()
                 self.warlord = warlord
             self.init_menu_state()
+
+    def handle_item(self):
+        self.state = 'item'
+        self.menu = self.warlord.get_item_menu()
+        self.menu.focus()
 
     def handle_defend(self):
         self.state = 'defend'
@@ -888,8 +899,26 @@ class Battle(object):
             self.handle_input_all_out(pressed)
         elif self.state == 'battle':
             self.handle_input_battle(pressed)
-        if self.state == 'execute':
+        elif self.state == 'execute':
             self.handle_input_execute(pressed)
+        elif self.state == 'item':
+            self.handle_input_item(pressed)
+        elif self.state == 'error':
+            self.handle_input_error(pressed)
+
+    def handle_input_error(self, pressed):
+        self.right_dialog.handle_input(pressed)
+        if pressed[K_x] and not self.right_dialog.has_more_stuff_to_show():
+            self.init_menu_state()
+
+    def handle_input_item(self, pressed):
+        self.menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.init_menu_state()
+        elif pressed[K_x]:
+            self.right_dialog = create_prompt("That item cannot be used in battle.")
+            self.menu.unfocus()
+            self.state = 'error'
 
     def handle_input_execute(self, pressed):
         dialog = self.left_dialog or self.right_dialog
@@ -1067,7 +1096,7 @@ class Battle(object):
         if self.left_dialog:
             self.screen.blit(self.left_dialog.surface, (0, 128+top_margin))
         if self.menu:
-            self.screen.blit(self.menu.surface, ((GAME_WIDTH - self.menu.get_width())/2, 128 + top_margin))
+            self.screen.blit(self.menu.surface, (64, 128 + top_margin))
         if self.right_dialog:
             self.screen.blit(self.right_dialog.surface, (GAME_WIDTH-self.right_dialog.width, 128+top_margin))
         if self.selected_enemy_index is not None:
