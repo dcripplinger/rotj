@@ -273,10 +273,17 @@ class Battle(object):
                 self.init_menu_state()
         elif self.state == 'execute':
             self.update_execute(dt)
+        elif self.state == 'defend':
+            if self.warlord.state == 'wait':
+                self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
+                if self.warlord:
+                    self.init_menu_state()
+                else:
+                    self.init_execute_state()
 
     def update_execute(self, dt):
         if self.execute_state == 'move_back':
-            if self.warlord.state == 'wait':
+            if self.warlord is None or self.warlord.state == 'wait':
                 if len(self.ordered_moves) > 0:
                     self.move = self.ordered_moves.pop(0)
                     self.warlord = self.move['agent']
@@ -328,6 +335,9 @@ class Battle(object):
                 mini_results.append(mini_result)
             else:
                 mini_results.append(results)
+        elif move['action'] == self.execute_move_defend:
+            mini_moves.append(move)
+            mini_results.append(results)
         return mini_moves, mini_results
 
     def get_move_dialog(self, mini_move, mini_result):
@@ -366,12 +376,16 @@ class Battle(object):
                         mini_move['target'].name.title(), mini_move['agent'].name.title(),
                     )
             return create_prompt(dialog)
+        elif mini_move['action'] == self.execute_move_defend:
+            return create_prompt("{} is defending.".format(mini_move['agent'].name.title()))
 
     def pop_and_handle_mini_move(self):
         if len(self.mini_moves) > 0:
             self.mini_move = self.mini_moves.pop(0)
             self.mini_result = self.mini_results.pop(0)
-            self.get_move_sound(self.mini_move, self.mini_result).play()
+            sound = self.get_move_sound(self.mini_move, self.mini_result)
+            if sound:
+                sound.play()
             self.animate_move_hit(self.mini_move, self.mini_result)
         else:
             self.mini_move = None
@@ -502,6 +516,8 @@ class Battle(object):
                 return self.excellent_sound if results.get('excellent') else self.hit_sound
             else:
                 return self.heavy_damage_sound if results.get('excellent') else self.damage_sound
+        elif move['action'] == self.execute_move_defend:
+            return None
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
@@ -554,22 +570,22 @@ class Battle(object):
         return result
 
     def execute_move_disable(self, move):
-        return {'status': 'disable'}
+        return move, {'status': 'disable'}
 
     def execute_move_provoke(self, move):
         result = execute_move_battle(move)
         result.update({'status': 'provoke'})
-        return result
+        return move, result
 
     def execute_move_tactic(self, move):
-        return {}
+        return move, {}
 
     def execute_move_defend(self, move):
         move['agent'].boosts['defend'] = True
-        return {'defend': True}
+        return move, {'defend': True}
 
     def execute_move_item(self, move):
-        return {}
+        return move, {}
 
     def change_move_if_dead_or_cursed(self, move):
         if move['agent'].soldiers == 0:
@@ -801,6 +817,8 @@ class Battle(object):
                 self.handle_all_out()
             elif choice == 'BATTLE':
                 self.handle_battle()
+            elif choice == 'DEFEND':
+                self.handle_defend()
         elif pressed[K_z]:
             warlord = self.get_previous_live_ally_before(self.warlord, nowrap=True)
             self.warlord.move_back()
@@ -810,6 +828,13 @@ class Battle(object):
                 self.submitted_moves.pop()
                 self.warlord = warlord
             self.init_menu_state()
+
+    def handle_defend(self):
+        self.state = 'defend'
+        self.menu = None
+        self.warlord.move_back()
+        self.portrait = None
+        self.submit_move({'agent': self.warlord, 'action': self.execute_move_defend})
 
     def handle_battle(self):
         self.state = 'battle'
