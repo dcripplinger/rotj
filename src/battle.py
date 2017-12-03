@@ -313,6 +313,7 @@ class Battle(object):
             else:
                 self.execute_state = 'move_back'
                 self.warlord.move_back()
+                self.portrait = None
         elif self.execute_state == 'dialog':
             dialog = self.right_dialog if self.move['agent'] in self.allies else self.left_dialog
             dialog.update(dt)
