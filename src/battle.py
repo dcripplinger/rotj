@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import copy
 import math
 import random
 import time
@@ -270,6 +271,111 @@ class Battle(object):
         elif self.state == 'cancel_all_out':
             if self.get_leader().state == 'wait':
                 self.init_menu_state()
+        elif self.state == 'execute':
+            self.update_execute(dt)
+
+    def update_execute(self, dt):
+        if self.execute_state == 'move_back':
+            if self.warlord.state == 'wait':
+                if len(self.ordered_moves) > 0:
+                    self.move = self.ordered_moves.pop(0)
+                    self.warlord = self.move['agent']
+                    self.warlord.move_forward()
+                    self.execute_state = 'move_forward'
+                else:
+                    self.move = None
+                    self.warlord = None
+                    self.submitted_moves = []
+                    self.enemy_moves = []
+                    self.init_menu_state()
+        elif self.execute_state == 'move_forward':
+            if self.warlord.state == 'wait':
+                self.execute_move(self.move)
+                self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
+                self.execute_state = 'mini_move'
+        elif self.execute_state == 'mini_move':
+            self.pop_and_handle_mini_move()
+            if self.mini_move:
+                self.execute_state = 'dialog'
+                self.portrait = self.portraits[self.move['agent'].name]
+                dialog = self.get_move_dialog(self.mini_move, self.mini_result)
+                if self.move['agent'] in self.allies:
+                    self.right_dialog = dialog
+                else:
+                    self.left_dialog = dialog
+            else:
+                self.execute_state = 'move_back'
+                self.warlord.move_back()
+        elif self.execute_state == 'dialog':
+            dialog = self.right_dialog if self.move['agent'] in self.allies else self.left_dialog
+            dialog.update(dt)
+
+    def get_mini_moves(self, move, results):
+        mini_moves = []
+        mini_results = []
+        if move['action'] == self.execute_move_battle:
+            mini_moves.append(move)
+            mini_result = copy.copy(results)
+            if 'double_tap' in mini_result:
+                del mini_result['double_tap']
+                if 'killed' in mini_result:
+                    del mini_result['killed']
+                mini_results.append(mini_result)
+                mini_moves.append(move)
+                mini_result = copy.copy(results)
+                mini_result['damage'] = mini_result['double_tap']
+                del mini_result['double_tap']
+                mini_results.append(mini_result)
+            else:
+                mini_results.append(results)
+        return mini_moves, mini_results
+
+    def get_move_dialog(self, mini_move, mini_result):
+        is_ally_move = mini_move['agent'] in self.allies
+        if mini_move['action'] == self.execute_move_battle:
+            dialog = "{}'s attack. ".format(mini_move['agent'].name.title())
+            if mini_result.get('evade'):
+                dialog += "{} evaded the attack.".format(mini_move['target'].name.title())
+                return create_prompt(dialog)
+            if mini_result.get('repel'):
+                if is_ally_move:
+                    dialog += "The enemy is repelling all attacks."
+                else:
+                    dialog += "{}'s army is repelling all attacks.".format(self.get_leader().name.title())
+                return create_prompt(dialog)
+            if mini_result.get('excellent'):
+                if is_ally_move:
+                    dialog += "{} did heavy damage. ".format(mini_move['agent'].name.title())
+                else:
+                    dialog += "{} took heavy damage. ".format(mini_move['target'].name.title())
+            if is_ally_move:
+                dialog += "We defeated {} of {}'s soldiers. ".format(
+                    mini_result['damage'], mini_move['target'].name.title(),
+                )
+            else:
+                dialog += "{} of {}'s soldiers were defeated. ".format(
+                    mini_result['damage'], mini_move['target'].name.title(),
+                )
+            if mini_result.get('killed'):
+                if is_ally_move:
+                    dialog += "{} vanquished {}.".format(
+                        mini_move['agent'].name.title(), mini_move['target'].name.title(),
+                    )
+                else:
+                    dialog += "{} has been routed by {}.".format(
+                        mini_move['target'].name.title(), mini_move['agent'].name.title(),
+                    )
+            return create_prompt(dialog)
+
+    def pop_and_handle_mini_move(self):
+        if len(self.mini_moves) > 0:
+            self.mini_move = self.mini_moves.pop(0)
+            self.mini_result = self.mini_results.pop(0)
+            self.get_move_sound(self.mini_move, self.mini_result).play()
+            self.animate_move_hit(self.mini_move, self.mini_result)
+        else:
+            self.mini_move = None
+            self.mini_result = None
 
     def update_all_out(self, dt):
         if self.all_out_state == 'move_back_leader':
@@ -756,6 +862,18 @@ class Battle(object):
             self.handle_input_all_out(pressed)
         elif self.state == 'battle':
             self.handle_input_battle(pressed)
+        if self.state == 'execute':
+            self.handle_input_execute(pressed)
+
+    def handle_input_execute(self, pressed):
+        dialog = self.left_dialog or self.right_dialog
+        if dialog:
+            dialog.handle_input(pressed)
+            if pressed[K_x] and not dialog.has_more_stuff_to_show():
+                self.execute_state = 'mini_move'
+                dialog.shutdown()
+                self.left_dialog = None
+                self.right_dialog = None
 
     def handle_input_battle(self, pressed):
         if pressed[K_UP]:
@@ -774,19 +892,23 @@ class Battle(object):
                 'target': self.enemies[self.selected_enemy_index],
                 'action': self.execute_move_battle,
             })
+            self.select_sound.play()
             self.do_next_menu()
 
     def do_next_menu(self):
         self.warlord.move_back()
+        current_warlord = self.warlord
         self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
         self.selected_enemy_index = None
         if self.warlord:
             self.init_menu_state()
         else:
+            self.warlord = current_warlord
             self.init_execute_state()
 
     def init_execute_state(self):
         self.state = 'execute'
+        self.execute_state = 'move_back'
         self.menu = None
         self.portrait = None
         self.submit_ai_moves(include_allies=False)

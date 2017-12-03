@@ -190,6 +190,8 @@ class TextBox(object):
                 for char in word:
                     if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
                         break
+                    if char not in CHARS:
+                        raise Exception('char not in CHARS. char={}, text="{}"'.format(char, self.text))
                     surface.blit(CHARS[char], (x*8, vertical_pos))
                     x += 1
                     chars_printed += 1
