@@ -77,6 +77,7 @@ CHARS = {
     '~': load_image('font/space.png'), # cheap way to force space integrity by making multiple words and spaces look like one word
     '.': load_image('font/period.png'),
     ',': load_image('font/comma.png'),
+    ':': load_image('font/colon.png'),
     "'": load_image('font/apostrophe.png'),
     '"': load_image('font/quote.png'),
     '?': load_image('font/question.png'),
@@ -392,13 +393,15 @@ class MenuBox(object):
 
 
 class MenuGrid(object):
-    def __init__(self, choices, border=False, title=None):
+    def __init__(self, choices, border=False, title=None, width=None, height=None):
         '''
         choices: A list of lists where each inner list corresponds to a column in the grid
                  and gets implemented as a MenuBox.
         '''
         self.choices = choices
         self.is_active = False
+        self._width = width
+        self._height = height
         self.menus = []
         for inner_choices in choices:
             self.menus.append(MenuBox(inner_choices, border=False))
@@ -477,10 +480,10 @@ class MenuGrid(object):
         self.surface = surface
 
     def get_width(self):
-        return sum([menu.get_width() for menu in self.menus]) + (16 if self.border else 0)
+        return self._width or sum([menu.get_width() for menu in self.menus]) + (16 if self.border else 0)
 
     def get_height(self):
-        return max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)
+        return self._height or max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)
 
 
 def create_prompt(text, silent=False):

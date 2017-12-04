@@ -18,6 +18,7 @@ MAX_BAR_WIDTH = 64
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord, battle):
+        self.items = warlord['items']
         self.battle = battle
         self.stats = warlord
         self.name = warlord['name']
@@ -48,7 +49,7 @@ class BattleWarlordRectBase(object):
         self.attack_points = warlord['attack_points']
         self.weapon_power = int(100*math.exp(0.0155*self.attack_points)-88)
         self.compounded_strength = self.strength * self.weapon_power / 256.0 / 256.0
-        self.tactics = warlord['tactics']
+        self._tactics = warlord['tactics']
         self.intelligence = warlord['intelligence']
         self.tactic_danger = self.compute_tactic_danger()
         self.tactical_points = warlord['tactical_points']
@@ -58,10 +59,48 @@ class BattleWarlordRectBase(object):
         self.attack_exposure = 1.0 - warlord['defense'] / 255.0
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
-        self.items = warlord['items']
         self.hit_type = None
         self.hit_image_a = True
         self.hit_time = 0
+
+    def consume_tactical_points(self, points):
+        if 'liahona' in [item['name'] for item in self.items]:
+            self.tactical_points -= points
+        else:
+            self.battle.ally_tactical_points -= points
+
+    def restore_tactical_points(self, points):
+        if 'liahona' in [item['name'] for item in self.items]:
+            self.tactical_points += points
+        else:
+            self.battle.ally_tactical_points += points
+
+    @property
+    def tactics(self):
+        if 'liahona' in [item['name'] for item in self.items]:
+            return self._tactics
+        else:
+            return self.battle.ally_tactics
+
+    def get_tactic_menu(self):
+        if self.tactics is None or self.tactics[0] == "":
+            return None
+        column1 = []
+        column2 = []
+        for index, tactic in enumerate(self.tactics):
+            if tactic == "":
+                break
+            if index < 3:
+                column1.append(tactic.title())
+            else:
+                column2.append(tactic.title())
+        return MenuGrid(
+            [column1, column2],
+            border=True,
+            title="TP LEFT: {}".format(self.get_tactical_points()),
+            width=176,
+            height=80,
+        )
 
     def get_item_menu(self):
         column1 = []
@@ -93,14 +132,18 @@ class BattleWarlordRectBase(object):
         return max(self.tactic_danger, self.get_preliminary_damage())
 
     def compute_tactic_danger(self):
-        assassin = self.intelligence / 255.0 / 3.0 * self.max_soldiers if 'assassin' in self.tactics else 0.0
+        assassin = (
+            self.intelligence / 255.0 / 3.0 * self.max_soldiers
+            if self.tactics and 'assassin' in self.tactics
+            else 0.0
+        )
         fire = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=1)
         water = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=2)
         heal = self.intelligence / 255.0 * self.get_max_tactic_damage(slot=3)
         return max(assassin, fire, water, heal)
 
     def get_max_tactic_damage(self, slot=None):
-        if slot is None:
+        if slot is None or self.tactics is None:
             return 0
         tactic = self.tactics[slot-1]
         if tactic == '':

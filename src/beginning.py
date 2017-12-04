@@ -70,13 +70,8 @@ class Beginning(object):
                             'name': 'moroni',
                             'soldiers': get_max_soldiers('moroni', 1),
                             'items': [
-                                {'name': 'elixir~a'},
                                 {'name': 'dagger', 'equipped': True},
                                 {'name': 'robe', 'equipped': True},
-                                {'name': 'elixir~a'},
-                                {'name': 'gullwing'},
-                                {'name': 'key'},
-                                {'name': 'flail'}
                             ],
                             'tactical_points': get_max_tactical_points('moroni', 1),
                         },

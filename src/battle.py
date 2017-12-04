@@ -78,6 +78,8 @@ RETREAT_TIME_PER_PERSON = 0.2
 
 class Battle(object):
     def __init__(self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics):
+        self.debug = False
+        self.ally_tactics = ally_tactics
         self.time_elapsed = 0.0
         self.game = game
         self.battle_type = battle_type
@@ -142,6 +144,7 @@ class Battle(object):
         self.set_start_dialog()
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.selected_enemy_index = None
+        self.selected_ally_index = None
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
         self.report = None
         self.submitted_moves = []
@@ -155,6 +158,7 @@ class Battle(object):
         self.hit_sound = pygame.mixer.Sound('data/audio/hit.wav')
         self.damage_sound = pygame.mixer.Sound('data/audio/damage.wav')
         self.fail_sound = pygame.mixer.Sound('data/audio/fail.wav')
+        self.tactic_sound = pygame.mixer.Sound('data/audio/tactic.wav')
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
 
@@ -284,6 +288,8 @@ class Battle(object):
             self.menu.update(dt)
         elif self.state == 'error':
             self.right_dialog.update(dt)
+        elif self.state == 'tactic':
+            self.menu.update(dt)
 
     def update_execute(self, dt):
         if self.execute_state == 'move_back':
@@ -343,7 +349,31 @@ class Battle(object):
         elif move['action'] == self.execute_move_defend:
             mini_moves.append(move)
             mini_results.append(results)
+        elif move['action'] == self.execute_move_tactic:
+            move.update({'first': True})
+            mini_moves.append(move)
+            mini_results.append(results)
         return mini_moves, mini_results
+
+    def get_damage_dialog(self, mini_move, mini_result, is_ally_move):
+        if is_ally_move:
+            dialog = "We defeated {} of {}'s soldiers. ".format(
+                mini_result['damage'], mini_move['target'].name.title(),
+            )
+        else:
+            dialog = "{} of {}'s soldiers were defeated. ".format(
+                mini_result['damage'], mini_move['target'].name.title(),
+            )
+        if mini_result.get('killed'):
+            if is_ally_move:
+                dialog += "{} vanquished {}.".format(
+                    mini_move['agent'].name.title(), mini_move['target'].name.title(),
+                )
+            else:
+                dialog += "{} has been routed by {}.".format(
+                    mini_move['target'].name.title(), mini_move['agent'].name.title(),
+                )
+        return dialog
 
     def get_move_dialog(self, mini_move, mini_result):
         is_ally_move = mini_move['agent'] in self.allies
@@ -363,26 +393,30 @@ class Battle(object):
                     dialog += "{} did heavy damage. ".format(mini_move['agent'].name.title())
                 else:
                     dialog += "{} took heavy damage. ".format(mini_move['target'].name.title())
-            if is_ally_move:
-                dialog += "We defeated {} of {}'s soldiers. ".format(
-                    mini_result['damage'], mini_move['target'].name.title(),
-                )
-            else:
-                dialog += "{} of {}'s soldiers were defeated. ".format(
-                    mini_result['damage'], mini_move['target'].name.title(),
-                )
-            if mini_result.get('killed'):
-                if is_ally_move:
-                    dialog += "{} vanquished {}.".format(
-                        mini_move['agent'].name.title(), mini_move['target'].name.title(),
-                    )
-                else:
-                    dialog += "{} has been routed by {}.".format(
-                        mini_move['target'].name.title(), mini_move['agent'].name.title(),
-                    )
+            dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
             return create_prompt(dialog)
         elif mini_move['action'] == self.execute_move_defend:
             return create_prompt("{} is defending.".format(mini_move['agent'].name.title()))
+        elif mini_move['action'] == self.execute_move_tactic:
+            if mini_result.get('first'):
+                dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['tactic'].title())
+            else:
+                dialog = ""
+            if mini_result.get('deflect'):
+                if is_ally_move:
+                    dialog += "The enemy is deflecting all tactics."
+                else:
+                    dialog += "{}'s army is deflecting all tactics.".format(self.get_leader().name.title())
+                return create_prompt(dialog)
+            elif mini_result.get('wasted'):
+                dialog += "They feel so dumb for wasting their move on a dead guy."
+                return create_prompt(dialog)
+            elif mini_result.get('fail'):
+                dialog += "Failed."
+                return create_prompt(dialog)
+            elif 'damage' in mini_result:
+                dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
+                return create_prompt(dialog)
 
     def pop_and_handle_mini_move(self):
         if len(self.mini_moves) > 0:
@@ -428,10 +462,19 @@ class Battle(object):
                 self.enemy_moves = []
 
     def animate_move_hit(self, move, results):
-        if results.get('repel') or results.get('evade'):
+        if (
+            results.get('repel') or results.get('evade') or results.get('fail') or results.get('deflect')
+            or results.get('wasted')
+        ):
             return
         elif move['action'] == self.execute_move_battle:
             move['target'].animate_hit('attack')
+        elif move['action'] == self.execute_move_tactic:
+            slot = TACTICS[move['tactic']]['slot']
+            if slot == 1:
+                move['target'].animate_hit('fire')
+            elif slot == 2:
+                move['target'].animate_hit('water')
 
     def get_company(self):
         return {
@@ -514,7 +557,10 @@ class Battle(object):
         return the_moves
 
     def get_move_sound(self, move, results):
-        if results.get('repel') or results.get('evade'):
+        if (
+            results.get('repel') or results.get('evade') or results.get('fail') or results.get('deflect')
+            or results.get('wasted')
+        ):
             return self.fail_sound
         elif move['action'] == self.execute_move_battle:
             if move['agent'] in self.allies:
@@ -523,6 +569,8 @@ class Battle(object):
                 return self.heavy_damage_sound if results.get('excellent') else self.damage_sound
         elif move['action'] == self.execute_move_defend:
             return None
+        elif move['action'] == self.execute_move_tactic:
+            return self.tactic_sound
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
@@ -583,7 +631,44 @@ class Battle(object):
         return move, result
 
     def execute_move_tactic(self, move):
+        if 'target' in move and move['target'].soldiers == 0:
+            return move, {'wasted': True}
+        is_ally_move = move['agent'] in self.allies
+        good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+        if 'deflect' in good_target_team_statuses:
+            return move, {'deflect': True}
+        tactic_type = TACTICS[move['tactic']]['type']
+        # go through tactics by type
+        if tactic_type == 'enemy':
+            return self.execute_tactic_type_enemy(move)
         return move, {}
+
+    def execute_tactic_type_enemy(self, move):
+        info = TACTICS[move['tactic']]
+        success = self.get_tactic_success(move)
+        if not success:
+            return move, {'fail': True}
+        if 'min_damage' in info:
+            norm_intel = move['agent'].intelligence / 255.0
+            norm_cutoff = random.uniform(0.0, norm_intel)
+            prelim_damage_range = info['max_damage'] - info['min_damage']
+            cutoff = int(norm_cutoff * prelim_damage_range)
+            mod_min_damage = info['min_damage'] + cutoff
+            damage = random.randrange(mod_min_damage, info['max_damage'])
+            if move['target'].soldiers <= damage:
+                damage = move['target'].soldiers
+                move['target'].get_damaged(damage)
+                return move, {'damage': damage, 'killed': True}
+            move['target'].get_damaged(damage)
+            return move, {'damage': damage}
+
+    def get_tactic_success(self, move):
+        prob_type = TACTICS[move['tactic']]['success_probability_type']
+        if prob_type == 'enemy_prob':
+            intel = move['agent'].intelligence
+            enemy_intel = move['target'].intelligence
+            enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
+            return random.random() < enemy_prob
 
     def execute_move_defend(self, move):
         move['agent'].boosts['defend'] = True
@@ -629,7 +714,7 @@ class Battle(object):
         random_enemy = random.choice(self.get_live_enemies())
 
         # heal
-        heal_tactic = enemy.tactics[2]
+        heal_tactic = enemy.tactics[2] if enemy.tactics else None
         tactical_points = enemy.tactical_points
         heal_cost = TACTICS.get(heal_tactic, {}).get('tactical_points', 0)
         if (
@@ -643,7 +728,7 @@ class Battle(object):
 
         # dispel
         if (
-            enemy.tactics[4] == 'dispel'
+            enemy.tactics[4] == 'dispel' if enemy.tactics else None
             and (
                 len(self.good_ally_statuses) > 0
                 or any([len(enemy.bad_statuses) > 0 for enemy in self.enemies if enemy.soldiers > 0])
@@ -654,7 +739,7 @@ class Battle(object):
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'dispel'}
 
         # defense
-        defense_tactic = enemy.tactics[3]
+        defense_tactic = enemy.tactics[3] if enemy.tactics else None
         defense_cost = TACTICS.get(defense_tactic, {}).get('tactical_points', 0)
         if (
             defense_tactic and heal_cost + defense_cost < tactical_points
@@ -665,7 +750,7 @@ class Battle(object):
         # provoke, disable
         enemy_prob = self.get_enemy_prob(enemy, ally_target)
         if (
-            enemy.tactics[4] in ['provoke', 'disable']
+            (enemy.tactics[4] if enemy.tactics else None) in ['provoke', 'disable']
             and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
             and enemy.tactics[4] not in ally_target.bad_statuses
             and random.random() < enemy_prob
@@ -676,7 +761,7 @@ class Battle(object):
 
         # confuse, assassin
         if (
-            enemy.tactics[5] in ['confuse', 'assassin']
+            (enemy.tactics[5] if enemy.tactics else None) in ['confuse', 'assassin']
             and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
             and enemy.tactics[5] not in ally_target.bad_statuses
             and random.random() < enemy_prob
@@ -686,7 +771,7 @@ class Battle(object):
             }
 
         # boost_tactic: ninja, double tap, hulk out
-        boost_tactic = enemy.tactics[5]
+        boost_tactic = enemy.tactics[5] if enemy.tactics else None
         if boost_tactic in ['ninja', 'double~tap', 'hulk~out']:
             if (
                 (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
@@ -701,6 +786,7 @@ class Battle(object):
         maybe_do_tactic_damage = enemy.tactic_danger > enemy.get_preliminary_damage()
         if (
             maybe_do_tactic_damage
+            and enemy.tactics
             and enemy.tactics[1]
             and self.near_water
             and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] < tactical_points
@@ -714,6 +800,7 @@ class Battle(object):
         # fire
         if (
             maybe_do_tactic_damage
+            and enemy.tactics
             and enemy.tactics[0]
             and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
@@ -826,15 +913,32 @@ class Battle(object):
                 self.handle_defend()
             elif choice == 'ITEM':
                 self.handle_item()
+            elif choice == 'TACTIC':
+                self.handle_tactic()
         elif pressed[K_z]:
             warlord = self.get_previous_live_ally_before(self.warlord, nowrap=True)
             self.warlord.move_back()
             self.menu = None
             self.portrait = None
             if warlord:
-                self.submitted_moves.pop()
+                move = self.submitted_moves.pop()
+                if 'tactic' in move:
+                    move['agent'].restore_tactical_points(TACTICS[move['tactic']]['tactical_points'])
                 self.warlord = warlord
             self.init_menu_state()
+
+    def handle_tactic(self):
+        tactic_menu = self.warlord.get_tactic_menu()
+        if tactic_menu:
+            self.state = 'tactic'
+            self.menu = tactic_menu
+            self.menu.focus()
+        else:
+            self.menu.unfocus()
+            self.right_dialog = create_prompt(
+                "You do not have an assigned tactician who knows any tactics."
+            )
+            self.state = 'error'
 
     def handle_item(self):
         self.state = 'item'
@@ -883,6 +987,8 @@ class Battle(object):
             self.selected_enemy_index = None
 
     def handle_input(self, pressed):
+        if pressed[K_d]:
+            self.debug = not self.debug
         if self.state == 'start':
             self.handle_input_start(pressed)
         elif self.state == 'menu':
@@ -905,6 +1011,38 @@ class Battle(object):
             self.handle_input_item(pressed)
         elif self.state == 'error':
             self.handle_input_error(pressed)
+        elif self.state == 'tactic':
+            self.handle_input_tactic(pressed)
+        elif self.state == 'tactic_enemy':
+            self.handle_input_tactic_enemy(pressed)
+
+    def handle_input_tactic(self, pressed):
+        self.menu.handle_input(pressed)
+        if pressed[K_z]:
+            self.init_menu_state()
+        elif pressed[K_x]:
+            self.select_sound.play()
+            tactic = self.menu.get_choice().lower()
+            cost = TACTICS[tactic]['tactical_points']
+            if cost > self.warlord.get_tactical_points():
+                self.state = 'error'
+                self.right_dialog = create_prompt("Insufficient tactical points.")
+            else:
+                if TACTICS[tactic]['type'] == 'ally':
+                    self.state = 'tactic_ally'
+                    self.selected_ally_index = self.get_leader().index
+                elif TACTICS[tactic]['type'] == 'enemy':
+                    self.state = 'tactic_enemy'
+                    self.selected_enemy_index = self.get_enemy_leader().index
+                else:
+                    self.submit_move({'agent': self.warlord, 'action': self.execute_move_tactic, 'tactic': tactic})
+                    self.warlord.consume_tactical_points(cost)
+                    self.do_next_menu()
+
+    def get_enemy_leader(self):
+        for enemy in self.enemies:
+            if enemy.soldiers > 0:
+                return enemy
 
     def handle_input_error(self, pressed):
         self.right_dialog.handle_input(pressed)
@@ -950,11 +1088,35 @@ class Battle(object):
             self.select_sound.play()
             self.do_next_menu()
 
+    def handle_input_tactic_enemy(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_previous_live_enemy_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_next_live_enemy_index()
+        elif pressed[K_z]:
+            self.state = 'tactic'
+            self.menu.focus()
+            self.selected_enemy_index = None
+        elif pressed[K_x]:
+            tactic = self.menu.get_choice().lower()
+            self.submit_move({
+                'agent': self.warlord,
+                'target': self.enemies[self.selected_enemy_index],
+                'action': self.execute_move_tactic,
+                'tactic': tactic,
+            })
+            self.warlord.consume_tactical_points(TACTICS[tactic]['tactical_points'])
+            self.select_sound.play()
+            self.do_next_menu()
+
     def do_next_menu(self):
         self.warlord.move_back()
         current_warlord = self.warlord
         self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
         self.selected_enemy_index = None
+        self.selected_ally_index = None
         if self.warlord:
             self.init_menu_state()
         else:
@@ -1101,6 +1263,8 @@ class Battle(object):
             self.screen.blit(self.right_dialog.surface, (GAME_WIDTH-self.right_dialog.width, 128+top_margin))
         if self.selected_enemy_index is not None:
             self.screen.blit(self.pointer_right, (GAME_WIDTH-96, self.selected_enemy_index*24+top_margin))
+        if self.selected_ally_index is not None:
+            self.screen.blit(self.pointer_left, (80, self.selected_ally_index*24+top_margin))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)
