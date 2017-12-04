@@ -11,7 +11,7 @@ from pytmx.util_pygame import load_pygame
 from constants import DEFAULT_ENCOUNTER_CHANCE, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS
 from helpers import get_enemy_stats, get_map_filename
 from hero import Hero
-from report import Report
+from report import CompanyReport, Report
 from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 from map_menu import MapMenu
@@ -29,6 +29,7 @@ FACELESS_ENEMIES = [
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
+        self.company_report = None
         self.name = map_name
         self.game = game
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
@@ -214,6 +215,8 @@ class Map(object):
             self.map_menu.draw()
         if self.opening_dialog:
             self.screen.blit(self.opening_dialog.surface, (0, 160))
+        if self.company_report:
+            self.screen.blit(self.company_report.surface, (0, 0))
 
     def update(self, dt):
         self.group.update(dt)
@@ -271,6 +274,12 @@ class Map(object):
             if action == 'exit':
                 self.map_menu = None
                 pygame.key.set_repeat(50, 50)
+        elif self.company_report:
+            if (
+                pressed[K_UP] or pressed[K_UP] or pressed[K_DOWN] or pressed[K_LEFT] or pressed[K_x] or pressed[K_z]
+                or pressed[K_RSHIFT] or pressed[K_RETURN]
+            ):
+                self.company_report = None
         else:
             if pressed[K_UP]:
                 self.move_hero('n')
@@ -283,6 +292,13 @@ class Map(object):
             elif pressed[K_x]:
                 self.map_menu = MapMenu(self.screen, self)
                 pygame.key.set_repeat(300, 300)
+            elif pressed[K_RSHIFT]:
+                company = self.game.game_state['company']
+                money = self.game.game_state['money']
+                food = self.game.game_state['food']
+                experience = self.game.game_state['experience']
+                level = self.game.game_state['level']
+                self.company_report = CompanyReport(company, money, food, experience, level)
             else:
                 self.move_hero(None)
 

@@ -5,7 +5,10 @@ import json
 import pygame
 
 from constants import BLACK, COPPER, GAME_WIDTH, GAME_HEIGHT
-from helpers import get_equip_based_stat_value, get_tactics, load_image, load_stats
+from helpers import (
+    get_equip_based_stat_value, get_max_soldiers, get_max_tactical_points, get_tactics, hyphenate, load_image,
+    load_stats,
+)
 from text import MenuGrid, TextBox
 
 STATS = [
@@ -110,3 +113,41 @@ class Report(object):
 
     def get_tactics(self):
         return get_tactics(self.stats, self.level)
+
+
+class CompanyReport(object):
+    def __init__(self, company, money, food, experience, level):
+        self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+        self.surface.fill(BLACK)
+        tactician_found = False
+        soldiers_text = ""
+        for index, warlord in enumerate(company):
+            if index == 0:
+                portrait = load_image('portraits/{}.png'.format(warlord['name']))
+                self.surface.blit(portrait, (16, 32))
+                self.surface.blit(TextBox('LEADER').surface, (72, 48))
+                self.surface.blit(TextBox(warlord['name'].title()).surface, (72, 64))
+            soldiers_text += "{}\n".format(warlord['name'].title())
+            soldiers_text += "~{:~>8}/{:~>8}\n".format(warlord['soldiers'], get_max_soldiers(warlord['name'], level))
+            if warlord.get('tactician'):
+                tactician_found = True
+                self.surface.blit(TextBox('STRAT.').surface, (176, 120))
+                self.surface.blit(TextBox(hyphenate(warlord['name'].title(), 10)).surface, (176, 136))
+                tp_text = "~TP~LEFT\n"
+                tp_text += "~{:~>7}\n".format(warlord['tactical_points'])
+                tp_text += "~MAX~TP\n"
+                tp_text += "~{:~>7}".format(get_max_tactical_points(warlord['name'], level))
+                self.surface.blit(TextBox(tp_text).surface, (176, 160))
+        soldiers_box = TextBox(soldiers_text, border=True)
+        self.surface.blit(soldiers_box.surface, (0, 96))
+        spoils_text = "~MONEY\n"
+        spoils_text += "~{:~>8}~\n".format(money)
+        spoils_text += "~FOOD\n"
+        spoils_text += "~{:~>8}~\n".format(food)
+        spoils_text += "~EXP\n"
+        spoils_text += "~{:~>8}~".format(experience)
+        spoils_box = TextBox(spoils_text, border=True, title="LEVEL~{:02d}".format(level))
+        self.surface.blit(spoils_box.surface, (GAME_WIDTH-96, 32))
+        if not tactician_found:
+            self.surface.blit(TextBox('STRAT.').surface, (176, 120))
+            self.surface.blit(TextBox('None').surface, (176, 136))

@@ -6,7 +6,7 @@ import random
 import pygame
 
 from constants import BLACK, GAME_WIDTH, TACTICS
-from helpers import load_image
+from helpers import hyphenate, load_image
 from text import MenuGrid, TextBox
 
 WIDTH = GAME_WIDTH/2
@@ -23,13 +23,7 @@ class BattleWarlordRectBase(object):
         self.stats = warlord
         self.name = warlord['name']
         self.surface = pygame.Surface((WIDTH, HEIGHT))
-        name_in_box = self.name.title()
-        if len(name_in_box) > TEXT_AREA_CHAR_LEN:
-            name_in_box = '{}{}\n{}'.format(
-                name_in_box[0:7],
-                '-' if '-' not in name_in_box[6:8] else '',
-                name_in_box[7:],
-            )
+        name_in_box = hyphenate(self.name.title(), TEXT_AREA_CHAR_LEN)
         self.name_box = TextBox(name_in_box)
         self.soldiers = warlord['soldiers']
         self.max_soldiers = warlord['max_soldiers']

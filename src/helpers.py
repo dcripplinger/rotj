@@ -66,6 +66,17 @@ def get_max_soldiers(warlord, level=None):
     return soldiers
 
 
+def hyphenate(text, chars):
+    if len(text) > chars:
+        return '{}{}\n{}'.format(
+            text[0:chars-1],
+            '-' if '-' not in chars[chars-2:chars] else '',
+            text[chars-1:],
+        )
+    else:
+        return text
+
+
 def get_max_tactical_points(warlord, level=None):
     assert level is not None
     with open('data/stats/{}.json'.format(warlord)) as f:
