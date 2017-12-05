@@ -70,7 +70,7 @@ def hyphenate(text, chars):
     if len(text) > chars:
         return '{}{}\n{}'.format(
             text[0:chars-1],
-            '-' if '-' not in chars[chars-2:chars] else '',
+            '-' if '-' not in text[chars-2:chars] else '',
             text[chars-1:],
         )
     else:
