@@ -78,5 +78,15 @@
       "y": 32,
       "direction": "n"
     }
+  },
+  {
+    "x": 153,
+    "y": 187,
+    "teleport": {
+      "map": "zarahemla",
+      "x": 22,
+      "y": 37,
+      "direction": "n"
+    }
   }
 ]

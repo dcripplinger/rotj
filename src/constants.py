@@ -518,6 +518,7 @@ MAP_NAMES = [
     'house_of_moroni',
     'melek',
     'melek_empty_house',
+    'zarahemla',
 ]
 
 MAPS_WITH_RANDOM_ENCOUNTERS = [
@@ -539,7 +540,13 @@ SHOP_MUSIC = {
     'repeat': 'data/audio/music/shop.wav',
 }
 
+CITY_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/city.wav',
+}
+
 MAP_MUSIC = {
+    'zarahemla': CITY_MUSIC,
     'melek': {
         'intro': None,
         'repeat': 'data/audio/music/menu.wav',
