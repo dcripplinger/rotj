@@ -38,5 +38,35 @@
       "y": 187,
       "direction": "s"
     }
+  },
+  {
+    "x": 22,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is the city of Zarahemla, the Nephite capital."
+    }
+  },
+  {
+    "x": 13,
+    "y": 34,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "You must recruit stronger warlords if you want the final victory."
+    }
+  },
+  {
+    "x": 17,
+    "y": 33,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Nehor shouldn't be punished. He was just defending himself. Man, I'm broke."
+    }
   }
 ]
