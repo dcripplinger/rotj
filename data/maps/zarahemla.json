@@ -68,5 +68,25 @@
       "wander": true,
       "dialog": "Nehor shouldn't be punished. He was just defending himself. Man, I'm broke."
     }
+  },
+  {
+    "x": 32,
+    "y": 34,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Nehor is likely at Hermounts, to the north. That's where his church was founded."
+    }
+  },
+  {
+    "x": 23,
+    "y": 26,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": true,
+      "dialog": "The Order of the Nehors has followers in all the surrounding cities, even here in Zarahemla."
+    }
   }
 ]
