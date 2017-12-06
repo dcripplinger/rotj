@@ -88,5 +88,15 @@
       "wander": true,
       "dialog": "The Order of the Nehors has followers in all the surrounding cities, even here in Zarahemla."
     }
+  },
+  {
+    "x": 33,
+    "y": 19,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Use RISK-IT in battles to make them go really fast. But only do it if you're sure you will win."
+    }
   }
 ]
