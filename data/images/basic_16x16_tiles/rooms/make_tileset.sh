@@ -6,5 +6,7 @@ convert \( black.png chair.png corner_shadow.png floor.png outer_corner_shadow.p
 \( side_shadow_green.png top_shadow_green.png under_corner_shadow_green.png wall2.png wall_top2.png +append \) \
 \( bed.png bed2.png desk.png bookshelf_left.png bookshelf_right.png +append \) \
 \( floor_red.png outer_corner_shadow_red.png side_shadow_red.png top_shadow_red.png under_corner_shadow_red.png +append \) \
-\( corner_shadow_red.png pot_pic.png +append \) \
+\( corner_shadow_red.png pot_pic.png table_left.png table_middle.png table_right.png +append \) \
+\( floor_orange.png outer_corner_shadow_orange.png side_shadow_orange.png top_shadow_orange.png under_corner_shadow_orange.png +append \) \
+\( corner_shadow_orange.png chair_orange.png wall3.png wall_top3.png +append \) \
 -background none -append tileset_rooms.png
