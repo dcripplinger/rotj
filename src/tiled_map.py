@@ -8,7 +8,9 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import DEFAULT_ENCOUNTER_CHANCE, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS
+from constants import (
+    DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS, REUSABLE_MAP_NAMES,
+)
 from helpers import get_enemy_stats, get_map_filename
 from hero import Hero
 from report import CompanyReport, Report
@@ -17,23 +19,18 @@ from text import create_prompt, MenuBox
 from map_menu import MapMenu
 
 
-FACELESS_ENEMIES = [
-    'king men',
-    'robbers',
-    'lamanites',
-    'amlicites',
-    'zoramites',
-    'amalekites',
-]
-
-
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
         self.company_report = None
         self.name = map_name
         self.game = game
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
-        map_filename = get_map_filename('{}.tmx'.format(map_name))
+        tmx_map_name = map_name
+        for reusable_name in REUSABLE_MAP_NAMES:
+            if reusable_name in map_name:
+                tmx_map_name = reusable_name
+                break
+        map_filename = get_map_filename('{}.tmx'.format(tmx_map_name))
         json_filename = get_map_filename('{}.json'.format(map_name))
         encounter_filename = get_map_filename('{}_encounters.json'.format(map_name))
         self.screen = screen

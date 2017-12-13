@@ -12,8 +12,8 @@ from pygame.locals import *
 from battle import Battle
 from beginning import Beginning
 from constants import (
-    BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_NAMES, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_NUM,
+    BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
+    MAX_NUM, SHOP_MUSIC,
 )
 from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats
 from menu_screen import MenuScreen
@@ -96,6 +96,9 @@ class Game(object):
         self.update_game_state({
             'conditions': conditions,
         })
+
+    def get_music(self, map_name):
+        return MAP_MUSIC.get(map_name, SHOP_MUSIC)
 
     def try_toggle_equip_on_item(self, user, item_index):
         user_name = user.lower()
@@ -489,7 +492,7 @@ class Game(object):
                 if self.fade_alpha == 0:
                     self.set_screen_state('game')
                     if not self.continue_current_music:
-                        music = MAP_MUSIC[self.current_map.name]
+                        music = self.get_music(self.current_map.name)
                         if music['intro']:
                             pygame.mixer.music.load(music['intro'])
                             pygame.mixer.music.play()

@@ -508,17 +508,16 @@ TACTICS = {
     },
 }
 
-MAP_NAMES = [
-    'overworld',
-    'tunnels_of_the_north',
-    'cave_of_gadianton',
-    'sierra_pass',
-    'cavity_of_a_rock',
-    'passage_to_gid',
-    'house_of_moroni',
-    'melek',
-    'melek_empty_house',
-    'zarahemla',
+REUSABLE_MAP_NAMES = [
+    '_inn',
+    '_home',
+    '_home2',
+    '_reserve',
+    '_food_shop',
+    '_armory',
+    '_merchant_shop',
+    '_palace',
+    '_record_office',
 ]
 
 MAPS_WITH_RANDOM_ENCOUNTERS = [
@@ -545,6 +544,8 @@ CITY_MUSIC = {
     'repeat': 'data/audio/music/city.wav',
 }
 
+# If a map name is omitted here, the default music should be SHOP_MUSIC.
+# The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
     'zarahemla': CITY_MUSIC,
     'melek': {
@@ -651,6 +652,15 @@ ITEMS = {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
     },
 }
+
+FACELESS_ENEMIES = [
+    'kingmen',
+    'robbers',
+    'lamanites',
+    'amlicites',
+    'zoramites',
+    'amalekites',
+]
 
 NAMED_TELEPORTS = {
     'zarahemla': [152,187],

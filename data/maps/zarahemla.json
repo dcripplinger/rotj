@@ -40,6 +40,46 @@
     }
   },
   {
+    "x": 34,
+    "y": 29,
+    "teleport": {
+      "map": "zarahemla_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 29,
+    "teleport": {
+      "map": "zarahemla_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 29,
+    "teleport": {
+      "map": "zarahemla_home_a",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 32,
+    "teleport": {
+      "map": "zarahemla_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
     "x": 22,
     "y": 36,
     "ai_sprite": {
