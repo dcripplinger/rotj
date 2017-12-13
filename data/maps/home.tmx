@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="31" height="29" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="35">
-  <image source="../images/basic_16x16_tiles/rooms/tileset_rooms.png" width="80" height="112"/>
+ <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="25">
+  <image source="../images/basic_16x16_tiles/rooms/tileset_rooms.png" width="80" height="80"/>
   <tile id="6">
    <properties>
     <property name="wall" value="true"/>
@@ -13,11 +13,6 @@
    </properties>
   </tile>
   <tile id="10">
-   <properties>
-    <property name="wall" value="true"/>
-   </properties>
-  </tile>
-  <tile id="31">
    <properties>
     <property name="wall" value="true"/>
    </properties>
