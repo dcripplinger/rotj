@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="50">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="50" columns="5">
   <image source="../images/basic_16x16_tiles/rooms/tileset_rooms.png" width="80" height="160"/>
   <tile id="6">
    <properties>
@@ -53,6 +53,56 @@
    </properties>
   </tile>
   <tile id="31">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="49">
    <properties>
     <property name="wall" value="true"/>
    </properties>

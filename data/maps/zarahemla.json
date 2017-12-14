@@ -40,6 +40,46 @@
     }
   },
   {
+    "x": 35,
+    "y": 14,
+    "teleport": {
+      "map": "zarahemla_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 14,
+    "teleport": {
+      "map": "zarahemla_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 11,
+    "y": 18,
+    "teleport": {
+      "map": "zarahemla_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 30,
+    "y": 25,
+    "teleport": {
+      "map": "zarahemla_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
     "x": 34,
     "y": 29,
     "teleport": {

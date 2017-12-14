@@ -1,0 +1,12 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "zarahemla",
+      "x": 11,
+      "y": 18,
+      "direction": "s"
+    }
+  }
+]

@@ -27,7 +27,7 @@ class Map(object):
         self.ai_sprites = {} # key is position tuple, value is ai_sprite at that position currently
         tmx_map_name = map_name
         for reusable_name in REUSABLE_MAP_NAMES:
-            if reusable_name in map_name:
+            if map_name.endswith(reusable_name):
                 tmx_map_name = reusable_name
                 break
         map_filename = get_map_filename('{}.tmx'.format(tmx_map_name))
