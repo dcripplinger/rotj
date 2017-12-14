@@ -40,6 +40,26 @@
     }
   },
   {
+    "x": 20,
+    "y": 21,
+    "teleport": {
+      "map": "zarahemla_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 21,
+    "teleport": {
+      "map": "zarahemla_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
     "x": 35,
     "y": 14,
     "teleport": {

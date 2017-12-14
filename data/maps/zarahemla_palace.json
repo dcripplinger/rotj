@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "zarahemla",
+      "x": 20,
+      "y": 21,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "alma",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Moroni, listen! Before our last king, Mosiah, passed away, he established just laws and a government of judges chosen by the people because he didn't want our people in bondage ever again by an evil king. I have been chosen as the first chief judge, and yet we have already seen a faction rise up in rebellion. They are led by a man named Nehor, who has killed an innocent man simply for debating against him and his religion. You must bring order again to the land and capture Nehor so that he can face justice for his crimes. If you do this, I will appoint you as chief captain of our armies."
+    }
+  }
+]
