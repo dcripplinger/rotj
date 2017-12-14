@@ -544,10 +544,16 @@ CITY_MUSIC = {
     'repeat': 'data/audio/music/city.wav',
 }
 
+PALACE_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/palace.wav',
+}
+
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
     'zarahemla': CITY_MUSIC,
+    'zarahemla_palace': PALACE_MUSIC,
     'melek': {
         'intro': None,
         'repeat': 'data/audio/music/menu.wav',
