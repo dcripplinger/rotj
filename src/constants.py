@@ -601,10 +601,65 @@ ITEMS = {
         'equip_type': 'weapon',
         'cost': 50,
     },
-    'flail': {
+    'mace': {
         'attack_points': 15,
         'equip_type': 'weapon',
         'cost': 100,
+    },
+    'ax': {
+        'attack_points': 20,
+        'equip_type': 'weapon',
+        'cost': 200,
+    },
+    'club': {
+        'attack_points': 30,
+        'equip_type': 'weapon',
+        'cost': 500,
+    },
+    'spear': {
+        'attack_points': 50,
+        'equip_type': 'weapon',
+        'cost': 1000,
+    },
+    'macana': {
+        'attack_points': 70,
+        'equip_type': 'weapon',
+        'cost': 2000,
+    },
+    'sling': {
+        'attack_points': 80,
+        'equip_type': 'weapon',
+        'cost': 4000,
+    },
+    'atlatl': {
+        'attack_points': 100,
+        'equip_type': 'weapon',
+        'cost': 5000,
+    },
+    'lance': {
+        'attack_points': 120,
+        'equip_type': 'weapon',
+        'cost': 6000,
+    },
+    'battleax': {
+        'attack_points': 140,
+        'equip_type': 'weapon',
+        'cost': 10000,
+    },
+    'cimeter': {
+        'attack_points': 160,
+        'equip_type': 'weapon',
+        'cost': 20000,
+    },
+    'bow': {
+        'attack_points': 180,
+        'equip_type': 'weapon',
+        'cost': 45000,
+    },
+    'sword': {
+        'attack_points': 200,
+        'equip_type': 'weapon',
+        'cost': 65000,
     },
 
     # armor
@@ -612,6 +667,41 @@ ITEMS = {
         'armor_class': 20,
         'equip_type': 'armor',
         'cost': 100,
+    },
+    'leather': {
+        'armor_class': 35,
+        'equip_type': 'armor',
+        'cost': 300,
+    },
+    'padded': {
+        'armor_class': 45,
+        'equip_type': 'armor',
+        'cost': 800,
+    },
+    'ring~m': {
+        'armor_class': 50,
+        'equip_type': 'armor',
+        'cost': 2000,
+    },
+    'chain~m': {
+        'armor_class': 70,
+        'equip_type': 'armor',
+        'cost': 4000,
+    },
+    'splint~m': {
+        'armor_class': 85,
+        'equip_type': 'armor',
+        'cost': 10000,
+    },
+    'plate~m': {
+        'armor_class': 100,
+        'equip_type': 'armor',
+        'cost': 30000,
+    },
+    'iron~m': {
+        'armor_class': 120,
+        'equip_type': 'armor',
+        'cost': 60000,
     },
 
     # helmets
