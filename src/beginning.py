@@ -97,8 +97,9 @@ class Beginning(object):
                             'teleport': True,
                         }
                     ],
-                    'conditions': set(),
+                    'conditions': [],
                     'reserve': [],
+                    'hq': 'zarahemla',
                 })
                 dialog = (
                     'An epistle arrived while you were away. The chief judge is summoning you in the palace at '

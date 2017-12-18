@@ -12,10 +12,10 @@ from pygame.locals import *
 from battle import Battle
 from beginning import Beginning
 from constants import (
-    BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
+    BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
     MAX_NUM, SHOP_MUSIC,
 )
-from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats
+from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats, save_game_state
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
@@ -76,7 +76,7 @@ class Game(object):
             return dialog
         if isinstance(dialog, (list, tuple)):
             for (i, potential_dialog) in enumerate(dialog):
-                if potential_dialog.get('condition') in self.game_state.get('conditions', set()):
+                if potential_dialog.get('condition') in self.game_state.get('conditions', []):
                     dialog = potential_dialog
                     break
                 if i == len(dialog)-1:
@@ -91,8 +91,8 @@ class Game(object):
         side_effect = self.condition_side_effects.get(condition)
         if side_effect:
             side_effect()
-        conditions = set(self.game_state['conditions'])
-        conditions.add(condition)
+        conditions = list(self.game_state['conditions'])
+        conditions.append(condition)
         self.update_game_state({
             'conditions': conditions,
         })
@@ -152,6 +152,11 @@ class Game(object):
 
     def get_level(self):
         return self.game_state['level']
+
+    def get_leader(self):
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0:
+                return copy.deepcopy(warlord)
 
     def get_equips(self, warlord):
         for info in self.game_state['company']:
@@ -222,10 +227,10 @@ class Game(object):
                     break
         self.update_game_state({'company': new_company})
 
-    def start_sleep(self):
+    def start_sleep(self, sleep_music, dialog):
         self.set_current_map(
             self.current_map.name, self.current_map.hero.position, self.current_map.hero.direction, followers='trail',
-            dialog="Good morning. I hope you rested well.",
+            dialog=dialog,
         )
         self.set_screen_state('sleep')
         company = copy.deepcopy(self.game_state['company'])
@@ -233,7 +238,10 @@ class Game(object):
             if warlord['soldiers'] > 0:
                 warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
         self.update_game_state({'company': company})
-        time.sleep(.3)
+        self.sleep_music = sleep_music
+
+    def save(self):
+        save_game_state(self.slot, self.game_state)
 
     def set_screen_state(self, state):
         '''
@@ -377,6 +385,13 @@ class Game(object):
             surplus.append(item['name'])
         self.update_game_state({'acquired_items': acquired_items, 'company': company, 'surplus': surplus})
 
+    def try_set_hq(self):
+            city = self.current_map.name.split('_')[0]
+            if city not in HQ:
+                return "I'm sorry, but this city does not have sufficient space for you to set up a base of operations."
+            self.update_game_state({'hq': city})
+            return None
+
     def set_current_map(
         self, map_name, position, direction, followers='under', dialog=None, continue_current_music=False,
     ):
@@ -485,7 +500,7 @@ class Game(object):
             self.fade_out = True
             pygame.mixer.music.stop()
             self.current_music = None
-            time.sleep(.1)
+            time.sleep(.3)
         self.change_map_time_elapsed += dt
         update_interval = .1
         alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
@@ -495,8 +510,9 @@ class Game(object):
                 self.fade_alpha = min(255, self.fade_alpha + alpha_step)
                 if self.fade_alpha == 255:
                     self.fade_out = False # next we need to fade in
-                    pygame.mixer.music.load('data/audio/music/sleep.wav')
-                    pygame.mixer.music.play()
+                    if self.sleep_music:
+                        pygame.mixer.music.load(self.sleep_music)
+                        pygame.mixer.music.play()
                     self.current_map = self.next_map
                     self.next_map = None
             elif not pygame.mixer.music.get_busy():

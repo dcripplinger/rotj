@@ -870,6 +870,11 @@ NAMED_TELEPORTS = {
     'zarahemla': [152,187],
 }
 
+# cities that have palaces and record offices, so that you can set up hq there
+HQ = [
+    'zarahemla',
+]
+
 MAX_COMPANY_SIZE = 7
 
 # we may or may not reference these

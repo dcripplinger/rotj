@@ -130,13 +130,18 @@ def load_save_states():
     return [load_json_file_if_exists('data/state/{}.json'.format(x)) for x in [1,2,3]]
 
 
+def save_game_state(slot, game_state):
+    with open('data/state/{}.json'.format(slot), 'w') as f:
+        f.write(json.dumps(game_state))
+
+
 def erase_save_state(slot):
     os.remove('data/state/{}.json'.format(slot))
 
 
 def create_save_state(slot, name):
     with open('data/state/{}.json'.format(slot), 'w') as f:
-        f.write(json.dumps({'name': name, 'level': 0, 'slot': int(slot)}))
+        f.write(json.dumps({'name': name, 'level': 0}))
 
 
 def copy_save_state(from_slot, to_slot):

@@ -258,13 +258,15 @@ class MenuScreen(object):
         if pressed[K_x]:
             self.start_prompt.shutdown()
             time.sleep(.5)
-            self.game.game_state = self.state[int(self.start_menu.get_choice()[0])-1]
+            slot = int(self.start_menu.get_choice()[0])
+            self.game.game_state = self.state[slot-1]
+            self.game.slot = slot
             if self.game.game_state['level'] == 0:
                 self.game.game_state['level'] = 1
                 self.game.set_screen_state('beginning')
             else:
-                pygame.mixer.music.stop()
-                self.game.set_screen_state('game')
+                hq_map = '{}_palace'.format(self.game.game_state['hq'])
+                self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
         elif pressed[K_z]:
             self.screen_state = 'start'
             self.start_menu.focus()

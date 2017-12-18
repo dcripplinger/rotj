@@ -17,6 +17,8 @@ class Shop(object):
         self.shop_menu = None # an instance of ShopMenu
         self.confirm_menu = None # an instance of MenuBox(['YES', 'NO'])
         self.spoils_box = None # This is sometimes instantiated via self.create_spoils_box()
+        self.misc_menu = None # This is a MenuBox whenever it is needed
+        self.sleep_music = None # Needs to be the path to the sleep sound byte, which could be None or a save sound byte or whatever
 
         # The following should be set by the inheriting class's init
         self.next = None # indicates the next state when a dialog finishes, use one of its valid values
@@ -33,6 +35,8 @@ class Shop(object):
             self.company_menu.update(dt)
         elif self.state == 'confirm':
             self.confirm_menu.update(dt)
+        elif self.state == 'misc_menu':
+            self.misc_menu.update(dt)
 
     def transition_state(self):
         self.dialog.shutdown()
@@ -42,7 +46,7 @@ class Shop(object):
             self.shop_menu = ShopMenu(self.shop['items'])
             self.shop_menu.focus()
         elif self.state == 'sleep':
-            self.game.start_sleep()
+            self.game.start_sleep(self.sleep_music, self.sleep_dialog)
         elif self.state == 'company_menu':
             self.company_menu = MenuBox(self.game.get_company_names())
             self.company_menu.focus()
@@ -50,6 +54,9 @@ class Shop(object):
             self.confirm_menu = MenuBox(['YES', 'NO'])
             self.create_spoils_box()
             self.confirm_menu.focus()
+        elif self.state == 'misc_menu':
+            self.create_misc_menu()
+            self.misc_menu.focus()
 
     def update_surface(self):
         self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT)).convert_alpha()
@@ -60,6 +67,8 @@ class Shop(object):
             self.surface.blit(self.shop_menu.surface, (0, 0))
         if self.company_menu:
             self.surface.blit(self.company_menu.surface, (128, 0))
+        if self.misc_menu:
+            self.surface.blit(self.misc_menu.surface, (160, 160))
         if self.confirm_menu:
             self.surface.blit(self.confirm_menu.surface, (160, 160))
         if self.spoils_box:
@@ -92,6 +101,12 @@ class Shop(object):
                 self.handle_confirm_yes()
             elif pressed[K_z] or (pressed[K_x] and self.confirm_menu.get_choice() == 'NO'):
                 self.handle_confirm_no()
+        elif self.state == 'misc_menu':
+            self.misc_menu.handle_input(pressed)
+            if pressed[K_x]:
+                self.handle_misc_menu(self.misc_menu.get_choice())
+            elif pressed[K_z]:
+                self.handle_misc_menu(None)
         elif self.state == 'exit':
             if pressed[K_x] or pressed[K_z]:
                 return 'exit'
@@ -114,10 +129,49 @@ class Shop(object):
     def handle_confirm_no(self):
         raise NotImplementedError
 
+    def handle_misc_menu(self, choice):
+        raise NotImplementedError
+
+    def create_misc_menu(self):
+        raise NotImplementedError
+
 
 class RecordOffice(Shop):
     def __init__(self, shop, game):
         super(RecordOffice, self).__init__(shop, game)
+        leader = self.game.get_leader()['name'].title()
+        self.dialog = create_prompt("Good morning, {} sir. What can I do for you today?".format(leader))
+        self.next = 'misc_menu'
+
+    def handle_misc_menu(self, choice):
+        self.misc_menu.unfocus()
+        self.state = 'dialog'
+        if choice is None:
+            self.dialog = create_prompt("Yes my lord.")
+            self.next = 'exit'
+        elif choice == 'RECORD':
+            self.dialog = create_prompt("Shall I record the result of today's battles?")
+            self.next = 'confirm'
+        elif choice == 'SET~HQ':
+            msg = self.game.try_set_hq()
+            if not msg:
+                self.dialog = create_prompt("OK.")
+                self.next = 'sleep'
+                self.sleep_dialog = "This city is now your base of operations."
+
+    def handle_confirm_yes(self):
+        self.confirm_menu.unfocus()
+        self.game.save()
+        self.game.start_sleep('data/audio/save.wav', "I have recorded your status.")
+
+    def handle_confirm_no(self):
+        self.misc_menu.unfocus()
+        self.state = 'dialog'
+        self.dialog = create_prompt("Yes my lord.")
+        self.next = 'exit'
+
+    def create_misc_menu(self):
+        self.misc_menu = MenuBox(['RECORD', 'SET~HQ'])
 
 
 class Inn(Shop):
@@ -128,6 +182,8 @@ class Inn(Shop):
             "Welcome! You may stay here for {} senines per night. Shall I prepare your room?".format(self.cost)
         )
         self.next = 'confirm'
+        self.sleep_music = 'data/audio/music/sleep.wav'
+        self.sleep_dialog = "Good morning. I hope you rested well."
 
     def handle_confirm_yes(self):
         self.confirm_menu = None
