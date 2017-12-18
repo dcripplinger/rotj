@@ -48,7 +48,7 @@ class Map(object):
         self.encounter_regions = {(region['x'], region['y']): region for region in encounter_data}
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
-        self.opening_dialog = opening_dialog
+        self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
         self.load_ai_sprites()
         self.hero = None
         self.follower_one = None
@@ -302,16 +302,15 @@ class Map(object):
     def get_opposite_direction(self, direction):
         return {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}[direction]
 
+    def get_shop(self):
+        pos = self.get_pos_in_front(self.hero.position, self.hero.direction)
+        cell = self.cells.get(tuple(pos), {})
+        return cell.get('shop')
+
     def get_dialog(self):
         pos = self.get_pos_in_front(self.hero.position, self.hero.direction)
         ai_sprite = self.ai_sprites.get(tuple(pos))
         if ai_sprite:
             ai_sprite.direction = self.get_opposite_direction(self.hero.direction)
             return self.game.get_dialog_for_condition(ai_sprite.dialog)
-        cell = self.cells.get(tuple(pos))
-        if cell:
-            # this is for having to talk to a tile instead of a sprite, giving the appearance of talking over a counter.
-            dialog = cell.get('dialog')
-            if dialog:
-                return self.game.get_dialog_for_condition(dialog)
         return "There's no one there."

@@ -222,9 +222,22 @@ class Game(object):
                     break
         self.update_game_state({'company': new_company})
 
+    def start_sleep(self):
+        self.set_current_map(
+            self.current_map.name, self.current_map.hero.position, self.current_map.hero.direction, followers='trail',
+            dialog="Good morning. I hope you rested well.",
+        )
+        self.set_screen_state('sleep')
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['soldiers'] > 0:
+                warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
+        self.update_game_state({'company': company})
+        time.sleep(.3)
+
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep'
         '''
         self._screen_state = state
         if state in ['title', 'menu', 'battle']:
@@ -232,7 +245,7 @@ class Game(object):
         else:
             pygame.key.set_repeat(50, 50)
 
-        if state == 'change_map':
+        if state in ['change_map', 'sleep']:
             self.fade_out = True
         elif state == 'battle':
             battle_music_files = BATTLE_MUSIC[self.battle.battle_type]
@@ -425,6 +438,8 @@ class Game(object):
             self.beginning_screen.update(dt)
         elif self._screen_state == 'change_map':
             self.update_change_map(dt)
+        elif self._screen_state == 'sleep':
+            self.update_sleep(dt)
         elif self._screen_state == 'start_battle':
             self.update_battle_fade(dt)
         elif self._screen_state == 'battle':
@@ -463,6 +478,51 @@ class Game(object):
                 )
         if self.triangle_size > block_size:
             self.set_screen_state('battle')
+
+    def update_sleep(self, dt):
+        if self.change_map_time_elapsed is None:
+            self.change_map_time_elapsed = 0
+            self.fade_out = True
+            pygame.mixer.music.stop()
+            self.current_music = None
+            time.sleep(.1)
+        self.change_map_time_elapsed += dt
+        update_interval = .1
+        alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
+        if self.change_map_time_elapsed >= update_interval:
+            self.change_map_time_elapsed -= update_interval
+            if self.fade_out:
+                self.fade_alpha = min(255, self.fade_alpha + alpha_step)
+                if self.fade_alpha == 255:
+                    self.fade_out = False # next we need to fade in
+                    pygame.mixer.music.load('data/audio/music/sleep.wav')
+                    pygame.mixer.music.play()
+                    self.current_map = self.next_map
+                    self.next_map = None
+            elif not pygame.mixer.music.get_busy():
+                if self.fade_alpha == 255:
+                    self.fade_alpha = 254
+                else:
+                    self.fade_alpha = max(0, self.fade_alpha - alpha_step)
+                if self.fade_alpha == 0:
+                    self.set_screen_state('game')
+                    music = self.get_music(self.current_map.name)
+                    if music['intro']:
+                        pygame.mixer.music.load(music['intro'])
+                        pygame.mixer.music.play()
+                        self.current_music = 'intro'
+                    else:
+                        pygame.mixer.music.load(music['repeat'])
+                        pygame.mixer.music.play(-1)
+                        self.current_music = 'repeat'
+                    self.change_map_time_elapsed = None
+                    self.fade_alpha = None
+                    return
+        fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+        fade_box.set_alpha(self.fade_alpha)
+        fade_box.fill(BLACK)
+        self.current_map.draw()
+        self.virtual_screen.blit(fade_box, (0,0))
 
     def update_change_map(self, dt):
         if self.change_map_time_elapsed is None:

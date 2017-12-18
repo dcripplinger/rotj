@@ -100,7 +100,7 @@ class Beginning(object):
                     'conditions': set(),
                     'reserve': [],
                 })
-                dialog = create_prompt(
+                dialog = (
                     'An epistle arrived while you were away. The chief judge is summoning you in the palace at '
                     'Zarahemla. You can find the city of Zarahemla to the west.'
                 )

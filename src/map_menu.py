@@ -9,6 +9,7 @@ from constants import ITEMS, NAMED_TELEPORTS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
+from shop import create_shop
 from text import create_prompt, MenuBox
 
 
@@ -35,6 +36,7 @@ class MapMenu(object):
         self.city_menu = None
         self.dialog_choice = None
         self.dialog_choice_menu = None
+        self.shop = None
 
     def update(self, dt):
         if self.state == 'main':
@@ -62,6 +64,8 @@ class MapMenu(object):
             self.city_menu.update(dt)
         if self.state == 'choice':
             self.dialog_choice_menu.update(dt)
+        if self.state == 'shop':
+            self.shop.update(dt)
 
     def handle_dialog_choice(self):
         self.state = 'choice'
@@ -95,6 +99,9 @@ class MapMenu(object):
             self.screen.blit(self.city_menu.surface, (160, 0))
         if self.dialog_choice_menu:
             self.screen.blit(self.dialog_choice_menu.surface, (160, 128))
+        if self.shop:
+            self.shop.update_surface()
+            self.screen.blit(self.shop.surface, (0, 0))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -159,6 +166,8 @@ class MapMenu(object):
             return self.handle_input_city(pressed)
         elif self.state == 'choice':
             return self.handle_input_choice(pressed)
+        elif self.state == 'shop':
+            return self.shop.handle_input(pressed)
 
     def handle_input_choice(self, pressed):
         self.dialog_choice_menu.handle_input(pressed)
@@ -439,13 +448,19 @@ class MapMenu(object):
         self.strat_menu.focus()
 
     def handle_talk(self):
-        dialog = self.map.get_dialog()
-        text = dialog if isinstance(dialog, basestring) else dialog['text']
-        self.prompt = create_prompt(text)
-        self.state = 'talk'
-        self.main_menu.unfocus()
-        if isinstance(dialog, dict) and 'prompt' in dialog:
-            self.dialog_choice = dialog['prompt']
+        shop = self.map.get_shop()
+        if shop:
+            self.state = 'shop'
+            self.shop = create_shop(shop, self.map.game)
+            self.main_menu.unfocus()
+        else:
+            dialog = self.map.get_dialog()
+            text = dialog if isinstance(dialog, basestring) else dialog['text']
+            self.prompt = create_prompt(text)
+            self.state = 'talk'
+            self.main_menu.unfocus()
+            if isinstance(dialog, dict) and 'prompt' in dialog:
+                self.dialog_choice = dialog['prompt']
 
     def handle_check(self):
         item = self.map.check_for_item()

@@ -7,7 +7,7 @@ import time
 import pygame
 from pygame.locals import *
 
-from constants import BLACK, WHITE
+from constants import BLACK, ITEMS, WHITE
 from helpers import is_half_second, load_image
 
 CHARS = {
@@ -484,6 +484,88 @@ class MenuGrid(object):
 
     def get_height(self):
         return self._height or max([menu.get_height() for menu in self.menus]) + (24 if self.border else 0)
+
+
+class ShopMenu(object):
+    def __init__(self, items):
+        self.items = items
+        self.current_choice = 0
+        self.is_active = False
+        self.blink = False
+        self.border = None
+        self.create_text_box()
+        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self._width = 128
+
+    def create_text_box(self):
+        lines = []
+        for item in self.items:
+            lines.append(item.title())
+            lines.append('{:~>12}'.format(ITEMS[item]['cost']))
+        self.text_box = TextBox('\n'.join(lines), double_space=False, indent=1, width=self._width, border=True)
+        self.surface = self.text_box.surface
+
+    def focus(self):
+        self.is_active = True
+        self.highlight_choice()
+
+    def highlight_choice(self):
+        self.blink = True
+        self.time_since_highlight_choice = 0
+
+    def unfocus(self, deselect=False):
+        self.is_active = False
+        self.surface.blit(CHARS[u' ' if deselect else u'▶'], self.get_pointer_location())
+
+    def update_blink(self, dt):
+        self.time_since_highlight_choice += dt
+        self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
+
+    def get_choice(self, strip_star=True):
+        return self.items[self.current_choice]
+
+    def set_choice(self, index):
+        assert 0 <= index < len(self.items)
+        self.current_choice = index
+
+    def get_pointer_location(self):
+        return 8, self.current_choice * 16 + 16
+
+    def update(self, dt):
+        self.create_text_box()
+        self.text_box.update(dt, force=True)
+        if self.is_active:
+            self.update_blink(dt)
+            pointer_location = self.get_pointer_location()
+            if self.blink:
+                self.surface.blit(CHARS[u'▶'], pointer_location)
+            else:
+                self.surface.blit(CHARS[u' '], pointer_location)
+
+    def get_width(self):
+        return self.text_box.width
+
+    def get_height(self):
+        return self.text_box.height
+
+    def handle_input(self, pressed):
+        if not self.is_active:
+            return
+        if pressed[K_UP]:
+            self.surface.blit(CHARS[' '], self.get_pointer_location())
+            self.current_choice -= 1
+            if self.current_choice == -1:
+                self.current_choice = len(self.items) - 1
+            self.highlight_choice()
+            self.switch_sound.play()
+        elif pressed[K_DOWN]:
+            self.surface.blit(CHARS[' '], self.get_pointer_location())
+            self.current_choice += 1
+            if self.current_choice == len(self.items):
+                self.current_choice = 0
+            self.highlight_choice()
+            self.switch_sound.play()
+
 
 
 def create_prompt(text, silent=False):

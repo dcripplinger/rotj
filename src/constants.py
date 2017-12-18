@@ -699,9 +699,24 @@ ITEMS = {
         'cost': 30000,
     },
     'iron~m': {
-        'armor_class': 120,
+        'armor_class': 115,
         'equip_type': 'armor',
         'cost': 60000,
+    },
+    'steel~m': {
+        'armor_class': 125,
+        'equip_type': 'armor',
+        'cost': 120000,
+    },
+    'tungsten~m': {
+        'armor_class': 133,
+        'equip_type': 'armor',
+        'cost': 240000,
+    },
+    'osmium~m': {
+        'armor_class': 145,
+        'equip_type': 'armor',
+        'cost': 480000,
     },
 
     # helmets
@@ -710,31 +725,121 @@ ITEMS = {
         'equip_type': 'helmet',
         'cost': 50,
     },
+    'cap': {
+        'armor_class': 20,
+        'equip_type': 'helmet',
+        'cost': 150,
+    },
+    'hood': {
+        'armor_class': 40,
+        'equip_type': 'helmet',
+        'cost': 500,
+    },
+    'wood~h': {
+        'armor_class': 50,
+        'equip_type': 'helmet',
+        'cost': 1000,
+    },
+    'copper~h': {
+        'armor_class': 60,
+        'equip_type': 'helmet',
+        'cost': 2000,
+    },
+    'bronze~h': {
+        'armor_class': 70,
+        'equip_type': 'helmet',
+        'cost': 4000,
+    },
+    'iron~h': {
+        'armor_class': 80,
+        'equip_type': 'helmet',
+        'cost': 15000,
+    },
+    'steel~h': {
+        'armor_class': 90,
+        'equip_type': 'helmet',
+        'cost': 40000,
+    },
+    'tungsten~h': {
+        'armor_class': 100,
+        'equip_type': 'helmet',
+        'cost': 110000,
+    },
+    'osmium~h': {
+        'armor_class': 110,
+        'equip_type': 'helmet',
+        'cost': 325000,
+    },
 
     # company items (elixirs, resurrect, etc)
     'elixir~a': {
         'map_usage': 'company', # means you can use the item on a member of the company (aka traveling party)
-        'healing_points': 100, # exactly 100 soldiers recover strength
+        'healing_points': 200, # exactly 100 soldiers recover strength
         'cost': 20,
     },
     'elixir~b': {
         'map_usage': 'company',
-        'healing_points': 500,
-        'cost': 50,
+        'healing_points': 600,
+        'cost': 60,
     },
     'elixir~c': {
         'map_usage': 'company',
-        'healing_points': 1000,
+        'healing_points': 2000,
         'cost': 200,
     },
     'elixir~d': {
         'map_usage': 'company',
-        'healing_points': 4500,
-        'cost': 500,
+        'healing_points': 6000,
+        'cost': 600,
+    },
+    'elixir~e': {
+        'map_usage': 'company',
+        'healing_points': 20000,
+        'cost': 2000,
+    },
+    'elixir~f': {
+        'map_usage': 'company',
+        'healing_points': 60000,
+        'cost': 6000,
+    },
+    'elixir~h': {
+        'map_usage': 'company',
+        'healing_points': 200000,
+        'cost': 20000,
+    },
+    'elixir~i': {
+        'map_usage': 'company',
+        'healing_points': 600000,
+        'cost': 60000,
+    },
+    'elixir~j': {
+        'map_usage': 'company',
+        'healing_points': 2000000,
+        'cost': 200000,
+    },
+    'elixir~k': {
+        'map_usage': 'company',
+        'healing_points': 6000000,
+        'cost': 600000,
+    },
+    'elixir~l': {
+        'map_usage': 'company',
+        'healing_points': 20000000,
+        'cost': 2000000,
     },
     'resurrect': {
         'map_usage': 'company',
         'cost': 100,
+    },
+
+    # battle items
+    'power~pill': { # causes a guaranteed excellent hit
+        'map_usage': 'battle',
+        'effect': 'excellent',
+    },
+    'javelin': { # instantly kills enemy if user is teancum, 100% success
+        'map_usage': 'battle',
+        'effect': 'assassin',
     },
 
     # gullwing (city map usage)
@@ -747,6 +852,9 @@ ITEMS = {
     'key': {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
     },
+
+    # unusable items (just carrying it has an effect)
+    'liahona': {}, # lets the user be his own tactician
 }
 
 FACELESS_ENEMIES = [
