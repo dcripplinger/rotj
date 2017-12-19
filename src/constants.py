@@ -857,6 +857,8 @@ ITEMS = {
     'liahona': {}, # lets the user be his own tactician
 }
 
+MAX_ITEMS_PER_PERSON = 8
+
 FACELESS_ENEMIES = [
     'kingmen',
     'robbers',

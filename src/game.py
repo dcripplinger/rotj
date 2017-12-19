@@ -13,7 +13,7 @@ from battle import Battle
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_NUM, SHOP_MUSIC,
+    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC,
 )
 from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats, save_game_state
 from menu_screen import MenuScreen
@@ -369,21 +369,28 @@ class Game(object):
             'reserve': reserve,
         })
 
-    def add_to_inventory(self, item):
-        acquired_items = list(self.game_state['acquired_items'])
-        if 'id' in item:
-            acquired_items.append(item['id'])
+    def add_to_inventory(self, item, warlord_index=None):
+        """
+        This is for picking up items when warlord_index is None.
+        This is used for buying items when warlord_index is not None, since the warlord who buys it is specified.
+        """
         company = copy.deepcopy(self.game_state['company'])
         placed = False
-        for warlord in company:
-            if len(warlord['items']) == 8 or warload['soldiers'] == 0:
-                continue
+        if warlord_index is not None:
+            assert len(company[warlord_index]['items']) < MAX_ITEMS_PER_PERSON
+            company[warlord_index]['items'].append({'name': item})
             placed = True
-            warlord['items'].append(item['name'])
+        else:
+            for warlord in company:
+                if len(warlord['items']) >= MAX_ITEMS_PER_PERSON or warlord['soldiers'] == 0:
+                    continue
+                placed = True
+                warlord['items'].append({'name': item})
+                break
         surplus = list(self.game_state['surplus'])
         if not placed:
-            surplus.append(item['name'])
-        self.update_game_state({'acquired_items': acquired_items, 'company': company, 'surplus': surplus})
+            surplus.append({'name': item})
+        self.update_game_state({'company': company, 'surplus': surplus})
 
     def try_set_hq(self):
             city = self.current_map.name.split('_')[0]

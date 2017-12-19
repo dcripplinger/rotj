@@ -5,7 +5,7 @@ import math
 import pygame
 from pygame.locals import *
 
-from constants import GAME_HEIGHT, GAME_WIDTH, MAX_NUM
+from constants import GAME_HEIGHT, GAME_WIDTH, MAX_ITEMS_PER_PERSON, MAX_NUM
 from helpers import get_max_soldiers
 from text import create_prompt, MenuBox, ShopMenu, TextBox
 
@@ -257,6 +257,46 @@ class Armory(Shop):
         super(Armory, self).__init__(shop, game)
         self.dialog = create_prompt("Welcome. I have many fine weapons. What can I sell you?")
         self.next = 'shop_menu'
+
+    def handle_shop_menu_selection(self):
+        self.state = 'dialog'
+        item = self.shop_menu.get_choice()
+        if item['cost'] > self.game.game_state['money']:
+            self.dialog = create_prompt("I'm sorry. You don't have enough money for that. Anything else?")
+            self.next = 'shop_menu'
+        else:
+            self.dialog = create_prompt("And who will be carrying that?")
+            self.next = 'company_menu'
+            self.create_spoils_box()
+        self.shop_menu.unfocus()
+
+    def handle_shop_menu_cancel(self):
+        self.state = 'dialog'
+        self.dialog = create_prompt("Well, when I can help you, you know where I am.")
+        self.next = 'exit'
+        self.shop_menu = None
+
+    def handle_company_menu_selection(self):
+        self.company_menu.unfocus()
+        self.state = 'dialog'
+        warlord_index = self.company_menu.current_choice
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        current_items = self.game.game_state['company'][warlord_index]['items']
+        if len(current_items) >= MAX_ITEMS_PER_PERSON:
+            self.next = 'company_menu'
+            self.dialog = create_prompt("{} can't carry any more. Who will be carrying that?".format(warlord_name))
+        else:
+            self.next = 'shop_menu'
+            self.dialog = create_prompt("Thank you. Anything else?")
+            item = self.shop_menu.get_choice()
+            self.game.add_to_inventory(item['name'], warlord_index)
+            self.game.update_game_state({'money': self.game.game_state['money'] - item['cost']})
+
+    def handle_company_menu_cancel(self):
+        self.state = 'dialog'
+        self.next = 'shop_menu'
+        self.dialog = create_prompt("What can I sell you?")
+        self.company_menu = None
 
 
 class MerchantShop(Shop):
