@@ -488,20 +488,23 @@ class MenuGrid(object):
 
 class ShopMenu(object):
     def __init__(self, items):
-        self.items = items
+        self._width = 128
+        if isinstance(items[0], basestring):
+            self.items = [{'name': item, 'cost': ITEMS[item]['cost']} for item in items]
+        else:
+            self.items = items
         self.current_choice = 0
         self.is_active = False
         self.blink = False
         self.border = None
         self.create_text_box()
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
-        self._width = 128
 
     def create_text_box(self):
         lines = []
         for item in self.items:
-            lines.append(item.title())
-            lines.append('{:~>12}'.format(ITEMS[item]['cost']))
+            lines.append(item['name'].title())
+            lines.append('{:~>12}'.format(item['cost']))
         self.text_box = TextBox('\n'.join(lines), double_space=False, indent=1, width=self._width, border=True)
         self.surface = self.text_box.surface
 

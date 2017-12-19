@@ -1,9 +1,12 @@
 # -*- coding: UTF-8 -*-
 
+import math
+
 import pygame
 from pygame.locals import *
 
-from constants import GAME_HEIGHT, GAME_WIDTH
+from constants import GAME_HEIGHT, GAME_WIDTH, MAX_NUM
+from helpers import get_max_soldiers
 from text import create_prompt, MenuBox, ShopMenu, TextBox
 
 
@@ -43,8 +46,9 @@ class Shop(object):
         self.state = self.next
         self.next = None
         if self.state == 'shop_menu':
-            self.shop_menu = ShopMenu(self.shop['items'])
+            self.create_shop_menu()
             self.shop_menu.focus()
+            self.create_spoils_box()
         elif self.state == 'sleep':
             self.game.start_sleep(self.sleep_music, self.sleep_dialog)
         elif self.state == 'company_menu':
@@ -135,6 +139,9 @@ class Shop(object):
     def create_misc_menu(self):
         raise NotImplementedError
 
+    def create_shop_menu(self):
+        self.shop_menu = ShopMenu(self.shop['items'])
+
 
 class RecordOffice(Shop):
     def __init__(self, shop, game):
@@ -208,6 +215,41 @@ class Inn(Shop):
 class FoodShop(Shop):
     def __init__(self, shop, game):
         super(FoodShop, self).__init__(shop, game)
+        self.dialog = create_prompt("Welcome. May I sell you some provisions?")
+        self.next = 'shop_menu'
+
+    def create_shop_menu(self):
+        level = self.game.game_state['level']
+        company = self.game.game_state['company']
+        sum_soldiers = sum(get_max_soldiers(warlord['name'], level) for warlord in company)
+        base = int(math.pow(10, len(str(sum_soldiers))-1))
+        self.shop_menu = ShopMenu([
+            {'name': str(3*base), 'cost': base},
+            {'name': str(30*base), 'cost': 10*base},
+            {'name': str(300*base), 'cost': 100*base},
+        ])
+
+    def handle_shop_menu_selection(self):
+        self.state = 'dialog'
+        item = self.shop_menu.get_choice()
+        if item['cost'] > self.game.game_state['money']:
+            self.dialog = create_prompt("Do you think I'm running a charity here? Come back when you have enough money.")
+            self.next = 'exit'
+        else:
+            self.dialog = create_prompt("Thank you.")
+            self.next = 'exit'
+            self.game.update_game_state({
+                'money': self.game.game_state['money'] - item['cost'],
+                'food': min(MAX_NUM, self.game.game_state['food'] + int(item['name'])),
+            })
+            self.create_spoils_box()
+        self.shop_menu.unfocus()
+
+    def handle_shop_menu_cancel(self):
+        self.state = 'dialog'
+        self.dialog = create_prompt("OK, come back any time.")
+        self.next = 'exit'
+        self.shop_menu = None
 
 
 class Armory(Shop):
