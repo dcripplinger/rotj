@@ -77,7 +77,7 @@ RETREAT_TIME_PER_PERSON = 0.2
 
 
 class Battle(object):
-    def __init__(self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics):
+    def __init__(self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water):
         self.debug = False
         self.ally_tactics = ally_tactics
         self.time_elapsed = 0.0
@@ -152,7 +152,7 @@ class Battle(object):
         self.ordered_moves = []
         self.good_enemy_statuses = {}
         self.good_ally_statuses = {}
-        self.near_water = False
+        self.near_water = near_water
         self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
         self.heavy_damage_sound = pygame.mixer.Sound('data/audio/heavy_damage.wav')
         self.hit_sound = pygame.mixer.Sound('data/audio/hit.wav')
@@ -1027,6 +1027,9 @@ class Battle(object):
             if cost > self.warlord.get_tactical_points():
                 self.state = 'error'
                 self.right_dialog = create_prompt("Insufficient tactical points.")
+            elif TACTICS[tactic]['slot'] == 2 and not self.near_water:
+                self.state = 'error'
+                self.right_dialog = create_prompt("Sorry, there must be a body of water nearby to do that.")
             else:
                 if TACTICS[tactic]['type'] == 'ally':
                     self.state = 'tactic_ally'

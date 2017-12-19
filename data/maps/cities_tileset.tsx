@@ -54,6 +54,7 @@
  <tile id="32">
   <properties>
    <property name="wall" value="true"/>
+   <property name="water" value="true"/>
   </properties>
  </tile>
  <tile id="33">

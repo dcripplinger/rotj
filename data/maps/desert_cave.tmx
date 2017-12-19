@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="cave" tilewidth="16" tileheight="16" tilecount="48">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="cave" tilewidth="16" tileheight="16" tilecount="48" columns="8">
   <image source="../images/basic_16x16_tiles/caves/tileset_caves.png" width="128" height="96"/>
+  <tile id="0">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
   <tile id="6">
    <properties>
     <property name="wall" value="true"/>
@@ -92,6 +102,16 @@
     <property name="wall" value="true"/>
    </properties>
   </tile>
+  <tile id="28">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
   <tile id="30">
    <properties>
     <property name="wall" value="true"/>
@@ -117,9 +137,55 @@
     <property name="wall" value="true"/>
    </properties>
   </tile>
+  <tile id="35">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="encounter" type="float" value="0"/>
+   </properties>
+  </tile>
   <tile id="44">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
  </tileset>

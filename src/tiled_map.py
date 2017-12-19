@@ -237,7 +237,17 @@ class Map(object):
                 battle_type = 'warlord'
             else:
                 battle_type = 'regular'
-            self.game.start_battle(enemies, battle_type)
+            self.game.start_battle(enemies, battle_type, self.is_near_water())
+
+    def is_near_water(self):
+        x = int(self.hero.position[0])
+        y = int(self.hero.position[1])
+        for _x in [x-2, x-1, x, x+1, x+2]:
+            for _y in [y-2, y-1, y, y+1, y+2]:
+                props = self.tmx_data.get_tile_properties(_x, _y, 0) or {}
+                if props.get('water') == 'true':
+                    return True
+        return False
 
     def move_hero(self, direction):
         self.hero.move(direction)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="400" tilewidth="16" tileheight="16" nextobjectid="93">
- <tileset firstgid="1" name="overworld" tilewidth="16" tileheight="16" tilecount="40">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="300" height="400" tilewidth="16" tileheight="16" nextobjectid="93">
+ <tileset firstgid="1" name="overworld" tilewidth="16" tileheight="16" tilecount="40" columns="8">
   <image source="0_tileset_overworld.png" width="128" height="80"/>
   <tile id="0">
    <properties>
@@ -19,36 +19,43 @@
   </tile>
   <tile id="3">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="7">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="8">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="9">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
@@ -79,6 +86,7 @@
   </tile>
   <tile id="15">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
@@ -134,47 +142,56 @@
   </tile>
   <tile id="26">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="27">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="28">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="29">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="30">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="31">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="32">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="33">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="34">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
   <tile id="35">
@@ -189,17 +206,20 @@
   </tile>
   <tile id="37">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="38">
    <properties>
+    <property name="encounter" type="float" value="0"/>
     <property name="wall" value="false"/>
    </properties>
   </tile>
   <tile id="39">
    <properties>
     <property name="wall" value="true"/>
+    <property name="water" value="true"/>
    </properties>
   </tile>
  </tileset>

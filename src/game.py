@@ -318,7 +318,7 @@ class Game(object):
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
 
-    def start_battle(self, enemies, battle_type):
+    def start_battle(self, enemies, battle_type, near_water):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'][0:5] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
@@ -330,7 +330,7 @@ class Game(object):
             tactics = None
         print tactics
         self.battle = Battle(
-            self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics,
+            self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water,
         )
         pygame.mixer.music.stop()
         self.continue_current_music = False
