@@ -7,7 +7,21 @@ from pygame.locals import *
 
 from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM
 from helpers import get_max_soldiers
+from report import Report
 from text import create_prompt, MenuBox, ShopMenu, TextBox
+
+WARLORDS_EXEMPT_FROM_FIRING = {
+    'moroni',
+    'amalickiah',
+    'teancum',
+    'lachoneus',
+    'nephi',
+    'samuel',
+    'gidgiddoni',
+    'lehi',
+    'helaman',
+    'moronihah',
+}
 
 
 class Shop(object):
@@ -22,6 +36,8 @@ class Shop(object):
         self.spoils_box = None # This is sometimes instantiated via self.create_spoils_box()
         self.misc_menu = None # This is a MenuBox whenever it is needed
         self.sleep_music = None # Needs to be the path to the sleep sound byte, which could be None or a save sound byte or whatever
+        self.report = None
+        self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
 
         # The following should be set by the inheriting class's init
         self.next = None # indicates the next state when a dialog finishes, use one of its valid values
@@ -52,7 +68,7 @@ class Shop(object):
         elif self.state == 'sleep':
             self.game.start_sleep(self.sleep_music, self.sleep_dialog)
         elif self.state == 'company_menu':
-            self.company_menu = MenuBox(self.game.get_company_names())
+            self.create_company_menu()
             self.company_menu.focus()
         elif self.state == 'confirm':
             self.confirm_menu = MenuBox(['YES', 'NO'])
@@ -72,11 +88,16 @@ class Shop(object):
         if self.company_menu:
             self.surface.blit(self.company_menu.surface, (128, 0))
         if self.misc_menu:
-            self.surface.blit(self.misc_menu.surface, (160, 160))
+            if len(self.misc_menu.get_choices()) > 4:
+                self.surface.blit(self.misc_menu.surface, (160, 128))
+            else:
+                self.surface.blit(self.misc_menu.surface, (160, 160))
         if self.confirm_menu:
             self.surface.blit(self.confirm_menu.surface, (160, 160))
         if self.spoils_box:
             self.surface.blit(self.spoils_box.surface, (160, 104))
+        if self.report:
+            self.surface.blit(self.report.surface, (0,0))
 
     def create_spoils_box(self):
         money = self.game.game_state['money']
@@ -90,24 +111,28 @@ class Shop(object):
         elif self.state == 'shop_menu':
             self.shop_menu.handle_input(pressed)
             if pressed[K_x]:
+                self.select_sound.play()
                 self.handle_shop_menu_selection()
             elif pressed[K_z]:
                 self.handle_shop_menu_cancel()
         elif self.state == 'company_menu':
             self.company_menu.handle_input(pressed)
             if pressed[K_x]:
+                self.select_sound.play()
                 self.handle_company_menu_selection()
             elif pressed[K_z]:
                 self.handle_company_menu_cancel()
         elif self.state == 'confirm':
             self.confirm_menu.handle_input(pressed)
             if pressed[K_x] and self.confirm_menu.get_choice() == 'YES':
+                self.select_sound.play()
                 self.handle_confirm_yes()
             elif pressed[K_z] or (pressed[K_x] and self.confirm_menu.get_choice() == 'NO'):
                 self.handle_confirm_no()
         elif self.state == 'misc_menu':
             self.misc_menu.handle_input(pressed)
             if pressed[K_x]:
+                self.select_sound.play()
                 self.handle_misc_menu(self.misc_menu.get_choice())
             elif pressed[K_z]:
                 self.handle_misc_menu(None)
@@ -141,6 +166,9 @@ class Shop(object):
 
     def create_shop_menu(self):
         self.shop_menu = ShopMenu(self.shop['items'])
+
+    def create_company_menu(self):
+        self.company_menu = MenuBox(self.game.get_company_names())
 
 
 class RecordOffice(Shop):
@@ -437,6 +465,194 @@ class MerchantShop(Shop):
 class Reserve(Shop):
     def __init__(self, shop, game):
         super(Reserve, self).__init__(shop, game)
+        leader = self.game.get_leader()['name'].title()
+        self.dialog = create_prompt("{}. What can I do for you?".format(leader))
+        self.next = 'misc_menu'
+        self.surplus_page = 0
+        self.reserve_page = 0
+
+    def create_misc_menu(self):
+        self.misc_menu = MenuBox(['STATS', 'NEW~MEM', 'DEL~MEM', 'FIRE', 'SURPLUS'])
+
+    def handle_shop_menu_selection(self):
+        if self.shop_menu.get_choice() == 'ETC':
+            self.surplus_page += 1
+            if len(self.game.game_state['surplus'])/8 < self.surplus_page:
+                self.surplus_page = 0
+            self.create_shop_menu()
+        else:
+            self.state = 'dialog'
+            self.dialog = create_prompt("And who will be carrying that?")
+            self.next = 'company_menu'
+            self.shop_menu.unfocus()
+
+    def handle_shop_menu_cancel(self):
+        self.state = 'dialog'
+        self.dialog = self.create_exit_dialog()
+        self.next = 'exit'
+
+    def handle_company_menu_selection(self):
+        if self.company_menu.get_choice() == 'ETC':
+            self.reserve_page += 1
+            if len(self.game.game_state['reserve'])/8 < self.reserve_page:
+                self.reserve_page = 0
+            self.create_shop_menu()
+        else:
+            self.state = 'dialog'
+            mode = self.misc_menu.get_choice()
+            if mode == 'STATS':
+                self.handle_stats()
+            elif mode == 'NEW~MEM':
+                self.handle_recruit()
+            elif mode == 'DEL~MEM':
+                self.handle_delete()
+            elif mode == 'FIRE':
+                self.handle_fire()
+            elif mode == 'SURPLUS':
+                self.handle_get_surplus_item()
+
+    def handle_get_surplus_item(self):
+        warlord_index = self.company_menu.current_choice
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        surplus_index = self.shop_menu.current_choice + self.surplus_page * 8
+        items = self.game.game_state['company'][warlord_index]['items']
+        if len(items) >= MAX_ITEMS_PER_PERSON:
+            self.next = 'company_menu'
+            self.dialog = create_prompt("{} cannot carry any more. Who will be carrying that?".format(warlord_name))
+        else:
+            self.game.get_surplus_item(surplus_index, warlord_index)
+            if len(self.game.game_state['surplus']) > 0:
+                self.next = 'shop_menu'
+                self.dialog = create_prompt("Here you go. Anything else?")
+                self.company_menu = None
+            else:
+                self.next = 'exit'
+                self.dialog = create_prompt("Here you go. Have a good day.")
+
+    def handle_stats(self):
+        warlord_name = self.company_menu.get_choice().lower()
+        level = self.game.game_state['level']
+        self.state = 'exit'
+        self.report = Report(warlord_name, level, [])
+
+    def handle_recruit(self):
+        reserve_index = self.company_menu.current_choice + self.reserve_page * 8
+        self.game.recruit(reserve_index)
+        self.next = 'exit'
+        warlord_name = self.company_menu.get_choice() # keep capitalization
+        self.dialog = create_prompt("OK. {} has joined the traveling party.".format(warlord_name))
+
+    def handle_delete(self):
+        warlord_index = self.company_menu.current_choice
+        self.game.delete_member(warlord_index)
+        self.next = 'exit'
+        warlord_name = self.company_menu.get_choice() # leave capitalized
+        self.dialog = create_prompt("OK. {} went to the reserve. His items are in surplus.".format(warlord_name))
+
+    def handle_fire(self):
+        warlord_name = self.company_menu.get_choice()
+        if warlord_name.lower() not in WARLORDS_EXEMPT_FROM_FIRING:
+            self.next = 'confirm'
+            self.dialog = create_prompt("You want to fire {}?".format(warlord_name))
+        else:
+            self.dialog = create_prompt(
+                "{} shows great promise. You should not give up on him so easily.".format(warlord_name),
+            )
+            self.next = 'exit'
+
+    def handle_company_menu_cancel(self):
+        self.state = 'dialog'
+        mode = self.misc_menu.get_choice()
+        if mode == 'SURPLUS':
+            self.dialog = create_prompt("Which item would you like to pick up?")
+            self.next = 'shop_menu'
+        else:
+            self.dialog = self.create_exit_dialog()
+            self.next = 'exit'
+
+    def handle_confirm_yes(self):
+        reserve_index = self.company_menu.current_choice + self.reserve_page * 8
+        self.game.fire(reserve_index)
+        self.next = 'exit'
+        warlord_name = self.company_menu.get_choice() # keep capitalization
+        self.dialog = create_prompt("OK. {} has left our side.".format(warlord_name))
+        self.state = 'dialog'
+
+    def handle_confirm_no(self):
+        self.state = 'dialog'
+        self.next = 'exit'
+        self.dialog = self.create_exit_dialog()
+
+    def handle_misc_menu(self, choice):
+        self.state = 'dialog'
+        if choice is None:
+            self.dialog = self.create_exit_dialog()
+            self.next = 'exit'
+        elif choice == 'STATS':
+            if len(self.game.game_state['reserve']) > 0:
+                self.next = 'company_menu'
+                self.dialog = create_prompt("Whose profile would you like to see?")
+            else:
+                self.next = 'exit'
+                self.dialog = self.create_no_warlords_dialog()
+        elif choice == 'NEW~MEM':
+            if len(self.game.game_state['company']) >= 7:
+                self.dialog = create_prompt("Your traveling party is too big to add any more people.")
+                self.next = 'exit'
+            elif len(self.game.game_state['reserve']) == 0:
+                self.dialog = self.create_no_warlords_dialog()
+                self.next = 'exit'
+            else:
+                self.dialog = create_prompt("Who would you like to add?")
+                self.next = 'company_menu'
+        elif choice == 'DEL~MEM':
+            if len(self.game.game_state['company']) <= 1:
+                self.dialog = create_prompt("You only have one member in your traveling party right now.")
+                self.next = 'exit'
+            else:
+                self.dialog = create_prompt("Who would you like to leave behind?")
+                self.next = 'company_menu'
+        elif choice == 'FIRE':
+            if len(self.game.game_state['reserve']) > 0:
+                self.next = 'company_menu'
+                self.dialog = create_prompt("Whom would you like to fire?")
+            else:
+                self.next = 'exit'
+                self.dialog = self.create_no_warlords_dialog()
+        elif choice == 'SURPLUS':
+            if len(self.game.game_state['surplus']) > 0:
+                self.next = 'shop_menu'
+                self.dialog = create_prompt("Which item would you like to pick up from surplus?")
+            else:
+                self.next = 'exit'
+                self.dialog = self.create_no_surplus_dialog()
+
+    def create_shop_menu(self):
+        surplus = self.game.game_state['surplus'][self.surplus_page*8:(self.surplus_page+1)*8]
+        surplus = [name.title() for name in surplus]
+        if len(self.game.game_state['surplus']) > MAX_ITEMS_PER_PERSON:
+            surplus.append('ETC')
+        self.shop_menu = MenuBox(surplus)
+
+    def create_company_menu(self):
+        mode = self.misc_menu.get_choice()
+        if mode in ('DEL~MEM', 'SURPLUS'):
+            self.company_menu = MenuBox(self.game.get_company_names())
+        elif mode in ('STATS', 'NEW~MEM', 'FIRE'):
+            reserve = self.game.game_state['reserve'][self.reserve_page*8:(self.reserve_page+1)*8]
+            reserve = [name.title() for name in reserve]
+            if len(self.game.game_state['reserve']) > MAX_ITEMS_PER_PERSON:
+                reserve.append('ETC')
+            self.company_menu = MenuBox(reserve)
+
+    def create_exit_dialog(self):
+        return create_prompt("Come back anytime. Brethren, adieu.")
+
+    def create_no_warlords_dialog(self):
+        return create_prompt("I'm sorry, but you don't have any warlords in the reserve.")
+
+    def create_no_surplus_dialog(self):
+        return create_prompt("I'm sorry, but you don't have any surplus items.")
 
 
 def create_shop(shop, game):

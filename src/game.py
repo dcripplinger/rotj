@@ -100,6 +100,51 @@ class Game(object):
     def get_music(self, map_name):
         return MAP_MUSIC.get(map_name, SHOP_MUSIC)
 
+    def delete_member(self, warlord_index):
+        company = copy.deepcopy(self.game_state['company'])
+        surplus = copy.deepcopy(self.game_state['surplus'])
+        reserve = copy.deepcopy(self.game_state['reserve'])
+        for item in company[warlord_index]['items']:
+            surplus.insert(0, item['name'])
+        warlord = company.pop(warlord_index)
+        reserve.insert(0, warlord['name'])
+        self.update_game_state({'company': company, 'surplus': surplus, 'reserve': reserve})
+        self.current_map.load_company_sprites(
+            self.current_map.hero.position,
+            self.current_map.hero.direction,
+            'inplace',
+        )
+
+    def recruit(self, reserve_index):
+        company = copy.deepcopy(self.game_state['company'])
+        reserve = copy.deepcopy(self.game_state['reserve'])
+        warlord_name = reserve.pop(reserve_index)
+        level = self.game_state['level']
+        company.append({
+            'name': warlord_name,
+            'soldiers': get_max_soldiers(warlord_name, level),
+            'tactical_points': get_max_tactical_points(warlord_name, level),
+            'items': [],
+        })
+        self.update_game_state({'company': company, 'reserve': reserve})
+        self.current_map.load_company_sprites(
+            self.current_map.hero.position,
+            self.current_map.hero.direction,
+            'inplace',
+        )
+
+    def fire(self, reserve_index):
+        reserve = copy.deepcopy(self.game_state['reserve'])
+        reserve.pop(reserve_index)
+        self.update_game_state({'reserve': reserve})
+
+    def get_surplus_item(self, surplus_index, warlord_index):
+        company = copy.deepcopy(self.game_state['company'])
+        surplus = copy.deepcopy(self.game_state['surplus'])
+        item_name = surplus.pop(surplus_index)
+        company[warlord_index]['items'].append({'name': item_name})
+        self.update_game_state({'company': company, 'surplus': surplus})
+
     def try_toggle_equip_on_item(self, user, item_index):
         user_name = user.lower()
         company = copy.deepcopy(self.game_state['company'])

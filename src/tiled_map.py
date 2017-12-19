@@ -156,10 +156,16 @@ class Map(object):
             self.group.remove(self.hero)
         company_sprites = self.get_company_sprite_names()
         if followers == 'inplace':
-            follower_one_pos = self.follower_one.position if self.follower_one else None
-            follower_two_pos = self.follower_two.position if self.follower_two else None
-            follower_one_dir = self.follower_one.direction if self.follower_one else None
-            follower_two_dir = self.follower_two.direction if self.follower_two else None
+            follower_one_pos = (
+                self.follower_one.position if self.follower_one
+                else self.get_pos_behind(hero_position, direction)
+            )
+            follower_one_dir = self.follower_one.direction if self.follower_one else direction
+            follower_two_pos = (
+                self.follower_two.position if self.follower_two
+                else self.get_pos_behind(follower_one_pos, follower_one_dir)
+            )
+            follower_two_dir = self.follower_two.direction if self.follower_two else direction
         elif followers == 'under':
             follower_one_pos = list(hero_position)
             follower_two_pos = list(hero_position)
