@@ -5,9 +5,9 @@ high enough intelligence, you will gain this tactic at this level.
 Level   Tactic      INT Required    Number of Tactics Introduced
 01      -                           00
 02      fire        100             01
-03      firewall    100             02
-04      flood       100             03
-05      salve       100             04
+03      flood       100             02
+04      salve       100             03
+05      firewall    100             04
 06      provoke     130             05
 07      ninja       150             06
 08      -                           06

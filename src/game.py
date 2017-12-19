@@ -327,6 +327,7 @@ class Game(object):
         else:
             tactical_points = 0
             tactics = None
+        print tactics
         self.battle = Battle(
             self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics,
         )

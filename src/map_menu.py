@@ -306,7 +306,7 @@ class MapMenu(object):
         if pressed[K_x]:
             return 'exit'
         elif pressed[K_z]:
-            self.promopt.shutdown()
+            self.prompt.shutdown()
             self.prompt = None
             self.strat_menu.focus()
             self.state = 'item'

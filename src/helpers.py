@@ -35,14 +35,34 @@ def get_tactic_for_level(level):
 
 
 def get_tactics(stats, level, pretty=True):
-    if 'tactics_by_level' in stats:
-        tactics = stats['tactics_by_level'][min(level, len(stats['tactics_by_level'])) - 1]
-    else:
-        tactics = stats['tactics']
+    tactics = []
+    for slot in range(1,7):
+        tactics.append(_get_max_tactic(intelligence=stats['intelligence'], level=level, slot=slot))
     if pretty:
         return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
     else:
         return tactics
+
+
+def _get_max_tactic(intelligence=0, level=0, slot=0):
+    found_tactic = ""
+    min_intelligence = 0
+    min_level = 0
+    for tactic_name, tactic in TACTICS.items():
+        if tactic['slot'] != slot:
+            continue
+        if tactic['min_intelligence'] > intelligence:
+            continue
+        if tactic['min_level'] > level:
+            continue
+        if (
+            tactic['min_level'] > min_level
+            or (tactic['min_level'] == min_level and tactic['min_intelligence'] > min_intelligence)
+        ):
+            min_level = tactic['min_level']
+            min_intelligence = tactic['min_intelligence']
+            found_tactic = tactic_name
+    return found_tactic
 
 
 def get_equip_based_stat_value(stat, equips):
