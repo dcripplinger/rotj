@@ -5,7 +5,7 @@ import math
 import pygame
 from pygame.locals import *
 
-from constants import GAME_HEIGHT, GAME_WIDTH, MAX_ITEMS_PER_PERSON, MAX_NUM
+from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM
 from helpers import get_max_soldiers
 from text import create_prompt, MenuBox, ShopMenu, TextBox
 
@@ -288,6 +288,7 @@ class Armory(Shop):
         else:
             self.next = 'shop_menu'
             self.dialog = create_prompt("Thank you. Anything else?")
+            self.company_menu = None
             item = self.shop_menu.get_choice()
             self.game.add_to_inventory(item['name'], warlord_index)
             self.game.update_game_state({'money': self.game.game_state['money'] - item['cost']})
@@ -302,6 +303,135 @@ class Armory(Shop):
 class MerchantShop(Shop):
     def __init__(self, shop, game):
         super(MerchantShop, self).__init__(shop, game)
+        self.dialog = create_prompt("Come in, come in. I'm a merchant. Are you buying or selling?")
+        self.next = 'misc_menu'
+
+    def create_misc_menu(self):
+        self.misc_menu = MenuBox(['BUY', 'SELL'])
+
+    def handle_misc_menu(self, choice):
+        self.misc_menu.unfocus()
+        self.state = 'dialog'
+        if choice is None:
+            self.dialog = create_prompt("Well, when I can help you, you know where I am.")
+            self.next = 'exit'
+        elif choice == 'BUY':
+            self.dialog = create_prompt("What can I get you?")
+            self.next = 'shop_menu'
+        elif choice == 'SELL':
+            self.dialog = create_prompt("Who is carrying the merchandise?")
+            self.next = 'company_menu'
+
+    def handle_shop_menu_selection(self):
+        if self.misc_menu.get_choice() == 'BUY':
+            self.handle_shop_menu_buy()
+        else:
+            self.handle_shop_menu_sell()
+
+    def handle_shop_menu_buy(self):
+        self.state = 'dialog'
+        item = self.shop_menu.get_choice()
+        if item['cost'] > self.game.game_state['money']:
+            self.dialog = create_prompt("I'm sorry. You don't have enough money for that. Anything else?")
+            self.next = 'shop_menu'
+        else:
+            self.dialog = create_prompt("And who will be carrying that?")
+            self.next = 'company_menu'
+            self.create_spoils_box()
+        self.shop_menu.unfocus()
+
+    def handle_shop_menu_sell(self):
+        self.state = 'dialog'
+        item = self.shop_menu.get_choice()
+        if 'cost' in ITEMS[item['name']]:
+            self.value = int(ITEMS[item['name']]['cost'] * 0.75)
+            self.dialog = create_prompt("{}... I'll give you {} senines. Deal?".format(item['name'], self.value))
+            self.next = 'confirm'
+        else:
+            self.next = 'shop_menu'
+            self.dialog = create_prompt("I can't accept that. Anything else?")
+
+    def handle_shop_menu_cancel(self):
+        self.shop_menu = None
+        self.state = 'dialog'
+        if self.misc_menu.get_choice() == 'BUY':
+            self.dialog = create_prompt("Are you buying or selling?")
+            self.next = 'misc_menu'
+        else:
+            self.dialog = create_prompt("Who is carrying the merchandise?")
+            self.next = 'company_menu'
+
+    def handle_company_menu_selection(self):
+        if self.misc_menu.get_choice() == 'BUY':
+            self.handle_company_menu_buy()
+        else:
+            self.handle_company_menu_sell()
+
+    def handle_company_menu_buy(self):
+        self.company_menu.unfocus()
+        self.state = 'dialog'
+        warlord_index = self.company_menu.current_choice
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        current_items = self.game.game_state['company'][warlord_index]['items']
+        if len(current_items) >= MAX_ITEMS_PER_PERSON:
+            self.next = 'company_menu'
+            self.dialog = create_prompt("{} can't carry any more. Who will be carrying that?".format(warlord_name))
+        else:
+            self.next = 'shop_menu'
+            self.dialog = create_prompt("Thank you. Anything else?")
+            self.company_menu = None
+            item = self.shop_menu.get_choice()
+            self.game.add_to_inventory(item['name'], warlord_index)
+            self.game.update_game_state({'money': self.game.game_state['money'] - item['cost']})
+
+    def handle_company_menu_sell(self):
+        self.company_menu.unfocus()
+        self.state = 'dialog'
+        warlord_index = self.company_menu.current_choice
+        items = self.game.game_state['company'][warlord_index]['items']
+        if len(items) == 0:
+            warlord_name = self.company_menu.get_choice() # leave it capitalized
+            self.dialog = create_prompt("{} has nothing to sell. Who is carrying the merchandise?".format(warlord_name))
+            self.next = 'company_menu'
+        else:
+            self.dialog = create_prompt("Which item?")
+            self.next = 'shop_menu'
+
+    def handle_company_menu_cancel(self):
+        self.state = 'dialog'
+        self.company_menu = None
+        if self.misc_menu.get_choice() == 'BUY':
+            self.next = 'shop_menu'
+            self.dialog = create_prompt("What can I sell you?")
+        else:
+            self.dialog = create_prompt("Are you buying or selling?")
+            self.next = 'misc_menu'
+
+    def create_shop_menu(self):
+        if self.misc_menu.get_choice() == 'BUY':
+            self.shop_menu = ShopMenu(self.shop['items'])
+        else:
+            warlord_index = self.company_menu.current_choice
+            items = self.game.game_state['company'][warlord_index]['items']
+            self.shop_menu = ShopMenu([{'name': item['name'], 'cost': ''} for item in items])
+
+    def handle_confirm_yes(self):
+        self.state = 'dialog'
+        self.dialog = create_prompt("Thank you. Would you like to sell anything else?")
+        self.next = 'company_menu'
+        warlord_index = self.company_menu.current_choice
+        item_index = self.shop_menu.current_choice
+        self.game.sell_item(warlord_index, item_index)
+        self.confirm_menu = None
+        self.shop_menu = None
+        self.create_spoils_box()
+
+    def handle_confirm_no(self):
+        self.state = 'dialog'
+        self.dialog = create_prompt("Would you like to sell anything else?")
+        self.next = 'company_menu'
+        self.confirm_menu = None
+        self.shop_menu = None
 
 
 class Reserve(Shop):

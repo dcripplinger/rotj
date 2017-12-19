@@ -389,8 +389,17 @@ class Game(object):
                 break
         surplus = list(self.game_state['surplus'])
         if not placed:
-            surplus.append({'name': item})
+            surplus.insert(0, {'name': item})
         self.update_game_state({'company': company, 'surplus': surplus})
+
+    def sell_item(self, warlord_index, item_index):
+        company = copy.deepcopy(self.game_state['company'])
+        item = company[warlord_index]['items'].pop(item_index)['name']
+        value = int(ITEMS[item]['cost'] * 0.75)
+        self.update_game_state({
+            'money': min(MAX_NUM, self.game_state['money'] + value),
+            'company': company,
+        })
 
     def try_set_hq(self):
             city = self.current_map.name.split('_')[0]
