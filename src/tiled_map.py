@@ -21,6 +21,7 @@ from map_menu import MapMenu
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
+        self.steps_for_tactical_points = 0
         self.company_report = None
         self.name = map_name
         self.game = game
@@ -242,6 +243,11 @@ class Map(object):
         self.hero.move(direction)
         if self.try_getting_random_encounter():
             self.random_encounter = True
+        if self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
+            self.steps_for_tactical_points += 1
+            if self.steps_for_tactical_points >= 10:
+                self.steps_for_tactical_points -= 10
+                self.game.increment_tactical_points()
 
     def try_getting_random_encounter(self):
         if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:

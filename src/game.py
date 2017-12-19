@@ -282,6 +282,7 @@ class Game(object):
         for warlord in company:
             if warlord['soldiers'] > 0:
                 warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
+                warlord['tactical_points'] = get_max_tactical_points(warlord['name'], self.game_state['level'])
         self.update_game_state({'company': company})
         self.sleep_music = sleep_music
 
@@ -361,6 +362,14 @@ class Game(object):
         if len(levels_earned) > 0:
             self.update_game_state({'level': levels_earned[-1]})
         return levels_earned
+
+    def increment_tactical_points(self):
+        company = copy.deepcopy(self.game_state['company'])
+        level = self.game_state['level']
+        for warlord in company:
+            if warlord['tactical_points'] < get_max_tactical_points(warlord['name'], level):
+                warlord['tactical_points'] += 1
+        self.update_game_state({'company': company})
 
     def end_battle(self, battle_company, tactical_points):
         self.next_map = self.current_map
