@@ -22,10 +22,11 @@ from helpers import (
     load_stats,
 )
 from hero import Hero
+from map_menu import MapMenu
 from report import CompanyReport, Report
 from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
-from map_menu import MapMenu
+from treasure import Treasure
 
 
 class Map(object):
@@ -60,6 +61,7 @@ class Map(object):
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
         self.load_ai_sprites()
+        self.load_treasures()
         self.hero = None
         self.follower_one = None
         self.follower_two = None
@@ -120,11 +122,20 @@ class Map(object):
 
     def check_for_item(self):
         cell = self.cells.get(tuple(self.hero.position))
-        item = cell.get('item') if cell else None
-        if not item or item['id'] in self.game.game_state['acquired_items']:
+        treasure = cell.get('treasure') if cell else None
+        if not treasure or self.game.conditions_are_met(treasure['name']):
             return None
-        self.game.add_to_inventory(item)
-        return item['name']
+        self.treasures[tuple(self.hero.position)].open()
+        self.game.set_game_state_condition(treasure['name'])
+        if 'item' in treasure:
+            self.game.add_to_inventory(treasure['item'])
+            return treasure['item'].title()
+        elif 'money' in treasure:
+            money = self.game.game_state['money'] + treasure['money']
+            self.update_game_state({'money': min(MAX_NUM, money)})
+            return '{} senines'.format(money)
+        else:
+            return None
 
     def load_ai_sprites(self):
         for cell in self.cells.values():
@@ -136,6 +147,22 @@ class Map(object):
                     wander=ai_sprite_data['wander'], tiled_map=self, dialog=ai_sprite_data['dialog'],
                 )
                 self.group.add(ai_sprite)
+
+    def load_treasures(self):
+        self.treasures = {}
+        for cell in self.cells.values():
+            treasure_data = cell.get('treasure')
+            if treasure_data:
+                if not self.game.conditions_are_met(treasure_data.get('conditions')):
+                    continue
+                if self.game.conditions_are_met(treasure_data['name']):
+                    opened = True
+                else:
+                    opened = False
+                pos = [cell['x'], cell['y']]
+                treasure = Treasure(opened=opened, invisible=treasure_data.get('invisible'), position=pos)
+                self.group.add(treasure)
+                self.treasures[tuple(pos)] = treasure
 
     def get_pos_behind(self, pos, direction):
         if direction == 'n':

@@ -8,5 +8,13 @@
       "y": 29,
       "direction": "s"
     }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "treasure": {
+      "name": "zarahemla_home_treasure",
+      "item": "dagger"
+    }
   }
 ]
