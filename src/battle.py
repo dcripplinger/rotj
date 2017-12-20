@@ -77,7 +77,11 @@ RETREAT_TIME_PER_PERSON = 0.2
 
 
 class Battle(object):
-    def __init__(self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water):
+    def __init__(
+        self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
+        battle_name=None,
+    ):
+        self.battle_name = battle_name
         self.debug = False
         self.ally_tactics = ally_tactics
         self.time_elapsed = 0.0
@@ -107,7 +111,10 @@ class Battle(object):
             }, self))
         self.enemies = []
         for i, enemy in enumerate(enemies):
-            soldiers = random.choice(enemy['stats']['soldiers'])
+            if isinstance(enemy['stats']['soldiers'], list):
+                soldiers = random.choice(enemy['stats']['soldiers'])
+            else:
+                soldiers = enemy['stats']['soldiers']
             self.enemies.append(Enemy({
                 'index': i,
                 'name': enemy['name'],
@@ -161,6 +168,7 @@ class Battle(object):
         self.tactic_sound = pygame.mixer.Sound('data/audio/tactic.wav')
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
+        self.exit_dialog = create_prompt(exit) if exit else None
 
     def set_start_dialog(self):
         script = ''
@@ -202,7 +210,6 @@ class Battle(object):
     def update_risk_it(self, dt):
         if self.get_leader().state == 'wait':
             self.simulate_battle()
-            pygame.mixer.music.stop()
             if self.state == 'win':
                 self.excellent_sound.play()
             else:
@@ -211,6 +218,9 @@ class Battle(object):
 
     def update_win(self, dt):
         if self.win_state == 'start':
+            if self.exit_dialog:
+                self.exit_dialog.update(dt)
+                return
             if self.food > 0:
                 victory_script = "{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
                 victory_script = victory_script.format(
@@ -840,13 +850,17 @@ class Battle(object):
         self.warlord.move_forward()
 
     def handle_input_win(self, pressed):
+        if self.win_state == 'start' and self.exit_dialog:
+            self.exit_dialog.handle_input(pressed)
+            if pressed[K_x] and not self.exit_dialog.has_more_stuff_to_show():
+                self.exit_dialog = None
         if self.win_state == 'main':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
                 leveled_up = self.level_up()
                 if not leveled_up:
                     self.right_dialog.shutdown()
-                    self.game.end_battle(self.get_company(), self.ally_tactical_points)
+                    self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
                 else:
                     self.win_state = 'level_up'
         elif self.win_state == 'level_up':
@@ -855,7 +869,7 @@ class Battle(object):
                 leveled_up = self.level_up()
                 if not leveled_up:
                     self.right_dialog.shutdown()
-                    self.game.end_battle(self.get_company(), self.ally_tactical_points)
+                    self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
 
     def level_up(self):
         if len(self.levels) == 0:
@@ -1268,6 +1282,9 @@ class Battle(object):
             self.screen.blit(self.pointer_right, (GAME_WIDTH-96, self.selected_enemy_index*24+top_margin))
         if self.selected_ally_index is not None:
             self.screen.blit(self.pointer_left, (80, self.selected_ally_index*24+top_margin))
+        if self.state == 'win' and self.exit_dialog:
+            self.screen.blit(self.exit_dialog.surface, (0, 128 + top_margin))
+            self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)

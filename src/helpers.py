@@ -6,7 +6,7 @@ import shutil
 
 import pygame
 
-from constants import ITEMS, TACTICS
+from constants import ATTACK_POINTS, ARMOR_CLASS, ITEMS, TACTICS
 
 # WARNING: Don't import anything from the rotj repo into here. To avoid circular imports,
 # we are restricting this module to only functions that do not depend on any other rotj
@@ -34,7 +34,11 @@ def get_tactic_for_level(level):
     return None
 
 
-def get_tactics(stats, level, pretty=True):
+def get_tactics(stats_or_warlord, level, pretty=True):
+    if isinstance(stats_or_warlord, basestring):
+        stats = load_stats(stats_or_warlord)
+    else:
+        stats = stats_or_warlord
     tactics = []
     for slot in range(1,7):
         tactics.append(_get_max_tactic(intelligence=stats['intelligence'], level=level, slot=slot))
@@ -69,6 +73,14 @@ def get_equip_based_stat_value(stat, equips):
     return sum([ITEMS[equip['name']].get(stat, 0) for equip in equips])
 
 
+def get_attack_points_by_level(level):
+    return ATTACK_POINTS[level]
+
+
+def get_armor_class_by_level(level):
+    return ARMOR_CLASS[level]
+
+
 def load_stats(name):
     with open('data/stats/{}.json'.format(name)) as f:
         json_data = json.loads(f.read())
@@ -79,7 +91,9 @@ def get_max_soldiers(warlord, level=None):
     assert level is not None
     with open('data/stats/{}.json'.format(warlord)) as f:
         json_data = json.loads(f.read())
-    if 'max_soldiers_by_level' in json_data:
+    if 'max_soldiers_by_enemy_level' in json_data:
+        soldiers = json_data['max_soldiers_by_enemy_level'].get(str(level)) or json_data['max_soldiers']
+    elif 'max_soldiers_by_level' in json_data:
         soldiers = json_data['max_soldiers_by_level'][level-1]
     else:
         soldiers = json_data['max_soldiers']

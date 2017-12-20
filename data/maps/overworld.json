@@ -88,5 +88,30 @@
       "y": 37,
       "direction": "n"
     }
+  },
+  {
+    "x": 151,
+    "y": 150,
+    "battles": [
+      {
+        "enemies": [
+          {
+            "name": "nehor",
+            "level": 8
+          },
+          {
+            "name": "seanti",
+            "level": 6
+          },
+          {
+            "name": "gad",
+            "level": 6
+          }
+        ],
+        "intro": "So, Alma thinks he can sentence me to death. I will never surrender!",
+        "exit": "You may have won this battle, but I have many allies that will harbor me. -- Nehor fled to an unknown location.",
+        "name": "battle01"
+      }
+    ]
   }
 ]

@@ -98,47 +98,5 @@
     100,
     101
   ],
-  "max_soldiers": 110,
-  "tactics_by_level": [
-    [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "fire",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    [
-      "fire",
-      "",
-      "",
-      "firewall",
-      "",
-      ""
-    ],
-    [
-      "fire",
-      "flood",
-      "",
-      "firewall",
-      "",
-      ""
-    ],
-    [
-      "fire",
-      "flood",
-      "salve",
-      "firewall",
-      "",
-      ""
-    ]
-  ]
+  "max_soldiers": 110
 }

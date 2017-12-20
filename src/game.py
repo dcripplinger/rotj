@@ -10,6 +10,7 @@ import pygame
 from pygame.locals import *
 
 from battle import Battle
+from battle_intro import BattleIntro
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
@@ -23,6 +24,7 @@ from title_page import TitlePage
 
 class Game(object):
     def __init__(self, screen):
+        self.battle_intro = None
         self.real_screen = screen
         self.virtual_width = GAME_WIDTH
         self.virtual_height = GAME_HEIGHT
@@ -59,8 +61,12 @@ class Game(object):
         }
 
     def conditions_are_met(self, conditions):
-        if conditions is None:
+        if conditions is None or len(conditions) == 0:
             return True
+        if isinstance(conditions, basestring):
+            conditions = {conditions: True}
+        elif isinstance(conditions, (tuple, list)):
+            conditions = {condition: True for condition in conditions}
         for condition, expected in conditions.items():
             if expected and condition not in self.game_state['conditions']:
                 return False
@@ -318,7 +324,7 @@ class Game(object):
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
 
-    def start_battle(self, enemies, battle_type, near_water):
+    def start_battle(self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'][0:5] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
@@ -328,10 +334,12 @@ class Game(object):
         else:
             tactical_points = 0
             tactics = None
-        print tactics
         self.battle = Battle(
-            self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water,
+            self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water, exit=exit,
+            battle_name=battle_name,
         )
+        if intro:
+            self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)
         pygame.mixer.music.stop()
         self.continue_current_music = False
         self.current_music = None
@@ -371,7 +379,7 @@ class Game(object):
                 warlord['tactical_points'] += 1
         self.update_game_state({'company': company})
 
-    def end_battle(self, battle_company, tactical_points):
+    def end_battle(self, battle_company, tactical_points, battle_name=None):
         self.next_map = self.current_map
         self.current_map = None
         self.fade_alpha = 0
@@ -399,6 +407,8 @@ class Game(object):
             company.append(new_warlord)
         self.update_game_state({'company': company})
         self.next_map.load_company_sprites(self.next_map.hero.position, self.next_map.hero.direction, 'inplace')
+        if battle_name:
+            self.set_game_state_condition(battle_name)
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
@@ -507,6 +517,8 @@ class Game(object):
             self.beginning_screen.draw()
         elif self._screen_state == 'battle':
             self.battle.draw()
+        elif self._screen_state == 'battle_intro' and self.battle_intro:
+            self.battle_intro.draw()
         self.scale()
 
     def update(self, dt):
@@ -534,6 +546,11 @@ class Game(object):
                 pygame.mixer.music.load(BATTLE_MUSIC[self.battle.battle_type]['repeat'])
                 pygame.mixer.music.play(-1)
                 self.current_music = 'repeat'
+        elif self._screen_state == 'battle_intro':
+            if self.battle_intro:
+                self.battle_intro.update(dt)
+            else:
+                self.set_screen_state('battle')
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -553,6 +570,9 @@ class Game(object):
                 self.virtual_screen.fill(BLACK)
 
     def draw_triangle_transition(self):
+        """
+        Okay, okay, it's not really triangles. It's a reference to the triangle transition of DOAE.
+        """
         block_size = 8
         for x in range(0, GAME_WIDTH, block_size):
             for y in range(0, GAME_HEIGHT, block_size):
@@ -563,7 +583,7 @@ class Game(object):
                     min(int(math.ceil(self.triangle_size)), block_size),
                 )
         if self.triangle_size > block_size:
-            self.set_screen_state('battle')
+            self.set_screen_state('battle_intro' if self.battle_intro else 'battle')
 
     def update_sleep(self, dt):
         if self.change_map_time_elapsed is None:
@@ -686,6 +706,11 @@ class Game(object):
                     self.beginning_screen.handle_input(pressed)
                 elif self._screen_state == 'battle':
                     self.battle.handle_input(pressed)
+                elif self._screen_state == 'battle_intro' and self.battle_intro:
+                    self.battle_intro.handle_input(pressed)
+                    if pressed[K_x] and not self.battle_intro.dialog.has_more_stuff_to_show():
+                        self.set_screen_state('battle')
+                        self.battle_intro = None
 
     def run(self):
         self.running = True

@@ -11,7 +11,16 @@ from pytmx.util_pygame import load_pygame
 from constants import (
     DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS, REUSABLE_MAP_NAMES,
 )
-from helpers import get_enemy_stats, get_map_filename
+from helpers import (
+    get_enemy_stats,
+    get_map_filename,
+    get_max_soldiers,
+    get_max_tactical_points,
+    get_attack_points_by_level,
+    get_armor_class_by_level,
+    get_tactics,
+    load_stats,
+)
 from hero import Hero
 from report import CompanyReport, Report
 from sprite import AiSprite, Sprite
@@ -250,10 +259,36 @@ class Map(object):
         return False
 
     def move_hero(self, direction):
-        self.hero.move(direction)
-        if self.try_getting_random_encounter():
+        next_pos = self.get_pos_in_front(self.hero.position, direction)
+        battles = self.cells.get(tuple(next_pos), {}).get('battles') if next_pos else None
+        if battles:
+            for battle_data in battles:
+                if 'conditions' in battle_data and not self.game.conditions_are_met([battle_data['conditions']]):
+                    continue
+                if self.game.conditions_are_met(battle_data['name']):
+                    continue
+                battle_type = battle_data.get('battle_type', 'story')
+                enemies = []
+                for enemy in battle_data['enemies']:
+                    stats = load_stats(enemy['name'])
+                    stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                    stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                    stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                    stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                    stats['tactics'] = get_tactics(enemy['name'], enemy['level'])
+                    enemies.append({
+                        'name': enemy['name'],
+                        'stats': stats,
+                    })
+                self.game.start_battle(
+                    enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
+                    exit=battle_data.get('exit'), battle_name=battle_data['name'],
+                )
+                return
+        moved = self.hero.move(direction)
+        if moved and self.try_getting_random_encounter():
             self.random_encounter = True
-        if self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
+        if moved and self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
             self.steps_for_tactical_points += 1
             if self.steps_for_tactical_points >= 10:
                 self.steps_for_tactical_points -= 10
@@ -281,7 +316,6 @@ class Map(object):
             }
             for name in enemy_names
         ]
-
 
     def handle_input(self, pressed):
         if self.opening_dialog:
