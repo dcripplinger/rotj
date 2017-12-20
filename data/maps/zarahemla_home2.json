@@ -8,5 +8,13 @@
       "y": 18,
       "direction": "s"
     }
+  },
+  {
+    "x": 16,
+    "y": 11,
+    "treasure": {
+      "name": "zarahemla_home2_treasure",
+      "money": 150
+    }
   }
 ]

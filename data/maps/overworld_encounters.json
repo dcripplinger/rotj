@@ -6,6 +6,41 @@
       [
         "robbers",
         "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -21,8 +56,23 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
         "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
       }
     }
   },
@@ -48,8 +98,23 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
         "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
       }
     }
   },
@@ -60,6 +125,41 @@
       [
         "robbers",
         "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -75,7 +175,22 @@
         "agility": 31,
         "evasion": 15,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
+        "armor_class": 20
+      },
+      "amlicites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 48,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
         "armor_class": 20
       }
     }
@@ -87,6 +202,41 @@
       [
         "robbers",
         "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -102,8 +252,23 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
         "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
       }
     }
   },
@@ -114,6 +279,41 @@
       [
         "robbers",
         "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -129,8 +329,23 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
         "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
       }
     }
   },
@@ -141,6 +356,41 @@
       [
         "robbers",
         "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -156,8 +406,23 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 20,
+        "attack_points": 25,
         "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
       }
     }
   }
