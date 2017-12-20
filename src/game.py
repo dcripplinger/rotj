@@ -166,8 +166,8 @@ class Game(object):
         equipped_before = item.get('equipped', False)
         item['equipped'] = not equipped_before
         if not equipped_before:
-            for other_item in user_dict['items']:
-                if other_item == item:
+            for index, other_item in enumerate(user_dict['items']):
+                if index == item_index:
                     continue
                 if ITEMS[other_item['name']].get('equip_type') == equip_type:
                     other_item['equipped'] = False
