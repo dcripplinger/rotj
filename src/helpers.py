@@ -87,13 +87,15 @@ def load_stats(name):
     return json_data
 
 
-def get_max_soldiers(warlord, level=None):
-    assert level is not None
-    with open('data/stats/{}.json'.format(warlord)) as f:
-        json_data = json.loads(f.read())
+def get_max_soldiers(warlord=None, level=None, stats=None):
+    if stats is None:
+        with open('data/stats/{}.json'.format(warlord)) as f:
+            json_data = json.loads(f.read())
+    else:
+        json_data = stats
     if 'max_soldiers_by_enemy_level' in json_data:
         soldiers = json_data['max_soldiers_by_enemy_level'].get(str(level)) or json_data['max_soldiers']
-    elif 'max_soldiers_by_level' in json_data:
+    elif 'max_soldiers_by_level' in json_data and level is not None:
         soldiers = json_data['max_soldiers_by_level'][level-1]
     else:
         soldiers = json_data['max_soldiers']
@@ -111,18 +113,20 @@ def hyphenate(text, chars):
         return text
 
 
-def get_max_tactical_points(warlord, level=None):
-    assert level is not None
-    with open('data/stats/{}.json'.format(warlord)) as f:
-        json_data = json.loads(f.read())
-    if 'tactical_points_by_level' in json_data:
+def get_max_tactical_points(warlord=None, level=None, stats=None):
+    if stats is None:
+        with open('data/stats/{}.json'.format(warlord)) as f:
+            json_data = json.loads(f.read())
+    else:
+        json_data = stats
+    if 'tactical_points_by_level' in json_data and level is not None:
         tactical_points = json_data['tactical_points_by_level'][level-1]
     else:
         tactical_points = json_data['tactical_points']
     return tactical_points
 
 
-def get_enemy_stats(warlord):
+def get_enemy_stats(warlord, level=None):
     with open('data/stats/{}.json'.format(warlord)) as f:
         json_data = json.loads(f.read())
     return {
@@ -131,11 +135,11 @@ def get_enemy_stats(warlord):
         'intelligence': json_data['intelligence'],
         'agility': json_data['agility'],
         'evasion': json_data['evasion'],
-        'tactical_points': json_data['tactical_points'],
-        'attack_points': json_data['attack_points'],
-        'armor_class': json_data['armor_class'],
-        'tactics': json_data['tactics'],
-        'soldiers': json_data['soldiers'],
+        'tactical_points': get_max_tactical_points(stats=json_data, level=level),
+        'attack_points': json_data['attack_points'] if not level else get_attack_points_by_level(level),
+        'armor_class': json_data['armor_class'] if not level else get_armor_class_by_level(level),
+        'tactics': get_tactics(json_data, level or 1),
+        'soldiers': get_max_soldiers(stats=json_data, level=level),
     }
 
 

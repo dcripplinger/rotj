@@ -336,13 +336,14 @@ class Map(object):
         if not region:
             return None
         enemy_names = random.choice(region['encounters'])
-        return [
-            {
-                'name': name,
-                'stats': region['stats'][name] if name in region['stats'] else get_enemy_stats(name),
-            }
-            for name in enemy_names
-        ]
+        enemies = []
+        for name in enemy_names:
+            if 'level' in region['stats'][name]:
+                stats = get_enemy_stats(name, region['stats'][name]['level'])
+            else:
+                stats = region['stats'][name]
+            enemies.append({'name': name, 'stats': stats})
+        return enemies
 
     def handle_input(self, pressed):
         if self.opening_dialog:
