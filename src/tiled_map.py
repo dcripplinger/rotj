@@ -302,7 +302,7 @@ class Map(object):
                     stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
                     stats['attack_points'] = get_attack_points_by_level(enemy['level'])
                     stats['armor_class'] = get_armor_class_by_level(enemy['level'])
-                    stats['tactics'] = get_tactics(enemy['name'], enemy['level'])
+                    stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
                     enemies.append({
                         'name': enemy['name'],
                         'stats': stats,

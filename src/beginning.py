@@ -102,7 +102,7 @@ class Beginning(object):
                     'hq': 'zarahemla',
                 })
                 dialog = (
-                    'An epistle arrived while you were away. The chief judge is summoning you in the palace at '
+                    'An epistle arrived while you were away. Alma, the chief judge, is summoning you in the palace at '
                     'Zarahemla. You can find the city of Zarahemla to the west.'
                 )
                 self.game.set_current_map(

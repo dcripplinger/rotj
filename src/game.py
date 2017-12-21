@@ -710,6 +710,7 @@ class Game(object):
                     self.battle_intro.handle_input(pressed)
                     if pressed[K_x] and not self.battle_intro.dialog.has_more_stuff_to_show():
                         self.set_screen_state('battle')
+                        self.battle_intro.dialog.shutdown()
                         self.battle_intro = None
 
     def run(self):

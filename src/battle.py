@@ -339,7 +339,8 @@ class Battle(object):
                 self.portrait = None
         elif self.execute_state == 'dialog':
             dialog = self.right_dialog if self.move['agent'] in self.allies else self.left_dialog
-            dialog.update(dt)
+            if dialog:
+                dialog.update(dt)
 
     def get_mini_moves(self, move, results):
         mini_moves = []

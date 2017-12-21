@@ -559,7 +559,96 @@
   },
   {
     "x": 3,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "antionah",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "zeezrom",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "ammonihah",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
+      },
+      "antionah": {
+        "level": 6
+      },
+      "ammonihah": {
+        "level": 6
+      },
+      "zeezrom": {
+        "level": 6
+      }
+    }
   },
   {
     "x": 4,

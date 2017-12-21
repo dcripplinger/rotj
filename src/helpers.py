@@ -39,9 +39,12 @@ def get_tactics(stats_or_warlord, level, pretty=True):
         stats = load_stats(stats_or_warlord)
     else:
         stats = stats_or_warlord
-    tactics = []
-    for slot in range(1,7):
-        tactics.append(_get_max_tactic(intelligence=stats['intelligence'], level=level, slot=slot))
+    if 'tactics' in stats:
+        tactics = stats['tactics']
+    else:
+        tactics = []
+        for slot in range(1,7):
+            tactics.append(_get_max_tactic(intelligence=stats['intelligence'], level=level, slot=slot))
     if pretty:
         return ['{:~<10}'.format(tactic.title().replace(' ', '~')) for tactic in tactics]
     else:

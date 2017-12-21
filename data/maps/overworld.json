@@ -119,5 +119,29 @@
         "name": "battle01"
       }
     ]
+  },
+  {
+    "x": 187,
+    "y": 239,
+    "battles": [
+      {
+        "enemies": [
+          {
+            "name": "antionah",
+            "level": 7
+          },
+          {
+            "name": "zeezrom",
+            "level": 7
+          },
+          {
+            "name": "ammonihah",
+            "level": 7
+          }
+        ],
+        "intro": "Alma thinks he can rule us? We do not recognize his authority!",
+        "name": "battle02"
+      }
+    ]
   }
 ]
