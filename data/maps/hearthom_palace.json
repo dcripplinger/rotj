@@ -1,0 +1,42 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "hearthom",
+      "x": 35,
+      "y": 18,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "seezoram",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Thank you for dealing with Nehor. He was mounting quite a rebellion in this city. I don't know where he fled to, but he had many followers in Ammonihah, to the south by the head of the river Sidon."
+    }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Seezorm is our lower chief judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+    }
+  },
+  {
+    "x": 18,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Seezorm is our lower chief judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+    }
+  }
+]

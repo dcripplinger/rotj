@@ -317,9 +317,12 @@ class Battle(object):
                     self.init_menu_state()
         elif self.execute_state == 'move_forward':
             if self.warlord.state == 'wait':
-                self.execute_move(self.move)
-                self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
-                self.execute_state = 'mini_move'
+                if self.warlord.soldiers == 0:
+                    self.execute_state = 'move_back'
+                else:
+                    self.execute_move(self.move)
+                    self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
+                    self.execute_state = 'mini_move'
         elif self.execute_state == 'mini_move':
             self.pop_and_handle_mini_move()
             if self.mini_move:

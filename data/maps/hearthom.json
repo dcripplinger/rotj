@@ -1,0 +1,132 @@
+[
+  {
+    "x": 9,
+    "y": 18,
+    "teleport": {
+      "map": "overworld",
+      "x": 151,
+      "y": 150,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 19,
+    "teleport": {
+      "map": "overworld",
+      "x": 151,
+      "y": 150,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 35,
+    "y": 18,
+    "teleport": {
+      "map": "hearthom_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 18,
+    "teleport": {
+      "map": "hearthom_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 17,
+    "teleport": {
+      "map": "hearthom_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 13,
+    "teleport": {
+      "map": "hearthom_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 17,
+    "teleport": {
+      "map": "hearthom_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 21,
+    "teleport": {
+      "map": "hearthom_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 17,
+    "teleport": {
+      "map": "hearthom_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 11,
+    "y": 18,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to Hearthom."
+    }
+  },
+  {
+    "x": 22,
+    "y": 13,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "I can't believe I listened the words of Nehor. It is clear now he is an evil man who only cared for himself."
+    }
+  },
+  {
+    "x": 31,
+    "y": 23,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "w",
+      "wander": true,
+      "dialog": "The land of Zarahemla has several cities. Zarahemla, the capital, is in the center between the west mountains and the river Sidon to the east. Melek lies in the valley, just east of Zarahemla. This city, Hearthom, lies to the north. If you follow the river Sidon from the north toward the south, you will find the cities of Gideon, Noah, and Ammonihah, in that order. Just west of the southern city Ammonihah is the village of Sidom."
+    }
+  },
+  {
+    "x": 17,
+    "y": 21,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Make sure you don't run out of food as you travel. The more soldiers you have, the more food you will need."
+    }
+  }
+]
