@@ -364,7 +364,7 @@ class Battle(object):
             mini_moves.append(move)
             mini_results.append(results)
         elif move['action'] == self.execute_move_tactic:
-            move.update({'first': True})
+            results.update({'first': True})
             mini_moves.append(move)
             mini_results.append(results)
         return mini_moves, mini_results
@@ -388,6 +388,9 @@ class Battle(object):
                     mini_move['target'].name.title(), mini_move['agent'].name.title(),
                 )
         return dialog
+
+    def get_healing_dialog(self, mini_move, mini_result):
+        return "Some of {}'s soldiers have recovered their strength.".format(mini_move['target'].name.title())
 
     def get_move_dialog(self, mini_move, mini_result):
         is_ally_move = mini_move['agent'] in self.allies
@@ -431,6 +434,9 @@ class Battle(object):
             elif 'damage' in mini_result:
                 dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
                 return create_prompt(dialog)
+            elif 'healing' in mini_result:
+                dialog += self.get_healing_dialog(mini_move, mini_result)
+                return create_prompt(dialog)
 
     def pop_and_handle_mini_move(self):
         if len(self.mini_moves) > 0:
@@ -469,7 +475,9 @@ class Battle(object):
             self.execute_move(next_move)
             for warlord in self.get_live_allies() + self.get_live_enemies():
                 warlord.animate_all_out()
-            self.get_move_sound(self.move, self.results).play()
+            move_sound = self.get_move_sound(self.move, self.results)
+            if move_sound:
+                move_sound.play()
             self.animate_move_hit(self.move, self.results)
             if len(self.ordered_moves) == 0:
                 self.submitted_moves = []
@@ -584,7 +592,7 @@ class Battle(object):
         elif move['action'] == self.execute_move_defend:
             return None
         elif move['action'] == self.execute_move_tactic:
-            return self.tactic_sound
+            return self.tactic_sound if TACTICS[move['tactic']]['type'] in ['enemy', 'enemies'] else None
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
@@ -649,13 +657,32 @@ class Battle(object):
             return move, {'wasted': True}
         is_ally_move = move['agent'] in self.allies
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+        tactic_type = TACTICS[move['tactic']]['type']
         if 'deflect' in good_target_team_statuses:
             return move, {'deflect': True}
-        tactic_type = TACTICS[move['tactic']]['type']
         # go through tactics by type
         if tactic_type == 'enemy':
             return self.execute_tactic_type_enemy(move)
+        elif tactic_type == 'ally':
+            return self.execute_tactic_type_ally(move)
         return move, {}
+
+    def execute_tactic_type_ally(self, move):
+        info = TACTICS[move['tactic']]
+        success = self.get_tactic_success(move)
+        if not success:
+            return move, {'fail': True}
+        if 'min_damage' in info:
+            norm_intel = move['agent'].intelligence / 255.0
+            norm_cutoff = random.uniform(0.0, norm_intel)
+            prelim_healing_range = info['max_damage'] - info['min_damage']
+            cutoff = int(norm_cutoff * prelim_healing_range)
+            mod_min_healing = info['min_damage'] + cutoff
+            healing = random.randrange(mod_min_healing, info['max_damage'])
+            if move['target'].soldiers + healing > move['target'].max_soldiers:
+                healing = move['target'].max_soldiers - move['target'].soldiers
+            move['target'].get_healed(healing)
+            return move, {'healing': healing}
 
     def execute_tactic_type_enemy(self, move):
         info = TACTICS[move['tactic']]
@@ -683,6 +710,18 @@ class Battle(object):
             enemy_intel = move['target'].intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
             return random.random() < enemy_prob
+        elif prob_type == 'one':
+            return True
+        elif prob_type == 'intel_prob':
+            intel = move['agent'].intelligence
+            intel_prob = intel/255.0
+            return random.random() < intel_prob
+        elif prob_type == 'assassin':
+            intel = move['agent'].intelligence
+            enemy_intel = move['target'].intelligence
+            enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
+            assassin = enemy_prob / 3.0
+            return random.random() < assassin
 
     def execute_move_defend(self, move):
         move['agent'].boosts['defend'] = True
@@ -1033,6 +1072,8 @@ class Battle(object):
             self.handle_input_tactic(pressed)
         elif self.state == 'tactic_enemy':
             self.handle_input_tactic_enemy(pressed)
+        elif self.state == 'tactic_ally':
+            self.handle_input_tactic_ally(pressed)
 
     def handle_input_tactic(self, pressed):
         self.menu.handle_input(pressed)
@@ -1040,7 +1081,7 @@ class Battle(object):
             self.init_menu_state()
         elif pressed[K_x]:
             self.select_sound.play()
-            tactic = self.menu.get_choice().lower()
+            tactic = self.menu.get_choice().lower().strip('~')
             cost = TACTICS[tactic]['tactical_points']
             if cost > self.warlord.get_tactical_points():
                 self.state = 'error'
@@ -1106,6 +1147,29 @@ class Battle(object):
                 'target': self.enemies[self.selected_enemy_index],
                 'action': self.execute_move_battle,
             })
+            self.select_sound.play()
+            self.do_next_menu()
+
+    def handle_input_tactic_ally(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_ally_index = self.get_previous_live_ally_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_ally_index = self.get_next_live_ally_index()
+        elif pressed[K_z]:
+            self.state = 'tactic'
+            self.menu.focus()
+            self.selected_ally_index = None
+        elif pressed[K_x]:
+            tactic = self.menu.get_choice().lower().strip('~')
+            self.submit_move({
+                'agent': self.warlord,
+                'target': self.allies[self.selected_ally_index],
+                'action': self.execute_move_tactic,
+                'tactic': tactic,
+            })
+            self.warlord.consume_tactical_points(TACTICS[tactic]['tactical_points'])
             self.select_sound.play()
             self.do_next_menu()
 
@@ -1227,6 +1291,36 @@ class Battle(object):
             found = True
         return index
 
+    def get_next_live_ally_index(self):
+        if self.selected_ally_index is None:
+            return self.get_first_live_ally_index()
+        found = False
+        index = self.selected_ally_index
+        while not found:
+            index += 1
+            if index >= len(self.allies):
+                index = 0
+            ally = self.allies[index]
+            if ally.soldiers == 0:
+                continue
+            found = True
+        return index
+
+    def get_previous_live_ally_index(self):
+        if self.selected_ally_index is None:
+            return self.get_first_live_ally_index()
+        found = False
+        index = self.selected_ally_index
+        while not found:
+            index -= 1
+            if index < 0:
+                index = len(self.allies)-1
+            ally = self.allies[index]
+            if ally.soldiers == 0:
+                continue
+            found = True
+        return index
+
     def handle_report(self):
         self.state = 'report'
         self.menu.unfocus()
@@ -1235,6 +1329,12 @@ class Battle(object):
     def get_first_live_enemy_index(self):
         for i, enemy in enumerate(self.enemies):
             if enemy.soldiers > 0:
+                return i
+        return None
+
+    def get_first_live_ally_index(self):
+        for i, ally in enumerate(self.allies):
+            if ally.soldiers > 0:
                 return i
         return None
 
@@ -1285,7 +1385,7 @@ class Battle(object):
         if self.selected_enemy_index is not None:
             self.screen.blit(self.pointer_right, (GAME_WIDTH-96, self.selected_enemy_index*24+top_margin))
         if self.selected_ally_index is not None:
-            self.screen.blit(self.pointer_left, (80, self.selected_ally_index*24+top_margin))
+            self.screen.blit(self.pointer_left, (96, self.selected_ally_index*24+top_margin))
         if self.state == 'win' and self.exit_dialog:
             self.screen.blit(self.exit_dialog.surface, (0, 128 + top_margin))
             self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
