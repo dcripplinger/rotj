@@ -802,6 +802,7 @@ class Battle(object):
             and sum_dangers > enemy.soldiers and random.random() < .8
         ):
             action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': heal_tactic}
+            enemy.consume_tactical_points(heal_cost)
             if TACTICS[heal_tactic]['type'] == 'ally':
                 action.update({'target': enemy})
             return action
@@ -816,6 +817,7 @@ class Battle(object):
             and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
             and random.random() < .5
         ):
+            enemy.consume_tactical_points(TACTICS['dispel']['tactical_points'])
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'dispel'}
 
         # defense
@@ -825,6 +827,7 @@ class Battle(object):
             defense_tactic and heal_cost + defense_cost < tactical_points
             and defense_tactic not in self.good_enemy_statuses and random.random() < .3
         ):
+            enemy.consume_tactical_points(defense_cost)
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': defense_tactic}
 
         # provoke, disable
@@ -835,6 +838,7 @@ class Battle(object):
             and enemy.tactics[4] not in ally_target.bad_statuses
             and random.random() < enemy_prob
         ):
+            enemy.consume_tactical_points(TACTICS[enemy.tactics[4]]['tactical_points'])
             return {
                 'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[4], 'target': ally_target,
             }
@@ -846,6 +850,7 @@ class Battle(object):
             and enemy.tactics[5] not in ally_target.bad_statuses
             and random.random() < enemy_prob
         ):
+            enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
             return {
                 'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[5], 'target': ally_target,
             }
@@ -858,6 +863,7 @@ class Battle(object):
                 and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
                 and random.random() < .6
             ):
+                enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
                 return {
                     'agent': enemy, 'action': self.execute_move_tactic, 'tactic': boost_tactic, 'target': random_enemy,
                 }
@@ -872,6 +878,7 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
         ):
+            enemy.consume_tactical_points(TACTICS[enemy.tactics[1]]['tactical_points'])
             action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[1]}
             if TACTICS[enemy.tactics[1]]['type'] == 'enemy':
                 action.update({'target': ally_target})
@@ -885,6 +892,7 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
         ):
+            enemy.consume_tactical_points(TACTICS[enemy.tactics[0]]['tactical_points'])
             action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[0]}
             if TACTICS[enemy.tactics[0]]['type'] == 'enemy':
                 action.update({'target': ally_target})

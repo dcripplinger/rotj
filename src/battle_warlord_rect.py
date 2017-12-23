@@ -58,10 +58,7 @@ class BattleWarlordRectBase(object):
         self.hit_time = 0
 
     def consume_tactical_points(self, points):
-        if 'liahona' in [item['name'] for item in self.items]:
-            self.tactical_points -= points
-        else:
-            self.battle.ally_tactical_points -= points
+        raise NotImplementedError
 
     def restore_tactical_points(self, points):
         if 'liahona' in [item['name'] for item in self.items]:
@@ -271,6 +268,12 @@ class Ally(BattleWarlordRectBase):
         super(Ally, self).build_soldiers_bar()
         self.soldiers_bar_position = (TEXT_AREA_WIDTH, 16)
 
+    def consume_tactical_points(self, points):
+        if 'liahona' in [item['name'] for item in self.items]:
+            self.tactical_points -= points
+        else:
+            self.battle.ally_tactical_points -= points
+
 
 class Enemy(BattleWarlordRectBase):
     def __init__(self, name, battle):
@@ -301,3 +304,6 @@ class Enemy(BattleWarlordRectBase):
     def build_soldiers_bar(self):
         super(Enemy, self).build_soldiers_bar()
         self.soldiers_bar_position = (WIDTH - TEXT_AREA_WIDTH - self.soldiers_bar.get_width(), 16)
+
+    def consume_tactical_points(self, points):
+        self.tactical_points -= points
