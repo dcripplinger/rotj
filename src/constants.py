@@ -873,56 +873,67 @@ ITEMS = {
     # company items (elixirs, resurrect, etc)
     'elixir~a': {
         'map_usage': 'company', # means you can use the item on a member of the company (aka traveling party)
+        'battle_usage': 'ally',
         'healing_points': 200, # exactly 100 soldiers recover strength
         'cost': 20,
     },
     'elixir~b': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 600,
         'cost': 60,
     },
     'elixir~c': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 2000,
         'cost': 200,
     },
     'elixir~d': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 6000,
         'cost': 600,
     },
     'elixir~e': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 20000,
         'cost': 2000,
     },
     'elixir~f': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 60000,
         'cost': 6000,
     },
     'elixir~h': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 200000,
         'cost': 20000,
     },
     'elixir~i': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 600000,
         'cost': 60000,
     },
     'elixir~j': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 2000000,
         'cost': 200000,
     },
     'elixir~k': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 6000000,
         'cost': 600000,
     },
     'elixir~l': {
         'map_usage': 'company',
+        'battle_usage': 'ally',
         'healing_points': 20000000,
         'cost': 2000000,
     },

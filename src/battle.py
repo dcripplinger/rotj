@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 
 from battle_warlord_rect import Ally, Enemy
-from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, TACTICS
+from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, TACTICS
 from helpers import (
     can_level_up,
     get_equip_based_stat_value,
@@ -360,7 +360,7 @@ class Battle(object):
                 mini_results.append(mini_result)
             else:
                 mini_results.append(results)
-        elif move['action'] == self.execute_move_defend:
+        elif move['action'] in [self.execute_move_defend, self.execute_move_item]:
             mini_moves.append(move)
             mini_results.append(results)
         elif move['action'] == self.execute_move_tactic:
@@ -433,6 +433,14 @@ class Battle(object):
                 return create_prompt(dialog)
             elif 'damage' in mini_result:
                 dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
+                return create_prompt(dialog)
+            elif 'healing' in mini_result:
+                dialog += self.get_healing_dialog(mini_move, mini_result)
+                return create_prompt(dialog)
+        elif mini_move['action'] == self.execute_move_item:
+            dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
+            if mini_result.get('wasted'):
+                dialog += "They feel so dumb for wasting their move on a dead guy."
                 return create_prompt(dialog)
             elif 'healing' in mini_result:
                 dialog += self.get_healing_dialog(mini_move, mini_result)
@@ -593,6 +601,8 @@ class Battle(object):
             return None
         elif move['action'] == self.execute_move_tactic:
             return self.tactic_sound if TACTICS[move['tactic']]['type'] in ['enemy', 'enemies'] else None
+        elif move['action'] == self.execute_move_item:
+            return None
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
@@ -652,6 +662,25 @@ class Battle(object):
         result.update({'status': 'provoke'})
         return move, result
 
+    def execute_move_item(self, move):
+        if 'target' in move and move['target'].soldiers == 0:
+            return move, {'wasted': True}
+        move_type = ITEMS[move['item']]['battle_usage']
+        # go through items by type
+        if move_type == 'ally':
+            return self.execute_item_type_ally(move)
+        else:
+            return move, {}
+
+    def execute_item_type_ally(self, move):
+        info = ITEMS[move['item']]
+        if 'healing_points' in info:
+            healing = info['healing_points']
+            if healing + move['target'].soldiers > move['target'].max_soldiers:
+                healing = move['target'].max_soldiers - move['target'].soldiers
+            move['target'].get_healed(healing)
+            return move, {'healing': healing}
+
     def execute_move_tactic(self, move):
         if 'target' in move and move['target'].soldiers == 0:
             return move, {'wasted': True}
@@ -665,7 +694,8 @@ class Battle(object):
             return self.execute_tactic_type_enemy(move)
         elif tactic_type == 'ally':
             return self.execute_tactic_type_ally(move)
-        return move, {}
+        else:
+            return move, {}
 
     def execute_tactic_type_ally(self, move):
         info = TACTICS[move['tactic']]
@@ -726,9 +756,6 @@ class Battle(object):
     def execute_move_defend(self, move):
         move['agent'].boosts['defend'] = True
         return move, {'defend': True}
-
-    def execute_move_item(self, move):
-        return move, {}
 
     def change_move_if_dead_or_cursed(self, move):
         if move['agent'].soldiers == 0:
@@ -1074,6 +1101,8 @@ class Battle(object):
             self.handle_input_tactic_enemy(pressed)
         elif self.state == 'tactic_ally':
             self.handle_input_tactic_ally(pressed)
+        elif self.state == 'item_ally':
+            self.handle_input_item_ally(pressed)
 
     def handle_input_tactic(self, pressed):
         self.menu.handle_input(pressed)
@@ -1116,9 +1145,15 @@ class Battle(object):
         if pressed[K_z]:
             self.init_menu_state()
         elif pressed[K_x]:
-            self.right_dialog = create_prompt("That item cannot be used in battle.")
-            self.menu.unfocus()
-            self.state = 'error'
+            self.select_sound.play()
+            item = self.menu.get_choice().lower().strip('~')
+            if ITEMS[item].get('battle_usage') == 'ally':
+                self.state = 'item_ally'
+                self.selected_ally_index = self.get_leader().index
+            else:
+                self.right_dialog = create_prompt("That item cannot be used in battle.")
+                self.menu.unfocus()
+                self.state = 'error'
 
     def handle_input_execute(self, pressed):
         dialog = self.left_dialog or self.right_dialog
@@ -1146,6 +1181,28 @@ class Battle(object):
                 'agent': self.warlord,
                 'target': self.enemies[self.selected_enemy_index],
                 'action': self.execute_move_battle,
+            })
+            self.select_sound.play()
+            self.do_next_menu()
+
+    def handle_input_item_ally(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_ally_index = self.get_previous_live_ally_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_ally_index = self.get_next_live_ally_index()
+        elif pressed[K_z]:
+            self.state = 'item'
+            self.menu.focus()
+            self.selected_ally_index = None
+        elif pressed[K_x]:
+            item = self.menu.get_choice().lower().strip('~')
+            self.submit_move({
+                'agent': self.warlord,
+                'target': self.allies[self.selected_ally_index],
+                'action': self.execute_move_item,
+                'item': item,
             })
             self.select_sound.play()
             self.do_next_menu()
