@@ -223,6 +223,19 @@ class MapMenu(object):
                         )
                         self.prompt = create_prompt(text)
                         self.state = 'item_prompt'
+                elif item_name == 'resurrect':
+                    if not recipient_is_dead:
+                        self.state = 'item_prompt'
+                        text = "{} used {}. But nothing happened.".format(user.title(), item_name.title())
+                        self.prompt = create_prompt(text)
+                    else:
+                        self.map.remove_item(user, self.items_menu.current_choice)
+                        self.map.heal(recipient, 1)
+                        text = "{} used {}. {} has recovered from his wounds.".format(
+                            user.title(), item_name.title(), recipient.title(),
+                        )
+                        self.prompt = create_prompt(text)
+                        self.state = 'item_prompt'
             elif action_choice == 'PASS':
                 self.map.pass_item(user, recipient, self.items_menu.current_choice)
                 self.items_menu = self.create_items_menu()
