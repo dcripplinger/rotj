@@ -1,0 +1,150 @@
+[
+  {
+    "x": 17,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 187,
+      "y": 239,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 187,
+      "y": 239,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 16,
+    "teleport": {
+      "map": "ammonihah_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 16,
+    "teleport": {
+      "map": "ammonihah_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 28,
+    "teleport": {
+      "map": "ammonihah_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 28,
+    "teleport": {
+      "map": "ammonihah_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 32,
+    "teleport": {
+      "map": "ammonihah_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 36,
+    "teleport": {
+      "map": "ammonihah_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 36,
+    "teleport": {
+      "map": "ammonihah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 38,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "This is the great city of Ammonihah."
+    }
+  },
+  {
+    "x": 19,
+    "y": 38,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "w",
+      "wander": false,
+      "dialog": "This is the great city of Ammonihah."
+    }
+  },
+  {
+    "x": 14,
+    "y": 26,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Amalickiah! It's so good to see you again. I hope the wars will be over soon so that you can come home to me and the children."
+    }
+  },
+  {
+    "x": 19,
+    "y": 22,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "s",
+      "wander": true,
+      "dialog": "The Order of the Nehors had driven many people out of the city, and they went to Sidom to the west. Now that you have beaten them, they will seek refuge in Sidom as well and continue to persecute the same people. The four Em brothers, who are quite skilled in combat, now lead them."
+    }
+  },
+  {
+    "x": 22,
+    "y": 34,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Nehor was never here. He must be hiding somewhere else."
+    }
+  },
+  {
+    "x": 19,
+    "y": 11,
+    "treasure": {
+      "name": "ammonihah_treasure",
+      "item": "ax"
+    }
+  }
+]

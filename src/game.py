@@ -278,18 +278,19 @@ class Game(object):
                     break
         self.update_game_state({'company': new_company})
 
-    def start_sleep(self, sleep_music, dialog):
+    def start_sleep(self, sleep_music, dialog, heal=False):
         self.set_current_map(
             self.current_map.name, self.current_map.hero.position, self.current_map.hero.direction, followers='trail',
             dialog=dialog,
         )
         self.set_screen_state('sleep')
-        company = copy.deepcopy(self.game_state['company'])
-        for warlord in company:
-            if warlord['soldiers'] > 0:
-                warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
-                warlord['tactical_points'] = get_max_tactical_points(warlord['name'], self.game_state['level'])
-        self.update_game_state({'company': company})
+        if heal:
+            company = copy.deepcopy(self.game_state['company'])
+            for warlord in company:
+                if warlord['soldiers'] > 0:
+                    warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
+                    warlord['tactical_points'] = get_max_tactical_points(warlord['name'], self.game_state['level'])
+            self.update_game_state({'company': company})
         self.sleep_music = sleep_music
 
     def save(self):

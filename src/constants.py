@@ -649,6 +649,8 @@ PALACE_MUSIC = {
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
+    'ammonihah': CITY_MUSIC,
+    'ammonihah_palace': PALACE_MUSIC,
     'hearthom': CITY_MUSIC,
     'hearthom_palace': PALACE_MUSIC,
     'zarahemla': CITY_MUSIC,
@@ -946,15 +948,27 @@ ITEMS = {
     'power~pill': { # causes a guaranteed excellent hit
         'map_usage': 'battle',
         'effect': 'excellent',
+        'cost': 50,
     },
     'javelin': { # instantly kills enemy if user is teancum, 100% success
         'map_usage': 'battle',
-        'effect': 'assassin',
+        'effect': 'assassin'
+    },
+    'remedy': { # cures any negative status ailments on a single ally
+        'map_usage': 'battle',
+        'effect': 'remedy',
+        'cost': 200,
     },
 
     # gullwing (city map usage)
     'gullwing': {
         'map_usage': 'city', # means it brings up a menu of main visited cities to teleport to
+        'cost': 200,
+    },
+
+    # cloack (cloak map usage)
+    'cloak': {
+        'map_usage': 'cloak', # means it prevents random encounters for a finite number of steps
         'cost': 200,
     },
 
@@ -985,6 +999,7 @@ NAMED_TELEPORTS = {
 # cities that have palaces and record offices, so that you can set up hq there
 HQ = [
     'zarahemla',
+    'ammonihah',
 ]
 
 MAX_COMPANY_SIZE = 7

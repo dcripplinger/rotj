@@ -1,0 +1,52 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "ammonihah",
+      "x": 17,
+      "y": 16,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Antionah was the judge in Ammonihah until you were able to beat him. Now he has fled."
+    }
+  },
+  {
+    "x": 20,
+    "y": 24,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Antionah belonged to the Order of the Nehors and abused his power in this city to punish those who didn't join the religion."
+    }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "w",
+      "wander": true,
+      "dialog": "We will have to hold a special election to choose a new judge in Ammonihah. I hope we establish leadership quickly here. It will be hard to defend against the Lamanites without it. But I fear the remaining residents who belong to the Order of the Nehors will cause strife and delay elections and the establishment of our defenses."
+    }
+  },
+  {
+    "x": 11,
+    "y": 13,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "I don't know what my co-worker is talking about. Ammonihah is strong, and there's no way the Lamanites could attack us. Have you seen our wall to the south? Nobody is getting past that!"
+    }
+  }
+]

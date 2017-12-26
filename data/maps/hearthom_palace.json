@@ -26,7 +26,7 @@
       "name": "guard",
       "direction": "e",
       "wander": true,
-      "dialog": "Seezorm is our lower chief judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+      "dialog": "Seezoram is our lower judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
     }
   },
   {
@@ -36,7 +36,7 @@
       "name": "guard",
       "direction": "w",
       "wander": true,
-      "dialog": "Seezorm is our lower chief judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+      "dialog": "Seezoram is our lower judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
     }
   }
 ]

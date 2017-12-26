@@ -38,6 +38,7 @@ class Shop(object):
         self.sleep_music = None # Needs to be the path to the sleep sound byte, which could be None or a save sound byte or whatever
         self.report = None
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
+        self.heal = False
 
         # The following should be set by the inheriting class's init
         self.next = None # indicates the next state when a dialog finishes, use one of its valid values
@@ -66,7 +67,7 @@ class Shop(object):
             self.shop_menu.focus()
             self.create_spoils_box()
         elif self.state == 'sleep':
-            self.game.start_sleep(self.sleep_music, self.sleep_dialog)
+            self.game.start_sleep(self.sleep_music, self.sleep_dialog, self.heal)
         elif self.state == 'company_menu':
             self.create_company_menu()
             self.company_menu.focus()
@@ -193,6 +194,9 @@ class RecordOffice(Shop):
                 self.dialog = create_prompt("OK.")
                 self.next = 'sleep'
                 self.sleep_dialog = "This city is now your base of operations."
+            else:
+                self.dialog = create_prompt(msg)
+                self.next = 'exit'
 
     def handle_confirm_yes(self):
         self.confirm_menu.unfocus()
@@ -219,6 +223,7 @@ class Inn(Shop):
         self.next = 'confirm'
         self.sleep_music = 'data/audio/music/sleep.wav'
         self.sleep_dialog = "Good morning. I hope you rested well."
+        self.heal = True
 
     def handle_confirm_yes(self):
         self.confirm_menu = None
