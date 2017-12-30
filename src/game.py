@@ -716,13 +716,16 @@ class Game(object):
 
     def run(self):
         self.running = True
+        dt = 0.0
         try:
             while self.running:
-                dt = self.clock.tick(self.fps)/1000.0
-                self.handle_input()
-                self.update(dt)
-                self.draw()
-                pygame.display.flip()
+                dt += self.clock.tick(self.fps)/1000.0
+                if dt >= 0.01:
+                    self.handle_input()
+                    self.update(dt)
+                    self.draw()
+                    pygame.display.flip()
+                    dt = 0.0
         except KeyboardInterrupt:
             self.running = False
             pygame.quit()
