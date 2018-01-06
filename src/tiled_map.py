@@ -9,7 +9,7 @@ import pyscroll
 from pytmx.util_pygame import load_pygame
 
 from constants import (
-    DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS, REUSABLE_MAP_NAMES,
+    DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, MAX_NUM, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS, REUSABLE_MAP_NAMES,
 )
 from helpers import (
     get_enemy_stats,
@@ -132,7 +132,7 @@ class Map(object):
             return treasure['item'].title()
         elif 'money' in treasure:
             money = self.game.game_state['money'] + treasure['money']
-            self.update_game_state({'money': min(MAX_NUM, money)})
+            self.game.update_game_state({'money': min(MAX_NUM, money)})
             return '{} senines'.format(money)
         else:
             return None
