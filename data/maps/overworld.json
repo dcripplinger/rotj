@@ -149,5 +149,33 @@
         "name": "battle02"
       }
     ]
+  },
+  {
+    "x": 172,
+    "y": 235,
+    "battles": [
+      {
+        "enemies": [
+          {
+            "name": "emer",
+            "level": 8
+          },
+          {
+            "name": "emron",
+            "level": 7
+          },
+          {
+            "name": "emroni",
+            "level": 7
+          },
+          {
+            "name": "emronihah",
+            "level": 7
+          }
+        ],
+        "intro": "The Order of the Nehors has claimed this village!",
+        "name": "battle03"
+      }
+    ]
   }
 ]
