@@ -641,6 +641,11 @@ CITY_MUSIC = {
     'repeat': 'data/audio/music/city.wav',
 }
 
+CAMP_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/camp.wav',
+}
+
 PALACE_MUSIC = {
     'intro': None,
     'repeat': 'data/audio/music/palace.wav',
@@ -670,6 +675,7 @@ MAP_MUSIC = {
     'sierra_pass': CAVE_MUSIC,
     'cavity_of_a_rock': CAVE_MUSIC,
     'passage_to_gid': CAVE_MUSIC,
+    'sidon': CAMP_MUSIC,
 }
 
 BATTLE_MUSIC = {

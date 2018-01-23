@@ -153,6 +153,12 @@
   {
     "x": 172,
     "y": 235,
+    "teleport": {
+      "map": "sidon",
+      "x": 17,
+      "y": 26,
+      "direction": "n"
+    },
     "battles": [
       {
         "enemies": [
