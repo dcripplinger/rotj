@@ -8,5 +8,25 @@
       "y": 235,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 19,
+    "teleport": {
+      "map": "sidon_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 17,
+    "teleport": {
+      "map": "sidon_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
   }
 ]

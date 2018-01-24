@@ -12,7 +12,7 @@ TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
 
-DEFAULT_ENCOUNTER_CHANCE = 0.01
+DEFAULT_ENCOUNTER_CHANCE = 0.02
 
 EXP_REQUIRED_BY_LEVEL = {
     1: 0,
@@ -676,6 +676,8 @@ MAP_MUSIC = {
     'cavity_of_a_rock': CAVE_MUSIC,
     'passage_to_gid': CAVE_MUSIC,
     'sidon': CAMP_MUSIC,
+    'sidon_tent1': CAMP_MUSIC,
+    'sidon_tent2': CAMP_MUSIC,
 }
 
 BATTLE_MUSIC = {
