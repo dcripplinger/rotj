@@ -1,0 +1,62 @@
+[
+  {
+    "x": 17,
+    "y": 27,
+    "teleport": {
+      "map": "overworld",
+      "x": 172,
+      "y": 235,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 21,
+    "y": 19,
+    "teleport": {
+      "map": "sidom_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 17,
+    "teleport": {
+      "map": "sidom_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 25,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Welcome to Sidom. Many that came here were driven from their homes in Ammonihah."
+    }
+  },
+  {
+    "x": 13,
+    "y": 20,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Nehor and his followers have gone into hiding. I don't know where Nehor is, but when I was visiting the city of Noah, there was a man by the name of Jeneum I recognized from the time I lived in Ammonihah. He belongs to the Order and probably knows where Nehor is hiding, if you can capture him and make him talk."
+    }
+  },
+  {
+    "x": 19,
+    "y": 15,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "e",
+      "wander": true,
+      "dialog": "The city of Noah? It's the first city you see north of Ammonihah. If you follow the river Sidon, you'll see where it splits into two and then comes back together. Noah sits in the middle of the split."
+    }
+  }
+]

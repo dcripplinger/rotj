@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "sidom",
+      "x": 14,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 15,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "s",
+      "wander": false,
+      "dialog": "My house in Ammonihah is locked, and I lost the key. If only I could get in, I would give you my most prized possession to aid you in your struggle."
+    }
+  }
+]

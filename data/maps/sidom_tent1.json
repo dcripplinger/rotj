@@ -1,0 +1,20 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "sidom",
+      "x": 21,
+      "y": 19,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "treasure": {
+      "name": "sidom_treasure",
+      "item": "ax"
+    }
+  }
+]

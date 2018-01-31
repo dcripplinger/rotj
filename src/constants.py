@@ -675,9 +675,9 @@ MAP_MUSIC = {
     'sierra_pass': CAVE_MUSIC,
     'cavity_of_a_rock': CAVE_MUSIC,
     'passage_to_gid': CAVE_MUSIC,
-    'sidon': CAMP_MUSIC,
-    'sidon_tent1': CAMP_MUSIC,
-    'sidon_tent2': CAMP_MUSIC,
+    'sidom': CAMP_MUSIC,
+    'sidom_tent1': CAMP_MUSIC,
+    'sidom_tent2': CAMP_MUSIC,
 }
 
 BATTLE_MUSIC = {
