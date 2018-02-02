@@ -183,5 +183,15 @@
         "name": "battle03"
       }
     ]
+  },
+  {
+    "x": 182,
+    "y": 207,
+    "teleport": {
+      "map": "noah",
+      "x": 25,
+      "y": 33,
+      "direction": "n"
+    }
   }
 ]
