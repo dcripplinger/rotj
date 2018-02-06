@@ -74,6 +74,7 @@ COLORS = [
 ]
 
 RETREAT_TIME_PER_PERSON = 0.2
+REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of a volley
 
 
 class Battle(object):
@@ -314,7 +315,18 @@ class Battle(object):
                     self.warlord = None
                     self.submitted_moves = []
                     self.enemy_moves = []
-                    self.init_menu_state()
+                    ally_status_updates = []
+                    enemy_status_updates = []
+                    for (status, duration) in list(self.good_ally_statuses.items()):
+                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            del self.good_ally_statuses[status]
+                            ally_status_updates.append(status)
+                    for (status, duration) in list(self.good_enemy_statuses.items()):
+                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            del self.good_enemy_statuses[status]
+                            enemy_status_updates.append(status)
+                    self.execute_state = 'dialog'
+                    self.right_dialog = self.finish_volley_dialog(ally_status_updates, enemy_status_updates)
         elif self.execute_state == 'move_forward':
             if self.warlord.state == 'wait':
                 if self.warlord.soldiers == 0:
@@ -338,9 +350,25 @@ class Battle(object):
                 self.warlord.move_back()
                 self.portrait = None
         elif self.execute_state == 'dialog':
-            dialog = self.right_dialog if self.move['agent'] in self.allies else self.left_dialog
+            dialog = self.right_dialog or self.left_dialog
             if dialog:
                 dialog.update(dt)
+            else:
+                if len(self.ordered_moves) == 0:
+                    self.init_menu_state()
+                else:
+                    self.execute_state = 'mini_move'
+
+    def finish_volley_dialog(self, ally_status_updates, enemy_status_updates):
+        prompt_text = ""
+        for status in ally_status_updates:
+            prompt_text += "Your army's {} status has worn off. ".format(status.title())
+        for status in enemy_status_updates:
+            prompt_text += "The enemy's {} status has worn off. ".format(status.title())
+        if not prompt_text:
+            return None
+        else:
+            return create_prompt(prompt_text)
 
     def get_mini_moves(self, move, results):
         mini_moves = []
@@ -437,6 +465,12 @@ class Battle(object):
             elif 'healing' in mini_result:
                 dialog += self.get_healing_dialog(mini_move, mini_result)
                 return create_prompt(dialog)
+            elif mini_move['tactic'] == 'firewall':
+                dialog += "Fire damage is reduced by half."
+                return create_prompt(dialog)
+            elif mini_move['tactic'] == 'extinguish':
+                dialog += 'Fire damage is reduced to one.'
+                return create_prompt(dialog)
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
             if mini_result.get('wasted'):
@@ -490,6 +524,12 @@ class Battle(object):
             if len(self.ordered_moves) == 0:
                 self.submitted_moves = []
                 self.enemy_moves = []
+                for (status, duration) in list(self.good_ally_statuses.items()):
+                    if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                        del self.good_ally_statuses[status]
+                for (status, duration) in list(self.good_enemy_statuses.items()):
+                    if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                        del self.good_enemy_statuses[status]
 
     def animate_move_hit(self, move, results):
         if (
@@ -536,6 +576,12 @@ class Battle(object):
     def simulate_volley(self):
         self.submit_ai_moves()
         self.execute_moves()
+        for (status, duration) in list(self.good_ally_statuses.items()):
+            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                del self.good_ally_statuses[status]
+        for (status, duration) in list(self.good_enemy_statuses.items()):
+            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                del self.good_enemy_statuses[status]
 
     def execute_moves(self):
         for move in self.ordered_moves:
@@ -686,16 +732,27 @@ class Battle(object):
             return move, {'wasted': True}
         is_ally_move = move['agent'] in self.allies
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+        good_acting_team_statuses = self.good_ally_statuses if is_ally_move else self.good_enemy_statuses
         tactic_type = TACTICS[move['tactic']]['type']
         if 'deflect' in good_target_team_statuses:
             return move, {'deflect': True}
         # go through tactics by type
         if tactic_type == 'enemy':
-            return self.execute_tactic_type_enemy(move)
+            return self.execute_tactic_type_enemy(move, good_target_team_statuses)
         elif tactic_type == 'ally':
             return self.execute_tactic_type_ally(move)
+        elif tactic_type == 'defense':
+            return self.execute_tactic_type_defense(move, good_acting_team_statuses)
         else:
             return move, {}
+
+    def execute_tactic_type_defense(self, move, good_acting_team_statuses):
+        info = TACTICS[move['tactic']]
+        success = self.get_tactic_success(move)
+        if not success:
+            return move, {'fail': True}
+        good_acting_team_statuses[move['tactic']] = info['duration']
+        return move, {}
 
     def execute_tactic_type_ally(self, move):
         info = TACTICS[move['tactic']]
@@ -714,7 +771,7 @@ class Battle(object):
             move['target'].get_healed(healing)
             return move, {'healing': healing}
 
-    def execute_tactic_type_enemy(self, move):
+    def execute_tactic_type_enemy(self, move, good_target_team_statuses):
         info = TACTICS[move['tactic']]
         success = self.get_tactic_success(move)
         if not success:
@@ -726,6 +783,11 @@ class Battle(object):
             cutoff = int(norm_cutoff * prelim_damage_range)
             mod_min_damage = info['min_damage'] + cutoff
             damage = random.randrange(mod_min_damage, info['max_damage'])
+            if info['slot'] == 1:
+                if 'firewall' in good_target_team_statuses:
+                    damage = int(damage/2)
+                elif 'extinguish' in good_target_team_statuses:
+                    damage = 1
             if move['target'].soldiers <= damage:
                 damage = move['target'].soldiers
                 move['target'].get_damaged(damage)
@@ -1168,7 +1230,10 @@ class Battle(object):
         if dialog:
             dialog.handle_input(pressed)
             if pressed[K_x] and not dialog.has_more_stuff_to_show():
-                self.execute_state = 'mini_move'
+                if self.warlord is None:
+                    self.init_menu_state()
+                else:
+                    self.execute_state = 'mini_move'
                 dialog.shutdown()
                 self.left_dialog = None
                 self.right_dialog = None
