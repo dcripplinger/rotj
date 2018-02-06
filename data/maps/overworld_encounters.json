@@ -217,80 +217,7 @@
   },
   {
     "x": 4,
-    "y": 2,
-    "encounters": [
-      [
-        "robbers",
-        "robbers"
-      ],
-      [
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites"
-      ],
-      [
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites"
-      ],
-      [
-        "seanti",
-        "amlicites",
-        "amlicites",
-        "amlicites"
-      ],
-      [
-        "gad",
-        "amlicites",
-        "amlicites"
-      ]
-    ],
-    "stats": {
-      "robbers": {
-        "soldiers": [
-          120,
-          150,
-          180
-        ],
-        "strength": 42,
-        "defense": 70,
-        "intelligence": 30,
-        "agility": 31,
-        "evasion": 15,
-        "tactical_points": 0,
-        "attack_points": 25,
-        "armor_class": 20
-      },
-      "amlicites": {
-        "soldiers": [
-          120,
-          150,
-          180
-        ],
-        "strength": 48,
-        "defense": 29,
-        "intelligence": 30,
-        "agility": 44,
-        "evasion": 0,
-        "tactical_points": 0,
-        "attack_points": 30,
-        "armor_class": 20
-      }
-    }
+    "y": 2
   },
   {
     "x": 5,
@@ -378,6 +305,12 @@
         "tactical_points": 0,
         "attack_points": 25,
         "armor_class": 15
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
       }
     }
   },
@@ -555,7 +488,87 @@
   },
   {
     "x": 2,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 42,
+        "defense": 70,
+        "intelligence": 30,
+        "agility": 31,
+        "evasion": 15,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 20
+      },
+      "amlicites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 48,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 20
+      },
+      "lamanites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 52,
+        "defense": 18,
+        "intelligence": 30,
+        "agility": 51,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 20
+      }
+    }
   },
   {
     "x": 3,
@@ -652,7 +665,83 @@
   },
   {
     "x": 4,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
+      ],
+      [
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
+      ],
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 64,
+        "defense": 18,
+        "intelligence": 33,
+        "agility": 57,
+        "evasion": 21,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      },
+      "zoramites": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 55,
+        "defense": 39,
+        "intelligence": 43,
+        "agility": 16,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      },
+      "kingmen": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 60,
+        "defense": 30,
+        "intelligence": 54,
+        "agility": 10,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      }
+    }
   },
   {
     "x": 5,
@@ -668,15 +757,173 @@
   },
   {
     "x": 2,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 52,
+        "defense": 18,
+        "intelligence": 30,
+        "agility": 51,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 20
+      }
+    }
   },
   {
     "x": 3,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 64,
+        "defense": 18,
+        "intelligence": 33,
+        "agility": 57,
+        "evasion": 21,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      }
+    }
   },
   {
     "x": 4,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
+      ],
+      [
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 64,
+        "defense": 18,
+        "intelligence": 33,
+        "agility": 57,
+        "evasion": 21,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      },
+      "zoramites": {
+        "soldiers": [
+          220,
+          250
+        ],
+        "strength": 55,
+        "defense": 39,
+        "intelligence": 43,
+        "agility": 16,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 25
+      }
+    }
   },
   {
     "x": 5,
