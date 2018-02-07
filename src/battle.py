@@ -921,7 +921,7 @@ class Battle(object):
         boost_tactic = enemy.tactics[5] if enemy.tactics else None
         if boost_tactic in ['ninja', 'double~tap', 'hulk~out']:
             if (
-                (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
+                (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.bad_statuses)
                 and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
                 and random.random() < .6
             ):

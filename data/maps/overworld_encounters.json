@@ -1,59 +1,437 @@
 [
   {
     "x": 0,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 4,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 0
+    "y": 0,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "seanti",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "gad",
+        "amlicites",
+        "amlicites"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      },
+      "amlicites": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 38,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 15
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
+      }
+    }
   },
   {
     "x": 4,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 1
+    "y": 1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 2
+    "y": 2,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 2
+    "y": 2,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
@@ -129,6 +507,12 @@
         "tactical_points": 0,
         "attack_points": 25,
         "armor_class": 15
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
       }
     }
   },
@@ -289,20 +673,95 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 20
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
       }
     }
   },
   {
     "x": 5,
-    "y": 2
+    "y": 2,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 3
+    "y": 3,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 3
+    "y": 3,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
@@ -378,6 +837,12 @@
         "tactical_points": 0,
         "attack_points": 25,
         "armor_class": 15
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
       }
     }
   },
@@ -538,24 +1003,122 @@
         "tactical_points": 0,
         "attack_points": 25,
         "armor_class": 15
+      },
+      "seanti": {
+        "level": 6
+      },
+      "gad": {
+        "level": 6
       }
     }
   },
   {
     "x": 5,
-    "y": 3
+    "y": 3,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
@@ -652,82 +1215,542 @@
   },
   {
     "x": 4,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 4
+    "y": 4,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 5
+    "y": 5,
+     "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 4,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 5
+    "y": 5,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 4,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 6
+    "y": 6,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 0,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 1,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 2,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 3,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 4,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   },
   {
     "x": 5,
-    "y": 7
+    "y": 7,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          100,
+          120,
+          140
+        ],
+        "strength": 32,
+        "defense": 60,
+        "intelligence": 25,
+        "agility": 25,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 25,
+        "armor_class": 10
+      }
+    }
   }
 ]
