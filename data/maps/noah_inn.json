@@ -1,0 +1,51 @@
+[
+  {
+    "x": 18,
+    "y": 19,
+    "teleport": {
+      "map": "noah",
+      "x": 21,
+      "y": 28,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 18,
+    "y": 12,
+    "shop": {
+      "type": "inn",
+      "cost": 4
+    }
+  },
+  {
+    "x": 12,
+    "y": 13,
+    "ai_sprite": {
+      "name": "jeneum_sleeping",
+      "conditions": {
+        "battle01": true,
+        "battle02": true,
+        "battle03": true,
+        "battle04": false
+      },
+      "direction": "e",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "Can't you let me and my men get some shut eye? Yeah, I'm Jeneum. Who's asking? ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Moroni?! Quick, guys! Run for it!",
+          "game_state_action": "talked_with_jeneum"
+        }
+      ]
+    }
+  }
+]

@@ -16,7 +16,15 @@ from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
     MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC,
 )
-from helpers import get_max_soldiers, get_max_tactical_points, get_tactics, load_stats, save_game_state
+from helpers import (
+    get_armor_class_by_level,
+    get_attack_points_by_level,
+    get_max_soldiers,
+    get_max_tactical_points,
+    get_tactics,
+    load_stats,
+    save_game_state,
+)
 from menu_screen import MenuScreen
 from tiled_map import Map
 from title_page import TitlePage
@@ -58,6 +66,7 @@ class Game(object):
         self.condition_side_effects = {
             'talked_with_melek_merchant': self.handle_talked_with_melek_merchant,
             'ammah_and_manti_join': self.handle_ammah_and_manti_join,
+            'talked_with_jeneum': self.handle_talked_with_jeneum,
         }
 
     def conditions_are_met(self, conditions):
@@ -102,6 +111,9 @@ class Game(object):
         self.update_game_state({
             'conditions': conditions,
         })
+        the_map = self.current_map or self.next_map
+        if the_map:
+            the_map.handle_game_state_condition(condition)
 
     def get_music(self, map_name):
         return MAP_MUSIC.get(map_name, SHOP_MUSIC)
@@ -747,3 +759,32 @@ class Game(object):
 
     def handle_ammah_and_manti_join(self):
         self.add_to_company(['ammah', 'manti'])
+
+    def handle_talked_with_jeneum(self):
+        battle_data = {
+            'enemies': [
+                {'name': 'jeneum', 'level': 8},
+                {'name': 'limhah', 'level': 7},
+                {'name': 'zenos', 'level': 7},
+            ],
+            'battle_type': 'story',
+            'exit': (
+                "Look, I'll tell you whatever you want to know! You're looking for Nehor? He's hiding out somewhere in "
+                "Gideon to the north."
+            ),
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            stats = load_stats(enemy['name'])
+            stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+            stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+            stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+            stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+            stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle04",
+        )

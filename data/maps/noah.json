@@ -38,5 +38,25 @@
       "y": 207,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 28,
+    "teleport": {
+      "map": "noah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 28,
+    "teleport": {
+      "map": "noah_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]
