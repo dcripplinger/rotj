@@ -975,7 +975,7 @@ ITEMS = {
         'cost': 200,
     },
 
-    # cloack (cloak map usage)
+    # cloak (cloak map usage)
     'cloak': {
         'map_usage': 'cloak', # means it prevents random encounters for a finite number of steps
         'cost': 200,
