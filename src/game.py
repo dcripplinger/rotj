@@ -763,7 +763,7 @@ class Game(object):
     def handle_talked_with_jeneum(self):
         battle_data = {
             'enemies': [
-                {'name': 'jeneum', 'level': 8},
+                {'name': 'jeneum', 'level': 9},
                 {'name': 'limhah', 'level': 7},
                 {'name': 'zenos', 'level': 7},
             ],

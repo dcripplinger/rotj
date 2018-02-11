@@ -4,6 +4,6 @@
   "defense": 66,
   "agility": 47,
   "evasion": 13,
-  "tactical_points": 0,
-  "max_soldiers": 151
+  "tactical_points": 15,
+  "max_soldiers": 171
 }
