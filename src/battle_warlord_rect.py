@@ -47,7 +47,7 @@ class BattleWarlordRectBase(object):
         self.intelligence = warlord['intelligence']
         self.tactic_danger = self.compute_tactic_danger()
         self.tactical_points = warlord['tactical_points']
-        self.bad_statuses = set()
+        self.bad_status = None
         self.index = warlord['index']
         self.boosts = {}
         self.attack_exposure = 1.0 - warlord['defense'] / 255.0

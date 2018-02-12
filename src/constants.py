@@ -391,7 +391,7 @@ TACTICS = {
         'slot': 3,
         'tactical_points': 3,
     },
-    'remedy': {
+    'cure': {
         'min_damage': 400,
         'max_damage': 700,
         'type': 'ally',
