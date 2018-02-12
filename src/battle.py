@@ -373,7 +373,7 @@ class Battle(object):
     def get_mini_moves(self, move, results):
         mini_moves = []
         mini_results = []
-        if move['action'] == self.execute_move_battle:
+        if move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             mini_moves.append(move)
             mini_result = copy.copy(results)
             if 'double_tap' in mini_result:
@@ -422,7 +422,7 @@ class Battle(object):
 
     def get_move_dialog(self, mini_move, mini_result):
         is_ally_move = mini_move['agent'] in self.allies
-        if mini_move['action'] == self.execute_move_battle:
+        if mini_move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             dialog = "{}'s attack. ".format(mini_move['agent'].name.title())
             if mini_result.get('evade'):
                 dialog += "{} evaded the attack.".format(mini_move['target'].name.title())
@@ -470,6 +470,11 @@ class Battle(object):
                 return create_prompt(dialog)
             elif mini_move['tactic'] == 'extinguish':
                 dialog += 'Fire damage is reduced to one.'
+                return create_prompt(dialog)
+            elif mini_move['tactic'] == 'provoke':
+                dialog += "{} is mindlessly targeting {}.".format(
+                    mini_move['target'].name.title(), mini_move['agent'].name.title(),
+                )
                 return create_prompt(dialog)
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
@@ -638,7 +643,7 @@ class Battle(object):
             or results.get('wasted')
         ):
             return self.fail_sound
-        elif move['action'] == self.execute_move_battle:
+        elif move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             if move['agent'] in self.allies:
                 return self.excellent_sound if results.get('excellent') else self.hit_sound
             else:
@@ -696,15 +701,15 @@ class Battle(object):
         return move, {'damage': inflicted_damage, 'excellent': excellent}
 
     def execute_move_confuse(self, move):
-        result = execute_move_battle(move)
+        move, result = self.execute_move_battle(move)
         result.update({'status': 'confuse'})
-        return result
+        return move, result
 
     def execute_move_disable(self, move):
         return move, {'status': 'disable'}
 
     def execute_move_provoke(self, move):
-        result = execute_move_battle(move)
+        move, result = self.execute_move_battle(move)
         result.update({'status': 'provoke'})
         return move, result
 
@@ -794,6 +799,9 @@ class Battle(object):
                 return move, {'damage': damage, 'killed': True}
             move['target'].get_damaged(damage)
             return move, {'damage': damage}
+        elif info.get('duration') == 'permanent':
+            move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
+            return move, {}
 
     def get_tactic_success(self, move):
         prob_type = TACTICS[move['tactic']]['success_probability_type']
@@ -822,17 +830,23 @@ class Battle(object):
     def change_move_if_dead_or_cursed(self, move):
         if move['agent'].soldiers == 0:
             move = None
-        elif move['agent'].bad_statuses:
-            if 'disable' in move['agent'].bad_statuses:
+        elif move['agent'].bad_status:
+            if move['agent'].bad_status['agent'].soldiers == 0:
+                move['agent'].bad_status = None
+            elif move['agent'].bad_status['name'] == 'disable':
                 move = {'agent': move['agent'], 'action': self.execute_move_disable}
-            elif 'confuse' in move['agent'].bad_statuses:
+            elif move['agent'].bad_status['name'] == 'confuse':
                 if move['agent'] in self.allies:
                     random_target = random.choice(self.get_live_allies())
                 else:
                     random_target = random.choice(self.get_live_enemies())
                 move = {'agent': move['agent'], 'action': self.execute_move_confuse, 'target': random_target}
             else: # provoke
-                move = {'agent': move['agent'], 'action': self.execute_move_provoke, 'target': move['agent'].provoker}
+                move = {
+                    'agent': move['agent'],
+                    'action': self.execute_move_provoke,
+                    'target': move['agent'].bad_status['agent'],
+                }
         return move
 
     def generate_enemy_moves(self):
@@ -874,7 +888,7 @@ class Battle(object):
             enemy.tactics[4] == 'dispel' if enemy.tactics else None
             and (
                 len(self.good_ally_statuses) > 0
-                or any([len(enemy.bad_statuses) > 0 for enemy in self.enemies if enemy.soldiers > 0])
+                or any([enemy.bad_status for enemy in self.enemies if enemy.soldiers > 0])
             )
             and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
             and random.random() < .5
@@ -897,7 +911,7 @@ class Battle(object):
         if (
             (enemy.tactics[4] if enemy.tactics else None) in ['provoke', 'disable']
             and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
-            and enemy.tactics[4] not in ally_target.bad_statuses
+            and (ally_target.bad_status is None or enemy.tactics[4] != ally_target.bad_status['name'])
             and random.random() < enemy_prob
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[4]]['tactical_points'])
@@ -909,7 +923,7 @@ class Battle(object):
         if (
             (enemy.tactics[5] if enemy.tactics else None) in ['confuse', 'assassin']
             and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
-            and enemy.tactics[5] not in ally_target.bad_statuses
+            and (ally_target.bad_status is None or enemy.tactics[5] != ally_target.bad_status['name'])
             and random.random() < enemy_prob
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])

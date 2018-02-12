@@ -1,0 +1,20 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "noah",
+      "x": 28,
+      "y": 28,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 11,
+    "y": 13,
+    "treasure": {
+      "name": "noah_treasure",
+      "item": "ax"
+    }
+  }
+]

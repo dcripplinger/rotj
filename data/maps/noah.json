@@ -38,5 +38,85 @@
       "y": 207,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 28,
+    "teleport": {
+      "map": "noah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 28,
+    "teleport": {
+      "map": "noah_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 24,
+    "teleport": {
+      "map": "noah_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 20,
+    "teleport": {
+      "map": "noah_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 32,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is the city of Noah. We are a simple farming community."
+    }
+  },
+  {
+    "x": 17,
+    "y": 31,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Long live Alma, our chief judge!"
+    }
+  },
+  {
+    "x": 31,
+    "y": 22,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Did you notice our merchant shop carries remedies? Remedies are great for getting rid of status ailments in battle."
+    }
+  },
+  {
+    "x": 18,
+    "y": 15,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "In this game, treasures are always visible with just one exception. The only time you need to CHECK the ground for hidden treasure is when someone tells you to check a certain spot. Don't you hate those games that make you feel like you have to check everywhere? Excuse me for breaking the fourth wall."
+    }
   }
 ]

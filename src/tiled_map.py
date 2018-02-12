@@ -31,6 +31,7 @@ from treasure import Treasure
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
+        self.battle_after_dialog = None
         self.steps_for_tactical_points = 0
         self.company_report = None
         self.name = map_name
@@ -71,12 +72,22 @@ class Map(object):
 
     def set_game_state_condition(self, condition):
         self.game.set_game_state_condition(condition)
+
+    def handle_game_state_condition(self, condition):
         if condition == 'ammah_and_manti_join':
             for sprite in self.group.sprites():
                 if sprite.name in ['ammah', 'manti']:
                     self.group.remove(sprite)
             ai_sprites = {
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['ammah', 'manti']
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'battle04':
+            for sprite in self.group.sprites():
+                if sprite.name == 'jeneum_sleeping':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'jeneum_sleeping'
             }
             self.ai_sprites = ai_sprites
 
@@ -355,6 +366,16 @@ class Map(object):
             if action == 'exit':
                 self.map_menu = None
                 pygame.key.set_repeat(50, 50)
+                if self.battle_after_dialog:
+                    self.game.start_battle(
+                        self.battle_after_dialog['enemies'],
+                        self.battle_after_dialog['battle_type'],
+                        self.is_near_water(),
+                        intro=self.battle_after_dialog['intro'],
+                        exit=self.battle_after_dialog['exit'],
+                        battle_name=self.battle_after_dialog['battle_name'],
+                    )
+                    self.battle_after_dialog = None
         elif self.company_report:
             if (
                 pressed[K_UP] or pressed[K_UP] or pressed[K_DOWN] or pressed[K_LEFT] or pressed[K_x] or pressed[K_z]
@@ -398,3 +419,12 @@ class Map(object):
             ai_sprite.direction = self.get_opposite_direction(self.hero.direction)
             return self.game.get_dialog_for_condition(ai_sprite.dialog)
         return "There's no one there."
+
+    def start_battle_after_dialog(self, enemies, battle_type, intro=None, exit=None, battle_name=None):
+        self.battle_after_dialog = {
+            'enemies': enemies,
+            'battle_type': battle_type,
+            'intro': intro,
+            'exit': exit,
+            'battle_name': battle_name,
+        }
