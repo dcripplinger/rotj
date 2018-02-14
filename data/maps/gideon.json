@@ -144,9 +144,18 @@
     "y": 27,
     "ai_sprite": {
       "name": "nehor",
+      "conditions": {
+        "battle04": true,
+        "battle05": false
+      },
       "direction": "e",
       "wander": true,
-      "dialog": "..."
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "talked_with_nehor"
+        }
+      ]
     }
   }
 ]

@@ -1011,6 +1011,7 @@ NAMED_TELEPORTS = {
 HQ = [
     'zarahemla',
     'ammonihah',
+    'gideon',
 ]
 
 MAX_COMPANY_SIZE = 7

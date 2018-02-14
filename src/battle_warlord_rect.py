@@ -17,7 +17,8 @@ MAX_BAR_WIDTH = 64
 
 
 class BattleWarlordRectBase(object):
-    def __init__(self, warlord, battle):
+    def __init__(self, warlord, battle, is_enemy=False):
+        self.is_enemy = is_enemy
         self.items = warlord['items']
         self.battle = battle
         self.stats = warlord
@@ -48,6 +49,7 @@ class BattleWarlordRectBase(object):
         self.tactic_danger = self.compute_tactic_danger()
         self.tactical_points = warlord['tactical_points']
         self.bad_status = None
+        self.good_statuses = {}
         self.index = warlord['index']
         self.boosts = {}
         self.attack_exposure = 1.0 - warlord['defense'] / 255.0
@@ -60,6 +62,12 @@ class BattleWarlordRectBase(object):
     def consume_tactical_points(self, points):
         raise NotImplementedError
 
+    def get_effective_agility(self):
+        if self.good_statuses.get('ninja'):
+            return 255
+        else:
+            return self.agility
+
     def restore_tactical_points(self, points):
         if 'liahona' in [item['name'] for item in self.items]:
             self.tactical_points += points
@@ -68,7 +76,7 @@ class BattleWarlordRectBase(object):
 
     @property
     def tactics(self):
-        if 'liahona' in [item['name'] for item in self.items]:
+        if 'liahona' in [item['name'] for item in self.items] or self.is_enemy:
             return self._tactics
         else:
             return self.battle.ally_tactics
@@ -277,7 +285,7 @@ class Ally(BattleWarlordRectBase):
 
 class Enemy(BattleWarlordRectBase):
     def __init__(self, name, battle):
-        super(Enemy, self).__init__(name, battle)
+        super(Enemy, self).__init__(name, battle, is_enemy=True)
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
         self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)
         self.stand = pygame.transform.flip(self.stand, True, False)
