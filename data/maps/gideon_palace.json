@@ -1,0 +1,52 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "gideon",
+      "x": 18,
+      "y": 16,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "This city was named after the same Gideon that Nehor murdered. Such a terrible loss."
+    }
+  },
+  {
+    "x": 20,
+    "y": 24,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Our judge in Gideon is rarely in the judgment seat. He keeps busy helping the people."
+    }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Heh heh, sometimes I sit in the judgment seat when nobody is looking."
+    }
+  },
+  {
+    "x": 11,
+    "y": 13,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Sometimes the Lamanites have attacked us from the east and the north, so we have increased our defenses near this city."
+    }
+  }
+]

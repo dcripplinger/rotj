@@ -176,8 +176,12 @@ class AiSprite(Sprite):
 
     def update(self, dt):
         self.elapsed_time += dt
-        if self.elapsed_time > 1: # possibly move every second
-            self.elapsed_time -= 1
+        if self.character == 'nehor':
+            cutoff = .02 # nehor moves fast
+        else:
+            cutoff = 1 # everyone else possibly moves every second
+        if self.elapsed_time > cutoff:
+            self.elapsed_time -= cutoff
             self.move_maybe()
         super(AiSprite, self).update(dt)
 
@@ -186,7 +190,8 @@ class AiSprite(Sprite):
             return
         if self.tiled_map.map_menu: # don't do random movements if the menu is open
             return
-        if random.random() < 0.33: # every time we might move the ai_sprite, the probability is 0.33
+        # every time we might move the ai_sprite, the probability is 0.33 unless nehor
+        if random.random() < 0.33 or self.character == 'nehor':
             direction = random.choice(['n', 's', 'e', 'w'])
             moved = self.move(direction)
             if moved:
