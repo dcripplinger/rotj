@@ -67,6 +67,7 @@ class Game(object):
             'talked_with_melek_merchant': self.handle_talked_with_melek_merchant,
             'ammah_and_manti_join': self.handle_ammah_and_manti_join,
             'talked_with_jeneum': self.handle_talked_with_jeneum,
+            'talked_with_nehor': self.handle_talked_with_nehor,
         }
 
     def conditions_are_met(self, conditions):
@@ -337,7 +338,7 @@ class Game(object):
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
 
-    def start_battle(self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None):
+    def start_battle(self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'][0:5] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
@@ -349,7 +350,7 @@ class Game(object):
             tactics = None
         self.battle = Battle(
             self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water, exit=exit,
-            battle_name=battle_name,
+            battle_name=battle_name, narration=narration,
         )
         if intro:
             self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)
@@ -787,4 +788,40 @@ class Game(object):
             })
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle04",
+        )
+
+    def handle_talked_with_nehor(self):
+        battle_data = {
+            'enemies': [
+                {'name': 'nehor', 'level': 7},
+                {'name': 'gad', 'level': 11},
+                {'name': 'emer', 'level': 7},
+                {'name': 'jeneum', 'level': 9},
+            ],
+            'battle_type': 'story',
+            'intro': (
+                "You don't have to do this, Moroni. Join my religion and I will make you rich beyond your wildest "
+                "dreams. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ No? Then we fight!"
+            ),
+            'exit': "Noooo!",
+            'narration': (
+                "You have succeeded in captured Nehor! Take him back to Alma in Zarahemla so that he can be judged for "
+                "his crimes."
+            ),
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            stats = load_stats(enemy['name'])
+            stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+            stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+            stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+            stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+            stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], intro=battle_data['intro'], exit=battle_data['exit'],
+            battle_name="battle05", narration=battle_data['narration'],
         )

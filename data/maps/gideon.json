@@ -1,0 +1,161 @@
+[
+  {
+    "x": 34,
+    "y": 38,
+    "teleport": {
+      "map": "overworld",
+      "x": 180,
+      "y": 174,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 35,
+    "y": 38,
+    "teleport": {
+      "map": "overworld",
+      "x": 180,
+      "y": 174,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 16,
+    "teleport": {
+      "map": "gideon_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 19,
+    "y": 16,
+    "teleport": {
+      "map": "gideon_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 26,
+    "teleport": {
+      "map": "gideon_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 30,
+    "teleport": {
+      "map": "gideon_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 30,
+    "teleport": {
+      "map": "gideon_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 30,
+    "teleport": {
+      "map": "gideon_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 26,
+    "teleport": {
+      "map": "gideon_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 34,
+    "teleport": {
+      "map": "gideon_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to the city of Gideon."
+    }
+  },
+  {
+    "x": 24,
+    "y": 32,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Yes, I'm a Lamanite. As a child, I was taught to hate the Nephites. But I decided one day to travel here and find out for myself what the Nephites were like. Now I love being among your people so much I don't want to leave."
+    }
+  },
+  {
+    "x": 15,
+    "y": 15,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "I fear that the downfall of Nehor will lead to his followers rebelling even further."
+    }
+  },
+  {
+    "x": 38,
+    "y": 31,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "I had to retire from the army because of an injury, so I left my club behind in the reserve. You can have it."
+    }
+  },
+  {
+    "x": 24,
+    "y": 27,
+    "ai_sprite": {
+      "name": "nehor",
+      "conditions": {
+        "battle04": true,
+        "battle05": false
+      },
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "talked_with_nehor"
+        }
+      ]
+    }
+  }
+]

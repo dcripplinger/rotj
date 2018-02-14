@@ -80,7 +80,7 @@ REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of 
 class Battle(object):
     def __init__(
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
-        battle_name=None,
+        battle_name=None, narration=None,
     ):
         self.battle_name = battle_name
         self.debug = False
@@ -170,6 +170,7 @@ class Battle(object):
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
         self.exit_dialog = create_prompt(exit) if exit else None
+        self.narration = create_prompt(narration) if narration else None
 
     def set_start_dialog(self):
         script = ''
@@ -221,6 +222,9 @@ class Battle(object):
         if self.win_state == 'start':
             if self.exit_dialog:
                 self.exit_dialog.update(dt)
+                return
+            if self.narration:
+                self.narration.update(dt)
                 return
             if self.food > 0:
                 victory_script = "{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
@@ -476,6 +480,8 @@ class Battle(object):
                     mini_move['target'].name.title(), mini_move['agent'].name.title(),
                 )
                 return create_prompt(dialog)
+            elif mini_move['tactic'] == 'ninja':
+                dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
             if mini_result.get('wasted'):
@@ -634,7 +640,7 @@ class Battle(object):
 
     def get_moves_in_order_of_agility(self):
         the_moves = self.submitted_moves + self.enemy_moves
-        the_moves.sort(key=lambda move: move['agent'].agility, reverse=True)
+        the_moves.sort(key=lambda move: move['agent'].get_effective_agility(), reverse=True)
         return the_moves
 
     def get_move_sound(self, move, results):
@@ -775,6 +781,8 @@ class Battle(object):
                 healing = move['target'].max_soldiers - move['target'].soldiers
             move['target'].get_healed(healing)
             return move, {'healing': healing}
+        elif move['tactic'] == 'ninja':
+            move['target'].good_statuses['ninja'] = True
 
     def execute_tactic_type_enemy(self, move, good_target_team_statuses):
         info = TACTICS[move['tactic']]
@@ -966,7 +974,7 @@ class Battle(object):
             and enemy.tactics
             and enemy.tactics[0]
             and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
-            and random.random() < enemy_prob
+            and random.random() < (enemy_prob + 1) / 2.0 # making enemy more gutsy about fire tactics
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[0]]['tactical_points'])
             action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[0]}
@@ -1008,7 +1016,11 @@ class Battle(object):
             self.exit_dialog.handle_input(pressed)
             if pressed[K_x] and not self.exit_dialog.has_more_stuff_to_show():
                 self.exit_dialog = None
-        if self.win_state == 'main':
+        elif self.win_state == 'start' and self.narration:
+            self.narration.handle_input(pressed)
+            if pressed[K_x] and not self.narration.has_more_stuff_to_show():
+                self.narration = None
+        elif self.win_state == 'main':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
                 leveled_up = self.level_up()
@@ -1533,6 +1545,8 @@ class Battle(object):
         if self.state == 'win' and self.exit_dialog:
             self.screen.blit(self.exit_dialog.surface, (0, 128 + top_margin))
             self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
+        if self.state == 'win' and not self.exit_dialog and self.narration:
+            self.screen.blit(self.narration.surface, (0, 128 + top_margin))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)

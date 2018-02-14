@@ -90,6 +90,14 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'jeneum_sleeping'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'battle05':
+            for sprite in self.group.sprites():
+                if sprite.name == 'nehor':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'nehor'
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
@@ -321,6 +329,7 @@ class Map(object):
                 self.game.start_battle(
                     enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
                     exit=battle_data.get('exit'), battle_name=battle_data['name'],
+                    narration=battle_data.get('narration'),
                 )
                 return
         moved = self.hero.move(direction)
@@ -373,6 +382,7 @@ class Map(object):
                         self.is_near_water(),
                         intro=self.battle_after_dialog['intro'],
                         exit=self.battle_after_dialog['exit'],
+                        narration=self.battle_after_dialog['narration'],
                         battle_name=self.battle_after_dialog['battle_name'],
                     )
                     self.battle_after_dialog = None
@@ -420,11 +430,12 @@ class Map(object):
             return self.game.get_dialog_for_condition(ai_sprite.dialog)
         return "There's no one there."
 
-    def start_battle_after_dialog(self, enemies, battle_type, intro=None, exit=None, battle_name=None):
+    def start_battle_after_dialog(self, enemies, battle_type, intro=None, exit=None, battle_name=None, narration=None):
         self.battle_after_dialog = {
             'enemies': enemies,
             'battle_type': battle_type,
             'intro': intro,
             'exit': exit,
+            'narration': narration,
             'battle_name': battle_name,
         }
