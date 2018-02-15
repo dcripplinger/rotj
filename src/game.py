@@ -26,6 +26,7 @@ from helpers import (
     save_game_state,
 )
 from menu_screen import MenuScreen
+from narration import Narration
 from tiled_map import Map
 from title_page import TitlePage
 
@@ -33,6 +34,7 @@ from title_page import TitlePage
 class Game(object):
     def __init__(self, screen):
         self.battle_intro = None
+        self.narration = None
         self.real_screen = screen
         self.virtual_width = GAME_WIDTH
         self.virtual_height = GAME_HEIGHT
@@ -68,6 +70,7 @@ class Game(object):
             'ammah_and_manti_join': self.handle_ammah_and_manti_join,
             'talked_with_jeneum': self.handle_talked_with_jeneum,
             'talked_with_nehor': self.handle_talked_with_nehor,
+            'talked_with_alma_after_nehor': self.handle_talked_with_alma_after_nehor,
         }
 
     def conditions_are_met(self, conditions):
@@ -533,6 +536,11 @@ class Game(object):
             self.battle.draw()
         elif self._screen_state == 'battle_intro' and self.battle_intro:
             self.battle_intro.draw()
+        elif self._screen_state == 'narration' and self.narration:
+            if self.current_map.map_menu:
+                self.current_map.draw()
+            else:
+                self.narration.draw()
         self.scale()
 
     def update(self, dt):
@@ -565,6 +573,11 @@ class Game(object):
                 self.battle_intro.update(dt)
             else:
                 self.set_screen_state('battle')
+        elif self._screen_state == 'narration':
+            if self.current_map.map_menu:
+                self.current_map.update(dt)
+            else:
+                self.update_narration(dt)
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -598,6 +611,61 @@ class Game(object):
                 )
         if self.triangle_size > block_size:
             self.set_screen_state('battle_intro' if self.battle_intro else 'battle')
+
+    def update_narration(self, dt):
+        alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
+        # initializing the fade out process
+        if self.change_map_time_elapsed is None:
+            self.change_map_time_elapsed = 0
+            self.fade_out = True
+            pygame.mixer.music.stop()
+            self.current_music = None
+            time.sleep(.3)
+        # execute the fade out
+        if self.fade_out:
+            self.change_map_time_elapsed += dt
+            update_interval = .1
+            if self.change_map_time_elapsed >= update_interval:
+                self.change_map_time_elapsed -= update_interval
+                self.fade_alpha = min(255, self.fade_alpha + alpha_step)
+                if self.fade_alpha == 255:
+                    self.fade_out = False # next we need to render the narration
+                    self.current_map = self.next_map
+                    self.next_map = None
+            fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+            fade_box.set_alpha(self.fade_alpha)
+            fade_box.fill(BLACK)
+            self.current_map.draw()
+            self.virtual_screen.blit(fade_box, (0,0))
+        # when the user presses x after the dialog is done, we set dialog to None as an indicator here whether to
+        # keep updating the narration or to start the fade in portion in the else block below
+        elif not self.fade_out and self.narration.dialog:
+            self.narration.update(dt)
+        else: # time to fade back into the map
+            if self.fade_alpha == 255:
+                self.fade_alpha = 254
+            else:
+                self.fade_alpha = max(0, self.fade_alpha - alpha_step)
+            if self.fade_alpha == 0:
+                self.set_screen_state('game')
+                music = self.get_music(self.current_map.name)
+                if music['intro']:
+                    pygame.mixer.music.load(music['intro'])
+                    pygame.mixer.music.play()
+                    self.current_music = 'intro'
+                else:
+                    pygame.mixer.music.load(music['repeat'])
+                    pygame.mixer.music.play(-1)
+                    self.current_music = 'repeat'
+                self.change_map_time_elapsed = None
+                self.fade_alpha = None
+                self.narration = None
+            else: # draw fading-in map
+                fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+                fade_box.set_alpha(self.fade_alpha)
+                fade_box.fill(BLACK)
+                self.current_map.draw()
+                self.virtual_screen.blit(fade_box, (0,0))
 
     def update_sleep(self, dt):
         if self.change_map_time_elapsed is None:
@@ -726,6 +794,14 @@ class Game(object):
                         self.set_screen_state('battle')
                         self.battle_intro.dialog.shutdown()
                         self.battle_intro = None
+                elif self._screen_state == 'narration' and self.narration:
+                    if self.current_map.map_menu:
+                        self.current_map.handle_input(pressed)
+                    else:
+                        self.narration.handle_input(pressed)
+                        if pressed[K_x] and not self.narration.dialog.has_more_stuff_to_show():
+                            self.narration.dialog.shutdown()
+                            self.narration.dialog = None
 
     def run(self):
         self.running = True
@@ -825,3 +901,13 @@ class Game(object):
             enemies, battle_data['battle_type'], intro=battle_data['intro'], exit=battle_data['exit'],
             battle_name="battle05", narration=battle_data['narration'],
         )
+
+    def handle_talked_with_alma_after_nehor(self):
+        text = (
+            "Nehor was delivered to Alma the chief judge and found guilty of shedding innocent blood. As punishment, "
+            "he was taken promptly to Hill Manti, where he suffered an ignominious death."
+        )
+        self.narration = Narration(self.virtual_screen, text)
+        self.set_screen_state('narration')
+        self.next_map = self.current_map
+        self.fade_alpha = 0
