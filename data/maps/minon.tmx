@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.0" orientation="orthogonal" renderorder="right-down" width="39" height="37" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
  <tileset firstgid="1" source="camps.tsx"/>
- <tileset firstgid="26" source="cities_tileset.tsx"/>
- <layer name="Tile Layer 1" width="39" height="37" offsetx="-24.1882" offsety="71.3551">
+ <layer name="Tile Layer 1" width="39" height="37">
   <data encoding="csv">
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,
 17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,

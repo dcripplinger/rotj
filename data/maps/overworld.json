@@ -203,5 +203,15 @@
       "y": 37,
       "direction": "n"
     }
+  },
+  {
+    "x": 124,
+    "y": 223,
+    "teleport": {
+      "map": "minon",
+      "x": 15,
+      "y": 25,
+      "direction": "n"
+    }
   }
 ]
