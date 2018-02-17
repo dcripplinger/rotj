@@ -16,6 +16,9 @@
       "name": "alma",
       "direction": "s",
       "wander": false,
+      "conditions": {
+        "battle06": false
+      },
       "dialog": [
         {
           "text": "Good work, Moroni.",
@@ -33,6 +36,25 @@
         {
           "text": "Moroni, listen! Before our last king, Mosiah, passed away, he established just laws and a government of judges chosen by the people because he didn't want our people in bondage ever again by an evil king. I have been chosen as the first chief judge, and yet we have already seen a faction rise up in rebellion. They are led by a man named Nehor, who has killed an innocent man simply for debating against him and his religion. You must bring order again to the land and capture Nehor so that he can face justice for his crimes. If you do this, I will appoint you as chief captain of our armies.",
           "game_state_action": "talked_with_alma"
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
+    "y": 31,
+    "ai_sprite": {
+      "name": "antionum",
+      "direction": "n",
+      "wander": false,
+      "conditions": {
+        "talked_with_alma_after_nehor": true,
+        "battle06": false
+      },
+      "dialog": [
+        {
+          "text": "Don't think that the execution of Nehor will go unnoticed. His followers have already assembled under the leadership of Amlici. We will gain the voice of the people to anoint him as king and do away with the judges. But Moroni, I am not as patient as Amlici. I will avenge Nehor here and now!",
+          "game_state_action": "talked_with_antionum"
         }
       ]
     }

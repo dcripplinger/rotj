@@ -98,6 +98,27 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'nehor'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'talked_with_alma_after_nehor':
+            for sprite in self.ai_sprites:
+                self.group.remove(sprite)
+            self.ai_sprites = {}
+            self.load_ai_sprites()
+        elif condition == 'battle06':
+            for sprite in self.group.sprites():
+                if sprite.name in ['antionum', 'alma']:
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['antionum', 'alma']
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'alma_joins':
+            for sprite in self.group.sprites():
+                if sprite.name == 'alma':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'alma'
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
@@ -316,12 +337,15 @@ class Map(object):
                 battle_type = battle_data.get('battle_type', 'story')
                 enemies = []
                 for enemy in battle_data['enemies']:
-                    stats = load_stats(enemy['name'])
-                    stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
-                    stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
-                    stats['attack_points'] = get_attack_points_by_level(enemy['level'])
-                    stats['armor_class'] = get_armor_class_by_level(enemy['level'])
-                    stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+                    if 'stats' in enemy:
+                        stats = enemy['stats']
+                    else:
+                        stats = load_stats(enemy['name'])
+                        stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                        stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                        stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                        stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                        stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
                     enemies.append({
                         'name': enemy['name'],
                         'stats': stats,
