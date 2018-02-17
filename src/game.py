@@ -71,6 +71,8 @@ class Game(object):
             'talked_with_jeneum': self.handle_talked_with_jeneum,
             'talked_with_nehor': self.handle_talked_with_nehor,
             'talked_with_alma_after_nehor': self.handle_talked_with_alma_after_nehor,
+            'talked_with_antionum': self.handle_talked_with_antionum,
+            'alma_joins': self.handle_alma_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -799,7 +801,11 @@ class Game(object):
                         self.current_map.handle_input(pressed)
                     else:
                         self.narration.handle_input(pressed)
-                        if pressed[K_x] and not self.narration.dialog.has_more_stuff_to_show():
+                        if (
+                            pressed[K_x]
+                            and self.narration.dialog
+                            and not self.narration.dialog.has_more_stuff_to_show()
+                        ):
                             self.narration.dialog.shutdown()
                             self.narration.dialog = None
 
@@ -911,3 +917,49 @@ class Game(object):
         self.set_screen_state('narration')
         self.next_map = self.current_map
         self.fade_alpha = 0
+
+    def handle_talked_with_antionum(self):
+        amlicites = {
+            'name': 'amlicites',
+            'stats': {
+                "soldiers": 180,
+                "strength": 48,
+                "defense": 29,
+                "intelligence": 30,
+                "agility": 44,
+                "evasion": 0,
+                "tactical_points": 0,
+                "attack_points": 30,
+                "armor_class": 20,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {'name': 'antionum', 'level': 10},
+                amlicites,
+                amlicites,
+            ],
+            'battle_type': 'story',
+            'exit': "Retreat!",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle06",
+        )
+
+    def handle_alma_joins(self):
+        self.add_to_company(['alma'])

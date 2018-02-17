@@ -198,5 +198,35 @@
       "wander": true,
       "dialog": "Use RISK-IT in battles to make them go really fast. But only do it if you're sure you will win."
     }
+  },
+  {
+    "x": 20,
+    "y": 25,
+    "ai_sprite": {
+      "name": "alma",
+      "conditions": {
+        "battle06": true,
+        "alma_joins": false
+      },
+      "direction": "n",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "Amlici has become a serious threat. The voice of the people was in favor of keeping the judges, but he and his people are still determined to make him king over us by force. They are now preparing for war at the Hill Manti and at the fortress Minon, both of which lie on the other side of the mountains west of us. You will need my help in defeating Amlici.",
+          "prompt": [
+            {
+              "choice": "Yessir",
+              "game_state_action": "alma_joins",
+              "next_dialog": "Good. Let's hurry and meet them before they get the upper hand. -- Alma has joined your party."
+            },
+            {
+              "choice": "Uh...",
+              "game_state_action": "alma_joins",
+              "next_dialog": "Well, you don't really get a say in it now, do you? -- Alma has joined your party."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]
