@@ -482,6 +482,7 @@ class Battle(object):
                 return create_prompt(dialog)
             elif mini_move['tactic'] == 'ninja':
                 dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
+                return create_prompt(dialog)
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
             if mini_result.get('wasted'):
@@ -783,6 +784,7 @@ class Battle(object):
             return move, {'healing': healing}
         elif move['tactic'] == 'ninja':
             move['target'].good_statuses['ninja'] = True
+            return move, {}
 
     def execute_tactic_type_enemy(self, move, good_target_team_statuses):
         info = TACTICS[move['tactic']]

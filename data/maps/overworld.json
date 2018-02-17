@@ -213,5 +213,111 @@
       "y": 25,
       "direction": "n"
     }
+  },
+  {
+    "x": 121,
+    "y": 166,
+    "battles": [
+      {
+        "enemies": [
+          {
+            "name": "amlici",
+            "level": 11
+          },
+          {
+            "name": "antionum",
+            "level": 10
+          },
+          {
+            "name": "chemish",
+            "level": 10
+          },
+          {
+            "name": "amlicites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 48,
+              "defense": 29,
+              "intelligence": 30,
+              "agility": 44,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "amlicites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 48,
+              "defense": 29,
+              "intelligence": 30,
+              "agility": 44,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          }
+        ],
+        "intro": "Alma, do you really think you can stand against me? I will subject this people under my rule!",
+        "name": "battle07",
+        "exit": "You may have won this battle, but I have a surprise waiting for you at Minon."
+      }
+    ]
+  },
+  {
+    "x": 122,
+    "y": 166,
+    "battles": [
+      {
+        "enemies": [
+          {
+            "name": "amlici",
+            "level": 11
+          },
+          {
+            "name": "antionum",
+            "level": 10
+          },
+          {
+            "name": "chemish",
+            "level": 10
+          },
+          {
+            "name": "amlicites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 48,
+              "defense": 29,
+              "intelligence": 30,
+              "agility": 44,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "amlicites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 48,
+              "defense": 29,
+              "intelligence": 30,
+              "agility": 44,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          }
+        ],
+        "intro": "Alma, do you really think you can stand against me? I will subject this people under my rule!",
+        "name": "battle07",
+        "exit": "You may have won this battle, but I have a surprise waiting for you at Minon."
+      }
+    ]
   }
 ]

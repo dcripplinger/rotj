@@ -42,7 +42,7 @@ class BattleWarlordRectBase(object):
             # relative target position when advancing or retreating the sprite (0 to MAX_BAR_WIDTH-16)
         self.strength = warlord['strength']
         self.attack_points = warlord['attack_points']
-        self.weapon_power = int(100*math.exp(0.0155*self.attack_points)-88)
+        self.weapon_power = int(100*math.exp(0.018*self.attack_points)-88)
         self.compounded_strength = self.strength * self.weapon_power / 256.0 / 256.0
         self._tactics = warlord['tactics']
         self.intelligence = warlord['intelligence']
@@ -164,7 +164,10 @@ class BattleWarlordRectBase(object):
         return random.choice([25, 25, 25, 25, 25, 25, 25, 25, 23, 23, 23, 23, 23, 23, 20, 20]) / 25.0
 
     def get_soldier_gain(self):
-        return int(math.pow(2, len(str(self.soldiers))-1))
+        soldier_gain = 1.0
+        for num in range(len(str(self.soldiers))-1):
+            soldier_gain *= 2
+        return soldier_gain
 
     def move_forward(self):
         self.state = 'forward'
