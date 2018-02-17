@@ -887,7 +887,7 @@ class Game(object):
             ),
             'exit': "Noooo!",
             'narration': (
-                "You have succeeded in captured Nehor! Take him back to Alma in Zarahemla so that he can be judged for "
+                "You have succeeded in capturing Nehor! Take him back to Alma in Zarahemla so that he can be judged for "
                 "his crimes."
             ),
         }
