@@ -84,7 +84,7 @@ class Battle(object):
     ):
         self.battle_name = battle_name
         self.debug = False
-        self.ally_tactics = ally_tactics
+        self.ally_tactics = [tactic.strip('~').lower() for tactic in ally_tactics]
         self.time_elapsed = 0.0
         self.game = game
         self.battle_type = battle_type

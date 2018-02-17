@@ -145,7 +145,8 @@ class BattleWarlordRectBase(object):
         if slot is None or self.tactics is None:
             return 0
         tactic = self.tactics[slot-1]
-        if tactic == '' or '~~~~' in tactic:
+        tactic = tactic.strip('~').lower()
+        if tactic == '':
             return 0
         return TACTICS[tactic].get('max_damage', 0)
 
