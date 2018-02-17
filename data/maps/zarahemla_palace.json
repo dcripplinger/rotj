@@ -18,6 +18,15 @@
       "wander": false,
       "dialog": [
         {
+          "text": "Good work, Moroni.",
+          "condition": "talked_with_alma_after_nehor"
+        },
+        {
+          "text": "You have done our country a great service, Moroni, by capturing Nehor and bringing him to me. As promised, I am appointing you captain of all the Nephite armies. You may face many challenges, but I can think of no other to best fight our battles and support the cause of liberty.",
+          "condition": "battle05",
+          "game_state_action": "talked_with_alma_after_nehor"
+        },
+        {
           "text": "Moroni, you must bring Nehor to me to face justice. If you do this, I will appoint you as chief captain of our armies.",
           "condition": "talked_with_alma"
         },
