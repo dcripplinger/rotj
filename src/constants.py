@@ -655,6 +655,7 @@ PALACE_MUSIC = {
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
     'noah': CITY_MUSIC,
+    'ishmael': CITY_MUSIC,
     'gideon': CITY_MUSIC,
     'gideon_palace': PALACE_MUSIC,
     'ammonihah': CITY_MUSIC,
