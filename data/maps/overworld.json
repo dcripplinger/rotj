@@ -215,6 +215,16 @@
     }
   },
   {
+    "x": 134,
+    "y": 267,
+    "teleport": {
+      "map": "ishmael",
+      "x": 16,
+      "y": 37,
+      "direction": "n"
+    }
+  },
+  {
     "x": 121,
     "y": 166,
     "battles": [
