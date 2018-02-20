@@ -174,8 +174,11 @@ class Battle(object):
 
     def set_start_dialog(self):
         script = ''
+        last_enemy_name = ''
         for enemy in self.enemies:
-            script += '{} approaching.\n'.format(enemy.name.title())
+            if enemy.name != last_enemy_name:
+                script += '{} approaching.\n'.format(enemy.name.title())
+                last_enemy_name = enemy.name
         self.left_dialog = create_prompt(script, silent=True)
 
     def set_bar_color(self):
