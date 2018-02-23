@@ -212,7 +212,58 @@
       "x": 15,
       "y": 25,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle08",
+        "intro": "Perhaps I could not overthrow you on my own, but now I have allied with the king of the Lamanites. Nothing will stop me and my followers from ruling over you.",
+        "narration": "Alma slew Amlici with the sword, and the Lamanites were driven out of the land. The judges, the voice of the people, and their freedoms remain protected.",
+        "enemies": [
+          {
+            "name": "amlici",
+            "level": 11
+          },
+          {
+            "name": "mathoni",
+            "level": 10
+          },
+          {
+            "name": "isaac",
+            "level": 10
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20,
+              "reinforcements": true
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20,
+              "reinforcements": true
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 134,

@@ -132,6 +132,7 @@ class Battle(object):
                 'max_soldiers': soldiers,
                 'tactics': enemy['stats'].get('tactics', ['','','','','','']),
                 'items': [],
+                'reinforcements': enemy['stats'].get('reinforcements', False),
             }, self))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
@@ -332,8 +333,18 @@ class Battle(object):
                         if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
                             del self.good_enemy_statuses[status]
                             enemy_status_updates.append(status)
+                    got_reinforcements = False
+                    for enemy in self.enemies:
+                        if enemy.reinforcements and enemy.soldiers == 0:
+                            enemy.get_healed(enemy.max_soldiers)
+                            enemy.state = 'wait'
+                            enemy.rel_pos = 0
+                            enemy.rel_target_pos = None
+                            got_reinforcements = True
                     self.execute_state = 'dialog'
-                    self.right_dialog = self.finish_volley_dialog(ally_status_updates, enemy_status_updates)
+                    self.right_dialog = self.finish_volley_dialog(
+                        ally_status_updates, enemy_status_updates, got_reinforcements,
+                    )
         elif self.execute_state == 'move_forward':
             if self.warlord.state == 'wait':
                 if self.warlord.soldiers == 0:
@@ -366,12 +377,14 @@ class Battle(object):
                 else:
                     self.execute_state = 'mini_move'
 
-    def finish_volley_dialog(self, ally_status_updates, enemy_status_updates):
+    def finish_volley_dialog(self, ally_status_updates, enemy_status_updates, got_reinforcements):
         prompt_text = ""
         for status in ally_status_updates:
             prompt_text += "Your army's {} status has worn off. ".format(status.title())
         for status in enemy_status_updates:
             prompt_text += "The enemy's {} status has worn off. ".format(status.title())
+        if got_reinforcements:
+            prompt_text += "Enemy reinforcements have arrived."
         if not prompt_text:
             return None
         else:
@@ -545,6 +558,12 @@ class Battle(object):
                 for (status, duration) in list(self.good_enemy_statuses.items()):
                     if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
                         del self.good_enemy_statuses[status]
+                for enemy in self.enemies:
+                    if enemy.reinforcements and enemy.soldiers == 0:
+                        enemy.get_healed(enemy.max_soldiers)
+                        enemy.state = 'wait'
+                        enemy.rel_pos = 0
+                        enemy.rel_target_pos = None
 
     def animate_move_hit(self, move, results):
         if (
@@ -597,6 +616,12 @@ class Battle(object):
         for (status, duration) in list(self.good_enemy_statuses.items()):
             if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
                 del self.good_enemy_statuses[status]
+        for enemy in self.enemies:
+            if enemy.reinforcements and enemy.soldiers == 0:
+                enemy.get_healed(enemy.max_soldiers)
+                enemy.state = 'wait'
+                enemy.rel_pos = 0
+                enemy.rel_target_pos = None
 
     def execute_moves(self):
         for move in self.ordered_moves:
