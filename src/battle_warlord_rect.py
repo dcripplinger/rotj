@@ -42,7 +42,7 @@ class BattleWarlordRectBase(object):
             # relative target position when advancing or retreating the sprite (0 to MAX_BAR_WIDTH-16)
         self.strength = warlord['strength']
         self.attack_points = warlord['attack_points']
-        self.weapon_power = int(100*math.exp(0.018*self.attack_points)-88)
+        self.weapon_power = int(100*math.exp(0.02*self.attack_points)-60)
         self.compounded_strength = self.strength * self.weapon_power / 256.0 / 256.0
         self._tactics = warlord['tactics']
         self.intelligence = warlord['intelligence']
