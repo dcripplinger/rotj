@@ -2,21 +2,109 @@
   {
     "x": 14,
     "y": 26,
-    "teleport": {
-      "map": "overworld",
-      "x": 124,
-      "y": 223,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "battle06": true
+        },
+        "map": "overworld",
+        "x": 124,
+        "y": 223,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 124,
+        "y": 222,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 15,
     "y": 26,
+    "teleport": [
+      {
+        "conditions": {
+          "battle06": true
+        },
+        "map": "overworld",
+        "x": 124,
+        "y": 223,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 124,
+        "y": 222,
+        "direction": "s"
+      }
+    ]
+  },
+  {
+    "x": 14,
+    "y": 18,
     "teleport": {
-      "map": "overworld",
-      "x": 124,
-      "y": 223,
-      "direction": "s"
+      "map": "minon_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 19,
+    "y": 18,
+    "teleport": {
+      "map": "minon_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 14,
+    "teleport": {
+      "map": "minon_tent3",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 20,
+    "ai_sprite": {
+      "direction": "e",
+      "wander": true,
+      "name": "kingmen",
+      "dialog": "Welcome to the fortress Minon, sir. The Lamanites and Amlicites have deserted this camp. Be sure to check for spoils they left behind."
+    }
+  },
+  {
+    "x": 14,
+    "y": 24,
+    "ai_sprite": {
+      "conditions": {
+        "battle06": false
+      },
+      "direction": "s",
+      "wander": false,
+      "name": "guard",
+      "dialog": "Amlici? No, we haven't heard any reports of him being in this area."
+    }
+  },
+  {
+    "x": 15,
+    "y": 24,
+    "ai_sprite": {
+      "conditions": {
+        "battle06": false
+      },
+      "direction": "s",
+      "wander": false,
+      "name": "guard",
+      "dialog": "Welcome to Minon. We have no need for reinforcements. If the Lamanites attack here, we'll be ready for them."
     }
   }
 ]

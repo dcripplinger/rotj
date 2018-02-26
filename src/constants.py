@@ -683,6 +683,9 @@ MAP_MUSIC = {
     'sidom_tent1': CAMP_MUSIC,
     'sidom_tent2': CAMP_MUSIC,
     'minon': CAMP_MUSIC,
+    'minon_tent1': CAMP_MUSIC,
+    'minon_tent2': CAMP_MUSIC,
+    'minon_tent3': CAMP_MUSIC,
     'sebus': CAMP_MUSIC,
 }
 

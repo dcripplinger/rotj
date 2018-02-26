@@ -173,7 +173,7 @@ class Map(object):
         elif 'money' in treasure:
             money = self.game.game_state['money'] + treasure['money']
             self.game.update_game_state({'money': min(MAX_NUM, money)})
-            return '{} senines'.format(money)
+            return '{} senines'.format(treasure['money'])
         else:
             return None
 
@@ -330,7 +330,7 @@ class Map(object):
         battles = self.cells.get(tuple(next_pos), {}).get('battles') if next_pos else None
         if battles:
             for battle_data in battles:
-                if 'conditions' in battle_data and not self.game.conditions_are_met([battle_data['conditions']]):
+                if 'conditions' in battle_data and not self.game.conditions_are_met(battle_data['conditions']):
                     continue
                 if self.game.conditions_are_met(battle_data['name']):
                     continue

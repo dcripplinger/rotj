@@ -1,0 +1,20 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "minon",
+      "x": 19,
+      "y": 18,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 22,
+    "y": 12,
+    "treasure": {
+      "name": "minon_tent2_treasure",
+      "item": "elixir~a"
+    }
+  }
+]

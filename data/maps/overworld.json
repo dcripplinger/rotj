@@ -215,6 +215,9 @@
     },
     "battles": [
       {
+        "conditions": {
+          "battle06": true
+        },
         "name": "battle08",
         "intro": "Perhaps I could not overthrow you on my own, but now I have allied with the king of the Lamanites. Nothing will stop me and my followers from ruling over you.",
         "narration": "Alma slew Amlici with the sword, and the Lamanites were driven out of the land. The judges, the voice of the people, and their freedoms remain protected.",

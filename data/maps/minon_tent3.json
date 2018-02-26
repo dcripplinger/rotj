@@ -1,0 +1,20 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "minon",
+      "x": 23,
+      "y": 14,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "treasure": {
+      "name": "minon_tent3_treasure",
+      "money": 1504
+    }
+  }
+]

@@ -25,12 +25,20 @@ class Hero(Sprite):
             return
         teleport = props.get('teleport')
         if teleport:
-            new_map = teleport.get('map')
-            new_direction = teleport.get('direction', self.direction)
-            if new_map:
-                self.game.set_current_map(new_map, [teleport['x'], teleport['y']], new_direction)
+            if isinstance(teleport, dict):
+                teleports = [teleport]
             else:
-                self.tiled_map.load_company_sprites([teleport['x'], teleport['y']], new_direction, 'under')
+                teleports = teleport
+            for tele in teleports:
+                if 'conditions' in tele and not self.game.conditions_are_met(tele['conditions']):
+                    continue
+                new_map = tele.get('map')
+                new_direction = tele.get('direction', self.direction)
+                if new_map:
+                    self.game.set_current_map(new_map, [tele['x'], tele['y']], new_direction)
+                else:
+                    self.tiled_map.load_company_sprites([tele['x'], tele['y']], new_direction, 'under')
+                break
 
     def update(self, dt):
         super(Hero, self).update(dt)
