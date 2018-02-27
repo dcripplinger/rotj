@@ -1089,10 +1089,12 @@
         "armor_class": 15
       },
       "seanti": {
-        "level": 6
+        "level": 6,
+        "capture": "battle01"
       },
       "gad": {
-        "level": 6
+        "level": 6,
+        "capture": ["battle01", "battle05"]
       }
     }
   },
@@ -1172,10 +1174,12 @@
         "armor_class": 15
       },
       "seanti": {
-        "level": 6
+        "level": 6,
+        "capture": "battle01"
       },
       "gad": {
-        "level": 6
+        "level": 6,
+        "capture": ["battle01", "battle05"]
       }
     }
   },
@@ -1184,75 +1188,97 @@
     "y": 3,
     "encounters": [
       [
-        "robbers",
-        "robbers"
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
       ],
       [
         "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "robbers",
         "robbers",
         "robbers",
         "robbers"
       ],
       [
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites"
+        "kingmen",
+        "kingmen",
+        "kingmen"
       ],
       [
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites",
-        "amlicites"
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ],
       [
-        "seanti",
-        "amlicites",
-        "amlicites",
-        "amlicites"
-      ],
-      [
-        "gad",
-        "amlicites",
-        "amlicites"
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "zoramites": {
+        "soldiers": [
+          700,
+          900,
+          1000
+        ],
+        "strength": 70,
+        "defense": 45,
+        "intelligence": 49,
+        "agility": 36,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 45,
+        "armor_class": 40
+      },
       "robbers": {
         "soldiers": [
-          100,
-          120,
-          140
+          700,
+          900,
+          1000
         ],
-        "strength": 32,
-        "defense": 60,
-        "intelligence": 25,
+        "strength": 78,
+        "defense": 48,
+        "intelligence": 49,
+        "agility": 80,
+        "evasion": 28,
+        "tactical_points": 0,
+        "attack_points": 45,
+        "armor_class": 40
+      },
+      "kingmen": {
+        "soldiers": [
+          700,
+          900,
+          1000
+        ],
+        "strength": 75,
+        "defense": 40,
+        "intelligence": 60,
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
-        "armor_class": 10
+        "attack_points": 45,
+        "armor_class": 40
       },
-      "amlicites": {
+      "lamanites": {
         "soldiers": [
-          100,
-          120,
-          140
+          700,
+          900,
+          1000
         ],
-        "strength": 38,
-        "defense": 29,
-        "intelligence": 30,
-        "agility": 44,
-        "evasion": 0,
+        "strength": 84,
+        "defense": 24,
+        "intelligence": 27,
+        "agility": 80,
+        "evasion": 18,
         "tactical_points": 0,
-        "attack_points": 25,
-        "armor_class": 15
+        "attack_points": 45,
+        "armor_class": 40
       }
     }
   },

@@ -27,7 +27,8 @@
       "items": [
         "elixir~a",
         "resurrect",
-        "gullwing"
+        "gullwing",
+        "horse"
       ]
     }
   }

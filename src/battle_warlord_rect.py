@@ -56,6 +56,7 @@ class BattleWarlordRectBase(object):
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
         self.reinforcements = warlord.get('reinforcements', False)
+        self.capture = warlord.get('capture', False)
         self.hit_type = None
         self.hit_image_a = True
         self.hit_time = 0

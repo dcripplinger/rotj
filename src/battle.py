@@ -23,7 +23,7 @@ from helpers import (
     load_stats,
 )
 from report import Report
-from text import create_prompt, MenuGrid
+from text import create_prompt, MenuBox, MenuGrid
 
 COLORS = [
     {
@@ -82,6 +82,7 @@ class Battle(object):
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
         battle_name=None, narration=None,
     ):
+        self.confirm_box = None
         self.battle_name = battle_name
         self.debug = False
         self.ally_tactics = [tactic.strip('~').lower() for tactic in ally_tactics] if ally_tactics else ['']*6
@@ -116,6 +117,7 @@ class Battle(object):
                 soldiers = random.choice(enemy['stats']['soldiers'])
             else:
                 soldiers = enemy['stats']['soldiers']
+            capture = self.game.conditions_are_met(enemy['stats']['capture']) if 'capture' in enemy['stats'] else False
             self.enemies.append(Enemy({
                 'index': i,
                 'name': enemy['name'],
@@ -133,6 +135,7 @@ class Battle(object):
                 'tactics': enemy['stats'].get('tactics', ['','','','','','']),
                 'items': [],
                 'reinforcements': enemy['stats'].get('reinforcements', False),
+                'capture': capture,
             }, self))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
@@ -242,6 +245,7 @@ class Battle(object):
                     self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
                 )
             self.right_dialog = create_prompt(victory_script)
+            self.captured_enemies = [enemy for enemy in self.enemies if enemy.capture]
             pygame.mixer.music.load('data/audio/music/victory.wav')
             pygame.mixer.music.play()
             self.win_state = 'main'
@@ -255,6 +259,24 @@ class Battle(object):
                     ally.sprite = ally.walk_s
         elif self.win_state == 'level_up':
             self.right_dialog.update(dt)
+        elif self.win_state == 'capture':
+            if self.confirm_box:
+                self.confirm_box.update(dt)
+            else:
+                self.right_dialog.update(dt)
+                if not self.right_dialog.has_more_stuff_to_show():
+                    self.confirm_box = MenuBox(['YES', 'NO'])
+                    self.confirm_box.focus()
+                    self.right_dialog.shutdown()
+        elif self.win_state == 'bargain':
+            if self.confirm_box:
+                self.confirm_box.update(dt)
+            else:
+                self.right_dialog.update(dt)
+                if self.bargain and not self.right_dialog.has_more_stuff_to_show():
+                    self.confirm_box = MenuBox(['YES', 'NO'])
+                    self.confirm_box.focus()
+                    self.right_dialog.shutdown()
 
     def update_lose(self, dt):
         if self.lose_state == 'start':
@@ -1050,6 +1072,13 @@ class Battle(object):
         self.create_menu()
         self.warlord.move_forward()
 
+    def start_next_capture(self):
+        self.win_state = 'capture'
+        enemy = self.captured_enemies[0]
+        self.right_dialog = create_prompt(
+            'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title()),
+        )
+
     def handle_input_win(self, pressed):
         if self.win_state == 'start' and self.exit_dialog:
             self.exit_dialog.handle_input(pressed)
@@ -1063,18 +1092,120 @@ class Battle(object):
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
                 leveled_up = self.level_up()
-                if not leveled_up:
+                if leveled_up:
+                    self.win_state = 'level_up'
+                elif len(self.captured_enemies) > 0:
+                    self.start_next_capture()
+                else:
                     self.right_dialog.shutdown()
                     self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
-                else:
-                    self.win_state = 'level_up'
         elif self.win_state == 'level_up':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
                 leveled_up = self.level_up()
-                if not leveled_up:
+                if leveled_up:
+                    return
+                elif len(self.captured_enemies) > 0:
+                    self.start_next_capture()
+                else:
                     self.right_dialog.shutdown()
                     self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+        elif self.win_state == 'capture':
+            if self.confirm_box:
+                self.confirm_box.handle_input(pressed)
+                if pressed[K_x] and self.confirm_box.get_choice() == 'YES':
+                    self.confirm_box = None
+                    self.bargain = self.get_bargain()
+                    if not self.bargain:
+                        self.convert_captured_enemy()
+                    elif self.bargain == 'horse':
+                        self.right_dialog = create_prompt(
+                            'I might be convinced to offer my services for an especially good horse.',
+                        )
+                        self.win_state = 'bargain'
+                    else:
+                        self.right_dialog = create_prompt(
+                            'I might be convinced to offer my services for {} senines.'.format(self.bargain),
+                        )
+                        self.win_state = 'bargain'
+                elif (pressed[K_x] and self.confirm_box.get_choice() == 'NO') or pressed[K_z]:
+                    enemy = self.captured_enemies.pop(0)
+                    self.right_dialog = create_prompt('OK. {} was let go.'.format(enemy.name.title()))
+                    self.confirm_box = None
+                    self.bargain = None
+                    self.win_state = 'bargain'
+            else:
+                self.right_dialog.handle_input(pressed)
+        elif self.win_state == 'bargain':
+            if self.confirm_box:
+                self.confirm_box.handle_input(pressed)
+                if pressed[K_x] and self.confirm_box.get_choice() == 'YES':
+                    self.try_bargain()
+                elif (pressed[K_x] and self.confirm_box.get_choice() == 'NO') or pressed[K_z]:
+                    self.captured_enemies.pop(0)
+                    self.right_dialog = create_prompt("Your loss! I'll see you again on the battle field!")
+                    self.confirm_box = None
+                    self.bargain = None
+            else:
+                self.right_dialog.handle_input(pressed)
+                if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
+                    if len(self.captured_enemies) > 0:
+                        self.start_next_capture()
+                    else:
+                        self.right_dialog.shutdown()
+                        self.game.end_battle(
+                            self.get_company(), self.ally_tactical_points, battle_name=self.battle_name,
+                        )
+
+    def try_bargain(self):
+        enemy = self.captured_enemies.pop(0)
+        self.confirm_box = None
+        if self.bargain == 'horse':
+            found = False
+            for warlord in self.allies:
+                if found:
+                    break
+                for i, item in enumerate(warlord.items):
+                    if item['name'] == 'horse':
+                        found = True
+                        warlord.items.pop(i)
+                        break
+            if found:
+                self.game.add_to_company(enemy.name)
+                self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+            else:
+                self.right_dialog = create_prompt('Do you take me for a fool? You do not have any horses!')
+            self.bargain = None
+        else: # money bargain
+            current_money = self.game.game_state['money']
+            required_money = self.bargain
+            if current_money >= required_money:
+                self.game.update_game_state({'money': current_money - required_money})
+                self.game.add_to_company(enemy.name)
+                self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+            else:
+                self.right_dialog = create_prompt("You can't even afford me!")
+            self.bargain = None
+
+    def get_bargain(self):
+        random_number = random.random()
+        if random_number < 0.3333333333334:
+            return None
+        elif random_number < 0.6666666666666:
+            return self.get_required_money_for_recruiting(self.captured_enemies[0].max_soldiers)
+        else:
+            return 'horse'
+
+    def get_required_money_for_recruiting(self, soldiers):
+        base = .25*soldiers
+        extra = random.random()*.25*soldiers
+        return int(base+extra)
+
+    def convert_captured_enemy(self):
+        enemy = self.captured_enemies.pop(0)
+        self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+        self.win_state = 'bargain'
+        self.game.add_to_company(enemy.name)
 
     def level_up(self):
         if len(self.levels) == 0:
@@ -1586,6 +1717,8 @@ class Battle(object):
             self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
         if self.state == 'win' and not self.exit_dialog and self.narration:
             self.screen.blit(self.narration.surface, (0, 128 + top_margin))
+        if self.confirm_box:
+            self.screen.blit(self.confirm_box.surface, (GAME_WIDTH-self.right_dialog.width, 80+top_margin))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)

@@ -12,7 +12,7 @@ TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
 
-DEFAULT_ENCOUNTER_CHANCE = 0.02
+DEFAULT_ENCOUNTER_CHANCE = 0.03
 
 EXP_REQUIRED_BY_LEVEL = {
     1: 0,
@@ -995,8 +995,11 @@ ITEMS = {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
     },
 
-    # unusable items (just carrying it has an effect)
+    # unusable items (just carrying it has an effect, or it gets used indirectly)
     'liahona': {}, # lets the user be his own tactician
+    'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
+        'cost': 400,
+    }
 }
 
 MAX_ITEMS_PER_PERSON = 8
