@@ -485,6 +485,15 @@ class Game(object):
             'company': company,
         })
 
+    def is_in_company(self, enemy_name):
+        for warlord in self.game_state['company']:
+            if warlord['name'] == enemy_name:
+                return True
+        return False
+
+    def is_in_reserve(self, enemy_name):
+        return enemy_name in self.game_state['reserve']
+
     def try_set_hq(self):
             city = self.current_map.name.split('_')[0]
             if city not in HQ:

@@ -373,12 +373,29 @@ class Map(object):
         encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
         return random.random() < encounter_chance
 
+    def filter_out_allies(self, encounters):
+        '''
+        Takes a list of possible encounters for a region and filters out any group of enemies (a.k.a. an encounter)
+        that has an enemy who has joined your side.
+        '''
+        new_encounters = []
+        for encounter in encounters:
+            include = True
+            for enemy_name in encounter:
+                if self.game.is_in_company(enemy_name) or self.game.is_in_reserve(enemy_name):
+                    include = False
+                    break
+            if include:
+                new_encounters.append(encounter)
+        return new_encounters
+
     def get_random_encounter_enemies(self):
         x = int(self.hero.position[0]) / 50
         y = int(self.hero.position[1]) / 50
         region = self.encounter_regions.get((x,y))
         if not region:
             return None
+        possible_encounters = self.filter_out_allies(region['encounters'])
         enemy_names = random.choice(region['encounters'])
         enemies = []
         for name in enemy_names:

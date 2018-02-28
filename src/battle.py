@@ -225,6 +225,14 @@ class Battle(object):
                 self.heavy_damage_sound.play()
             time.sleep(1)
 
+    def get_captured_enemies(self):
+        [enemy for enemy in self.enemies if enemy.capture]
+        captured_enemies = []
+        for enemy in self.enemies:
+            if enemy.capture and random.random() < 0.5:
+                captured_enemies.append(enemy)
+        return captured_enemies
+
     def update_win(self, dt):
         if self.win_state == 'start':
             if self.exit_dialog:
@@ -245,7 +253,7 @@ class Battle(object):
                     self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
                 )
             self.right_dialog = create_prompt(victory_script)
-            self.captured_enemies = [enemy for enemy in self.enemies if enemy.capture]
+            self.captured_enemies = self.get_captured_enemies()
             pygame.mixer.music.load('data/audio/music/victory.wav')
             pygame.mixer.music.play()
             self.win_state = 'main'
@@ -1123,6 +1131,10 @@ class Battle(object):
                             'I might be convinced to offer my services for an especially good horse.',
                         )
                         self.win_state = 'bargain'
+                    elif self.bargain == 'refuse':
+                        self.right_dialog = create_prompt("I'm no traitor! I serve only my master!")
+                        self.win_state = 'bargain'
+                        self.captured_enemies.pop(0)
                     else:
                         self.right_dialog = create_prompt(
                             'I might be convinced to offer my services for {} senines.'.format(self.bargain),
@@ -1189,10 +1201,12 @@ class Battle(object):
 
     def get_bargain(self):
         random_number = random.random()
-        if random_number < 0.3333333333334:
+        if random_number < 0.25:
             return None
-        elif random_number < 0.6666666666666:
+        elif random_number < 0.5:
             return self.get_required_money_for_recruiting(self.captured_enemies[0].max_soldiers)
+        elif random_number < 0.75:
+            return 'refuse'
         else:
             return 'horse'
 
