@@ -1055,6 +1055,13 @@
         "gad",
         "amlicites",
         "amlicites"
+      ],
+      [
+        "chemish",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -1093,8 +1100,12 @@
         "capture": "battle01"
       },
       "gad": {
-        "level": 6,
+        "level": 11,
         "capture": ["battle01", "battle05"]
+      },
+      "chemish": {
+        "level": 10,
+        "capture": "battle07"
       }
     }
   },
@@ -1140,6 +1151,19 @@
         "gad",
         "amlicites",
         "amlicites"
+      ],
+      [
+        "emer",
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "jeneum",
+        "amlicites",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -1178,8 +1202,16 @@
         "capture": "battle01"
       },
       "gad": {
-        "level": 6,
+        "level": 11,
         "capture": ["battle01", "battle05"]
+      },
+      "emer": {
+        "level": 8,
+        "capture": ["battle03", "battle05"]
+      },
+      "jeneum": {
+        "level": 9,
+        "capture": ["battle04", "battle05"]
       }
     }
   },
@@ -1465,6 +1497,12 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "isaac",
+        "amlicites",
+        "amlicites",
+        "amlicites"
       ]
     ],
     "stats": {
@@ -1512,6 +1550,10 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 20
+      },
+      "isaac": {
+        "level": 10,
+        "capture": "battle08"
       }
     }
   },
@@ -1524,6 +1566,12 @@
         "robbers"
       ],
       [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
         "robbers",
         "robbers",
         "robbers"
@@ -1549,7 +1597,7 @@
       ],
       [
         "antionah",
-        "amlicites",
+        "zenos",
         "amlicites",
         "amlicites"
       ],
@@ -1561,6 +1609,25 @@
       [
         "ammonihah",
         "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "emer",
+        "limhah",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "emron",
+        "emroni",
+        "emronihah",
+        "amlicites"
+      ],
+      [
+        "jeneum",
         "amlicites",
         "amlicites",
         "amlicites"
@@ -1598,13 +1665,44 @@
         "armor_class": 15
       },
       "antionah": {
-        "level": 6
+        "level": 6,
+        "capture": "battle02"
       },
       "ammonihah": {
-        "level": 6
+        "level": 6,
+        "capture": "battle02"
       },
       "zeezrom": {
-        "level": 6
+        "level": 6,
+        "capture": "battle02"
+      },
+      "emer": {
+        "level": 8,
+        "capture": ["battle03", "battle05"]
+      },
+      "emron": {
+        "level": 7,
+        "capture": "battle03"
+      },
+      "emroni": {
+        "level": 7,
+        "capture": "battle03"
+      },
+      "emronihah": {
+        "level": 7,
+        "capture": "battle03"
+      },
+      "jeneum": {
+        "level": 9,
+        "capture": ["battle04", "battle05"]
+      },
+      "limhah": {
+        "level": 7,
+        "capture": "battle04"
+      },
+      "zenos": {
+        "level": 7,
+        "capture": "battle04"
       }
     }
   },

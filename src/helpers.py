@@ -17,6 +17,20 @@ from constants import ATTACK_POINTS, ARMOR_CLASS, ITEMS, TACTICS
 RESOURCES_DIR = 'data'
 
 
+def unpretty(string_or_strings):
+    if isinstance(string_or_strings, basestring):
+        return _unpretty_string(string_or_strings)
+    else:
+        return [_unpretty_string(s) for s in string_or_strings]
+
+
+def _unpretty_string(s):
+    '''
+    Returns version of string with ~ stripped and lower case
+    '''
+    return s.strip('~').lower()
+
+
 def get_intelligence(warlord):
     stats = load_stats(warlord)
     return stats['intelligence']

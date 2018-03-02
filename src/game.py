@@ -345,7 +345,7 @@ class Game(object):
 
     def start_battle(self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None):
         self.set_screen_state('start_battle')
-        allies = copy.deepcopy([warlord for warlord in self.game_state['company'][0:5] if warlord['soldiers'] > 0])
+        allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])[0:5]
         tactician = self.get_tactician()
         if tactician:
             tactical_points = tactician['tactical_points']
@@ -884,9 +884,9 @@ class Game(object):
     def handle_talked_with_nehor(self):
         battle_data = {
             'enemies': [
-                {'name': 'nehor', 'level': 7},
+                {'name': 'nehor', 'level': 8},
                 {'name': 'gad', 'level': 11},
-                {'name': 'emer', 'level': 7},
+                {'name': 'emer', 'level': 8},
                 {'name': 'jeneum', 'level': 9},
             ],
             'battle_type': 'story',

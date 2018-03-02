@@ -21,6 +21,7 @@ from helpers import (
     is_quarter_second,
     load_image,
     load_stats,
+    unpretty,
 )
 from report import Report
 from text import create_prompt, MenuBox, MenuGrid
@@ -132,7 +133,7 @@ class Battle(object):
                 'max_tactical_points': enemy['stats']['tactical_points'],
                 'soldiers': soldiers,
                 'max_soldiers': soldiers,
-                'tactics': enemy['stats'].get('tactics', ['','','','','','']),
+                'tactics': unpretty(enemy['stats'].get('tactics', ['','','','','',''])),
                 'items': [],
                 'reinforcements': enemy['stats'].get('reinforcements', False),
                 'capture': capture,
@@ -226,7 +227,9 @@ class Battle(object):
             time.sleep(1)
 
     def get_captured_enemies(self):
-        [enemy for enemy in self.enemies if enemy.capture]
+        story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
+        if story_battle:
+            return list(self.captured_enemies)
         captured_enemies = []
         for enemy in self.enemies:
             if enemy.capture and random.random() < 0.5:
