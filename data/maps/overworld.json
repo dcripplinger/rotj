@@ -403,5 +403,15 @@
       "y": 54,
       "direction": "n"
     }
+  },
+  {
+    "x": 140,
+    "y": 132,
+    "teleport": {
+      "map": "swordsmith",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]

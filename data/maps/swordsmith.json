@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "overworld",
+      "x": 140,
+      "y": 132,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 25,
+    "y": 18,
+    "ai_sprite": {
+      "name": "old_man",
+      "wander": false,
+      "direction": "e",
+      "dialog": "I can make powerful swords for you, but I don't have the materials. If you find some iron ore and a diamond, please bring them to me."
+    }
+  }
+]
