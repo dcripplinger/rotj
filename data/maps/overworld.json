@@ -393,5 +393,15 @@
         "exit": "You may have won this battle, but I have a surprise waiting for you at Minon."
       }
     ]
+  },
+  {
+    "x": 117,
+    "y": 138,
+    "teleport": {
+      "map": "bountiful",
+      "x": 25,
+      "y": 54,
+      "direction": "n"
+    }
   }
 ]

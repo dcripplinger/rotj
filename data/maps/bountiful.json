@@ -1,0 +1,182 @@
+[
+  {
+    "x": 25,
+    "y": 55,
+    "teleport": {
+      "map": "overworld",
+      "x": 117,
+      "y": 139,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 26,
+    "y": 55,
+    "teleport": {
+      "map": "overworld",
+      "x": 117,
+      "y": 139,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 26,
+    "teleport": {
+      "map": "overworld",
+      "x": 116,
+      "y": 138,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 9,
+    "y": 27,
+    "teleport": {
+      "map": "overworld",
+      "x": 116,
+      "y": 138,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 42,
+    "y": 26,
+    "teleport": {
+      "map": "overworld",
+      "x": 118,
+      "y": 138,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 42,
+    "y": 27,
+    "teleport": {
+      "map": "overworld",
+      "x": 118,
+      "y": 138,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 25,
+    "y": 17,
+    "teleport": {
+      "map": "bountiful_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 17,
+    "teleport": {
+      "map": "bountiful_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 46,
+    "teleport": {
+      "map": "bountiful_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 29,
+    "y": 42,
+    "teleport": {
+      "map": "bountiful_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 38,
+    "teleport": {
+      "map": "bountiful_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 33,
+    "teleport": {
+      "map": "bountiful_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 29,
+    "teleport": {
+      "map": "bountiful_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 25,
+    "teleport": {
+      "map": "bountiful_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 25,
+    "teleport": {
+      "map": "bountiful_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 21,
+    "teleport": {
+      "map": "bountiful_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 49,
+    "ai_sprite": {
+      "direction": "s",
+      "wander": false,
+      "name": "guard",
+      "dialog": "We'll be here protecting the city Bountiful while you fortify the other cities."
+    }
+  },
+  {
+    "x": 26,
+    "y": 49,
+    "ai_sprite": {
+      "direction": "s",
+      "wander": false,
+      "name": "guard",
+      "dialog": "We'll be here protecting the city Bountiful while you fortify the other cities."
+    }
+  }
+]

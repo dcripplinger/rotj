@@ -1,0 +1,12 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "bountiful",
+      "x": 25,
+      "y": 17,
+      "direction": "s"
+    }
+  }
+]
