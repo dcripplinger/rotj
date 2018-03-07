@@ -1348,8 +1348,6 @@ class Battle(object):
         self.state = 'risk_it'
         self.menu.unfocus()
         time.sleep(1)
-        if self.battle_name == 'battle08':
-            self.handle_win()
 
     def handle_input_report(self, pressed):
         if pressed[K_UP]:
