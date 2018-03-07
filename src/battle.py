@@ -176,6 +176,7 @@ class Battle(object):
         self.cancel_all_out = False
         self.exit_dialog = create_prompt(exit) if exit else None
         self.narration = create_prompt(narration) if narration else None
+        self.captured_enemies = []
 
     def set_start_dialog(self):
         script = ''
@@ -215,7 +216,7 @@ class Battle(object):
                 self.warlord.flip_sprite()
                 self.warlord = self.get_next_live_ally_after(self.warlord, nowrap=True)
                 if not self.warlord:
-                    self.game.end_battle(self.get_company(), self.ally_tactical_points)
+                    self.end_battle(self.get_company(), self.ally_tactical_points)
 
     def update_risk_it(self, dt):
         if self.get_leader().state == 'wait':
@@ -1109,7 +1110,7 @@ class Battle(object):
                     self.start_next_capture()
                 else:
                     self.right_dialog.shutdown()
-                    self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
         elif self.win_state == 'level_up':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
@@ -1120,7 +1121,7 @@ class Battle(object):
                     self.start_next_capture()
                 else:
                     self.right_dialog.shutdown()
-                    self.game.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
         elif self.win_state == 'capture':
             if self.confirm_box:
                 self.confirm_box.handle_input(pressed)
@@ -1168,9 +1169,20 @@ class Battle(object):
                         self.start_next_capture()
                     else:
                         self.right_dialog.shutdown()
-                        self.game.end_battle(
+                        self.end_battle(
                             self.get_company(), self.ally_tactical_points, battle_name=self.battle_name,
                         )
+
+    def end_battle(self, *args, **kwargs):
+        if kwargs.get('battle_name') == 'battle08':
+            kwargs.update({
+                'opening_dialog': create_prompt(
+                    "Now that Amlici is defeated, I must return to the judgment seat in Zarahemla. Please see me there "
+                    "when you get a chance."
+                ),
+            })
+            self.game.remove_from_company_and_reserve('alma')
+        self.game.end_battle(*args, **kwargs)
 
     def try_bargain(self):
         enemy = self.captured_enemies.pop(0)
@@ -1336,6 +1348,8 @@ class Battle(object):
         self.state = 'risk_it'
         self.menu.unfocus()
         time.sleep(1)
+        if self.battle_name == 'battle08':
+            self.handle_win()
 
     def handle_input_report(self, pressed):
         if pressed[K_UP]:

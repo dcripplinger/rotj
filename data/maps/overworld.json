@@ -413,5 +413,19 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 123,
+    "y": 222,
+    "ai_sprite": {
+      "name": "alma",
+      "conditions": {
+        "battle08": true,
+        "talked_with_alma_after_battle08": false
+      },
+      "wander": false,
+      "direction": "e",
+      "dialog": "Now that Amlici is defeated, I must return to the judgment seat in Zarahemla. Please see me there when you get a chance."
+    }
   }
 ]

@@ -18,5 +18,33 @@
       "y": 246,
       "direction": "s"
     }
+  },
+  {
+    "x": 15,
+    "y": 19,
+    "ai_sprite": {
+      "name": "ammon",
+      "wander": true,
+      "conditions": {
+        "ammon_joins": false
+      },
+      "direction": "w",
+      "dialog": [
+        {
+          "text": "I am Ammon, son of Mosiah. I have been serving King Lamoni in hopes to gain his trust so that he will be friendly toward the Nephites. These outcasts keep coming to scatter the king's flocks. You arrived in the nick of time. I cut off some forty of their arms, but they just kept coming. Now that they're destroyed, perhaps I could join you?",
+          "prompt": [
+            {
+              "choice": "Yes",
+              "game_state_action": "ammon_joins",
+              "next_dialog": "I will serve you faithfully."
+            },
+            {
+              "choice": "No",
+              "next_dialog": "I hope you will accept my services at a later date."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

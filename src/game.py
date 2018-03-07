@@ -73,6 +73,7 @@ class Game(object):
             'talked_with_alma_after_nehor': self.handle_talked_with_alma_after_nehor,
             'talked_with_antionum': self.handle_talked_with_antionum,
             'alma_joins': self.handle_alma_joins,
+            'ammon_joins': self.handle_ammon_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -398,7 +399,7 @@ class Game(object):
                 warlord['tactical_points'] += 1
         self.update_game_state({'company': company})
 
-    def end_battle(self, battle_company, tactical_points, battle_name=None):
+    def end_battle(self, battle_company, tactical_points, battle_name=None, opening_dialog=None):
         self.next_map = self.current_map
         self.current_map = None
         self.fade_alpha = 0
@@ -425,9 +426,16 @@ class Game(object):
                 new_warlord['tactical_points'] = tactical_points
             company.append(new_warlord)
         self.update_game_state({'company': company})
-        self.next_map.load_company_sprites(self.next_map.hero.position, self.next_map.hero.direction, 'inplace')
+        followers = 'under' if battle_name == 'battle08' else 'inplace'
+        direction = 'w' if battle_name == 'battle08' else self.next_map.hero.direction
+        self.next_map.load_company_sprites(self.next_map.hero.position, direction, followers)
         if battle_name:
             self.set_game_state_condition(battle_name)
+        if battle_name == 'battle08':
+            self.next_map.load_ai_sprites()
+            # This needs to happen after load_ai_sprites so that Alma appears in the overworld only once.
+            self.set_game_state_condition('talked_with_alma_after_battle08')
+        self.next_map.opening_dialog = opening_dialog
 
     def update_game_state(self, updates):
         self.game_state.update(updates)
@@ -452,6 +460,20 @@ class Game(object):
             'company': company,
             'reserve': reserve,
         })
+
+    def remove_from_company_and_reserve(self, name):
+        if self.is_in_company(name):
+            for i, warlord in enumerate(self.game_state['company']):
+                if warlord['name'] == name:
+                    warlord_index = i
+                    break
+            self.delete_member(warlord_index)
+        if self.is_in_reserve(name):
+            for i, warlord in enumerate(self.game_state['reserve']):
+                if warlord == name:
+                    warlord_index = i
+                    break
+            self.fire(warlord_index)
 
     def add_to_inventory(self, item, warlord_index=None):
         """
@@ -851,6 +873,9 @@ class Game(object):
 
     def handle_ammah_and_manti_join(self):
         self.add_to_company(['ammah', 'manti'])
+
+    def handle_ammon_joins(self):
+        self.add_to_company('ammon')
 
     def handle_talked_with_jeneum(self):
         battle_data = {

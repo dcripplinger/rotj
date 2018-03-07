@@ -43,21 +43,13 @@ class Map(object):
                 tmx_map_name = reusable_name
                 break
         map_filename = get_map_filename('{}.tmx'.format(tmx_map_name))
-        json_filename = get_map_filename('{}.json'.format(map_name))
-        encounter_filename = get_map_filename('{}_encounters.json'.format(map_name))
+        self.json_filename = get_map_filename('{}.json'.format(map_name))
+        self.encounter_filename = get_map_filename('{}_encounters.json'.format(map_name))
         self.screen = screen
         self.tmx_data = load_pygame(map_filename)
-        with open(json_filename) as f:
-            json_data = json.loads(f.read())
-        try:
-            with open(encounter_filename) as f:
-                encounter_data = json.loads(f.read())
-        except IOError:
-            encounter_data = []
-        self.cells = {(cell['x'], cell['y']): cell for cell in json_data}
+        self.load_cells_and_encounter_regions()
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
-        self.encounter_regions = {(region['x'], region['y']): region for region in encounter_data}
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
@@ -72,6 +64,17 @@ class Map(object):
 
     def set_game_state_condition(self, condition):
         self.game.set_game_state_condition(condition)
+
+    def load_cells_and_encounter_regions(self):
+        with open(self.json_filename) as f:
+            json_data = json.loads(f.read())
+        try:
+            with open(self.encounter_filename) as f:
+                encounter_data = json.loads(f.read())
+        except IOError:
+            encounter_data = []
+        self.cells = {(cell['x'], cell['y']): cell for cell in json_data}
+        self.encounter_regions = {(region['x'], region['y']): region for region in encounter_data}
 
     def handle_game_state_condition(self, condition):
         if condition == 'ammah_and_manti_join':
@@ -117,6 +120,14 @@ class Map(object):
                     self.group.remove(sprite)
             ai_sprites = {
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'alma'
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'ammon_joins':
+            for sprite in self.group.sprites():
+                if sprite.name == 'ammon':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'ammon'
             }
             self.ai_sprites = ai_sprites
 
@@ -180,13 +191,19 @@ class Map(object):
     def load_ai_sprites(self):
         for cell in self.cells.values():
             ai_sprite_data = cell.get('ai_sprite')
-            if ai_sprite_data and self.game.conditions_are_met(ai_sprite_data.get('conditions')):
-                ai_sprite = AiSprite(
-                    tmx_data=self.tmx_data, game=self.game, character=ai_sprite_data['name'],
-                    position=[cell['x'], cell['y']], direction=ai_sprite_data['direction'],
-                    wander=ai_sprite_data['wander'], tiled_map=self, dialog=ai_sprite_data['dialog'],
-                )
-                self.group.add(ai_sprite)
+            if not ai_sprite_data:
+                continue
+            if isinstance(ai_sprite_data, dict):
+                ai_sprite_data = [ai_sprite_data]
+            for potential_sprite in ai_sprite_data:
+                if self.game.conditions_are_met(potential_sprite.get('conditions')):
+                    ai_sprite = AiSprite(
+                        tmx_data=self.tmx_data, game=self.game, character=potential_sprite['name'],
+                        position=[cell['x'], cell['y']], direction=potential_sprite['direction'],
+                        wander=potential_sprite['wander'], tiled_map=self, dialog=potential_sprite['dialog'],
+                    )
+                    self.group.add(ai_sprite)
+                    break # Just load the first matching sprite in the list
 
     def load_treasures(self):
         self.treasures = {}

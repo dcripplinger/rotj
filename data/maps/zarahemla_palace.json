@@ -10,35 +10,59 @@
     }
   },
   {
-    "x": 17,
+    "x": 18,
     "y": 14,
     "ai_sprite": {
       "name": "alma",
       "direction": "s",
       "wander": false,
       "conditions": {
-        "battle06": false
+        "battle08": true
       },
-      "dialog": [
-        {
-          "text": "Good work, Moroni.",
-          "condition": "talked_with_alma_after_nehor"
-        },
-        {
-          "text": "You have done our country a great service, Moroni, by capturing Nehor and bringing him to me. As promised, I am appointing you captain of all the Nephite armies. You may face many challenges, but I can think of no other to best fight our battles and support the cause of liberty.",
-          "condition": "battle05",
-          "game_state_action": "talked_with_alma_after_nehor"
-        },
-        {
-          "text": "Moroni, you must bring Nehor to me to face justice. If you do this, I will appoint you as chief captain of our armies.",
-          "condition": "talked_with_alma"
-        },
-        {
-          "text": "Moroni, listen! Before our last king, Mosiah, passed away, he established just laws and a government of judges chosen by the people because he didn't want our people in bondage ever again by an evil king. I have been chosen as the first chief judge, and yet we have already seen a faction rise up in rebellion. They are led by a man named Nehor, who has killed an innocent man simply for debating against him and his religion. You must bring order again to the land and capture Nehor so that he can face justice for his crimes. If you do this, I will appoint you as chief captain of our armies.",
-          "game_state_action": "talked_with_alma"
-        }
-      ]
+      "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. Nephihah has been chosen by the people as the new chief judge. I'm sorry I can't accompany you into battle anymore. Please see what Nephihah has to say."
     }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": [
+      {
+        "name": "nephihah",
+        "direction": "s",
+        "wander": false,
+        "conditions": {
+          "battle08": true
+        },
+        "dialog": "I am the new chief judge Nephihah, chosen by the voice of the people. Moroni, there are many Lamanites beyond the mountain passage south of Minon who wish to defect to the Nephites, but their rulers will not let them. You must go liberate them and find a safe place in Nephite territory to harbor them."
+      },
+      {
+        "name": "alma",
+        "direction": "s",
+        "wander": false,
+        "conditions": {
+          "battle06": false
+        },
+        "dialog": [
+          {
+            "text": "Good work, Moroni.",
+            "condition": "talked_with_alma_after_nehor"
+          },
+          {
+            "text": "You have done our country a great service, Moroni, by capturing Nehor and bringing him to me. As promised, I am appointing you captain of all the Nephite armies. You may face many challenges, but I can think of no other to best fight our battles and support the cause of liberty.",
+            "condition": "battle05",
+            "game_state_action": "talked_with_alma_after_nehor"
+          },
+          {
+            "text": "Moroni, you must bring Nehor to me to face justice. If you do this, I will appoint you as chief captain of our armies.",
+            "condition": "talked_with_alma"
+          },
+          {
+            "text": "Moroni, listen! Before our last king, Mosiah, passed away, he established just laws and a government of judges chosen by the people because he didn't want our people in bondage ever again by an evil king. I have been chosen as the first chief judge, and yet we have already seen a faction rise up in rebellion. They are led by a man named Nehor, who has killed an innocent man simply for debating against him and his religion. You must bring order again to the land and capture Nehor so that he can face justice for his crimes. If you do this, I will appoint you as chief captain of our armies.",
+            "game_state_action": "talked_with_alma"
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 17,
