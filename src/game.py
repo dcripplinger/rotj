@@ -618,11 +618,11 @@ class Game(object):
             self.show_map = True
             self.triangle_size = 0
         self.change_map_time_elapsed += dt
-        update_interval = .02
+        update_interval = .05
         if self.change_map_time_elapsed >= update_interval:
-            self.change_map_time_elapsed -= update_interval
+            self.change_map_time_elapsed = 0
             self.show_map = not self.show_map
-            self.triangle_size += 10*update_interval
+            self.triangle_size += .2
             if self.show_map and self.current_map:
                 self.current_map.draw()
                 self.draw_triangle_transition()
