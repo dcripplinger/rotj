@@ -1,0 +1,29 @@
+[
+  {
+    "x": 16,
+    "y": 18,
+    "teleport": {
+      "map": "ishmael",
+      "x": 12,
+      "y": 26,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 11,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 14,
+    "y": 12,
+    "shop": {
+      "type": "record_office"
+    }
+  }
+]

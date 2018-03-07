@@ -1,0 +1,79 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "amlicites",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "isaac",
+        "amlicites",
+        "amlicites",
+        "amlicites"
+      ]
+    ],
+    "stats": {
+      "amlicites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 48,
+        "defense": 29,
+        "intelligence": 30,
+        "agility": 44,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 20
+      },
+      "lamanites": {
+        "soldiers": [
+          120,
+          150,
+          180
+        ],
+        "strength": 52,
+        "defense": 18,
+        "intelligence": 30,
+        "agility": 51,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 30,
+        "armor_class": 20
+      },
+      "isaac": {
+        "level": 10,
+        "capture": "battle08"
+      }
+    }
+  }
+]

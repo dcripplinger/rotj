@@ -659,6 +659,7 @@ MAP_MUSIC = {
     'bountiful_palace': PALACE_MUSIC,
     'noah': CITY_MUSIC,
     'ishmael': CITY_MUSIC,
+    'ishmael_palace': PALACE_MUSIC,
     'gideon': CITY_MUSIC,
     'gideon_palace': PALACE_MUSIC,
     'ammonihah': CITY_MUSIC,
@@ -1024,6 +1025,7 @@ HQ = [
     'zarahemla',
     'ammonihah',
     'gideon',
+    'ishmael',
 ]
 
 MAX_COMPANY_SIZE = 7

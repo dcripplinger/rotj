@@ -409,7 +409,8 @@ class Map(object):
     def get_random_encounter_enemies(self):
         x = int(self.hero.position[0]) / 50
         y = int(self.hero.position[1]) / 50
-        region = self.encounter_regions.get((x,y))
+        # The special (-1,-1) region means for the whole map, like in caves
+        region = self.encounter_regions.get((x,y)) or self.encounter_regions.get((-1,-1))
         if not region:
             return None
         possible_encounters = self.filter_out_allies(region['encounters'])

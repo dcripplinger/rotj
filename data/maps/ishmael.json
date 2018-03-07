@@ -5,7 +5,7 @@
     "teleport": {
       "map": "overworld",
       "x": 134,
-      "y": 267,
+      "y": 266,
       "direction": "s"
     }
   },
@@ -17,6 +17,56 @@
       "x": 134,
       "y": 267,
       "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 34,
+    "teleport": {
+      "map": "ishmael_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 19,
+    "y": 34,
+    "teleport": {
+      "map": "ishmael_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 26,
+    "teleport": {
+      "map": "ishmael_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 18,
+    "teleport": {
+      "map": "ishmael_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 18,
+    "teleport": {
+      "map": "ishmael_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
     }
   }
 ]

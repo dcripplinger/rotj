@@ -87,5 +87,13 @@
       "x": 63,
       "y": 25
     }
+  },
+  {
+    "x": 52,
+    "y": 55,
+    "treasure": {
+      "name": "sierra_pass_treasure",
+      "item": "hood"
+    }
   }
 ]
