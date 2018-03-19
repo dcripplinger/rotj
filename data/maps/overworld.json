@@ -286,7 +286,75 @@
       "x": 17,
       "y": 27,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle09",
+        "intro": "You want Lamoni's flocks back? Well too bad, they're mine now.",
+        "enemies": [
+          {
+            "name": "sebus",
+            "level": 11
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 121,

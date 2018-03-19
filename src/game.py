@@ -372,16 +372,11 @@ class Game(object):
             'food': min(self.game_state['food'] + food, MAX_NUM),
             'experience': min(self.game_state['experience'] + experience, EXP_REQUIRED_BY_LEVEL[90]),
         })
-        adjustments = 0
-        if 'talked_with_exp_guy' in self.game_state['conditions']:
-            adjustments += 1
-        if 'talked_with_exp_guy_again' in self.game_state['conditions']:
-            adjustments += 1
         levels_earned = []
         level_to_check = self.game_state['level'] + 1
         level_reached = True
         while level_reached:
-            exp_required = EXP_REQUIRED_BY_LEVEL.get(level_to_check - adjustments)
+            exp_required = EXP_REQUIRED_BY_LEVEL.get(level_to_check)
             if exp_required is not None and self.game_state['experience'] >= exp_required:
                 levels_earned.append(level_to_check)
                 level_to_check += 1
