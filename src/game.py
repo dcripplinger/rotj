@@ -834,6 +834,9 @@ class Game(object):
                         ):
                             self.narration.dialog.shutdown()
                             self.narration.dialog = None
+                elif self._screen_state == 'sleep':
+                    if (pressed[K_x] or pressed[K_z]) and not self.fade_out:
+                        pygame.mixer.music.stop()
 
     def run(self):
         self.running = True
