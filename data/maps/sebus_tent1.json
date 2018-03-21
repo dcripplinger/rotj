@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "sebus",
+      "x": 14,
+      "y": 23,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 17,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Good thing you and Ammon stopped those guys from scattering the sheep. Lamoni would've had my head."
+    }
+  }
+]

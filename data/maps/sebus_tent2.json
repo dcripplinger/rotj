@@ -1,0 +1,20 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "sebus",
+      "x": 24,
+      "y": 22,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "treasure": {
+      "name": "sebus_tent1_treasure",
+      "item": "hood"
+    }
+  }
+]

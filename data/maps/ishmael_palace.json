@@ -16,7 +16,16 @@
       "name": "lamoni",
       "direction": "s",
       "wander": false,
-      "dialog": "Welcome! I am Lamoni, king over the land Ishmael, and son of Mathoni, king over all the Lamanites. The Nephites have been friendly to us, and I support your cause of recruiting those of my people that wish to join you. However, before you pass through my land, I must ask that you handle the trouble makers north of here at the Waters of Sebus. They keep scattering my flocks."
+      "dialog": [
+        {
+          "text": "Thank you for securing my flocks at the Waters of Sebus. I, Lamoni, now grant you passage beyond my land. However, I fear you will not be met with such kindness by my brothers or my father Mathoni, king over all the Lamanites. Some of my people wish to go with you on your way back to Nephite territory. Good luck.",
+          "condition": "battle09",
+          "game_state_action": "talked_with_lamoni_after_sebus"
+        },
+        {
+          "text": "Welcome! I am Lamoni, king over the land Ishmael, and son of Mathoni, king over all the Lamanites. The Nephites have been friendly to us, and I support your cause of recruiting those of my people that wish to join you. However, before you pass through my land, I must ask that you handle the trouble makers north of here at the Waters of Sebus. They keep scattering my flocks."
+        }
+      ]
     }
   }
 ]

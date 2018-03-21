@@ -20,6 +20,26 @@
     }
   },
   {
+    "x": 14,
+    "y": 23,
+    "teleport": {
+      "map": "sebus_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 24,
+    "y": 22,
+    "teleport": {
+      "map": "sebus_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
     "x": 15,
     "y": 19,
     "ai_sprite": {
