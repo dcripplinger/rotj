@@ -1503,6 +1503,17 @@
         "amlicites",
         "amlicites",
         "amlicites"
+      ],
+      [
+        "lemuel",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shemloni",
+        "shemlonihah"
       ]
     ],
     "stats": {
@@ -1554,6 +1565,18 @@
       "isaac": {
         "level": 10,
         "capture": "battle08"
+      },
+      "lemuel": {
+        "level": 12,
+        "capture": "battle10"
+      },
+      "shemloni": {
+        "level": 12,
+        "capture": "battle10"
+      },
+      "shemlonihah": {
+        "level": 12,
+        "capture": "battle10"
       }
     }
   },
@@ -1967,6 +1990,17 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "lemuel",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shemloni",
+        "shemlonihah"
       ]
     ],
     "stats": {
@@ -1984,6 +2018,18 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 20
+      },
+      "lemuel": {
+        "level": 12,
+        "capture": "battle10"
+      },
+      "shemloni": {
+        "level": 12,
+        "capture": "battle10"
+      },
+      "shemlonihah": {
+        "level": 12,
+        "capture": "battle10"
       }
     }
   },

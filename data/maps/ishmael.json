@@ -2,22 +2,44 @@
   {
     "x": 15,
     "y": 38,
-    "teleport": {
-      "map": "overworld",
-      "x": 134,
-      "y": 267,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "talked_with_lamoni_after_sebus": true
+        },
+        "map": "overworld",
+        "x": 134,
+        "y": 267,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 134,
+        "y": 266,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 16,
     "y": 38,
-    "teleport": {
-      "map": "overworld",
-      "x": 134,
-      "y": 267,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "talked_with_lamoni_after_sebus": true
+        },
+        "map": "overworld",
+        "x": 134,
+        "y": 267,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 134,
+        "y": 266,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 12,
@@ -67,6 +89,36 @@
       "x": 17,
       "y": 33,
       "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard2",
+      "wander": false,
+      "direction": "w",
+      "dialog": "This is the city of Ishmael."
+    }
+  },
+  {
+    "x": 17,
+    "y": 27,
+    "ai_sprite": {
+      "name": "woman4",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Wow, it's strange to see a Nephite in our land."
+    }
+  },
+  {
+    "x": 15,
+    "y": 14,
+    "ai_sprite": {
+      "name": "merchant2",
+      "wander": true,
+      "direction": "s",
+      "dialog": "Several residents here hope to join you in your journey back to Nephite territory to escape the oppression of the king. I will be staying behind to work with Lamoni to continue working for better freedom here."
     }
   }
 ]

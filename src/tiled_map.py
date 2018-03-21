@@ -58,6 +58,7 @@ class Map(object):
         self.hero = None
         self.follower_one = None
         self.follower_two = None
+        self.peasants = []
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
         self.random_encounter = False
@@ -248,6 +249,22 @@ class Map(object):
             self.group.remove(self.follower_two)
         if self.hero:
             self.group.remove(self.hero)
+        if self.peasants:
+            for peasant in self.peasants:
+                self.group.remove(peasant)
+        peasants = 0
+        if self.game.conditions_are_met('battle08') and not self.game.conditions_are_met('entered_jershon'):
+            # tack on a lamanite follower peasant for each conquered place in chapter 3
+            if self.game.conditions_are_met('talked_with_lamoni_after_sebus'):
+                peasants += 1
+            if self.game.conditions_are_met('battle10'):
+                peasants += 1
+            if self.game.conditions_are_met('battle13'):
+                peasants += 1
+            if self.game.conditions_are_met('battle14'):
+                peasants += 1
+            if self.game.conditions_are_met('battle17'):
+                peasants += 1
         company_sprites = self.get_company_sprite_names()
         if followers == 'inplace':
             follower_one_pos = (
@@ -270,9 +287,18 @@ class Map(object):
             follower_two_pos = self.get_pos_behind(follower_one_pos, direction) if followers == 'trail' else hero_position[:]
             follower_one_dir = direction
             follower_two_dir = direction
+        while peasants > 0:
+            peasant_sprite = Sprite(
+                self.tmx_data, self.game, 'villager3', hero_position[:], direction=direction,
+                follower=self.peasants[0] if self.peasants else None, tiled_map=self,
+            )
+            self.peasants.insert(0, peasant_sprite)
+            self.group.add(peasant_sprite)
+            peasants -= 1
         if len(company_sprites) == 3:
             self.follower_two = Sprite(
-                self.tmx_data, self.game, company_sprites[2], follower_two_pos, direction=follower_two_dir, tiled_map=self,
+                self.tmx_data, self.game, company_sprites[2], follower_two_pos, direction=follower_two_dir,
+                tiled_map=self, follower=self.peasants[0] if self.peasants else None,
             )
             self.group.add(self.follower_two)
         else:
@@ -280,14 +306,14 @@ class Map(object):
         if len(company_sprites) >= 2:
             self.follower_one = Sprite(
                 self.tmx_data, self.game, company_sprites[1], follower_one_pos, direction=follower_one_dir,
-                follower=self.follower_two, tiled_map=self,
+                follower=self.follower_two or (self.peasants[0] if self.peasants else None), tiled_map=self,
             )
             self.group.add(self.follower_one)
         else:
             self.follower_one = None
         self.hero = Hero(
             self.tmx_data, self.game, company_sprites[0], hero_position[:], cells=self.cells, direction=direction,
-            follower=self.follower_one, tiled_map=self,
+            follower=self.follower_one or (self.peasants[0] if self.peasants else None), tiled_map=self,
         )
         self.group.add(self.hero)
 
