@@ -1,0 +1,52 @@
+[
+  {
+    "x": 12,
+    "y": 23,
+    "teleport": {
+      "map": "overworld",
+      "x": 146,
+      "y": 249,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 23,
+    "teleport": {
+      "map": "overworld",
+      "x": 146,
+      "y": 249,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 22,
+    "y": 7,
+    "teleport": {
+      "map": "overworld",
+      "x": 146,
+      "y": 249,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 23,
+    "y": 7,
+    "teleport": {
+      "map": "overworld",
+      "x": 146,
+      "y": 249,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 19,
+    "teleport": {
+      "map": "lemuel_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  }
+]
