@@ -48,5 +48,25 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 26,
+    "y": 11,
+    "teleport": {
+      "map": "lemuel_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 19,
+    "teleport": {
+      "map": "lemuel_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]
