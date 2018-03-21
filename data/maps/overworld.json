@@ -357,6 +357,57 @@
     ]
   },
   {
+    "x": 146,
+    "y": 249,
+    "battles": [
+      {
+        "name": "battle10",
+        "intro": "The Nephites are not welcome in our land.",
+        "enemies": [
+          {
+            "name": "lemuel",
+            "level": 12
+          },
+          {
+            "name": "shemloni",
+            "level": 12
+          },
+          {
+            "name": "shemlonihah",
+            "level": 12
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 180,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 150,
+              "strength": 52,
+              "defense": 18,
+              "intelligence": 30,
+              "agility": 51,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 20
+            }
+          }
+        ]
+      }]
+  },
+  {
     "x": 121,
     "y": 166,
     "battles": [
