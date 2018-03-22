@@ -415,9 +415,9 @@ class Map(object):
                 )
                 return
         moved = self.hero.move(direction)
-        if moved and self.try_getting_random_encounter():
-            self.random_encounter = True
         if moved and self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
+            if self.try_getting_random_encounter():
+                self.random_encounter = True
             self.steps_for_tactical_points += 1
             if self.steps_for_tactical_points >= 10:
                 self.steps_for_tactical_points -= 10
@@ -427,9 +427,8 @@ class Map(object):
                 self.no_food_delta = 0.0
 
     def try_getting_random_encounter(self):
-        if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:
-            return False
-        (x,y) = self.hero.position
+        # This function assumes that outside of it has already checked that self.name in MAPS_WITH_RANDOM_ENCOUNTERS.
+        (x,y) = self.get_pos_in_front(self.hero.position, self.hero.direction)
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
         encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
         return random.random() < encounter_chance
