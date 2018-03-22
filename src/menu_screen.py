@@ -210,6 +210,7 @@ class MenuScreen(object):
             self.load_speed_menu()
             self.speed_menu.focus()
             self.start_menu.unfocus()
+            self.start_prompt.shutdown()
         elif pressed[K_z]:
             self.screen_state = 'main'
             self.load_main_menu()
@@ -225,6 +226,7 @@ class MenuScreen(object):
             self.load_paste_menu()
             self.paste_menu.focus()
             self.copy_menu.unfocus()
+            self.copy_prompt.shutdown()
         elif pressed[K_z]:
             self.screen_state = 'main'
             self.load_main_menu()
@@ -271,6 +273,7 @@ class MenuScreen(object):
             self.screen_state = 'start'
             self.start_menu.focus()
             self.speed_menu = None
+            self.start_prompt.shutdown()
 
     def handle_input_register(self, pressed):
         self.register_menu.handle_input(pressed)
@@ -292,6 +295,7 @@ class MenuScreen(object):
         self.erase_menu.handle_input(pressed)
         if pressed[K_x]:
             self.screen_state = 'confirm_erase'
+            self.erase_prompt.shutdown()
             self.load_confirm_erase_menu()
             self.confirm_erase_menu.focus()
             self.erase_menu.unfocus()
@@ -320,6 +324,7 @@ class MenuScreen(object):
             self.load_erase_menu()
             self.confirm_erase_menu = None
             self.erase_menu.focus()
+            self.erase_prompt.shutdown()
 
     def handle_input_name(self, pressed):
         self.name_menu.handle_input(pressed)
