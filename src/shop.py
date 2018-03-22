@@ -5,7 +5,7 @@ import math
 import pygame
 from pygame.locals import *
 
-from constants import GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM
+from constants import EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM
 from helpers import get_max_soldiers
 from report import Report
 from text import create_prompt, MenuBox, ShopMenu, TextBox
@@ -186,7 +186,19 @@ class RecordOffice(Shop):
             self.dialog = create_prompt("Yes my lord.")
             self.next = 'exit'
         elif choice == 'RECORD':
-            self.dialog = create_prompt("Shall I record the result of today's battles?")
+            current_level = self.game.game_state['level']
+            if current_level >= 90:
+                prompt_text = (
+                    "You have reached the highest level of experience. Shall I record the result of today's battles?"
+                )
+            else:
+                total_exp_required = EXP_REQUIRED_BY_LEVEL.get(current_level + 1)
+                net_exp_required = total_exp_required - self.game.game_state['experience']
+                prompt_text = (
+                    'You need {} experience points to advance to the next level. '
+                    'Shall I record your current status?'
+                ).format(net_exp_required)
+            self.dialog = create_prompt(prompt_text)
             self.next = 'confirm'
         elif choice == 'SET~HQ':
             msg = self.game.try_set_hq()
