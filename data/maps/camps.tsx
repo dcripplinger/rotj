@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="camps" tilewidth="16" tileheight="16" tilecount="25" columns="5">
- <image source="../images/basic_16x16_tiles/camps/tileset_camps.png" width="80" height="80"/>
+<tileset name="camps" tilewidth="16" tileheight="16" tilecount="30" columns="5">
+ <image source="../images/basic_16x16_tiles/camps/tileset_camps.png" width="80" height="96"/>
  <tile id="0">
   <properties>
    <property name="wall" value="true"/>

@@ -553,5 +553,15 @@
       "direction": "e",
       "dialog": "Now that Amlici is defeated, I must return to the judgment seat in Zarahemla. Please see me there when you get a chance."
     }
+  },
+  {
+    "x": 162,
+    "y": 268,
+    "teleport": {
+      "map": "middoni",
+      "x": 22,
+      "y": 28,
+      "direction": "n"
+    }
   }
 ]

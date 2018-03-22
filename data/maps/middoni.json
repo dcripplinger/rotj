@@ -1,0 +1,63 @@
+[
+  {
+    "x": 22,
+    "y": 29,
+    "teleport": {
+      "map": "overworld",
+      "x": 162,
+      "y": 268,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 23,
+    "y": 29,
+    "teleport": {
+      "map": "overworld",
+      "x": 162,
+      "y": 268,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 12,
+    "ai_sprite": {
+      "conditions": {
+        "muloki_let_go": false
+      },
+      "name": "camp_gate",
+      "wander": false,
+      "direction": "s",
+      "dialog": "I came with Ammon, Himni, and others to preach to the Lamanites. But they imprisoned me! Perhaps you can persuade them to let me go?"
+    }
+  },
+  {
+    "x": 16,
+    "y": 11,
+    "ai_sprite": {
+      "conditions": {
+        "muloki_joins": false
+      },
+      "name": "muloki",
+      "wander": false,
+      "direction": "s",
+      "dialog": [
+        {
+          "text": "Thank you so much for freeing me! I would be happy to fight alongside you.",
+          "prompt": [
+            {
+              "choice": "Yes",
+              "game_state_action": "muloki_joins",
+              "next_dialog": "I will serve you faithfully."
+            },
+            {
+              "choice": "No",
+              "next_dialog": "Oh, really? Hmm. I was fully expecting you to say yes. Uh...I didn't think this far ahead. I guess I don't know what to do now. Well, I kind of got used to this prison. It's suprisingly comfortable. I suppose I'll just relax here. Let me know if you change your mind."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
