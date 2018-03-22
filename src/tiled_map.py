@@ -9,7 +9,8 @@ import pyscroll
 from pytmx.util_pygame import load_pygame
 
 from constants import (
-    DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, MAX_NUM, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS, REUSABLE_MAP_NAMES,
+    DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, MAX_NUM, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS,
+    REUSABLE_MAP_NAMES, RED, GAME_WIDTH, GAME_HEIGHT,
 )
 from helpers import (
     get_enemy_stats,
@@ -28,9 +29,13 @@ from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 from treasure import Treasure
 
+MAX_NO_FOOD_DELTA = 0.07
+
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
+        self.no_food_left = False
+        self.no_food_delta = 0.0
         self.battle_after_dialog = None
         self.steps_for_tactical_points = 0
         self.company_report = None
@@ -334,6 +339,11 @@ class Map(object):
     def draw(self):
         self.group.center(self.hero.rect.center)
         self.group.draw(self.screen)
+        if self.no_food_left:
+            faded_red_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+            # faded_red_box.set_alpha(0.5)
+            faded_red_box.fill(RED)
+            self.screen.blit(faded_red_box, (0,0))
         if self.map_menu:
             self.map_menu.draw()
         if self.opening_dialog:
@@ -357,6 +367,11 @@ class Map(object):
             else:
                 battle_type = 'regular'
             self.game.start_battle(enemies, battle_type, self.is_near_water())
+        if self.no_food_left:
+            self.no_food_delta += dt
+            if self.no_food_delta > MAX_NO_FOOD_DELTA:
+                self.no_food_delta = 0.0
+                self.no_food_left = False
 
     def is_near_water(self):
         x = int(self.hero.position[0])
@@ -407,6 +422,9 @@ class Map(object):
             if self.steps_for_tactical_points >= 10:
                 self.steps_for_tactical_points -= 10
                 self.game.increment_tactical_points()
+            self.no_food_left = self.game.decrement_food()
+            if self.no_food_left:
+                self.no_food_delta = 0.0
 
     def try_getting_random_encounter(self):
         if self.name not in MAPS_WITH_RANDOM_ENCOUNTERS:

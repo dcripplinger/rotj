@@ -38,7 +38,7 @@ class Game(object):
         self.real_screen = screen
         self.virtual_width = GAME_WIDTH
         self.virtual_height = GAME_HEIGHT
-        self.virtual_screen = pygame.Surface((self.virtual_width, self.virtual_height))
+        self.virtual_screen = pygame.Surface((self.virtual_width, self.virtual_height)).convert_alpha()
         self.clock = pygame.time.Clock()
         self.fps = 1000
         self.current_map = None
@@ -124,6 +124,25 @@ class Game(object):
 
     def get_music(self, map_name):
         return MAP_MUSIC.get(map_name, SHOP_MUSIC)
+
+    def decrement_food(self):
+        food = copy.deepcopy(self.game_state['food'])
+        soldiers = sum(warlord['soldiers'] for warlord in self.game_state['company'])
+        eaten = int(math.ceil(soldiers/1000.0))
+        new_food = max(0, food - eaten)
+        self.update_game_state({'food': new_food})
+        if new_food == 0:
+            self.starve_the_soldiers()
+            return True # indicate that we ran out of food
+        else:
+            return False # indicate that we didn't run out of food
+
+    def starve_the_soldiers(self):
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'])
+            warlord['soldiers'] = max(1, warlord['soldiers'] - int(round(0.01*max_soldiers)))
+        self.update_game_state({'company': company})
 
     def delete_member(self, warlord_index):
         company = copy.deepcopy(self.game_state['company'])

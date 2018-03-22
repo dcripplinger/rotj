@@ -6,6 +6,7 @@ from pygame.locals import *
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 COPPER = (164, 82, 41)
+RED = (128, 0, 0)
 
 # sizes
 TILE_SIZE = 16 # pixels
