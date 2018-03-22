@@ -175,8 +175,8 @@ class Battle(object):
         self.tactic_sound = pygame.mixer.Sound('data/audio/tactic.wav')
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
-        self.exit_dialog = create_prompt(exit) if exit else None
-        self.narration = create_prompt(narration) if narration else None
+        self.exit_dialog = create_prompt(exit, silent=True) if exit else None
+        self.narration = create_prompt(narration, silent=True) if narration else None
         self.captured_enemies = []
 
     def set_start_dialog(self):
@@ -293,7 +293,7 @@ class Battle(object):
 
     def update_lose(self, dt):
         if self.lose_state == 'start':
-            self.right_dialog = create_prompt('Your army has been overcome by the enemy. Game over.')
+            self.right_dialog = create_prompt('Your army has been overcome by the enemy. Game over.', silent=True)
             pygame.mixer.music.load('data/audio/music/game_over.wav')
             pygame.mixer.music.play()
             self.lose_state = 'main'
@@ -423,7 +423,7 @@ class Battle(object):
         if not prompt_text:
             return None
         else:
-            return create_prompt(prompt_text)
+            return create_prompt(prompt_text, silent=True)
 
     def get_mini_moves(self, move, results):
         mini_moves = []
@@ -481,22 +481,22 @@ class Battle(object):
             dialog = "{}'s attack. ".format(mini_move['agent'].name.title())
             if mini_result.get('evade'):
                 dialog += "{} evaded the attack.".format(mini_move['target'].name.title())
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             if mini_result.get('repel'):
                 if is_ally_move:
                     dialog += "The enemy is repelling all attacks."
                 else:
                     dialog += "{}'s army is repelling all attacks.".format(self.get_leader().name.title())
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             if mini_result.get('excellent'):
                 if is_ally_move:
                     dialog += "{} did heavy damage. ".format(mini_move['agent'].name.title())
                 else:
                     dialog += "{} took heavy damage. ".format(mini_move['target'].name.title())
             dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
-            return create_prompt(dialog)
+            return create_prompt(dialog, silent=True)
         elif mini_move['action'] == self.execute_move_defend:
-            return create_prompt("{} is defending.".format(mini_move['agent'].name.title()))
+            return create_prompt("{} is defending.".format(mini_move['agent'].name.title()), silent=True)
         elif mini_move['action'] == self.execute_move_tactic:
             if mini_result.get('first'):
                 dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['tactic'].title())
@@ -507,41 +507,41 @@ class Battle(object):
                     dialog += "The enemy is deflecting all tactics."
                 else:
                     dialog += "{}'s army is deflecting all tactics.".format(self.get_leader().name.title())
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_result.get('wasted'):
                 dialog += "They feel so dumb for wasting their move on a dead guy."
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_result.get('fail'):
                 dialog += "Failed."
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif 'damage' in mini_result:
                 dialog += self.get_damage_dialog(mini_move, mini_result, is_ally_move)
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif 'healing' in mini_result:
                 dialog += self.get_healing_dialog(mini_move, mini_result)
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_move['tactic'] == 'firewall':
                 dialog += "Fire damage is reduced by half."
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_move['tactic'] == 'extinguish':
                 dialog += 'Fire damage is reduced to one.'
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_move['tactic'] == 'provoke':
                 dialog += "{} is mindlessly targeting {}.".format(
                     mini_move['target'].name.title(), mini_move['agent'].name.title(),
                 )
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif mini_move['tactic'] == 'ninja':
                 dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
             if mini_result.get('wasted'):
                 dialog += "They feel so dumb for wasting their move on a dead guy."
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
             elif 'healing' in mini_result:
                 dialog += self.get_healing_dialog(mini_move, mini_result)
-                return create_prompt(dialog)
+                return create_prompt(dialog, silent=True)
 
     def pop_and_handle_mini_move(self):
         if len(self.mini_moves) > 0:
