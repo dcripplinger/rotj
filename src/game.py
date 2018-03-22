@@ -817,14 +817,6 @@ class Game(object):
                 return
             if event.type == KEYDOWN:
                 pressed = pygame.key.get_pressed()
-                if pressed[K_ESCAPE]:
-                    self.running = False
-                    pygame.quit()
-                    print(" ")
-                    time.sleep(0.5)
-                    print("Shutdown... Complete")
-                    sys.exit()
-                    return
                 if self._screen_state == "game":
                     self.current_map.handle_input(pressed)
                 elif self._screen_state == 'title':
