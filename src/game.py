@@ -3,6 +3,7 @@
 import copy
 import math
 import subprocess
+import random
 import sys
 import time
 
@@ -33,6 +34,7 @@ from title_page import TitlePage
 
 class Game(object):
     def __init__(self, screen):
+        self.retreat_counter = 0
         self.battle_intro = None
         self.narration = None
         self.real_screen = screen
@@ -551,6 +553,7 @@ class Game(object):
         self.continue_current_music = continue_current_music
         self.fade_alpha = 0
         self.set_screen_state('change_map')
+        self.retreat_counter = 0
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)
@@ -808,6 +811,24 @@ class Game(object):
         elif self.battle:
             self.battle.draw()
         self.virtual_screen.blit(fade_box, (0,0))
+
+    def try_retreat(self, agility_score, is_warlord_battle, is_story_battle):
+        prev_retreat_multiplier = 0.8
+        multiplier = 1.0
+        if self.retreat_counter > 0:
+            multiplier *= prev_retreat_multiplier
+        if self.retreat_counter > 1:
+            multiplier *= prev_retreat_multiplier
+        if self.retreat_counter > 2:
+            multiplier *= prev_retreat_multiplier
+        if is_warlord_battle:
+            multiplier *= 0.8
+        elif is_story_battle:
+            multiplier *= 0.2
+        success = random.random() < max(0.15, agility_score*multiplier)
+        if success:
+            self.retreat_counter += 1
+        return success
 
     def handle_input(self):
         for event in pygame.event.get():

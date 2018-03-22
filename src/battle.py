@@ -83,6 +83,7 @@ class Battle(object):
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
         battle_name=None, narration=None,
     ):
+        self.mini_moves = []
         self.confirm_box = None
         self.battle_name = battle_name
         self.debug = False
@@ -140,7 +141,7 @@ class Battle(object):
             }, self))
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
-            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, dialog, win, lose, execute, risk_it,
+            # tactic_ally, tactic_enemy, item, item_ally, item_enemy, win, lose, execute, risk_it,
             # cancel_all_out, error
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
@@ -1694,10 +1695,25 @@ class Battle(object):
         return None
 
     def handle_retreat(self):
-        self.state = 'retreat'
+        self.menu = None
         self.warlord.move_back()
-        self.right_dialog = create_prompt("{}'s army retreated.".format(self.get_leader().name.title()))
-        self.warlord = None
+        prompt_text = "{}'s army retreated. ".format(self.get_leader().name.title())
+        ally_agility = sum(ally.agility for ally in self.allies if ally.soldiers > 0)/255.0/5.0
+        enemy_agility = sum(enemy.agility for enemy in self.enemies if enemy.soldiers > 0)/255.0/5.0
+        agility_score = (1 + ally_agility - enemy_agility) / 2.0
+        is_warlord_battle = self.battle_type=='warlord'
+        is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
+        successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
+        if successful:
+            self.state = 'retreat'
+            self.warlord = None
+        else:
+            prompt_text += "But they were overtaken."
+            self.generate_enemy_moves()
+            self.ordered_moves = self.get_moves_in_order_of_agility()
+            self.state = 'execute'
+            self.execute_state = 'dialog'
+        self.right_dialog = create_prompt(prompt_text)
 
     def create_menu(self):
         first_column = ['BATTLE', 'TACTIC', 'DEFEND', 'ITEM']
