@@ -656,6 +656,7 @@ PALACE_MUSIC = {
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
+    'lemuel': CITY_MUSIC,
     'bountiful': CITY_MUSIC,
     'bountiful_palace': PALACE_MUSIC,
     'noah': CITY_MUSIC,
@@ -692,6 +693,9 @@ MAP_MUSIC = {
     'minon_tent2': CAMP_MUSIC,
     'minon_tent3': CAMP_MUSIC,
     'sebus': CAMP_MUSIC,
+    'sebus_tent1': CAMP_MUSIC,
+    'sebus_tent2': CAMP_MUSIC,
+    'middoni': CAMP_MUSIC,
 }
 
 BATTLE_MUSIC = {
