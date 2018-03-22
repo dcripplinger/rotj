@@ -24,7 +24,7 @@ from helpers import (
     unpretty,
 )
 from report import Report
-from text import create_prompt, MenuBox, MenuGrid
+from text import create_prompt, MenuBox, MenuGrid, TextBox
 
 COLORS = [
     {
@@ -83,6 +83,7 @@ class Battle(object):
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
         battle_name=None, narration=None,
     ):
+        self.spoils_box = None
         self.mini_moves = []
         self.confirm_box = None
         self.battle_name = battle_name
@@ -263,6 +264,8 @@ class Battle(object):
             pygame.mixer.music.play()
             self.win_state = 'main'
         elif self.win_state == 'main':
+            if not self.spoils_box:
+                self.create_spoils_box()
             self.right_dialog.update(dt)
             if is_quarter_second():
                 for ally in self.get_live_allies():
@@ -1724,6 +1727,15 @@ class Battle(object):
         self.menu = MenuGrid(choices, border=True)
         self.menu.focus()
 
+    def create_spoils_box(self):
+        spoils_text = "~MONEY\n"
+        spoils_text += "~{:~>8}~\n".format(self.game.game_state['money'])
+        spoils_text += "~FOOD\n"
+        spoils_text += "~{:~>8}~\n".format(self.game.game_state['food'])
+        spoils_text += "~EXP\n"
+        spoils_text += "~{:~>8}~".format(self.game.game_state['experience'])
+        self.spoils_box = TextBox(spoils_text, border=True)
+
     def get_leader(self):
         for ally in self.allies:
             if ally.soldiers > 0:
@@ -1764,6 +1776,8 @@ class Battle(object):
             self.screen.blit(self.narration.surface, (0, 128 + top_margin))
         if self.confirm_box:
             self.screen.blit(self.confirm_box.surface, (GAME_WIDTH-self.right_dialog.width, 80+top_margin))
+        if self.spoils_box:
+            self.screen.blit(self.spoils_box.surface, (GAME_WIDTH-96, 0))
 
     def get_portrait_position(self):
         return ((16 if self.is_ally_turn() else GAME_WIDTH-64), 160)
