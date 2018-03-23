@@ -1143,6 +1143,8 @@ class Battle(object):
                         self.right_dialog = create_prompt("I'm no traitor! I serve only my master!")
                         self.win_state = 'bargain'
                         self.captured_enemies.pop(0)
+                        self.confirm_box = None
+                        self.bargain = None
                     else:
                         self.right_dialog = create_prompt(
                             'I might be convinced to offer my services for {} senines.'.format(self.bargain),
