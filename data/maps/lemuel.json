@@ -68,5 +68,45 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 12,
+    "y": 13,
+    "teleport": {
+      "map": "lemuel_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 21,
+    "ai_sprite": {
+      "name": "guard2",
+      "wander": false,
+      "direction": "s",
+      "dialog": "This is the city Lemuel."
+    }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "ai_sprite": {
+      "name": "woman5",
+      "wander": true,
+      "direction": "e",
+      "dialog": "Thank you for liberating those of us who wish to join the Nephites. You will find more of our group to the southeast at Shimnilon and Middoni."
+    }
+  },
+  {
+    "x": 33,
+    "y": 14,
+    "ai_sprite": {
+      "name": "old_man2",
+      "wander": true,
+      "direction": "n",
+      "dialog": "Death to the Nephites!"
+    }
   }
 ]

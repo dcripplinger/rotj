@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "lemuel",
+      "x": 12,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 19,
+    "y": 13,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": false,
+      "direction": "w",
+      "dialog": "Different strategists have different max tactical points, and only some will increase their points when leveling up. If you want the most tactical points for your party in battle, choose the appropriate strategist as your acting tactician."
+    }
+  }
+]

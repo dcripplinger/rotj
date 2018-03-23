@@ -563,5 +563,129 @@
       "y": 28,
       "direction": "n"
     }
+  },
+  {
+    "x": 152,
+    "y": 263,
+    "battles": [
+      {
+        "name": "battle11",
+        "intro": "To the battlefield!",
+        "enemies": [
+          {
+            "name": "onti",
+            "level": 13
+          },
+          {
+            "name": "manasseh",
+            "level": 13
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 150,
+    "y": 268,
+    "battles": [
+      {
+        "name": "battle12",
+        "intro": "Let us see what Moroni's army is really made of.",
+        "enemies": [
+          {
+            "name": "cumorah",
+            "level": 13
+          },
+          {
+            "name": "gadiandi",
+            "level": 13
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

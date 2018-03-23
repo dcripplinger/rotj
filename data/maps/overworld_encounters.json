@@ -2065,6 +2065,26 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "onti",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "manasseh",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "cumorah",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "gadiandi",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
@@ -2081,6 +2101,22 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 25
+      },
+      "onti": {
+        "level": 13,
+        "capture": "battle11"
+      },
+      "manasseh": {
+        "level": 13,
+        "capture": "battle11"
+      },
+      "cumorah": {
+        "level": 13,
+        "capture": "battle12"
+      },
+      "gadiandi": {
+        "level": 13,
+        "capture": "battle12"
       }
     }
   },
