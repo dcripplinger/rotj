@@ -462,7 +462,7 @@ class Map(object):
         for name in enemy_names:
             if 'level' in region['stats'][name]:
                 stats = get_enemy_stats(name, region['stats'][name]['level'])
-                stats['capture'] = stats.get('capture')
+                stats['capture'] = region['stats'][name].get('capture')
             else:
                 stats = region['stats'][name]
             enemies.append({'name': name, 'stats': stats})
