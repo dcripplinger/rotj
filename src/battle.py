@@ -1326,9 +1326,14 @@ class Battle(object):
             self.state = 'error'
 
     def handle_item(self):
-        self.state = 'item'
-        self.menu = self.warlord.get_item_menu()
-        self.menu.focus()
+        if len(self.warlord.items) > 0:
+            self.state = 'item'
+            self.menu = self.warlord.get_item_menu()
+            self.menu.focus()
+        else:
+            self.state = 'error'
+            self.menu.unfocus()
+            self.right_dialog = create_prompt("{} doesn't have any items.".format(self.warlord.name.title()))
 
     def handle_defend(self):
         self.state = 'defend'
