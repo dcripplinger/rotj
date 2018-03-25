@@ -687,5 +687,47 @@
         ]
       }
     ]
+  },
+  {
+    "x": 150,
+    "y": 271,
+    "battles": [
+      {
+        "name": "battle13",
+        "intro": "You cannot steal away the sympathizers. We will root them out and punish them severely for dishonoring their king!",
+        "enemies": [
+          {
+            "name": "antiomno",
+            "level": 14
+          },
+          {
+            "name": "shimnor",
+            "level": 13
+          },
+          {
+            "name": "mocum",
+            "level": 13
+          },
+          {
+            "name": "mocumr",
+            "level": 13
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

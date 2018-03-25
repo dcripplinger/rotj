@@ -2067,6 +2067,13 @@
         "lamanites"
       ],
       [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
         "onti",
         "lamanites",
         "lamanites"
@@ -2083,6 +2090,25 @@
       ],
       [
         "gadiandi",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "antiomno",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shimnor",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mocum",
+        "mocumr",
+        "lamanites",
         "lamanites",
         "lamanites"
       ]
@@ -2117,6 +2143,22 @@
       "gadiandi": {
         "level": 13,
         "capture": "battle12"
+      },
+      "antiomno": {
+        "level": 14,
+        "capture": "battle13"
+      },
+      "shimnor": {
+        "level": 13,
+        "capture": "battle13"
+      },
+      "mocum": {
+        "level": 13,
+        "capture": "battle13"
+      },
+      "mocumr": {
+        "level": 13,
+        "capture": "battle13"
       }
     }
   },
