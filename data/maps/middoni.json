@@ -89,5 +89,25 @@
         }
       ]
     }
+  },
+  {
+    "x": 23,
+    "y": 26,
+    "ai_sprite": {
+      "name": "lamanites",
+      "wander": false,
+      "direction": "s",
+      "dialog": "This is the city of Middoni. We're still developing, but before you know it we'll be as big as the city of Nephi."
+    }
+  },
+  {
+    "x": 15,
+    "y": 17,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Southeast of here is one of the Lamanite capitals, Nephi. It is the last city with Nephite sympathizers, but the Lamanite King has been preparing to meet you. Be cautious."
+    }
   }
 ]

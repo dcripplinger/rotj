@@ -2208,6 +2208,13 @@
         "zoramites",
         "zoramites",
         "zoramites"
+      ],
+      [
+        "heshlon",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
@@ -2238,6 +2245,10 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 25
+      },
+      "heshlon": {
+        "level": 15,
+        "capture": "battle15"
       }
     }
   },

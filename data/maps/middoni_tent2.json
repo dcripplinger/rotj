@@ -8,5 +8,15 @@
       "y": 18,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 14,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "wander": true,
+      "direction": "e",
+      "dialog": "You can't just go walking into people's houses! Get out!"
+    }
   }
 ]
