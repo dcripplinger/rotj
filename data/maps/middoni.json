@@ -20,6 +20,36 @@
     }
   },
   {
+    "x": 13,
+    "y": 22,
+    "teleport": {
+      "map": "middoni_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 18,
+    "teleport": {
+      "map": "middoni_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 13,
+    "teleport": {
+      "map": "middoni_tent3",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
     "x": 16,
     "y": 12,
     "ai_sprite": {

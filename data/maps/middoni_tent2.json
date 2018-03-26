@@ -1,0 +1,12 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "middoni",
+      "x": 21,
+      "y": 18,
+      "direction": "s"
+    }
+  }
+]

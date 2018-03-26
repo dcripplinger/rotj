@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "middoni",
+      "x": 25,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 15,
+    "ai_sprite": {
+      "name": "orihah",
+      "wander": false,
+      "direction": "s",
+      "dialog": "You may have beat me, but nothing will persuade me to release the Nephite prisoner! Well, maybe my fellow king Lamoni, if he were to talk to me."
+    }
+  }
+]

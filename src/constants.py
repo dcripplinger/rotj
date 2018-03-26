@@ -697,6 +697,9 @@ MAP_MUSIC = {
     'sebus_tent1': CAMP_MUSIC,
     'sebus_tent2': CAMP_MUSIC,
     'middoni': CAMP_MUSIC,
+    'middoni_tent1': CAMP_MUSIC,
+    'middoni_tent2': CAMP_MUSIC,
+    'middoni_tent3': CAMP_MUSIC,
 }
 
 BATTLE_MUSIC = {
