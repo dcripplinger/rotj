@@ -691,6 +691,12 @@
   {
     "x": 150,
     "y": 271,
+    "teleport": {
+      "map": "shimnilon",
+      "x": 14,
+      "y": 10,
+      "direction": "s"
+    },
     "battles": [
       {
         "name": "battle13",

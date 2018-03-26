@@ -1,0 +1,112 @@
+[
+  {
+    "x": 14,
+    "y": 9,
+    "teleport": {
+      "map": "overworld",
+      "x": 150,
+      "y": 271,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 15,
+    "y": 9,
+    "teleport": {
+      "map": "overworld",
+      "x": 150,
+      "y": 271,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 20,
+    "y": 16,
+    "teleport": {
+      "map": "shimnilon_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 16,
+    "teleport": {
+      "map": "shimnilon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 29,
+    "y": 22,
+    "teleport": {
+      "map": "shimnilon_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 28,
+    "teleport": {
+      "map": "shimnilon_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 39,
+    "teleport": {
+      "map": "shimnilon_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 15,
+    "ai_sprite": {
+      "name": "aminadi",
+      "wander": true,
+      "direction": "n",
+      "dialog": "This is the city Shimnilon."
+    }
+  },
+  {
+    "x": 37,
+    "y": 12,
+    "ai_sprite": {
+      "name": "woman6",
+      "wander": true,
+      "direction": "w",
+      "dialog": "If you're looking for Middoni, it's to the east of here, around the mountain ridge. There are Nephite sympathizers there as well."
+    }
+  },
+  {
+    "x": 28,
+    "y": 25,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "wander": true,
+      "direction": "s",
+      "dialog": "Never trust a Nephite, I say. They're all liars and robbers and have been from the beginning."
+    }
+  },
+  {
+    "x": 37,
+    "y": 40,
+    "ai_sprite": {
+      "name": "woman4",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Provoke, Disable, and Confuse are great tactics to avoid control otherwise dangerous warlords. But the higher their intelligence, the more difficult it is to get your tactic to take effect. Firewall and Extinguish, on the other hand, are 100 percent successful, if you need protection from fire tactics."
+    }
+  }
+]

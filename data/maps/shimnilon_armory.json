@@ -1,0 +1,32 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "shimnilon",
+      "x": 28,
+      "y": 39,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 11,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "w",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 11,
+    "y": 14,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "s",
+      "wander": true,
+      "dialog": "We don't serve your kind here! Get out!"
+    }
+  }
+]

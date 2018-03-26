@@ -1,0 +1,20 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "shimnilon",
+      "x": 35,
+      "y": 16,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "treasure": {
+      "name": "shimnilon_home_treasure",
+      "money": 2949
+    }
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "shimnilon",
+      "x": 35,
+      "y": 28,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~a",
+        "resurrect",
+        "cloak"
+      ]
+    }
+  }
+]
