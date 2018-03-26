@@ -2111,6 +2111,10 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "senum",
+        "leomni"
       ]
     ],
     "stats": {
@@ -2159,6 +2163,14 @@
       "mocumr": {
         "level": 13,
         "capture": "battle13"
+      },
+      "senum": {
+        "level": 14,
+        "capture": "battle14"
+      },
+      "leomni": {
+        "level": 14,
+        "capture": "battle14"
       }
     }
   },

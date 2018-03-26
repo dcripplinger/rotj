@@ -562,7 +562,55 @@
       "x": 22,
       "y": 28,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle14",
+        "intro": "You will not find the land of Middoni so easy to pass through.",
+        "enemies": [
+          {
+            "name": "orihah",
+            "level": 16
+          },
+          {
+            "name": "senum",
+            "level": 14
+          },
+          {
+            "name": "leomni",
+            "level": 14
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 152,
