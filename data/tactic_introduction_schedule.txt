@@ -17,7 +17,7 @@ Level   Tactic      INT Required    Number of Tactics Introduced
 12      disable     160             10
 13      double tap  220             11
 14      -                           11
-15      remedy      160             12
+15      cure        160             12
 16      lava        130             13
 17      hailstorm   130             14
 18      rejuvenate  180             15

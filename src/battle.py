@@ -774,7 +774,7 @@ class Battle(object):
             return move, {'evade': True}
         excellent = random.random() < 1.0/16
         inflicted_damage = int( move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1 )
-        if move['agent'].boosts.get('double_tap'):
+        if move['agent'].good_statuses.get('double_tap') and random.random() < 0.5:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
         else:
             double_tap = None
@@ -878,6 +878,8 @@ class Battle(object):
         elif move['tactic'] == 'ninja':
             move['target'].good_statuses['ninja'] = True
             return move, {}
+        elif move['tactic'] == 'double~tap':
+            move['target'].good_statuses['double_tap'] = True
 
     def execute_tactic_type_enemy(self, move, good_target_team_statuses):
         info = TACTICS[move['tactic']]
