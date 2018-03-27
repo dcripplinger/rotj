@@ -176,9 +176,13 @@ class Battle(object):
         self.tactic_sound = pygame.mixer.Sound('data/audio/tactic.wav')
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
-        self.exit_dialog = create_prompt(exit, silent=True) if exit else None
-        self.narration = create_prompt(narration, silent=True) if narration else None
+        self.exit = exit
+        self.narration = create_prompt(narration) if narration else None
         self.captured_enemies = []
+        self.exit_dialog = None
+        self.exit_choice = None
+        self.exit_choices = None
+        self.win_state = None
 
     def set_start_dialog(self):
         script = ''
@@ -239,10 +243,26 @@ class Battle(object):
                 captured_enemies.append(enemy)
         return captured_enemies
 
+    def init_exit(self, dialog_struct):
+        self.win_state = 'exit_dialog'
+        self.current_exit_dialog = self.game.get_dialog_for_condition(dialog_struct)
+        if isinstance(self.current_exit_dialog, basestring):
+            self.exit_dialog = create_prompt(self.current_exit_dialog)
+            self.exit_choice = None
+            self.exit_choices = None
+        else:
+            self.exit_dialog = create_prompt(self.current_exit_dialog['text'])
+            if "prompt" in self.current_exit_dialog:
+                self.exit_choices = self.current_exit_dialog['prompt']
+                self.exit_choice = MenuBox([choice['choice'] for choice in self.exit_choices])
+            else:
+                self.exit_choice = None
+                self.exit_choices = None
+
     def update_win(self, dt):
         if self.win_state == 'start':
-            if self.exit_dialog:
-                self.exit_dialog.update(dt)
+            if self.exit:
+                self.init_exit(self.exit)
                 return
             if self.narration:
                 self.narration.update(dt)
@@ -263,6 +283,10 @@ class Battle(object):
             pygame.mixer.music.load('data/audio/music/victory.wav')
             pygame.mixer.music.play()
             self.win_state = 'main'
+        elif self.win_state == 'exit_dialog':
+            self.exit_dialog.update(dt)
+        elif self.win_state == 'exit_choice':
+            self.exit_choice.update(dt)
         elif self.win_state == 'main':
             if not self.spoils_box:
                 self.create_spoils_box()
@@ -1095,11 +1119,30 @@ class Battle(object):
             'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title()),
         )
 
+    def handle_exit_choice(self):
+        choice = self.exit_choices[self.exit_choice.current_choice]
+        if 'game_state_action' in choice:
+            self.game.set_game_state_condition(choice['game_state_action'])
+        self.init_exit(choice['next_dialog'])
+
     def handle_input_win(self, pressed):
-        if self.win_state == 'start' and self.exit_dialog:
+        if self.win_state == 'exit_dialog':
             self.exit_dialog.handle_input(pressed)
             if pressed[K_x] and not self.exit_dialog.has_more_stuff_to_show():
-                self.exit_dialog = None
+                if self.exit_choice:
+                    self.win_state = 'exit_choice'
+                    self.exit_choice.focus()
+                else:
+                    self.win_state = 'start'
+                    self.exit = None # This with the state 'start' will trigger narration or whatever comes next
+                    self.exit_dialog.shutdown()
+                    self.exit_dialog = None
+                    self.portrait = None
+                    self.warlord = None
+        elif self.win_state == 'exit_choice':
+            self.exit_choice.handle_input(pressed)
+            if pressed[K_x]:
+                self.handle_exit_choice()
         elif self.win_state == 'start' and self.narration:
             self.narration.handle_input(pressed)
             if pressed[K_x] and not self.narration.has_more_stuff_to_show():
@@ -1779,6 +1822,8 @@ class Battle(object):
         if self.state == 'win' and self.exit_dialog:
             self.screen.blit(self.exit_dialog.surface, (0, 128 + top_margin))
             self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
+        if self.state == 'win' and self.win_state == 'exit_choice':
+            self.screen.blit(self.exit_choice.surface, (32, 80+top_margin))
         if self.state == 'win' and not self.exit_dialog and self.narration:
             self.screen.blit(self.narration.surface, (0, 128 + top_margin))
         if self.confirm_box:

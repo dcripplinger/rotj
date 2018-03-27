@@ -76,6 +76,7 @@ class Game(object):
             'talked_with_antionum': self.handle_talked_with_antionum,
             'alma_joins': self.handle_alma_joins,
             'ammon_joins': self.handle_ammon_joins,
+            'mathoni_kingdom_rejected': self.handle_mathoni_kingdom_rejected,
         }
 
     def conditions_are_met(self, conditions):
@@ -1027,3 +1028,6 @@ class Game(object):
 
     def handle_alma_joins(self):
         self.add_to_company(['alma'])
+
+    def handle_mathoni_kingdom_rejected(self):
+        self.add_to_company(['mathoni'])

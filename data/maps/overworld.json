@@ -783,5 +783,194 @@
         ]
       }
     ]
+  },
+  {
+    "x": 167,
+    "y": 282,
+    "battles": [
+      {
+        "name": "battle15",
+        "intro": "Destroy Moroni's army!",
+        "enemies": [
+          {
+            "name": "heshlon",
+            "level": 15
+          },
+          {
+            "name": "mahah",
+            "level": 15
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 180,
+    "y": 287,
+    "battles": [
+      {
+        "name": "battle16",
+        "intro": "Run home and tell Nephihah how terrible Amulonah is.",
+        "exit": "We will meet again.",
+        "enemies": [
+          {
+            "name": "amulonah",
+            "level": 16
+          },
+          {
+            "name": "shelem",
+            "level": 16
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 220,
+              "strength": 64,
+              "defense": 18,
+              "intelligence": 33,
+              "agility": 57,
+              "evasion": 21,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 190,
+    "y": 290,
+    "battles": [
+      {
+        "name": "battle17",
+        "intro": "My son Lamoni is a fool for trusting you. The Nephites have been robbers from the beginning. When I have destroyed you I will then destroy him for his insolence.",
+        "exit": [
+          {
+            "text": "Please don't kill me! I will give you half of my kingdom if you spare my life!",
+            "prompt": [
+              {
+                "choice": "SPARE HIM",
+                "game_state_action": "mathoni_spared",
+                "next_dialog": [
+                  {
+                    "text": "I'm glad we could reach an agreement. I will deliver up to you this northern part of my kingdom.",
+                    "prompt": [
+                      {
+                        "choice": "OK",
+                        "next_dialog": "Very well. Come into my palace and we will arrange everything."
+                      },
+                      {
+                        "choice": "NO",
+                        "game_state_action": "mathoni_kingdom_rejected",
+                        "next_dialog": "Perhaps Lamoni was right about you. You do not care for riches and power but are a true friend to him and have shown me mercy. Let me join your cause.\nMathoni has joined your army!"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "choice": "KILL HIM",
+                "next_dialog": "Noooo!\nMathoni was killed."
+              }
+            ]
+          }
+        ],
+        "narration": "All the defecting Lamanites have been rescued. Bring them back to Nephite territory and find a safe place for them!",
+        "enemies": [
+          {
+            "name": "mathoni",
+            "level": 20
+          },
+          {
+            "name": "shim",
+            "level": 18
+          },
+          {
+            "name": "shimni",
+            "level": 18
+          },
+          {
+            "name": "nimrah",
+            "level": 17
+          },
+          {
+            "name": "angolum",
+            "level": 17
+          }
+        ]
+      }
+    ]
   }
 ]

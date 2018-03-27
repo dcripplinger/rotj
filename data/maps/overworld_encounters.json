@@ -2206,6 +2206,12 @@
         "zoramites",
         "zoramites",
         "zoramites",
+        "zoramites"
+      ],
+      [
+        "zoramites",
+        "zoramites",
+        "zoramites",
         "zoramites",
         "zoramites"
       ],
@@ -2213,6 +2219,36 @@
         "heshlon",
         "lamanites",
         "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mahah",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amulonah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shelem",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shim",
+        "shimni",
+        "lamanites"
+      ],
+      [
+        "nimrah",
+        "angolum",
         "lamanites",
         "lamanites"
       ]
@@ -2249,6 +2285,34 @@
       "heshlon": {
         "level": 15,
         "capture": "battle15"
+      },
+      "mahah": {
+        "level": 15,
+        "capture": "battle15"
+      },
+      "amulonah": {
+        "level": 16,
+        "capture": "battle16"
+      },
+      "shelem": {
+        "level": 16,
+        "capture": "battle16"
+      },
+      "shim": {
+        "level": 17,
+        "capture": "battle17"
+      },
+      "shimni": {
+        "level": 17,
+        "capture": "battle17"
+      },
+      "nimrah": {
+        "level": 17,
+        "capture": "battle17"
+      },
+      "angolum": {
+        "level": 17,
+        "capture": "battle17"
       }
     }
   },
