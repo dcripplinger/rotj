@@ -558,6 +558,9 @@ class Battle(object):
                     mini_move['target'].name.title(), mini_move['agent'].name.title(),
                 )
                 return create_prompt(dialog, silent=True)
+            elif mini_move['tactic'] == 'disable':
+                dialog += '{} can no longer take any action.'.format(mini_move['target'].name.title())
+                return create_prompt(dialog, silent=True)
             elif mini_move['tactic'] == 'ninja':
                 dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
                 return create_prompt(dialog, silent=True)
