@@ -311,6 +311,12 @@ class MapMenu(object):
         elif map_usage == 'map':
             self.state = 'item_prompt'
             self.prompt = create_prompt("{} used {}. But nothing happened.".format(user, item_name.title()))
+        elif map_usage == 'cloak':
+            self.state = 'item_prompt'
+            self.prompt = create_prompt("{} used {}. Our movements are hidden from the enemy.".format(
+                user, item_name.title(),
+            ))
+            self.map.game.cloak_steps_remaining = 100
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")

@@ -425,9 +425,15 @@ class Map(object):
             self.no_food_left = self.game.decrement_food()
             if self.no_food_left:
                 self.no_food_delta = 0.0
+            if self.game.cloak_steps_remaining:
+                self.game.cloak_steps_remaining -= 1
+                if not self.game.cloak_steps_remaining:
+                    self.opening_dialog = create_prompt("The cloak has worn off. We are now visible to the enemy.")
 
     def try_getting_random_encounter(self):
         # This function assumes that outside of it has already checked that self.name in MAPS_WITH_RANDOM_ENCOUNTERS.
+        if self.game.cloak_steps_remaining:
+            return False
         (x,y) = self.get_pos_in_front(self.hero.position, self.hero.direction)
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
         encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
