@@ -457,7 +457,7 @@ class Map(object):
         if not region:
             return None
         possible_encounters = self.filter_out_allies(region['encounters'])
-        enemy_names = random.choice(region['encounters'])
+        enemy_names = random.choice(possible_encounters)
         enemies = []
         for name in enemy_names:
             if 'level' in region['stats'][name]:
