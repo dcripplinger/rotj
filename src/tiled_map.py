@@ -419,8 +419,8 @@ class Map(object):
             if self.try_getting_random_encounter():
                 self.random_encounter = True
             self.steps_for_tactical_points += 1
-            if self.steps_for_tactical_points >= 10:
-                self.steps_for_tactical_points -= 10
+            if self.steps_for_tactical_points >= 5:
+                self.steps_for_tactical_points -= 5
                 self.game.increment_tactical_points()
             self.no_food_left = self.game.decrement_food()
             if self.no_food_left:
