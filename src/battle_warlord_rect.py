@@ -100,7 +100,7 @@ class BattleWarlordRectBase(object):
             [column1, column2],
             border=True,
             title="TP LEFT: {}".format(self.get_tactical_points()),
-            width=176,
+            width=192,
             height=80,
         )
 
