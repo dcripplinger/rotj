@@ -580,6 +580,11 @@ class Battle(object):
             elif 'healing' in mini_result:
                 dialog += self.get_healing_dialog(mini_move, mini_result)
                 return create_prompt(dialog, silent=True)
+            elif mini_move['item'] == 'remedy':
+                dialog += "{} is no longer affected by individual status ailments.".format(
+                    mini_move['target'].name.title(),
+                )
+                return create_prompt(dialog, silent=True)
 
     def pop_and_handle_mini_move(self, silent=False):
         if len(self.mini_moves) > 0:
@@ -854,6 +859,9 @@ class Battle(object):
                 healing = move['target'].max_soldiers - move['target'].get_future_soldiers()
             move['target'].get_healed(healing)
             return move, {'healing': healing}
+        elif info.get('effect') == 'remedy':
+            move['target'].bad_status = None
+            return move, {}
 
     def execute_move_tactic(self, move):
         if 'target' in move and move['target'].get_future_soldiers() == 0:
