@@ -18,6 +18,7 @@ MAX_BAR_WIDTH = 64
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord, battle, is_enemy=False):
+        self.soldiers_change_queue = []
         self.is_enemy = is_enemy
         self.items = warlord['items']
         self.battle = battle
@@ -185,13 +186,18 @@ class BattleWarlordRectBase(object):
         self.rel_target_pos = 0
 
     def get_healed(self, soldiers):
-        self.update_soldiers_change(soldiers)
+        self.soldiers_change_queue.append(soldiers)
 
     def flip_sprite(self):
         self.sprite = pygame.transform.flip(self.sprite, True, False)
 
     def get_damaged(self, soldiers):
-        self.update_soldiers_change(-soldiers)
+        self.soldiers_change_queue.append(-soldiers)
+
+    def dequeue_soldiers_change(self):
+        if len(self.soldiers_change_queue) > 0:
+            soldiers = self.soldiers_change_queue.pop(0)
+            self.update_soldiers_change(soldiers)
 
     def update_soldiers_change(self, delta):
         self.soldiers += delta
@@ -253,6 +259,15 @@ class BattleWarlordRectBase(object):
             self.sprite = self.stand
         else:
             self.sprite = self.walk
+
+    def get_future_soldiers(self):
+        '''
+        This gives the actual number of soldiers in the simulation, but not the advertised number of soldiers.
+        We store the advertised number in self.soldiers so that that is what the UI displays, but any simulated moves
+        that haven't been animated yet can result in soldier increases or decreases, which are queued in
+        self.soldiers_change_queue.
+        '''
+        return self.soldiers + sum(self.soldiers_change_queue)
 
 
 class Ally(BattleWarlordRectBase):

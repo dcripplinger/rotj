@@ -474,9 +474,17 @@ class Battle(object):
             mini_moves.append(move)
             mini_results.append(results)
         elif move['action'] == self.execute_move_tactic:
-            results.update({'first': True})
-            mini_moves.append(move)
-            mini_results.append(results)
+            if 'targets' in results:
+                for result in results['targets']:
+                    mini_move = copy.copy(move)
+                    mini_move.update({'target': result['target']})
+                    mini_moves.append(mini_move)
+                    mini_results.append(result)
+                mini_results[0].update({'first': True})
+            else:
+                results.update({'first': True})
+                mini_moves.append(move)
+                mini_results.append(results)
         return mini_moves, mini_results
 
     def get_damage_dialog(self, mini_move, mini_result, is_ally_move):
@@ -573,14 +581,22 @@ class Battle(object):
                 dialog += self.get_healing_dialog(mini_move, mini_result)
                 return create_prompt(dialog, silent=True)
 
-    def pop_and_handle_mini_move(self):
+    def pop_and_handle_mini_move(self, silent=False):
         if len(self.mini_moves) > 0:
             self.mini_move = self.mini_moves.pop(0)
             self.mini_result = self.mini_results.pop(0)
-            sound = self.get_move_sound(self.mini_move, self.mini_result)
-            if sound:
-                sound.play()
-            self.animate_move_hit(self.mini_move, self.mini_result)
+            if not silent:
+                sound = self.get_move_sound(self.mini_move, self.mini_result)
+                if sound:
+                    sound.play()
+                self.animate_move_hit(self.mini_move, self.mini_result)
+            if 'target' in self.mini_move:
+                self.mini_move['target'].dequeue_soldiers_change()
+            if self.mini_result.get('killed'):
+                if all(enemy.soldiers == 0 for enemy in self.enemies):
+                    self.handle_win()
+                elif all(ally.soldiers == 0 for ally in self.allies):
+                    self.handle_lose()
         else:
             self.mini_move = None
             self.mini_result = None
@@ -597,38 +613,40 @@ class Battle(object):
                 self.all_out_state = 'main'
         elif self.all_out_state == 'main' and self.get_leader().state == 'wait':
             time.sleep(.1) # pause between each all-out animation
-            if len(self.submitted_moves) == 0:
-                if self.cancel_all_out == True:
-                    for warlord in self.get_live_allies() + self.get_live_enemies():
-                        warlord.move_back()
-                    self.state = 'cancel_all_out'
-                    self.cancel_all_out = False
-                    return
-                else:
-                    self.submit_ai_moves()
-            next_move = self.ordered_moves.pop(0)
-            self.execute_move(next_move)
+            if not self.mini_moves:
+                if len(self.ordered_moves) == 0:
+                    self.submitted_moves = []
+                    self.enemy_moves = []
+                    for (status, duration) in list(self.good_ally_statuses.items()):
+                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            del self.good_ally_statuses[status]
+                    for (status, duration) in list(self.good_enemy_statuses.items()):
+                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            del self.good_enemy_statuses[status]
+                    for enemy in self.enemies:
+                        if enemy.reinforcements and enemy.soldiers == 0:
+                            enemy.get_healed(enemy.max_soldiers)
+                            enemy.state = 'wait'
+                            enemy.rel_pos = 0
+                            enemy.rel_target_pos = None
+                    if self.cancel_all_out == True:
+                        for warlord in self.get_live_allies() + self.get_live_enemies():
+                            warlord.move_back()
+                        self.state = 'cancel_all_out'
+                        self.cancel_all_out = False
+                        return
+                    else:
+                        self.submit_ai_moves()
+                self.move = self.ordered_moves.pop(0)
+                self.execute_move(self.move)
+                self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
+            self.pop_and_handle_mini_move()
             for warlord in self.get_live_allies() + self.get_live_enemies():
                 warlord.animate_all_out()
-            move_sound = self.get_move_sound(self.move, self.results)
+            move_sound = self.get_move_sound(self.mini_move, self.mini_result)
             if move_sound:
                 move_sound.play()
-            self.animate_move_hit(self.move, self.results)
-            if len(self.ordered_moves) == 0:
-                self.submitted_moves = []
-                self.enemy_moves = []
-                for (status, duration) in list(self.good_ally_statuses.items()):
-                    if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
-                        del self.good_ally_statuses[status]
-                for (status, duration) in list(self.good_enemy_statuses.items()):
-                    if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
-                        del self.good_enemy_statuses[status]
-                for enemy in self.enemies:
-                    if enemy.reinforcements and enemy.soldiers == 0:
-                        enemy.get_healed(enemy.max_soldiers)
-                        enemy.state = 'wait'
-                        enemy.rel_pos = 0
-                        enemy.rel_target_pos = None
+            self.animate_move_hit(self.mini_move, self.mini_result)
 
     def animate_move_hit(self, move, results):
         if (
@@ -690,22 +708,25 @@ class Battle(object):
 
     def execute_moves(self):
         for move in self.ordered_moves:
-            result = self.execute_move(move)
+            result = self.execute_move(move, fast=True)
+            self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
+            while self.mini_moves:
+                self.pop_and_handle_mini_move(silent=True)
             if result != 'continue':
                 break
 
-    def execute_move(self, move):
+    def execute_move(self, move, fast=False):
         move = self.change_move_if_dead_or_cursed(move)
         if move is not None:
             action_handler = move['action']
             move, results = action_handler(move)
             self.results = results
             self.move = move
-            if results.get('killed'):
-                if move['target'] in self.enemies and all(enemy.soldiers == 0 for enemy in self.enemies):
+            if fast and results.get('killed'): # fast means this is using risk it for a fast simulation
+                if all(enemy.soldiers + sum(enemy.soldiers_change_queue) == 0 for enemy in self.enemies):
                     self.handle_win()
                     return 'win'
-                elif move['target'] in self.allies and all(ally.soldiers == 0 for ally in self.allies):
+                elif all(ally.soldiers + sum(ally.soldiers_change_queue) == 0 for ally in self.allies):
                     self.handle_lose()
                     return 'lose'
         return 'continue'
@@ -738,6 +759,8 @@ class Battle(object):
         return the_moves
 
     def get_move_sound(self, move, results):
+        move = move or {}
+        results = results or {} # Because I had a weird bug where results was None, not sure why. Maybe we can ignore.
         if (
             results.get('repel') or results.get('evade') or results.get('fail') or results.get('deflect')
             or results.get('wasted')
@@ -757,7 +780,7 @@ class Battle(object):
 
     def execute_move_battle(self, move):
         is_ally_move = move['agent'] in self.allies
-        if move['target'].soldiers == 0:
+        if move['target'].get_future_soldiers() == 0:
             targets = self.get_live_enemies() if is_ally_move else self.get_live_allies()
             return self.execute_move_battle({
                 'agent': move['agent'],
@@ -786,14 +809,14 @@ class Battle(object):
             inflicted_damage = max(inflicted_damage/2, 1)
             if double_tap:
                 double_tap = max(double_tap/2, 1)
-        if move['target'].soldiers <= inflicted_damage:
-            inflicted_damage = move['target'].soldiers
+        if move['target'].get_future_soldiers() <= inflicted_damage:
+            inflicted_damage = move['target'].get_future_soldiers()
             move['target'].get_damaged(inflicted_damage)
             return move, {'damage': inflicted_damage, 'killed': True, 'excellent': excellent}
         move['target'].get_damaged(inflicted_damage)
         if double_tap:
-            if move['target'].soldiers <= double_tap:
-                double_tap = move['target'].soldiers
+            if move['target'].get_future_soldiers() <= double_tap:
+                double_tap = move['target'].get_future_soldiers()
                 move['target'].get_damaged(double_tap)
                 return move, {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True, 'excellent': excellent}
             move['target'].get_damaged(double_tap)
@@ -814,7 +837,7 @@ class Battle(object):
         return move, result
 
     def execute_move_item(self, move):
-        if 'target' in move and move['target'].soldiers == 0:
+        if 'target' in move and move['target'].get_future_soldiers() == 0:
             return move, {'wasted': True}
         move_type = ITEMS[move['item']]['battle_usage']
         # go through items by type
@@ -827,13 +850,13 @@ class Battle(object):
         info = ITEMS[move['item']]
         if 'healing_points' in info:
             healing = info['healing_points']
-            if healing + move['target'].soldiers > move['target'].max_soldiers:
-                healing = move['target'].max_soldiers - move['target'].soldiers
+            if healing + move['target'].get_future_soldiers() > move['target'].max_soldiers:
+                healing = move['target'].max_soldiers - move['target'].get_future_soldiers()
             move['target'].get_healed(healing)
             return move, {'healing': healing}
 
     def execute_move_tactic(self, move):
-        if 'target' in move and move['target'].soldiers == 0:
+        if 'target' in move and move['target'].get_future_soldiers() == 0:
             return move, {'wasted': True}
         is_ally_move = move['agent'] in self.allies
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
@@ -848,6 +871,10 @@ class Battle(object):
             return self.execute_tactic_type_ally(move)
         elif tactic_type == 'defense':
             return self.execute_tactic_type_defense(move, good_acting_team_statuses)
+        elif tactic_type == 'enemies':
+            return self.execute_tactic_type_enemies(move, good_target_team_statuses, is_ally_move)
+        elif tactic_type == 'allies':
+            return self.execute_tactic_type_allies(move, good_target_team_statuses, is_ally_move)
         else:
             return move, {}
 
@@ -871,8 +898,8 @@ class Battle(object):
             cutoff = int(norm_cutoff * prelim_healing_range)
             mod_min_healing = info['min_damage'] + cutoff
             healing = random.randrange(mod_min_healing, info['max_damage'])
-            if move['target'].soldiers + healing > move['target'].max_soldiers:
-                healing = move['target'].max_soldiers - move['target'].soldiers
+            if move['target'].get_future_soldiers() + healing > move['target'].max_soldiers:
+                healing = move['target'].max_soldiers - move['target'].get_future_soldiers()
             move['target'].get_healed(healing)
             return move, {'healing': healing}
         elif move['tactic'] == 'ninja':
@@ -880,6 +907,25 @@ class Battle(object):
             return move, {}
         elif move['tactic'] == 'double~tap':
             move['target'].good_statuses['double_tap'] = True
+
+    def execute_tactic_type_allies(self, move, good_target_team_statuses, is_ally_move):
+        info = TACTICS[move['tactic']]
+        norm_intel = move['agent'].intelligence / 255.0
+        prelim_healing_range = info['max_damage'] - info['min_damage']
+        targets = self.allies if is_ally_move else self.enemies
+        results = {'targets': []}
+        for target in targets:
+            if target.soldiers == 0:
+                continue
+            norm_cutoff = random.uniform(0.0, norm_intel)
+            cutoff = int(norm_cutoff * prelim_healing_range)
+            mod_min_healing = info['min_damage'] + cutoff
+            healing = random.randrange(mod_min_healing, info['max_damage'])
+            if target.soldiers + healing > target.max_soldiers:
+                healing = target.max_soldiers - target.soldiers
+            target.get_healed(healing)
+            results['targets'].append({'target': target, 'healing': healing})
+        return move, results
 
     def execute_tactic_type_enemy(self, move, good_target_team_statuses):
         info = TACTICS[move['tactic']]
@@ -898,8 +944,8 @@ class Battle(object):
                     damage = int(damage/2)
                 elif 'extinguish' in good_target_team_statuses:
                     damage = 1
-            if move['target'].soldiers <= damage:
-                damage = move['target'].soldiers
+            if move['target'].get_future_soldiers() <= damage:
+                damage = move['target'].get_future_soldiers()
                 move['target'].get_damaged(damage)
                 return move, {'damage': damage, 'killed': True}
             move['target'].get_damaged(damage)
@@ -908,16 +954,52 @@ class Battle(object):
             move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
             return move, {}
 
-    def get_tactic_success(self, move):
+    def execute_tactic_type_enemies(self, move, good_target_team_statuses, is_ally_move):
+        info = TACTICS[move['tactic']]
+        norm_intel = move['agent'].intelligence / 255.0
+        prelim_damage_range = info['max_damage'] - info['min_damage']
+        targets = self.enemies if is_ally_move else self.allies
+        results = {'targets': []}
+        for target in targets:
+            if target.soldiers == 0:
+                continue
+            success = self.get_tactic_success(move, target=target)
+            if not success:
+                results['targets'].append({'target': target, 'fail': True})
+            else:
+                norm_cutoff = random.uniform(0.0, norm_intel)
+                cutoff = int(norm_cutoff * prelim_damage_range)
+                mod_min_damage = info['min_damage'] + cutoff
+                damage = random.randrange(mod_min_damage, info['max_damage'])
+                if info['slot'] == 1:
+                    if 'firewall' in good_target_team_statuses:
+                        damage = int(damage/2)
+                    elif 'extinguish' in good_target_team_statuses:
+                        damage = 1
+                if target.soldiers <= damage:
+                    damage = target.soldiers
+                    target.get_damaged(damage)
+                    results['targets'].append({'target': target, 'damage': damage, 'killed': True})
+                    results['killed'] = True # This is needed in case everyone is killed, to trigger win/lose
+                else:
+                    target.get_damaged(damage)
+                    results['targets'].append({'target': target, 'damage': damage})
+        return move, results
+
+    def get_tactic_success(self, move, target=None):
         prob_type = TACTICS[move['tactic']]['success_probability_type']
+        target = target or move.get('target')
+        if not target and prob_type in ['enemy_prob', 'enemy_prob2']:
+            print "We shouldn't be having a move without a target if the prob_type is enemy_prob or enemy_prob2."
+            import pdb; pdb.set_trace()
         if prob_type == 'enemy_prob':
             intel = move['agent'].intelligence
-            enemy_intel = move['target'].intelligence
+            enemy_intel = target.intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
             return random.random() < enemy_prob
         elif prob_type == 'enemy_prob2':
             intel = move['agent'].intelligence
-            enemy_intel = move['target'].intelligence
+            enemy_intel = target.intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
             enemy_prob2 = min(1.0, enemy_prob*2)
             return random.random() < enemy_prob2
@@ -929,7 +1011,7 @@ class Battle(object):
             return random.random() < intel_prob
         elif prob_type == 'assassin':
             intel = move['agent'].intelligence
-            enemy_intel = move['target'].intelligence
+            enemy_intel = target.intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
             assassin = enemy_prob / 3.0
             return random.random() < assassin
