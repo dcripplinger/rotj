@@ -912,6 +912,23 @@
   {
     "x": 190,
     "y": 290,
+    "teleport": [
+      {
+        "conditions": {
+          "exited_nephi": false
+        },
+        "map": "nephi",
+        "x": 10,
+        "y": 31,
+        "direction": "e"
+      },
+      {
+        "map": "nephi",
+        "x": 26,
+        "y": 48,
+        "direction": "n"
+      }
+    ],
     "battles": [
       {
         "name": "battle17",
