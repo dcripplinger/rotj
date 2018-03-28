@@ -771,16 +771,16 @@ class Battle(object):
             or results.get('wasted')
         ):
             return self.fail_sound
-        elif move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
-            if move['agent'] in self.allies:
+        elif move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
+            if move.get('agent') in self.allies:
                 return self.excellent_sound if results.get('excellent') else self.hit_sound
             else:
                 return self.heavy_damage_sound if results.get('excellent') else self.damage_sound
-        elif move['action'] == self.execute_move_defend:
+        elif move.get('action') == self.execute_move_defend:
             return None
-        elif move['action'] == self.execute_move_tactic:
+        elif move.get('action') == self.execute_move_tactic:
             return self.tactic_sound if TACTICS[move['tactic']]['type'] in ['enemy', 'enemies'] else None
-        elif move['action'] == self.execute_move_item:
+        elif move.get('action') == self.execute_move_item:
             return None
 
     def execute_move_battle(self, move):
