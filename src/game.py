@@ -557,6 +557,13 @@ class Game(object):
         self.set_screen_state('change_map')
         self.retreat_counter = 0
 
+        # set game state conditions for entering or exiting certain maps
+        if self.current_map:
+            if self.current_map.name == 'nephi' and map_name == 'overworld':
+                self.set_game_state_condition('exited_nephi')
+            elif self.current_map.name == 'overworld' and map_name == 'jershon':
+                self.set_game_state_condition('entered_jershon')
+
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)
         (width, height) = size
