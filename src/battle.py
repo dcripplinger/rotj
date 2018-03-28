@@ -842,6 +842,10 @@ class Battle(object):
         return move, result
 
     def execute_move_item(self, move):
+        for item in self.warlord.items:
+            if item['name'] == move['item']:
+                self.warlord.items.remove(item)
+                break
         if 'target' in move and move['target'].get_future_soldiers() == 0:
             return move, {'wasted': True}
         move_type = ITEMS[move['item']]['battle_usage']
