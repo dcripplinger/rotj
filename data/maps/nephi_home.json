@@ -1,0 +1,20 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "nephi",
+      "x": 17,
+      "y": 40,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "treasure": {
+      "name": "nephi_home_treasure",
+      "item": "wood~h"
+    }
+  }
+]

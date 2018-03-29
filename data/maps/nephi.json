@@ -40,6 +40,36 @@
     }
   },
   {
+    "x": 29,
+    "y": 40,
+    "teleport": {
+      "map": "nephi_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 40,
+    "teleport": {
+      "map": "nephi_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 40,
+    "teleport": {
+      "map": "nephi_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
     "x": 25,
     "y": 44,
     "ai_sprite": {
@@ -63,6 +93,66 @@
       "wander": false,
       "direction": "s",
       "dialog": "We have a new king now. You are not welcome here. Now run along before we spill your blood right here."
+    }
+  },
+  {
+    "x": 14,
+    "y": 30,
+    "ai_sprite": {
+      "name": "old_man2",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Hit the shops now while you can. The people here don't like you and they probably won't let you back into the city again."
+    }
+  },
+  {
+    "x": 23,
+    "y": 33,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "wander": true,
+      "direction": "e",
+      "dialog": "You have corrupted many of our people. Don't think that this will go unanswered."
+    }
+  },
+  {
+    "x": 23,
+    "y": 21,
+    "ai_sprite": {
+      "name": "woman4",
+      "wander": true,
+      "direction": "n",
+      "dialog": "A new king has taken Mathoni's place. He is already stirring up our people to anger against the Nephites. Please be careful."
+    }
+  },
+  {
+    "x": 34,
+    "y": 17,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "wander": true,
+      "direction": "s",
+      "dialog": "Have you heard of the tactic Double Tap? Use it on an ally, and for each subsequent physical attack he will have a 50 percent chance of hitting a 2nd time."
+    }
+  },
+  {
+    "x": 33,
+    "y": 31,
+    "ai_sprite": {
+      "name": "woman5",
+      "wander": true,
+      "direction": "n",
+      "dialog": "There are other Nephite cities northeast of here."
+    }
+  },
+  {
+    "x": 30,
+    "y": 38,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "There is a cavity of a rock to the southeast that is said to contain impressive treasures, but the warriors in that area are unbelievably strong and numerous."
     }
   }
 ]
