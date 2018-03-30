@@ -1,9 +1,9 @@
 #!/bin/bash
 
 convert \( +append \) \
-\( city_wall_nw.png city_wall_ne.png city_wall_e.png city_wall_w.png +append \) \
-\( city_wall_sw2.png city_wall_se2.png city_wall_sw.png city_wall_n.png city_wall_se.png +append \) \
-\( grass_nw.png grass_n.png grass_ne.png grass.png +append \) \
+\( city_wall_nw.png city_wall_ne.png city_wall_e.png city_wall_w.png city_wall_nw2.png city_wall_ne2.png +append \) \
+\( city_wall_sw2.png city_wall_se2.png city_wall_sw.png city_wall_n.png city_wall_se.png well.png +append \) \
+\( grass_nw.png grass_n.png grass_ne.png grass.png bridge_left.png bridge_right.png +append \) \
 \( grass_sw.png grass_s.png grass_se.png grass_e.png grass_w.png bridge_vert.png +append \) \
 \( path_nw.png path_n.png path_ne.png path_ns.png path_we.png bridge_horiz.png +append \) \
 \( path_sw.png path_s.png path_se.png path_e.png path_w.png path.png +append \) \
