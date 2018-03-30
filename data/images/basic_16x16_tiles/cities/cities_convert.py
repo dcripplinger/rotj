@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+# Usage:  $> ./cities_convert.py
+# It will prompt "Paste lines:"
+# Copy and paste the csv portion of a city tmx file and hit enter until it prints output
+# Copy and paste the output back into the tmx file, replacing the csv data already there.
+# Make sure you change the tileset specified in the tmx file from cities_tileset.tsx to cities2.tsx
+
 import sys
 
 tile_mapping = {'1': '30', '2': '45', '3': '16', '4': '22', '5': '14',
@@ -21,7 +27,7 @@ tile_mapping = {'1': '30', '2': '45', '3': '16', '4': '22', '5': '14',
 
 print "Paste lines:"
 run = True
-buffer = []
+line_buffer = []
 while run:
     line = sys.stdin.readline().rstrip('\n')
     if line == '':
@@ -29,11 +35,11 @@ while run:
     vals = line.split(',')
     new_vals = [tile_mapping[x] for x in vals]
     new_line = ','.join(new_vals)
-    buffer.append(new_line)
+    line_buffer.append(new_line)
 
 
 print "****************************************************************************************"
 print "*** Output *****************************************************************************"
 print "****************************************************************************************"
-for line in buffer:
+for line in line_buffer:
     print line
