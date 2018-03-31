@@ -1,0 +1,42 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "nephi",
+      "x": 26,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "lamanite_king",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Mathoni was not fit to lead our people anymore. I have been pronounced king over the Lamanites. We do not wish a confrontation at this time, so depart with those who wish to go with you. But you are not welcome to return."
+    }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "e",
+      "wander": false,
+      "dialog": "The king wishes to speak with you."
+    }
+  },
+  {
+    "x": 18,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "w",
+      "wander": false,
+      "dialog": "The king wishes to speak with you."
+    }
+  }
+]

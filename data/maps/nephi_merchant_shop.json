@@ -1,0 +1,34 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "nephi",
+      "x": 17,
+      "y": 21,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~b",
+        "resurrect",
+        "cloak"
+      ]
+    }
+  }
+]

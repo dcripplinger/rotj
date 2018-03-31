@@ -1,0 +1,39 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "nephi",
+      "x": 23,
+      "y": 36,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "shop": {
+      "type": "reserve"
+    }
+  },
+  {
+    "x": 12,
+    "y": 13,
+    "ai_sprite": {
+      "name": "leantum",
+      "direction": "s",
+      "wander": false,
+      "dialog": "We don't house any Nephite warlords at this reserve."
+    }
+  }
+]

@@ -812,7 +812,7 @@ ITEMS = {
         'cost': 800,
     },
     'ring~m': {
-        'armor_class': 50,
+        'armor_class': 55,
         'equip_type': 'armor',
         'cost': 2000,
     },
@@ -842,7 +842,7 @@ ITEMS = {
         'cost': 120000,
     },
     'tungsten~m': {
-        'armor_class': 133,
+        'armor_class': 135,
         'equip_type': 'armor',
         'cost': 240000,
     },
