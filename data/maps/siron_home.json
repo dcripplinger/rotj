@@ -1,0 +1,32 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "siron",
+      "x": 13,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 12,
+    "ai_sprite": {
+      "name": "woman",
+      "wander": true,
+      "direction": "e",
+      "dialog": "Aren't you quite the catch!"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "woman3",
+      "wander": true,
+      "direction": "s",
+      "dialog": "Welcome to our home. Perhaps you can stay a while?"
+    }
+  }
+]

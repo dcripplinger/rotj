@@ -317,6 +317,7 @@ class MapMenu(object):
                 user, item_name.title(),
             ))
             self.map.game.cloak_steps_remaining = 100
+            self.map.remove_item(user, self.items_menu.current_choice)
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")
