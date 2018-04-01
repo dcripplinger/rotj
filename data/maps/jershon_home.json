@@ -13,20 +13,29 @@
     "x": 17,
     "y": 12,
     "ai_sprite": {
-      "name": "helaman",
-      "wander": false,
+      "name": "villager3",
+      "wander": true,
       "direction": "s",
-      "dialog": "..."
+      "dialog": "Helaman prefers a peaceful life helping others, but he's also singularly adept on the battlefield."
     }
   },
   {
     "x": 13,
     "y": 11,
     "ai_sprite": {
-      "name": "villager3",
-      "wander": true,
+      "name": "helaman",
+      "wander": false,
       "direction": "s",
-      "dialog": "..."
+      "dialog": [
+        {
+          "condition": "talked_with_helaman",
+          "text": "Hurry to Ammonihah to secure it. You can get there by heading south back to Antionum and then following the road past Manti and then northwest. Take Anti Nephi Lehi with you. He's waiting in the village."
+        },
+        {
+          "text": "Helaman: The chief judge Nephihah and my father Alma sent me here to minister to the people of Ammon. I wish I could join you, but this is where I am needed most.\nAmalickiah: The Lamanites will surely retaliate after we helped so many of their people defect. Have Manti and Ammonihah been sufficiently secured?\nHelaman: Nephihah supposed there would be enough time for your armies to arrive to protect those cities.\nAmalickiah: You should have gone straight there instead of helping here. We may already be too late!\nHelaman: I'm sorry, but I am only one man. Besides, during times of peace, Nephihah doesn't have authority to compel men to join the military. There was only so much he could do. Hurry to Ammonihah. You can get there by heading south back to Antionum and then following the road past Manti and then northwest. Take Anti Nephi Lehi with you. He's waiting in the village.",
+          "game_state_action": "talked_with_helaman"
+        }
+      ]
     }
   }
 ]

@@ -11,7 +11,7 @@
   },
   {
     "x": 17,
-    "y": 12,
+    "y": 13,
     "ai_sprite": {
       "name": "woman",
       "wander": true,

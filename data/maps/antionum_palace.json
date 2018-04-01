@@ -1,0 +1,52 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "antionum",
+      "x": 18,
+      "y": 16,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "This city was named after Antionum, but our current leader is Zoram."
+    }
+  },
+  {
+    "x": 20,
+    "y": 24,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": true,
+      "dialog": "We don't want any trouble, but you best be moving along soon here."
+    }
+  },
+  {
+    "x": 11,
+    "y": 13,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "We are not interested in giving land to the defecting Lamanites."
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "zoram",
+      "direction": "s",
+      "wander": false,
+      "dialog": "No, we cannot help the defecting Lamanites. Perhaps the land of Jershon, north of here, will be better for them. Our people here have been chosen by God to be saved while the rest of you perish. Nobody else, not a Lamanite or a Nephite, is welcome to stay here."
+    }
+  }
+]

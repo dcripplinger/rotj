@@ -1,0 +1,142 @@
+[
+  {
+    "x": 34,
+    "y": 38,
+    "teleport": {
+      "map": "overworld",
+      "x": 216,
+      "y": 240,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 35,
+    "y": 38,
+    "teleport": {
+      "map": "overworld",
+      "x": 216,
+      "y": 240,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 16,
+    "teleport": {
+      "map": "antionum_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 19,
+    "y": 16,
+    "teleport": {
+      "map": "antionum_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 26,
+    "teleport": {
+      "map": "antionum_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 30,
+    "teleport": {
+      "map": "antionum_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 30,
+    "teleport": {
+      "map": "antionum_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 30,
+    "teleport": {
+      "map": "antionum_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 26,
+    "teleport": {
+      "map": "antionum_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 34,
+    "teleport": {
+      "map": "antionum_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is the city of Antionum. We are a chosen people."
+    }
+  },
+  {
+    "x": 24,
+    "y": 32,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "n",
+      "wander": true,
+      "dialog": "The others here have cast me out of the places of worship because I am poor and not well dressed."
+    }
+  },
+  {
+    "x": 15,
+    "y": 15,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Our leader Zoram is truly inspired."
+    }
+  },
+  {
+    "x": 38,
+    "y": 31,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "We do not wish for a quarrel, but we no longer recognize the rule of the judges. We are now Zoramites."
+    }
+  }
+]

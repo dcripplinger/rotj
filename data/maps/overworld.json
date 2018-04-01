@@ -1009,5 +1009,15 @@
       "y": 38,
       "direction": "n"
     }
+  },
+  {
+    "x": 216,
+    "y": 240,
+    "teleport": {
+      "map": "antionum",
+      "x": 35,
+      "y": 37,
+      "direction": "n"
+    }
   }
 ]
