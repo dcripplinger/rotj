@@ -1019,5 +1019,57 @@
       "y": 37,
       "direction": "n"
     }
+  },
+  {
+    "x": 186,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 187,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 188,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 189,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
   }
 ]

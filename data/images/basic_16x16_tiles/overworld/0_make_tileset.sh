@@ -5,4 +5,5 @@ convert \( city_nw.png city_n.png city_ne.png mountains_big_nw.png mountains_big
         \( fence.png gate_left.png gate_center.png gate_right.png fence_right.png shore_ne.png shore_n.png shore_nw.png +append \) \
         \( cave.png mountains.png mountains_snowy.png forest_snowy.png forest.png hills.png grass.png path.png +append \) \
         \( snow.png desert.png bridge_horizontal.png bridge_vertical.png bridge_snowy_horizontal.png tents.png village_left.png village_right.png +append \) \
+        \( broken_fence.png +append \) \
         -background none -append   0_tileset_overworld.png
