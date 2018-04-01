@@ -100,5 +100,45 @@
         }
       ]
     }
+  },
+  {
+    "x": 30,
+    "y": 30,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "We're calling ourselves Anti Nephi Lehies, but that name is confusing and a mouthful. Since Ammon was an integral part of our conversion and deliverance, some of us are starting to call ourselves the people of Ammon."
+    }
+  },
+  {
+    "x": 36,
+    "y": 26,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "s",
+      "dialog": "We aren't wasting any time in building and farming."
+    }
+  },
+  {
+    "x": 39,
+    "y": 34,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "This is the land of Jershon. Welcome, and thank you for protecting us."
+    }
+  },
+  {
+    "x": 49,
+    "y": 21,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "n",
+      "dialog": "There is a vast wilderness north of here, after which is the seashore, where the cities of Morianton, Lehi, and Nephihah reside."
+    }
   }
 ]
