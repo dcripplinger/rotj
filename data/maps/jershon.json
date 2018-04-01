@@ -1,0 +1,104 @@
+[
+  {
+    "x": 37,
+    "y": 39,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 38,
+    "y": 39,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 48,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 49,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 13,
+    "teleport": {
+      "map": "jershon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 28,
+    "teleport": {
+      "map": "jershon_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 37,
+    "ai_sprite": {
+      "name": "anti-nephi-lehi",
+      "wander": false,
+      "direction": "s",
+      "conditions": {
+        "anti_nephi_lehi_joins": false
+      },
+      "dialog": [
+        {
+          "text": "Anti Nephi Lehi: Helaman, son of Alma, is in the large home and wishes to speak with you.",
+          "condition": "talked_with_anti_nephi_lehi"
+        },
+        {
+          "text": "I am Anti Nephi Lehi, son of Mathoni and brother of Lamoni. Our people now call ourselves the Anti Nephi Lehies, and my father wished to name me the same. This name reminds us that, although we are not descendants of Nephi, we are still descendants of our shared forefather Lehi, and we wish to follow his example and not that of our forefathers Laman and Lemuel. Thank you so much for offering this land to our people. Helaman, son of Alma, is in the large home and wishes to speak with you.",
+          "game_state_action": "talked_with_anti_nephi_lehi"
+        }
+      ]
+    }
+  }
+]

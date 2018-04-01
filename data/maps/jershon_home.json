@@ -1,0 +1,32 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "jershon",
+      "x": 14,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 12,
+    "ai_sprite": {
+      "name": "helaman",
+      "wander": false,
+      "direction": "s",
+      "dialog": "..."
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "s",
+      "dialog": "..."
+    }
+  }
+]

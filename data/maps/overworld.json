@@ -999,5 +999,15 @@
       "y": 14,
       "direction": "e"
     }
+  },
+  {
+    "x": 199,
+    "y": 214,
+    "teleport": {
+      "map": "jershon",
+      "x": 37,
+      "y": 38,
+      "direction": "n"
+    }
   }
 ]
