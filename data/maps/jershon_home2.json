@@ -1,0 +1,30 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "jershon",
+      "x": 25,
+      "y": 28,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "treasure": {
+      "name": "jershon_home2_treasure",
+      "money": 4834
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": false,
+      "direction": "s",
+      "dialog": "We are ashamed of the many murders we have committed against the Nephites, and we dare not lift a weapon of war lest we return to our old ways. To show our gratitude for rescuing us, and so that you may continue to protect us from our enemies, please accept this tribute."
+    }
+  }
+]

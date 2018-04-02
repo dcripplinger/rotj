@@ -1,0 +1,169 @@
+[
+  {
+    "x": 37,
+    "y": 39,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 38,
+    "y": 39,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 48,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 49,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 214,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 13,
+    "teleport": {
+      "map": "jershon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 28,
+    "teleport": {
+      "map": "jershon_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 37,
+    "ai_sprite": {
+      "name": "anti-nephi-lehi",
+      "wander": false,
+      "direction": "s",
+      "conditions": {
+        "anti_nephi_lehi_joins": false
+      },
+      "dialog": [
+        {
+          "text": "I am not much of a fighter, but I am skilled as a strategist. Please let me join you.",
+          "condition": "talked_with_helaman",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "anti_nephi_lehi_joins",
+              "next_dialog": "I will serve you faithfully."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I'll be here when you're ready for my help."
+            }
+          ]
+        },
+        {
+          "text": "Anti Nephi Lehi: Helaman, son of Alma, is in the large home and wishes to speak with you.",
+          "condition": "talked_with_anti_nephi_lehi"
+        },
+        {
+          "text": "I am Anti Nephi Lehi, son of Mathoni and brother of Lamoni. Our people now call ourselves the Anti Nephi Lehies, and my father wished to name me the same. This name reminds us that, although we are not descendants of Nephi, we are still descendants of our shared forefather Lehi, and we wish to follow his example and not that of our forefathers Laman and Lemuel. Thank you so much for offering this land to our people. Helaman, son of Alma, is in the large home and wishes to speak with you.",
+          "game_state_action": "talked_with_anti_nephi_lehi"
+        }
+      ]
+    }
+  },
+  {
+    "x": 30,
+    "y": 30,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "We're calling ourselves Anti Nephi Lehies, but that name is confusing and a mouthful. Since Ammon was an integral part of our conversion and deliverance, some of us are starting to call ourselves the people of Ammon."
+    }
+  },
+  {
+    "x": 36,
+    "y": 26,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "s",
+      "dialog": "We aren't wasting any time in building and farming."
+    }
+  },
+  {
+    "x": 39,
+    "y": 34,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "This is the land of Jershon. Welcome, and thank you for protecting us."
+    }
+  },
+  {
+    "x": 49,
+    "y": 21,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "n",
+      "dialog": "There is a vast wilderness north of here, after which is the seashore, where the cities of Morianton, Lehi, and Nephihah reside."
+    }
+  },
+  {
+    "x": 23,
+    "y": 17,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": true,
+      "direction": "n",
+      "dialog": "We buried our weapons of war deep in the ground."
+    }
+  }
+]

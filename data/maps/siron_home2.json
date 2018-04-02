@@ -1,0 +1,20 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "siron",
+      "x": 25,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 13,
+    "treasure": {
+      "name": "siron_home2_treasure",
+      "item": "wood~h"
+    }
+  }
+]

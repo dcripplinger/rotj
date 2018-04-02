@@ -999,5 +999,87 @@
       "y": 26,
       "direction": "n"
     }
+  },
+  {
+    "x": 196,
+    "y": 262,
+    "teleport": {
+      "map": "siron",
+      "x": 10,
+      "y": 14,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 199,
+    "y": 214,
+    "teleport": {
+      "map": "jershon",
+      "x": 37,
+      "y": 38,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 216,
+    "y": 240,
+    "teleport": {
+      "map": "antionum",
+      "x": 35,
+      "y": 37,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 186,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 187,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 188,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
+  },
+  {
+    "x": 189,
+    "y": 243,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_helaman": false
+      },
+      "name": "fence",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There's no one there."
+    }
   }
 ]

@@ -78,6 +78,7 @@ class Game(object):
             'alma_joins': self.handle_alma_joins,
             'ammon_joins': self.handle_ammon_joins,
             'mathoni_kingdom_rejected': self.handle_mathoni_kingdom_rejected,
+            'anti_nephi_lehi_joins': self.handle_anti_nephi_lehi_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -1039,3 +1040,6 @@ class Game(object):
 
     def handle_mathoni_kingdom_rejected(self):
         self.add_to_company(['mathoni'])
+
+    def handle_anti_nephi_lehi_joins(self):
+        self.add_to_company(['anti-nephi-lehi'])

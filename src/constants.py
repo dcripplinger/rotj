@@ -653,9 +653,16 @@ PALACE_MUSIC = {
     'repeat': 'data/audio/music/palace.wav',
 }
 
+VILLAGE_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/menu.wav',
+}
+
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
+    'antionum': CITY_MUSIC,
+    'antionum_palace': PALACE_MUSIC,
     'nephi': CITY_MUSIC,
     'nephi_palace': PALACE_MUSIC,
     'shimnilon': CITY_MUSIC,
@@ -673,10 +680,9 @@ MAP_MUSIC = {
     'hearthom_palace': PALACE_MUSIC,
     'zarahemla': CITY_MUSIC,
     'zarahemla_palace': PALACE_MUSIC,
-    'melek': {
-        'intro': None,
-        'repeat': 'data/audio/music/menu.wav',
-    },
+    'melek': VILLAGE_MUSIC,
+    'siron': VILLAGE_MUSIC,
+    'jershon': VILLAGE_MUSIC,
     'house_of_moroni': SHOP_MUSIC,
     'melek_empty_house': SHOP_MUSIC,
     'overworld': {
@@ -1039,6 +1045,7 @@ HQ = [
     'ammonihah',
     'gideon',
     'ishmael',
+    'antionum',
 ]
 
 MAX_COMPANY_SIZE = 7

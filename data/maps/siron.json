@@ -1,0 +1,112 @@
+[
+  {
+    "x": 9,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 196,
+      "y": 262,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 9,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 196,
+      "y": 262,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 28,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 196,
+      "y": 262,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 28,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 196,
+      "y": 262,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 13,
+    "teleport": {
+      "map": "siron_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 17,
+    "teleport": {
+      "map": "siron_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 17,
+    "ai_sprite": {
+      "name": "woman3",
+      "wander": true,
+      "direction": "n",
+      "dialog": "This is the land known as Siron. Surely you have heard of us? We are able to attend any weary traveler."
+    }
+  },
+  {
+    "x": 25,
+    "y": 12,
+    "ai_sprite": {
+      "name": "woman2",
+      "wander": true,
+      "direction": "e",
+      "dialog": "No, we cannot provide any land to your Lamanite refugees. Have you checked at Manti or Antionum to the northeast?"
+    }
+  },
+  {
+    "x": 23,
+    "y": 23,
+    "ai_sprite": {
+      "name": "woman5",
+      "wander": true,
+      "direction": "w",
+      "dialog": "Don't listen to anyone. They're harlots, the lot of them, and they'll leave you nothing but shame and empty pockets."
+    }
+  },
+  {
+    "x": 13,
+    "y": 29,
+    "ai_sprite": {
+      "name": "woman6",
+      "wander": true,
+      "direction": "n",
+      "dialog": "Ooh, an entire army of strong, handsome men!"
+    }
+  },
+  {
+    "x": 12,
+    "y": 22,
+    "ai_sprite": {
+      "name": "woman3",
+      "wander": true,
+      "direction": "w",
+      "dialog": "I am Isabel. If you meet a young man named Corianton, can you tell him to meet me back here?"
+    }
+  }
+]
