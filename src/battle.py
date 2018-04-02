@@ -470,9 +470,6 @@ class Battle(object):
                 mini_results.append(mini_result)
             else:
                 mini_results.append(results)
-        elif move['action'] in [self.execute_move_defend, self.execute_move_item]:
-            mini_moves.append(move)
-            mini_results.append(results)
         elif move['action'] == self.execute_move_tactic:
             if 'targets' in results:
                 for result in results['targets']:
@@ -485,6 +482,11 @@ class Battle(object):
                 results.update({'first': True})
                 mini_moves.append(move)
                 mini_results.append(results)
+        else:
+            # elif move['action'] in [self.execute_move_defend, self.execute_move_item, self.execute_move_disable]
+            # or anything else we might have missed
+            mini_moves.append(move)
+            mini_results.append(results)
         return mini_moves, mini_results
 
     def get_damage_dialog(self, mini_move, mini_result, is_ally_move):
@@ -654,14 +656,16 @@ class Battle(object):
             self.animate_move_hit(self.mini_move, self.mini_result)
 
     def animate_move_hit(self, move, results):
+        move = move or {}
+        results = results or {} # Because I had a weird bug where results was None, not sure why. Maybe we can ignore.
         if (
             results.get('repel') or results.get('evade') or results.get('fail') or results.get('deflect')
             or results.get('wasted')
         ):
             return
-        elif move['action'] == self.execute_move_battle:
+        elif move.get('action') == self.execute_move_battle:
             move['target'].animate_hit('attack')
-        elif move['action'] == self.execute_move_tactic:
+        elif move.get('action') == self.execute_move_tactic:
             slot = TACTICS[move['tactic']]['slot']
             if slot == 1:
                 move['target'].animate_hit('fire')
