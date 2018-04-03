@@ -13,7 +13,7 @@
     "x": 18,
     "y": 11,
     "ai_sprite": {
-      "name": "yuppie2",
+      "name": "yuppie",
       "direction": "s",
       "wander": false,
       "dialog": ""

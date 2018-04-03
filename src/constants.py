@@ -661,6 +661,8 @@ VILLAGE_MUSIC = {
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
+    'manti': CITY_MUSIC,
+    'manti_palace': PALACE_MUSIC,
     'antionum': CITY_MUSIC,
     'antionum_palace': PALACE_MUSIC,
     'nephi': CITY_MUSIC,
@@ -1045,7 +1047,7 @@ HQ = [
     'ammonihah',
     'gideon',
     'ishmael',
-    'antionum',
+    'manti',
 ]
 
 MAX_COMPANY_SIZE = 7

@@ -8,5 +8,25 @@
       "y": 16,
       "direction": "s"
     }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Since we are near the border of the Lamanites, we are constantly having to defend ourselves."
+    }
+  },
+  {
+    "x": 20,
+    "y": 24,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Hurrah for Moroni!"
+    }
   }
 ]
