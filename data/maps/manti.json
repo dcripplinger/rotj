@@ -98,5 +98,35 @@
       "wander": false,
       "dialog": "This is the city of Manti."
     }
+  },
+  {
+    "x": 23,
+    "y": 25,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": true,
+      "dialog": "We would love to help your Lamanite friends, but we simply cannot afford to give them any land."
+    }
+  },
+  {
+    "x": 14,
+    "y": 16,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "There isn't a square on this whole map we can give to your friends. We can't spare a square."
+    }
+  },
+  {
+    "x": 32,
+    "y": 22,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Have you tried the city of Antionum to the northeast? The Zoramites may have land they can offer the defecting Lamanites."
+    }
   }
 ]
