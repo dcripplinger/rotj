@@ -1,0 +1,80 @@
+[
+  {
+    "x": 17,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 187,
+      "y": 239,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 187,
+      "y": 239,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 36,
+    "teleport": {
+      "map": "destroyed_ammonihah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 26,
+    "ai_sprite": {
+      "name": "amalickiah_left",
+      "direction": "w",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "I'm sorry, but I don't think I can go on fighting now. I need time alone.",
+          "condition": "talked_with_amalickiah"
+        },
+        {
+          "text": "We're too late. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ This is the last spot I saw my wife and children, and now they're gone forever. Why couldn't there have been reinforcements? ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Moroni, I'm sorry, but I don't think I can go on fighting now. I need time alone.",
+          "game_state_action": "talked_with_amalickiah"
+        }
+      ]
+    }
+  },
+  {
+    "x": 23,
+    "y": 32,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "s",
+      "wander": false,
+      "dialog": "The man who lived here had fled to Sidom to the west a while back. Someone should probably let him know his house is burned down."
+    }
+  },
+  {
+    "x": 14,
+    "y": 14,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "e",
+      "wander": true,
+      "dialog": "The Lamanites destroyed the city of Ammonihah and all its inhabitants. I hope I can find a way to rebuild this palace without starting from scratch."
+    }
+  },
+  {
+    "x": 21,
+    "y": 32,
+    "treasure": {
+      "name": "destroyed_ammonihah_treasure",
+      "item": "g.~plates",
+      "invisible": true
+    }
+  }
+]

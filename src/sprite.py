@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from math import ceil, floor
+import os
 import random
 
 import pygame
@@ -13,6 +14,12 @@ def load_character_images(character):
     path = 'data/images/sprites'
     e_stand = pygame.image.load('{}/{}/e/stand.png'.format(path, character)).convert_alpha()
     e_walk = pygame.image.load('{}/{}/e/walk.png'.format(path, character)).convert_alpha()
+    if os.path.isdir('{}/{}/w'.format(path, character)):
+        w_stand = pygame.image.load('{}/{}/w/stand.png'.format(path, character)).convert_alpha()
+        w_walk = pygame.image.load('{}/{}/w/walk.png'.format(path, character)).convert_alpha()
+    else:
+        w_stand = pygame.transform.flip(e_stand, True, False)
+        w_walk = pygame.transform.flip(e_walk, True, False)
     return {
         'e': {
             'stand': e_stand,
@@ -27,8 +34,8 @@ def load_character_images(character):
             'walk': pygame.image.load('{}/{}/s/walk.png'.format(path, character)).convert_alpha(),
         },
         'w': {
-            'stand': pygame.transform.flip(e_stand, True, False),
-            'walk': pygame.transform.flip(e_walk, True, False),
+            'stand': w_stand,
+            'walk': w_walk,
         },
     }
 

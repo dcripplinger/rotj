@@ -123,12 +123,23 @@
   {
     "x": 187,
     "y": 239,
-    "teleport": {
-      "map": "ammonihah",
-      "x": 18,
-      "y": 39,
-      "direction": "n"
-    },
+    "teleport": [
+      {
+        "map": "destroyed_ammonihah",
+        "x": 18,
+        "y": 39,
+        "direction": "n",
+        "conditions": {
+          "talked_with_helaman": true
+        }
+      },
+      {
+        "map": "ammonihah",
+        "x": 18,
+        "y": 39,
+        "direction": "n"
+      }
+    ],
     "battles": [
       {
         "enemies": [

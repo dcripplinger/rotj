@@ -710,6 +710,10 @@ MAP_MUSIC = {
     'middoni_tent1': CAMP_MUSIC,
     'middoni_tent2': CAMP_MUSIC,
     'middoni_tent3': CAMP_MUSIC,
+    'destroyed_ammonihah': {
+        'intro': None,
+        'repeat': 'data/audio/music/destroyed.wav',
+    }
 }
 
 BATTLE_MUSIC = {
@@ -1017,6 +1021,11 @@ ITEMS = {
     # map items
     'key': {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
+    },
+
+    # save items
+    'g.~plates': { # short for gold plates
+        'map_usage': 'save', # means you can use it to save your game anywhere except in battle
     },
 
     # unusable items (just carrying it has an effect, or it gets used indirectly)
