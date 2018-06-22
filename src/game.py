@@ -79,6 +79,7 @@ class Game(object):
             'ammon_joins': self.handle_ammon_joins,
             'mathoni_kingdom_rejected': self.handle_mathoni_kingdom_rejected,
             'anti_nephi_lehi_joins': self.handle_anti_nephi_lehi_joins,
+            'entered_destroyed_ammonihah': self.handle_entered_destroyed_ammonihah,
         }
 
     def conditions_are_met(self, conditions):
@@ -116,7 +117,7 @@ class Game(object):
 
     def set_game_state_condition(self, condition):
         side_effect = self.condition_side_effects.get(condition)
-        if side_effect:
+        if side_effect and condition not in self.game_state['conditions']:
             side_effect()
         conditions = list(self.game_state['conditions'])
         conditions.append(condition)
@@ -181,6 +182,12 @@ class Game(object):
             self.current_map.hero.direction,
             'inplace',
         )
+
+    def get_reserve_index(self, warlord_name):
+        for i, name in enumerate(self.game_state['reserve']):
+            if name == warlord_name:
+                return i
+        return None
 
     def fire(self, reserve_index):
         reserve = copy.deepcopy(self.game_state['reserve'])
@@ -545,6 +552,15 @@ class Game(object):
     def set_current_map(
         self, map_name, position, direction, followers='under', dialog=None, continue_current_music=False,
     ):
+        # set game state conditions for entering or exiting certain maps
+        if self.current_map:
+            if self.current_map.name == 'nephi' and map_name == 'overworld':
+                self.set_game_state_condition('exited_nephi')
+            elif self.current_map.name == 'overworld' and map_name == 'jershon':
+                self.set_game_state_condition('entered_jershon')
+            elif self.current_map.name == 'overworld' and map_name == 'destroyed_ammonihah':
+                self.set_game_state_condition('entered_destroyed_ammonihah')
+
         assert followers in [
             'trail', # position the followers trailing behind the hero
             'under', # position the followers underneath the hero on the same tile
@@ -557,13 +573,6 @@ class Game(object):
         self.fade_alpha = 0
         self.set_screen_state('change_map')
         self.retreat_counter = 0
-
-        # set game state conditions for entering or exiting certain maps
-        if self.current_map:
-            if self.current_map.name == 'nephi' and map_name == 'overworld':
-                self.set_game_state_condition('exited_nephi')
-            elif self.current_map.name == 'overworld' and map_name == 'jershon':
-                self.set_game_state_condition('entered_jershon')
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)
@@ -1043,3 +1052,28 @@ class Game(object):
 
     def handle_anti_nephi_lehi_joins(self):
         self.add_to_company(['anti-nephi-lehi'])
+
+    def handle_entered_destroyed_ammonihah(self):
+        # if there is nobody alive left in the company, resurrect moroni or recruit him
+        need_moroni = True
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0 and warlord['name'] != 'amalickiah':
+                need_moroni = False
+                break
+        if need_moroni:
+            if 'moroni' in [warlord['name'] for warlord in self.game_state['company']]:
+                self.heal('moroni', 100)
+            else:
+                reserve_index = self.get_reserve_index('moroni')
+                self.recruit(reserve_index)
+
+        # get rid of amalickiah
+        company_index = None
+        for i, warlord in enumerate(self.game_state['company']):
+            if warlord['name'] == 'amalickiah':
+                company_index = i
+                break
+        if company_index is not None:
+            self.delete_member(company_index)
+        self.fire(-1)
+
