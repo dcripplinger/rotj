@@ -37,6 +37,8 @@ class MapMenu(object):
         self.dialog_choice = None
         self.dialog_choice_menu = None
         self.shop = None
+        self.save_menu = None
+        self.game = self.map.game
 
     def update(self, dt):
         if self.state == 'main':
@@ -66,6 +68,16 @@ class MapMenu(object):
             self.dialog_choice_menu.update(dt)
         if self.state == 'shop':
             self.shop.update(dt)
+        if self.state == 'save':
+            if self.prompt.has_more_stuff_to_show():
+                self.prompt.update(dt)
+                if not self.prompt.has_more_stuff_to_show():
+                    self.save_menu = MenuBox(['YES', 'NO'])
+                    self.save_menu.focus()
+                    self.prompt.shutdown()
+                    self.item_selected_menu = None
+            else:
+                self.save_menu.update(dt)
 
     def handle_dialog_choice(self):
         self.state = 'choice'
@@ -102,6 +114,8 @@ class MapMenu(object):
         if self.shop:
             self.shop.update_surface()
             self.screen.blit(self.shop.surface, (0, 0))
+        if self.save_menu:
+            self.screen.blit(self.save_menu.surface, (176, 128))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -141,6 +155,16 @@ class MapMenu(object):
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
                 self.prompt.shutdown()
                 return 'exit'
+        elif self.state == 'save':
+            if self.save_menu:
+                self.save_menu.handle_input(pressed)
+                if pressed[K_x] and self.save_menu.get_choice() == 'YES':
+                    self.game.save()
+                    self.game.start_sleep('data/audio/save.wav', "Your game is saved.")
+                if pressed[K_x] or pressed[K_z]:
+                    return 'exit'
+            else:
+                self.prompt.handle_input(pressed)
         elif self.state == 'formation':
             return self.handle_input_formation(pressed)
         elif self.state == 'order':
@@ -318,6 +342,9 @@ class MapMenu(object):
             ))
             self.map.game.cloak_steps_remaining = 100
             self.map.remove_item(user, self.items_menu.current_choice)
+        elif map_usage == 'save':
+            self.state = 'save'
+            self.prompt = create_prompt("Are you sure you want to save your game?")
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")
