@@ -132,12 +132,12 @@
           "text": "I am Manti and this is Ammah. We wish to join your army, if you will have us.",
           "prompt": [
             {
-              "choice": "Yes",
+              "choice": "YES",
               "game_state_action": "ammah_and_manti_join",
               "next_dialog": "We will serve you faithfully."
             },
             {
-              "choice": "No",
+              "choice": "NO",
               "next_dialog": "We hope you will accept our services at a later date."
             }
           ]

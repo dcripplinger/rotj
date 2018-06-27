@@ -16,7 +16,33 @@
       "name": "lamoni",
       "direction": "s",
       "wander": false,
+      "conditions": {
+        "lamoni_joins": false
+      },
       "dialog": [
+        {
+          "text": "I must thank you for sparing my father. Perhaps I can join you in your fight as my father has. It may be our best chance at establishing peace among our people again.",
+          "condition": "mathoni_kingdom_rejected",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "lamoni_joins",
+              "next_dialog": "Thank you."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I hope you will change your mind later."
+            }
+          ]
+        },
+        {
+          "text": "I know my father committed terrible offenses, but now that he is gone, I miss him deeply. I'm sorry, but I can't join you. All I can do now is try to keep serving my people here.",
+          "condition": "battle17"
+        },
+        {
+          "text": "More Lamanites to the east wish to join you, but my brothers and my father Mathoni are sure to resist you. I wish you the best of luck.",
+          "condition": "talked_with_lamoni_after_sebus"
+        },
         {
           "text": "Thank you for securing my flocks at the Waters of Sebus. I, Lamoni, now grant you passage beyond my land. However, I fear you will not be met with such kindness by my brothers or my father Mathoni, king over all the Lamanites. Some of my people wish to go with you on your way back to Nephite territory. Good luck.",
           "condition": "battle09",

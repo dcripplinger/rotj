@@ -118,7 +118,15 @@
       "name": "merchant2",
       "wander": true,
       "direction": "s",
-      "dialog": "Several residents here hope to join you in your journey back to Nephite territory to escape the oppression of the king. I will be staying behind to work with Lamoni to continue working for better freedom here."
+      "dialog": [
+        {
+          "text": "The struggle for freedom for all Lamanites is an uphill battle.",
+          "condition": "battle17"
+        },
+        {
+          "text": "Several residents here hope to join you in your journey back to Nephite territory to escape the oppression of the king. I will be staying behind to work with Lamoni to continue working for better freedom here."
+        }
+      ]
     }
   }
 ]

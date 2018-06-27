@@ -106,7 +106,7 @@
       "name": "old_woman",
       "direction": "e",
       "wander": true,
-      "dialog": "I can't believe I listened the words of Nehor. It is clear now he is an evil man who only cared for himself."
+      "dialog": "I can't believe I listened to the words of Nehor. It is clear now he was an evil man who only cared for himself."
     }
   },
   {
@@ -116,7 +116,7 @@
       "name": "villager",
       "direction": "w",
       "wander": true,
-      "dialog": "The land of Zarahemla has several cities. Zarahemla, the capital, is in the center between the west mountains and the river Sidon to the east. Melek lies in the valley, just east of Zarahemla. This city, Hearthom, lies to the north. If you follow the river Sidon from the north toward the south, you will find the cities of Gideon, Noah, and Ammonihah, in that order. Just west of the southern city Ammonihah is the village of Sidom."
+      "dialog": "The land of Zarahemla has several cities. Zarahemla, the capital, is in the center between the west mountains and the river Sidon to the east. Melek lies in the valley, just east of Zarahemla. This city, Hearthom, lies in the north. If you follow the river Sidon from the north toward the south, you will find the cities of Gideon, Noah, and Ammonihah, in that order. Just west of the southern city Ammonihah is the village of Sidom."
     }
   },
   {

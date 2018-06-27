@@ -96,7 +96,15 @@
       "name": "advisor",
       "direction": "n",
       "wander": true,
-      "dialog": "Long live Alma, our chief judge!"
+      "dialog": [
+        {
+          "text": "Long live Nephihah, our chief judge!",
+          "condition": "battle08"
+        },
+        {
+          "text": "Long live Alma, our chief judge!"
+        }
+      ]
     }
   },
   {

@@ -46,7 +46,19 @@
       "name": "woman2",
       "direction": "n",
       "wander": true,
-      "dialog": "Nehor and his followers have gone into hiding. I don't know where Nehor is, but when I was visiting the city of Noah, there was a man by the name of Jeneum I recognized from the time I lived in Ammonihah. He belongs to the Order and probably knows where Nehor is hiding, if you can capture him and make him talk."
+      "dialog": [
+        {
+          "text": "Thank you for fighting for our liberties.",
+          "condition": "battle05"
+        },
+        {
+          "text": "You found Jeneum? He said Nehor is hiding in Gideon? Then what are you waiting for?",
+          "condition": "battle04"
+        },
+        {
+          "text": "Nehor and his followers have gone into hiding. I don't know where Nehor is, but when I was visiting the city of Noah, there was a man by the name of Jeneum I recognized from the time I lived in Ammonihah. He belongs to the Order and probably knows where Nehor is hiding, if you can capture him and make him talk."
+        }
+      ]
     }
   },
   {

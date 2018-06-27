@@ -126,7 +126,19 @@
       "name": "gentleman",
       "direction": "s",
       "wander": true,
-      "dialog": "The Order of the Nehors had driven many people out of the city, and they went to Sidom to the west. Now that you have beaten them, they will seek refuge in Sidom as well and continue to persecute the same people. The four Em brothers, who are quite skilled in combat, now lead them."
+      "dialog": [
+        {
+          "text": "The village Sidom is to the west. Many there used to live in Ammonihah.",
+          "condition": "battle05"
+        },
+        {
+          "text": "I heard you already beat the four Em brothers at Sidom to the west. Perhaps the people there have an idea where to look next for Nehor.",
+          "condition": "battle03"
+        },
+        {
+          "text": "The Order of the Nehors had driven many people out of the city, and they went to Sidom to the west. Now that you have beaten them, they will seek refuge in Sidom as well and continue to persecute the same people. The four Em brothers, who are quite skilled in combat, now lead them."
+        }
+      ]
     }
   },
   {
@@ -136,7 +148,15 @@
       "name": "yuppie",
       "direction": "n",
       "wander": true,
-      "dialog": "Nehor was never here. He must be hiding somewhere else."
+      "dialog": [
+        {
+          "text": "Have you seen a bathroom anywhere?",
+          "condition": "battle05"
+        },
+        {
+          "text": "Nehor was never here. He must be hiding somewhere else."
+        }
+      ]
     }
   },
   {

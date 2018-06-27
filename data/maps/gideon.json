@@ -126,7 +126,15 @@
       "name": "gentleman",
       "direction": "w",
       "wander": true,
-      "dialog": "I fear that the downfall of Nehor will lead to his followers rebelling even further."
+      "dialog": [
+        {
+          "text": "It always seems like when one baddie gets axed another pops up.",
+          "condition": "battle08"
+        },
+        {
+          "text": "I fear that the downfall of Nehor will lead to his followers rebelling even further."
+        }
+      ]
     }
   },
   {
@@ -136,7 +144,15 @@
       "name": "villager2",
       "direction": "w",
       "wander": true,
-      "dialog": "I had to retire from the army because of an injury, so I left my club behind in the reserve. You can have it."
+      "dialog": [
+        {
+          "text": "Hey! You took my club I was keeping in a chest at the reserve! Heh heh, just kidding. You can keep it. I don't need it anymore.",
+          "condition": "gideon_treasure"
+        },
+        {
+          "text": "I had to retire from the army because of an injury, so I left my club behind in the reserve. You can have it."
+        }
+      ]
     }
   },
   {

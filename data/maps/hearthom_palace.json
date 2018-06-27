@@ -16,7 +16,15 @@
       "name": "seezoram",
       "direction": "s",
       "wander": false,
-      "dialog": "Thank you for dealing with Nehor. He was mounting quite a rebellion in this city. I don't know where he fled to, but he had many followers in Ammonihah, to the south by the head of the river Sidon."
+      "dialog": [
+        {
+          "text": "Thank you for dealing with Nehor. He was mounting quite a rebellion in this city.",
+          "condition": "battle05"
+        },
+        {
+          "text": "Thank you for dealing with Nehor. He was mounting quite a rebellion in this city. I don't know where he fled to, but he had many followers in Ammonihah, to the south by the head of the river Sidon."
+        }
+      ]
     }
   },
   {
