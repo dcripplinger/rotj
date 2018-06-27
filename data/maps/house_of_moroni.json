@@ -6,7 +6,15 @@
   		"name": "villager",
   		"direction": "s",
   		"wander": false,
-  		"dialog": "The chief judge is waiting for you in the palace of Zarahemla, to the west."
+  		"dialog": [
+        {
+          "text": "Good luck on your journey.",
+          "condition": "talked_with_alma"
+        },
+        {
+          "text": "The chief judge is waiting for you in the palace of Zarahemla, to the west."
+        }
+      ]
   	}
   },
   {

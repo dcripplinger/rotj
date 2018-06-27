@@ -166,7 +166,19 @@
       "name": "yuppie",
       "direction": "n",
       "wander": true,
-      "dialog": "Nehor shouldn't be punished. He was just defending himself. Man, I'm broke."
+      "dialog": [
+        {
+          "text": "I can't wait for the next bad guy to come along for me to blindly support.",
+          "condition": "battle08"
+        },
+        {
+          "text": "Long live Amlici! Death to Alma!",
+          "condition": "talked_with_alma_after_nehor"
+        },
+        {
+          "text": "Nehor shouldn't be punished. He was just defending himself. Man, I'm broke."
+        }
+      ]
     }
   },
   {
@@ -176,7 +188,15 @@
       "name": "woman",
       "direction": "e",
       "wander": true,
-      "dialog": "Nehor is likely at Hermounts, to the north. That's where his church was founded."
+      "dialog": [
+        {
+          "text": "Don't forget to give a weapon, armor, and head gear to each warlord. Simply having them isn't enough. You also need to equip them.",
+          "condition": "battle01"
+        },
+        {
+          "text": "Nehor is likely at Hermounts, to the north. That's where his church was founded."
+        }
+      ]
     }
   },
   {
@@ -186,7 +206,15 @@
       "name": "advisor",
       "direction": "s",
       "wander": true,
-      "dialog": "The Order of the Nehors has followers in all the surrounding cities, even here in Zarahemla."
+      "dialog": [
+        {
+          "text": "Mosiah, our last king, was wise and selfless to establish the reign of the judges and grant us a democracy.",
+          "condition": "battle08"
+        },
+        {
+          "text": "The Order of the Nehors has followers in all the surrounding cities, even here in Zarahemla."
+        }
+      ]
     }
   },
   {

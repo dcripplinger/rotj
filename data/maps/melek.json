@@ -152,7 +152,15 @@
       "name": "woman",
       "direction": "w",
       "wander": true,
-      "dialog": "My family joined the Order of the Nehors. They're giving all their money to the preachers, and they keep persecuting me and others for not believing as they do. I wish I knew what to do."
+      "dialog": [
+        {
+          "text": "Thank you for driving out Nehor, Amlici, and their followers.",
+          "condition": "battle08"
+        },
+        {
+          "text": "My family joined the Order of the Nehors. They're giving all their money to the preachers, and they keep persecuting me and others for not believing as they do. I wish I knew what to do."
+        }
+      ]
     }
   },
   {

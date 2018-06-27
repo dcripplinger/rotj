@@ -130,7 +130,7 @@
         "y": 39,
         "direction": "n",
         "conditions": {
-          "talked_with_helaman": true
+          "entered_jershon": true
         }
       },
       {
@@ -962,7 +962,7 @@
                       {
                         "choice": "NO",
                         "game_state_action": "mathoni_kingdom_rejected",
-                        "next_dialog": "Perhaps Lamoni was right about you. You do not care for riches and power but are a true friend to him and have shown me mercy. Let me join your cause.\nMathoni has joined your army!"
+                        "next_dialog": "Perhaps Lamoni was right about you. You do not care for riches and power but are a true friend to him and have shown me mercy. Let me join your cause. ~~~~~~~~ ~~~~~~~~ Mathoni has joined your army!"
                       }
                     ]
                   }
@@ -1046,7 +1046,7 @@
     "y": 243,
     "ai_sprite": {
       "conditions": {
-        "talked_with_helaman": false
+        "entered_jershon": false
       },
       "name": "fence",
       "wander": false,
@@ -1059,7 +1059,7 @@
     "y": 243,
     "ai_sprite": {
       "conditions": {
-        "talked_with_helaman": false
+        "entered_jershon": false
       },
       "name": "fence",
       "wander": false,
@@ -1072,7 +1072,7 @@
     "y": 243,
     "ai_sprite": {
       "conditions": {
-        "talked_with_helaman": false
+        "entered_jershon": false
       },
       "name": "fence",
       "wander": false,
@@ -1085,7 +1085,7 @@
     "y": 243,
     "ai_sprite": {
       "conditions": {
-        "talked_with_helaman": false
+        "entered_jershon": false
       },
       "name": "fence",
       "wander": false,

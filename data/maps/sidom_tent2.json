@@ -19,7 +19,7 @@
       "dialog": [
         {
           "text": "My house in Ammonihah burned down?! Well, at least that means you can get into it now. Search the remains of my house and you should find my prized possession, some gold plates. You can use them to record your progress anywhere.",
-          "condition": "talked_with_helaman"
+          "condition": "entered_jershon"
         },
         {
           "text": "My house in Ammonihah is locked, and I lost the key. If only I could get in, I would give you my most prized possession to aid you in your struggle."

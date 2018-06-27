@@ -16,5 +16,18 @@
       "name": "zarahemla_home2_treasure",
       "money": 150
     }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "alma",
+      "direction": "s",
+      "wander": false,
+      "conditions": {
+        "talked_with_lamoni_after_sebus": true
+      },
+      "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. If you have questions, please go see the current chief judge in the palace."
+    }
   }
 ]

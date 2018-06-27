@@ -17,7 +17,8 @@
       "direction": "s",
       "wander": false,
       "conditions": {
-        "battle08": true
+        "battle08": true,
+        "talked_with_lamoni_after_sebus": false
       },
       "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. Nephihah has been chosen by the people as the new chief judge. I'm sorry I can't accompany you into battle anymore. Please see what Nephihah has to say."
     }
@@ -33,7 +34,23 @@
         "conditions": {
           "battle08": true
         },
-        "dialog": "I am the new chief judge Nephihah, chosen by the voice of the people. Moroni, there are many Lamanites beyond the mountain passage south of Minon who wish to defect to the Nephites, but their rulers will not let them. You must go liberate them and find a safe place in Nephite territory to harbor them."
+        "dialog": [
+          {
+            "text": "I am truly sorry I could not recruit enough soldiers to defend Ammonihah earlier. But Manti to the south is still in danger. Check the area near the city and stop the Lamanite army before they attack Manti. Once they are driven back, report to me.",
+            "condition": "entered_destroyed_ammonihah"
+          },
+          {
+            "text": "You must hurry and secure Ammonihah against the Lamanites. Then return and report back.",
+            "condition": "entered_jershon"
+          },
+          {
+            "text": "Good job in liberating the friendly Lamanites. Our people have given up the land of Jershon for our Lamanite friends to inherit. It is east of here beyond the river, but you may have to go a round-about way to get there.",
+            "condition": "battle17"
+          },
+          {
+            "text": "I am the new chief judge Nephihah, chosen by the voice of the people. Moroni, there are many Lamanites beyond the mountain passage south of Minon who wish to defect to the Nephites, but their rulers will not let them. You must go liberate them and find a safe place in Nephite territory to harbor them."
+          }
+        ]
       },
       {
         "name": "alma",

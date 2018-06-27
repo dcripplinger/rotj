@@ -28,6 +28,11 @@
       "direction": "s",
       "dialog": [
         {
+          "condition": "entered_destroyed_ammonihah",
+          "text": "I am Helaman, son of Alma. Perhaps someday I will help you fight, but for now my place is here ministering to the Anti Nephi Lehies.",
+          "game_state_action": "talked_with_helaman"
+        },
+        {
           "condition": "talked_with_helaman",
           "text": "Hurry to Ammonihah to secure it. You can get there by heading south back to Antionum and then following the road past Manti and then northwest. Take Anti Nephi Lehi with you. He's waiting in the village."
         },
