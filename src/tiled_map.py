@@ -144,6 +144,22 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'anti-nephi-lehi'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'lamoni_joins':
+            for sprite in self.group.sprites():
+                if sprite.name == 'lamoni':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'lamoni'
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'muloki_joins':
+            for sprite in self.group.sprites():
+                if sprite.name == 'muloki':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'muloki'
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)

@@ -16,7 +16,20 @@
       "name": "orihah",
       "wander": false,
       "direction": "s",
-      "dialog": "You may have beat me, but nothing will persuade me to release the Nephite prisoner! Well, maybe my fellow king Lamoni, if he were to talk to me."
+      "dialog": [
+        {
+          "text": "I'm always happy to help Lamoni.",
+          "condition": "muloki_let_go"
+        },
+        {
+          "text": "Oh, hi Lamoni. You want me to release the prisoner? Anything for you my good friend. The prison gate is now open.",
+          "condition": "state:lamoni_leader",
+          "game_state_action": "muloki_let_go"
+        },
+        {
+          "text": "You may have beat me, but nothing will persuade me to release the Nephite prisoner! Well, maybe my fellow king Lamoni, if he were to talk to me."
+        }
+      ]
     }
   }
 ]

@@ -11,5 +11,5 @@ convert \( tent1.png tent2.png tent3.png tent4.png tent5.png +append \) \
 \( ground_grass_nw.png ground_grass_n.png ground_grass_ne.png ground_grass_e.png +append \) \
 \( ground_grass_sw.png ground_grass_s.png ground_grass_se.png ground_grass_w.png +append \) \
 \( ground_water_nw.png ground_water_n.png ground_water_ne.png ground_water_e.png +append \) \
-\( ground_water_sw.png ground_water_s.png ground_water_se.png ground_water_w.png +append \) \
+\( ground_water_sw.png ground_water_s.png ground_water_se.png ground_water_w.png gate_center_open.png +append \) \
 -background none -append tileset_camps.png

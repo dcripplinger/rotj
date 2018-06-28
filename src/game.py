@@ -80,6 +80,8 @@ class Game(object):
             'mathoni_kingdom_rejected': self.handle_mathoni_kingdom_rejected,
             'anti_nephi_lehi_joins': self.handle_anti_nephi_lehi_joins,
             'entered_destroyed_ammonihah': self.handle_entered_destroyed_ammonihah,
+            'lamoni_joins': self.handle_lamoni_joins,
+            'muloki_joins': self.handle_muloki_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -90,11 +92,18 @@ class Game(object):
         elif isinstance(conditions, (tuple, list)):
             conditions = {condition: True for condition in conditions}
         for condition, expected in conditions.items():
-            if expected and condition not in self.game_state['conditions']:
+            if expected and not self._condition_is_true(condition):
                 return False
-            if not expected and condition in self.game_state['conditions']:
+            if not expected and self._condition_is_true(condition):
                 return False
         return True
+
+    def _condition_is_true(self, condition_str):
+        if condition_str.startswith("state:"):
+            condition_state_checker_str = condition_str.split(":")[1]
+            return getattr(self, condition_state_checker_str)()
+        else:
+            return condition_str in self.game_state.get('conditions', [])
 
     def get_dialog_for_condition(self, dialog):
         """
@@ -104,7 +113,7 @@ class Game(object):
             return dialog
         if isinstance(dialog, (list, tuple)):
             for (i, potential_dialog) in enumerate(dialog):
-                if potential_dialog.get('condition') in self.game_state.get('conditions', []):
+                if self._condition_is_true(potential_dialog.get('condition', '')):
                     dialog = potential_dialog
                     break
                 if i == len(dialog)-1:
@@ -906,6 +915,19 @@ class Game(object):
             pygame.quit()
 
     ###########################################################
+    # Condition state checkers get defined here               #
+    ###########################################################
+
+    # A condition state checker is a function that checks the game state in a way
+    # other than the "conditions" set. If a condition gets checked by conditions_are_met()
+    # that starts with "state:", then it looks for a function by the name that comes
+    # after the colon. For example, "state:lamoni_leader" will call lamoni_leader().
+    # If it's true, that "state" condition passes.
+
+    def lamoni_leader(self):
+        return self.game_state['company'][0]['name'] == 'lamoni'
+
+    ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
 
@@ -1076,4 +1098,10 @@ class Game(object):
         if company_index is not None:
             self.delete_member(company_index)
         self.fire(-1)
+
+    def handle_lamoni_joins(self):
+        self.add_to_company(['lamoni'])
+
+    def handle_muloki_joins(self):
+        self.add_to_company(['muloki'])
 
