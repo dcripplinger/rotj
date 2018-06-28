@@ -107,7 +107,15 @@
       "name": "villager3",
       "wander": true,
       "direction": "w",
-      "dialog": "Southeast of here is one of the Lamanite capitals, Nephi. It is the last city with Nephite sympathizers, but the Lamanite King has been preparing to meet you. Be cautious."
+      "dialog": [
+        {
+          "text": "Southeast of here is one of the Lamanite capitals, Nephi.",
+          "condition": "battle17"
+        },
+        {
+          "text": "Southeast of here is one of the Lamanite capitals, Nephi. It is the last city with Nephite sympathizers, but the Lamanite King has been preparing to meet you. Be cautious."
+        }
+      ]
     }
   }
 ]

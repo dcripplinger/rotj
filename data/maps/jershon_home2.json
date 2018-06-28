@@ -24,7 +24,15 @@
       "name": "villager3",
       "wander": false,
       "direction": "s",
-      "dialog": "We are ashamed of the many murders we have committed against the Nephites, and we dare not lift a weapon of war lest we return to our old ways. To show our gratitude for rescuing us, and so that you may continue to protect us from our enemies, please accept this tribute."
+      "dialog": [
+        {
+          "text": "Thank you for accepting our tribute. It is to show our gratitude for rescuing us, and so that you may continue to protect us form our enemies. We are ashamed of the many murders we have committed against the Nephites, and we dare not lift a weapon of war lest we return to our old ways.",
+          "condition": "jershon_home2_treasure"
+        },
+        {
+          "text": "We are ashamed of the many murders we have committed against the Nephites, and we dare not lift a weapon of war lest we return to our old ways. To show our gratitude for rescuing us, and so that you may continue to protect us from our enemies, please accept this tribute."
+        }
+      ]
     }
   }
 ]

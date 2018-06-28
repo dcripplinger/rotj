@@ -96,7 +96,15 @@
       "name": "woman5",
       "wander": true,
       "direction": "e",
-      "dialog": "Thank you for liberating those of us who wish to join the Nephites. You will find more of our group to the southeast at Shimnilon and Middoni."
+      "dialog": [
+        {
+          "text": "I wish I had joined the Anti Nephi Lehies.",
+          "condition": "battle17"
+        },
+        {
+          "text": "Thank you for liberating those of us who wish to join the Nephites. You will find more of our group to the southeast at Shimnilon and Middoni."
+        }
+      ]
     }
   },
   {

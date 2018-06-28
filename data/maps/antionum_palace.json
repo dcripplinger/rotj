@@ -46,7 +46,15 @@
       "name": "zoram",
       "direction": "s",
       "wander": false,
-      "dialog": "No, we cannot help the defecting Lamanites. Perhaps the land of Jershon, north of here, will be better for them. Our people here have been chosen by God to be saved while the rest of you perish. Nobody else, not a Lamanite or a Nephite, is welcome to stay here."
+      "dialog": [
+        {
+          "text": "Our people here have been chosen by God to be saved while the rest of you perish.",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "No, we cannot help the defecting Lamanites. Perhaps the land of Jershon, north of here, will be better for them. Our people here have been chosen by God to be saved while the rest of you perish. Nobody else, not a Lamanite or a Nephite, is welcome to stay here."
+        }
+      ]
     }
   }
 ]

@@ -106,7 +106,19 @@
       "name": "advisor",
       "direction": "s",
       "wander": true,
-      "dialog": "We would love to help your Lamanite friends, but we simply cannot afford to give them any land."
+      "dialog": [
+        {
+          "text": "Oh thank you for stopping the Lamanites! After what they did to Ammonihah, I was so scared.",
+          "condition": "battle18"
+        },
+        {
+          "text": "I heard the Lamanites are planning to attack here. I'm so scared!",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "We would love to help your Lamanite friends, but we simply cannot afford to give them any land."
+        }
+      ]
     }
   },
   {
@@ -116,7 +128,15 @@
       "name": "woman",
       "direction": "e",
       "wander": true,
-      "dialog": "There isn't a square on this whole map we can give to your friends. We can't spare a square."
+      "dialog": [
+        {
+          "text": "Many men lacking moral fortitude have run off to Siron to the southwest, chasing after Isabel and her harlots.",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "There isn't a square on this whole map we can give to your friends. We can't spare a square."
+        }
+      ]
     }
   },
   {
@@ -126,7 +146,23 @@
       "name": "gentleman",
       "direction": "w",
       "wander": true,
-      "dialog": "Have you tried the city of Antionum to the northeast? The Zoramites may have land they can offer the defecting Lamanites."
+      "dialog": [
+        {
+          "text": "Antionum is northeast of here.",
+          "condition": "battle18"
+        },
+        {
+          "text": "At this very moment, the Lamanite general Zerahemnah is approaching with his army from the south. His men are fierce and spare no one.",
+          "condition": "entered_destroyed_ammonihah"
+        },
+        {
+          "text": "Antionum is northeast of here.",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "Have you tried the city of Antionum to the northeast? The Zoramites may have land they can offer the defecting Lamanites."
+        }
+      ]
     }
   }
 ]

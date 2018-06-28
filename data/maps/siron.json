@@ -66,7 +66,7 @@
       "name": "woman3",
       "wander": true,
       "direction": "n",
-      "dialog": "This is the land known as Siron. Surely you have heard of us? We are able to attend any weary traveler."
+      "dialog": "This is the land known as Siron. Surely you have heard of us? We are able to tend to any weary traveler."
     }
   },
   {
@@ -76,7 +76,15 @@
       "name": "woman2",
       "wander": true,
       "direction": "e",
-      "dialog": "No, we cannot provide any land to your Lamanite refugees. Have you checked at Manti or Antionum to the northeast?"
+      "dialog": [
+        {
+          "text": "So, the Anti Nephi Lehies settled in Jershon. That's nice. I'm glad they're safe.",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "No, we cannot provide any land to your Lamanite refugees. Have you checked at Manti or Antionum to the northeast?"
+        }
+      ]
     }
   },
   {

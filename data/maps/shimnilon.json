@@ -86,7 +86,15 @@
       "name": "woman6",
       "wander": true,
       "direction": "w",
-      "dialog": "If you're looking for Middoni, it's to the east of here, around the mountain ridge. There are Nephite sympathizers there as well."
+      "dialog": [
+        {
+          "text": "If you're looking for Middoni, it's to the east of here, around the mountain ridge.",
+          "condition": "battle17"
+        },
+        {
+          "text": "If you're looking for Middoni, it's to the east of here, around the mountain ridge. There are Nephite sympathizers there as well."
+        }
+      ]
     }
   },
   {
@@ -106,7 +114,7 @@
       "name": "woman4",
       "wander": true,
       "direction": "w",
-      "dialog": "Provoke, Disable, and Confuse are great tactics to avoid control otherwise dangerous warlords. But the higher their intelligence, the more difficult it is to get your tactic to take effect. Firewall and Extinguish, on the other hand, are 100 percent successful, if you need protection from fire tactics."
+      "dialog": "Provoke, Disable, and Confuse are great tactics to avoid and control otherwise dangerous warlords. But the higher their intelligence, the more difficult it is to get your tactic to take effect. Firewall and Extinguish, on the other hand, are 100 percent successful, if you need protection from fire tactics."
     }
   }
 ]
