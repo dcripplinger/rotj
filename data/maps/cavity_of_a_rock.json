@@ -67,5 +67,77 @@
       "x": 25,
       "y": 62
     }
+  },
+  {
+    "x": 28,
+    "y": 81,
+    "treasure": {
+      "name": "cavity_treasure1",
+      "item": "atlatl"
+    }
+  },
+  {
+    "x": 35,
+    "y": 81,
+    "treasure": {
+      "name": "cavity_treasure2",
+      "item": "sling"
+    }
+  },
+  {
+    "x": 28,
+    "y": 90,
+    "treasure": {
+      "name": "cavity_treasure3",
+      "item": "macana"
+    }
+  },
+  {
+    "x": 35,
+    "y": 90,
+    "treasure": {
+      "name": "cavity_treasure4",
+      "money": 12437
+    }
+  },
+  {
+    "x": 12,
+    "y": 9,
+    "treasure": {
+      "name": "cavity_treasure5",
+      "item": "plate~m"
+    }
+  },
+  {
+    "x": 11,
+    "y": 66,
+    "treasure": {
+      "name": "cavity_treasure6",
+      "item": "iron~h"
+    }
+  },
+  {
+    "x": 53,
+    "y": 70,
+    "treasure": {
+      "name": "cavity_treasure7",
+      "item": "elixir~e"
+    }
+  },
+  {
+    "x": 53,
+    "y": 68,
+    "treasure": {
+      "name": "cavity_treasure8",
+      "item": "elixir~e"
+    }
+  },
+  {
+    "x": 53,
+    "y": 66,
+    "treasure": {
+      "name": "cavity_treasure9",
+      "item": "elixir~e"
+    }
   }
 ]
