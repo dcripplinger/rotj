@@ -1,0 +1,63 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amalekites",
+        "amalekites",
+        "amalekites"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 116,
+        "defense": 48,
+        "intelligence": 39,
+        "agility": 88,
+        "evasion": 37,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      },
+      "amalekites": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 106,
+        "defense": 139,
+        "intelligence": 35,
+        "agility": 40,
+        "evasion": 17,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      }
+    }
+  }
+]
