@@ -1012,6 +1012,52 @@
     }
   },
   {
+    "x": 208,
+    "y": 258,
+    "battles": [
+      {
+        "conditions": {
+          "entered_destroyed_ammonihah": true
+        },
+        "name": "battle18",
+        "intro": "We didn't leave a single survivor in Ammonihah when we razed it to the ground. Manti is next.",
+        "narration": "Moroni caused Zerahemnah and the Lamanite army to depart with a covenant of peace.",
+        "enemies": [
+          {
+            "name": "zerahemnah",
+            "level": 24
+          },
+          {
+            "name": "pagag",
+            "level": 20
+          },
+          {
+            "name": "seth",
+            "level": 20
+          },
+          {
+            "name": "esrom",
+            "level": 20
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 700,
+              "strength": 84,
+              "defense": 24,
+              "intelligence": 27,
+              "agility": 80,
+              "evasion": 18,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     "x": 196,
     "y": 262,
     "teleport": {

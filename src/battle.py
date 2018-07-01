@@ -574,6 +574,12 @@ class Battle(object):
             elif mini_move['tactic'] == 'ninja':
                 dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
                 return create_prompt(dialog, silent=True)
+            elif mini_move['tactic'] == 'confuse':
+                dialog += '{} is now targeting their allies.'.format(mini_move['target'].name.title())
+                return create_prompt(dialog, silent=True)
+            elif mini_move['tactic'] == 'shield':
+                dialog += 'Physical damage is now reduced by half.'
+                return create_prompt(dialog, silent=True)
         elif mini_move['action'] == self.execute_move_item:
             dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
             if mini_result.get('wasted'):
@@ -663,7 +669,7 @@ class Battle(object):
             or results.get('wasted')
         ):
             return
-        elif move.get('action') == self.execute_move_battle:
+        elif move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             move['target'].animate_hit('attack')
         elif move.get('action') == self.execute_move_tactic:
             slot = TACTICS[move['tactic']]['slot']
@@ -787,10 +793,11 @@ class Battle(object):
         elif move.get('action') == self.execute_move_item:
             return None
 
-    def execute_move_battle(self, move):
+    def execute_move_battle(self, move, confused=False):
         is_ally_move = move['agent'] in self.allies
+        is_ally_target = ((not is_ally_move and not confused) or (is_ally_move and confused))
         if move['target'].get_future_soldiers() == 0:
-            targets = self.get_live_enemies() if is_ally_move else self.get_live_allies()
+            targets = self.get_live_allies() if is_ally_target else self.get_live_enemies()
             return self.execute_move_battle({
                 'agent': move['agent'],
                 'target': random.choice(targets),
@@ -798,7 +805,7 @@ class Battle(object):
             })
         if 'defend' in move['agent'].boosts:
             del move['agent'].boosts['defend']
-        good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+        good_target_team_statuses = self.good_ally_statuses if is_ally_target else self.good_enemy_statuses
         if 'repel' in good_target_team_statuses:
             return move, {'repel': True}
         evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 2.0
@@ -833,7 +840,7 @@ class Battle(object):
         return move, {'damage': inflicted_damage, 'excellent': excellent}
 
     def execute_move_confuse(self, move):
-        move, result = self.execute_move_battle(move)
+        move, result = self.execute_move_battle(move, confused=True)
         result.update({'status': 'confuse'})
         return move, result
 
@@ -1120,7 +1127,7 @@ class Battle(object):
         if (
             (enemy.tactics[4] if enemy.tactics else None) in ['provoke', 'disable']
             and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
-            and (ally_target.bad_status is None or enemy.tactics[4] != ally_target.bad_status['name'])
+            and ally_target.bad_status is None
             and random.random() < enemy_prob
             and random.random() < .5 # we don't want to be using these all the time
         ):
@@ -1156,7 +1163,12 @@ class Battle(object):
                 }
 
         # water
-        maybe_do_tactic_damage = enemy.tactic_danger > enemy.get_preliminary_damage()
+        effective_tactic_danger = (
+            1 if 'extinguish' in self.good_ally_statuses
+            else enemy.tactic_danger / 2 if 'firewall' in self.good_ally_statuses
+            else enemy.tactic_danger
+        )
+        maybe_do_tactic_damage = effective_tactic_danger > enemy.get_preliminary_damage()
         enemy_prob2 = min(1.0, enemy_prob*2)
         if (
             maybe_do_tactic_damage
