@@ -82,6 +82,7 @@ class Game(object):
             'entered_destroyed_ammonihah': self.handle_entered_destroyed_ammonihah,
             'lamoni_joins': self.handle_lamoni_joins,
             'muloki_joins': self.handle_muloki_joins,
+            'entered_manti': self.handle_entered_manti,
         }
 
     def conditions_are_met(self, conditions):
@@ -565,10 +566,12 @@ class Game(object):
         if self.current_map:
             if self.current_map.name == 'nephi' and map_name == 'overworld':
                 self.set_game_state_condition('exited_nephi')
-            elif self.current_map.name == 'overworld' and map_name == 'jershon':
+            elif map_name == 'jershon':
                 self.set_game_state_condition('entered_jershon')
-            elif self.current_map.name == 'overworld' and map_name == 'destroyed_ammonihah':
+            elif map_name == 'destroyed_ammonihah':
                 self.set_game_state_condition('entered_destroyed_ammonihah')
+            elif map_name == 'manti':
+                self.set_game_state_condition('entered_manti')
 
         assert followers in [
             'trail', # position the followers trailing behind the hero
@@ -1104,4 +1107,18 @@ class Game(object):
 
     def handle_muloki_joins(self):
         self.add_to_company(['muloki'])
+
+    def handle_entered_manti(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+            ]
+        })
 

@@ -217,6 +217,9 @@ class MapMenu(object):
         elif pressed[K_x]:
             self.select_sound.play()
             self.map.teleport(self.city_menu.get_choice().lower())
+            item_index = self.items_menu.current_choice
+            user = self.strat_menu.get_choice().lower()
+            self.map.remove_item(user, item_index)
             return 'exit'
 
     def handle_input_recipient(self, pressed):

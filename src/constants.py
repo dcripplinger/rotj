@@ -1048,6 +1048,7 @@ FACELESS_ENEMIES = [
 
 NAMED_TELEPORTS = {
     'zarahemla': [152,187],
+    'manti': [207, 256],
 }
 
 # cities that have palaces and record offices, so that you can set up hq there
