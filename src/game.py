@@ -53,7 +53,7 @@ class Game(object):
         pygame.event.set_blocked(KEYUP)
         self.menu_screen = MenuScreen(self.virtual_screen, self)
         self.beginning_screen = Beginning(self, self.virtual_screen)
-        self.game_state = None
+        self.game_state = {}
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)

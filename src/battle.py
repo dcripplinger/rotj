@@ -744,10 +744,11 @@ class Battle(object):
         for move in self.ordered_moves:
             result = self.execute_move(move, fast=True)
             self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
-            while self.mini_moves:
-                self.pop_and_handle_mini_move(silent=True)
             if result != 'continue':
                 break
+            # This needs to be after the break so that we don't call handle_win twice.
+            while self.mini_moves:
+                self.pop_and_handle_mini_move(silent=True)
 
     def execute_move(self, move, fast=False):
         move = self.change_move_if_dead_or_cursed(move)
@@ -994,7 +995,7 @@ class Battle(object):
             return move, {'damage': damage}
         elif info.get('duration') == 'permanent':
             move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
-            if is_ally_move and self.battle_type == 'story':
+            if is_ally_move and self.battle_type in ['story', 'giddianhi', 'zemnarihah']:
                 move['target'].bad_status['count'] = 3
             return move, {}
 
@@ -1440,8 +1441,8 @@ class Battle(object):
                 dialog += "{} now has {} soldiers. ".format(
                     warlord['name'].title(), get_max_soldiers(warlord['name'], level),
                 )
-                if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
-                    tactic_guys.append(warlord)
+            if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
+                tactic_guys.append(warlord)
         if len(tactic_guys) > 1:
             for warlord in tactic_guys[0:-1]:
                 dialog += "{}, ".format(warlord['name'].title())
