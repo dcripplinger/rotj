@@ -1006,8 +1006,8 @@ ITEMS = {
         'cost': 200,
     },
 
-    # gullwing (city map usage)
-    'gullwing': {
+    # kolob (city map usage)
+    'kolob': {
         'map_usage': 'city', # means it brings up a menu of main visited cities to teleport to
         'cost': 200,
     },
