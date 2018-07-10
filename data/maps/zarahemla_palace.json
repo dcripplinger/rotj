@@ -36,6 +36,10 @@
         },
         "dialog": [
           {
+            "text": "The Zoramites in Antionum have broken off from the Nephites. We would leave them alone, but now they are threatening the people in Jershon because they took care of the poor that the Zoramites had cast out. Most people in Jershon took an oath to never fight again. You must defend them! Antionum is northeast of Manti.",
+            "condition": "battle18"
+          },
+          {
             "text": "I am truly sorry I could not recruit enough soldiers to defend Ammonihah earlier. But Manti to the south is still in danger. Check the area near the city and stop the Lamanite army before they attack Manti. Once they are driven back, report to me.",
             "condition": "entered_destroyed_ammonihah"
           },
