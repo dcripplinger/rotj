@@ -36,6 +36,10 @@
         },
         "dialog": [
           {
+            "text": "Well done, Moroni. Perhaps Amalickiah is now ready to join us again. He was last seen at his home in Ammonihah.",
+            "condition": "battle19"
+          },
+          {
             "text": "The Zoramites in Antionum have broken off from the Nephites. We would leave them alone, but now they are threatening the people in Jershon because they took care of the poor that the Zoramites had cast out. Most people in Jershon took an oath to never fight again. You must defend them! Antionum is northeast of Manti.",
             "condition": "battle18"
           },
