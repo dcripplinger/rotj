@@ -53,10 +53,10 @@ class TitlePage(object):
         }
         self.title_image = load_image('title.png').convert_alpha()
         copyright_text = (
-            u'© DAVID RIPPLINGER, 2017\n'
+            u'© DAVID RIPPLINGER,~2017\n'
             u'FREE UNDER THE MIT LICENSE\n'
             u'BASED ON "DESTINY OF AN EMPEROR"\n'
-            u'© HIROSHI MOTOMIYA, 1989'
+            u'© HIROSHI MOTOMIYA,~1989'
         )
         self.copyright = TextBox(copyright_text, GAME_WIDTH, 4*16, adjust='center', double_space=True)
         self.press_start = TextBox('PRESS ENTER', GAME_WIDTH, 16, adjust='center')
