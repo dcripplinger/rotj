@@ -214,7 +214,7 @@ class TextBox(object):
                     ):
                         char_image = pygame.Surface((8, 8))
                         fade_box = pygame.Surface((8, 8))
-                        fade_box.set_alpha(64)
+                        fade_box.set_alpha(32)
                         fade_box.fill(BLACK)
                         char_image.blit(CHARS[char], (0, 0))
                         char_image.blit(fade_box, (0, 0))

@@ -1,9 +1,9 @@
 {
   "strength": 104,
-  "intelligence": 196,
+  "intelligence": 195,
   "defense": 85,
   "agility": 213,
   "evasion": 190,
   "tactical_points": 122,
-  "max_soldiers": 7718
+  "max_soldiers": 10718
 }
