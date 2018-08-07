@@ -205,7 +205,7 @@ ATTACK_POINTS = {
 
 ARMOR_CLASS = {level: min(255, int(value*1.5)) for level, value in ATTACK_POINTS.items()}
 
-MAX_NUM = 99999999 # theoretical max num of soldiers, max num of food and money. But exp maxes at 9,999,999.
+MAX_NUM = 99999999 # 99,999,999. Theoretical max num of soldiers, max num of food and money. But exp maxes at 9,999,999.
 
 TACTICS = {
     'fire': {
