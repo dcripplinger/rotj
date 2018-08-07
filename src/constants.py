@@ -806,6 +806,26 @@ ITEMS = {
         'equip_type': 'weapon',
         'cost': 65000,
     },
+    'cherev': {
+        'attack_points': 230,
+        'equip_type': 'weapon',
+    },
+    'samson': {
+        'attack_points': 235,
+        'equip_type': 'weapon',
+    },
+    'hamashchit': {
+        'attack_points': 240,
+        'equip_type': 'weapon',
+    },
+    u'shamshirŕe': { # the ŕ is a hack to show a hyphen without capitalizing the next letter when calling title()
+        'attack_points': 245,
+        'equip_type': 'weapon',
+    },
+    'sd~of~laban': {
+        'attack_points': 255,
+        'equip_type': 'weapon',
+    },
 
     # armor
     'robe': {

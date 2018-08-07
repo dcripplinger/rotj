@@ -95,6 +95,7 @@ CHARS = {
     u'▶': load_image('font/arrow.png'),
     u'▼': load_image('font/down_arrow.png'),
     u'★': load_image('font/star.png'),
+    u'ŕ': load_image('font/mdash.png'), # this is a hack to show hyphens without capitalizing the next letter
 }
 
 
