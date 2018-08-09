@@ -64,7 +64,8 @@ Plunder (20 TP) - Steal money from the enemy during battle. Immediate, cannot be
      undone by Dispel and you keep the money even if you retreat after. Success = 1.
 Train (25 TP) - Triple the EXP earned at the end of the battle. Can be undone by
      Dispel. Success = 1.
-Surrender (30 TP) - Surrender to the enemy. Success = 1.
+Surrender (30 TP) - Surrender to the enemy. This ends the battle and lets you escape like RETREAT would,
+     but with 100% chance. The downside is you lose half your soldiers. Success = 1.
 ................................................................................
 
 .....Slot 6 = Indirect offensive................................................
@@ -76,7 +77,7 @@ Double Tap (6 TP) - Target team member of tactic attacks twice on the same enemy
 Confuse (6 TP) - Tricks an enemy into attacking his own allies. Lasts for a
      random duration unless dispelled or the enemy suffers a physical attack. Success = enemy_prob.
 Assassin (10 TP) - Instantly kills one enemy, when it works. Success = enemy_prob/3.
-Hulk Out (10 TP) - Increases damage of all types of attacks done by the team member
-     targeted for this tactic. Each increase is 20% and can be stacked up to
-     five times. Lasts for the duration of the battle and immune to Dispel. Success = 1.
+Hulk Out (10 TP) - Increases physical damage done by the team member
+     targeted for this tactic. Each increase is by 100% of original damage and can be stacked up to
+     three times (giving 4x damage). Lasts for the duration of the battle. Success = 1.
 ................................................................................

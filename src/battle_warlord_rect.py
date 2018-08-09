@@ -53,7 +53,7 @@ class BattleWarlordRectBase(object):
         self.good_statuses = {}
         self.index = warlord['index']
         self.boosts = {}
-        self.attack_exposure = 1.0 - warlord['defense'] / 255.0
+        self.attack_exposure = 1.0 - warlord['defense'] / 341.0 # defense of 255 cuts damage by 75%
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
         self.reinforcements = warlord.get('reinforcements', False)

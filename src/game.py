@@ -409,7 +409,7 @@ class Game(object):
 
     def collect_spoils(self, experience, money, food):
         self.update_game_state({
-            'money': min(self.game_state['money'] + money, MAX_NUM),
+            'money': max(0, min(self.game_state['money'] + money, MAX_NUM)),
             'food': min(self.game_state['food'] + food, MAX_NUM),
             'experience': min(self.game_state['experience'] + experience, EXP_REQUIRED_BY_LEVEL[90]),
         })

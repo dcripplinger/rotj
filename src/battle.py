@@ -83,6 +83,14 @@ class Battle(object):
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
         battle_name=None, narration=None,
     ):
+        # plundered can be 0, -1, or 1.
+        # If you use plunder, it moves up 1 and you get money.
+        # If plundered is 1 and you use plunder, it fails.
+        # If the enemy uses plunder, it moves down 1 and you lose money.
+        # If plundered is -1, the enemy won't use plunder.
+        # The amount plundered is equal to the spoils if you win, but the change to your money is immediate.
+        self.plundered = 0
+        
         self.spoils_box = None
         self.mini_moves = []
         self.confirm_box = None
@@ -500,7 +508,11 @@ class Battle(object):
                 mini_result['damage'], mini_move['target'].name.title(),
             )
         if mini_result.get('killed'):
-            if is_ally_move:
+            if mini_move['tactic'] == 'assassin':
+                dialog += "{} cut off the head of {}.".format(
+                    mini_move['agent'].name.title(), mini_move['target'].name.title(),
+                )
+            elif is_ally_move:
                 dialog += "{} vanquished {}.".format(
                     mini_move['agent'].name.title(), mini_move['target'].name.title(),
                 )
@@ -566,10 +578,36 @@ class Battle(object):
             dialog += '{} can no longer take any action.'.format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'ninja':
             dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
+        elif mini_move['tactic'] == 'double~tap':
+            dialog += "{} can hit twice with physical attacks.".format(mini_move['target'].name.title())
+        elif mini_move['tactic'] == 'hulk~out':
+            dialog += "{}'s attack power is enhanced.".format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'confuse':
             dialog += '{} is now targeting their allies.'.format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'shield':
             dialog += 'Physical damage is now reduced by half.'
+        elif mini_move['tactic'] == 'repel':
+            if is_ally_move:
+                dialog += 'You are repelling all physical attacks from the enemy.'
+            else:
+                dialog += 'The enemy is repelling all of your physical attacks.'
+        elif mini_move['tactic'] == 'deflect':
+            if is_ally_move:
+                dialog += "You are deflecting all the enemy's tactics."
+            else:
+                dialog += 'The enemy is deflecting all your tactics.'
+        elif mini_move['tactic'] == 'dispel':
+            if is_ally_move:
+                dialog += "All your status ailments and the enemy's tactics are nullified."
+            else:
+                dialog += "The enemy has nullified all status ailments and your tactics."
+        elif mini_move['tactic'] == 'plunder':
+            if is_ally_move:
+                dialog += "You gained {} senines.".format(mini_result['amount'])
+            else:
+                dialog += "You lost {} senines.".format(mini_result['amount'])
+        elif mini_move['tactic'] == 'train':
+            dialog += "You can get triple the normal EXP if you win this battle."
         return dialog
 
     def get_item_dialog(self, mini_move, mini_result):
@@ -773,14 +811,26 @@ class Battle(object):
         self.collect_spoils()
         self.win_state = 'start'
 
-    def collect_spoils(self):
+    def collect_spoils(self, plunder=0):
         story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
         story_battle_gain = 3 if story_battle else 1
         base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
-        self.experience = int(0.001 * base_num) * story_battle_gain
-        self.money = int(0.004 * base_num) * story_battle_gain
-        self.food = int(0.009 * base_num) if story_battle else 0
-        self.levels = self.game.collect_spoils(self.experience, self.money, self.food)
+        trained = 3 if 'train' in self.good_ally_statuses else 1
+        experience = int(0.001 * base_num) * story_battle_gain * trained
+        money = int(0.004 * base_num) * story_battle_gain
+        food = int(0.009 * base_num) if story_battle else 0
+        if plunder:
+            experience = 0
+            money = money * plunder
+            food = 0
+        else:
+            self.experience = experience
+            self.money = money
+            self.food = food
+        levels = self.game.collect_spoils(experience, money, food)
+        if not plunder:
+            self.levels = levels
+        return abs(money)
 
     def handle_lose(self):
         self.state = 'lose'
@@ -832,7 +882,10 @@ class Battle(object):
         if random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
             return move, {'evade': True}
         excellent = random.random() < 1.0/16
-        inflicted_damage = int( move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1 )
+        hulk_out = move['agent'].good_statuses.get('hulk_out', 1)
+        inflicted_damage = int(
+            move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) * hulk_out + 1
+        )
         if move['agent'].good_statuses.get('double_tap') and random.random() < 0.5:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
         else:
@@ -918,6 +971,8 @@ class Battle(object):
             return self.execute_tactic_type_enemies(move, good_target_team_statuses, is_ally_move)
         elif tactic_type == 'allies':
             return self.execute_tactic_type_allies(move, good_target_team_statuses, is_ally_move)
+        elif tactic_type == 'single':
+            return self.execute_tactic_type_single(move, good_target_team_statuses, is_ally_move)
         else:
             return move, {}
 
@@ -950,6 +1005,14 @@ class Battle(object):
             return move, {}
         elif move['tactic'] == 'double~tap':
             move['target'].good_statuses['double_tap'] = True
+            return move, {}
+        elif move['tactic'] == 'hulk~out':
+            if 'hulk_out' in move['target'].good_statuses:
+                if move['target'].good_statuses['hulk_out'] < 4:
+                    move['target'].good_statuses['hulk_out'] += 1
+            else:
+                move['target'].good_statuses['hulk_out'] = 2
+            return move, {}
 
     def execute_tactic_type_allies(self, move, good_target_team_statuses, is_ally_move):
         info = TACTICS[move['tactic']]
@@ -1030,6 +1093,33 @@ class Battle(object):
                     target.get_damaged(damage)
                     results['targets'].append({'target': target, 'damage': damage})
         return move, results
+
+    def execute_tactic_type_single(self, move, good_target_team_statuses, is_ally_move):
+        info = TACTICS[move['tactic']]
+        success = self.get_tactic_success(move)
+        if not success:
+            return move, {'fail': True}
+        elif move['tactic'] == 'dispel':
+            acting_team = self.allies if is_ally_move else self.enemies
+            for warlord in acting_team:
+                warlord.bad_status = None
+            target_team = self.enemies if is_ally_move else self.allies
+            for warlord in target_team:
+                warlord.good_statuses = {}
+            good_target_team_statuses.clear() # set dictionary to empty
+            return move, {}
+        elif move['tactic'] == 'plunder':
+            direction = 1 if is_ally_move else -1
+            if self.plundered == direction:
+                return move, {'fail': True}
+            else:
+                self.plundered += direction
+                amount = self.collect_spoils(plunder=direction)
+                return move, {'amount': amount}
+        elif move['tactic'] == 'surrender':
+            self.handle_retreat(surrender=True)
+            return move, {}
+        return move, {'fail': True} # This is a placeholder til we get all single tactics
 
     def get_tactic_success(self, move, target=None):
         prob_type = TACTICS[move['tactic']]['success_probability_type']
@@ -1127,7 +1217,7 @@ class Battle(object):
 
         # dispel
         if (
-            enemy.tactics[4] == 'dispel' if enemy.tactics else None
+            (enemy.tactics[4] if enemy.tactics else None) == 'dispel'
             and (
                 len(self.good_ally_statuses) > 0
                 or any([enemy.bad_status for enemy in self.enemies if enemy.soldiers > 0])
@@ -1142,8 +1232,11 @@ class Battle(object):
         defense_tactic = enemy.tactics[3] if enemy.tactics else None
         defense_cost = TACTICS.get(defense_tactic, {}).get('tactical_points', 0)
         if (
-            defense_tactic and heal_cost + defense_cost < tactical_points
-            and defense_tactic not in self.good_enemy_statuses and random.random() < .2
+            defense_tactic
+            and defense_tactic != 'train'
+            and heal_cost + defense_cost < tactical_points
+            and defense_tactic not in self.good_enemy_statuses
+            and random.random() < .2
         ):
             enemy.consume_tactical_points(defense_cost)
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': defense_tactic}
@@ -1162,11 +1255,23 @@ class Battle(object):
                 'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[4], 'target': ally_target,
             }
 
-        # confuse, assassin
+        # confuse
         if (
-            (enemy.tactics[5] if enemy.tactics else None) in ['confuse', 'assassin']
+            (enemy.tactics[5] if enemy.tactics else None) == 'confuse'
             and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
-            and (ally_target.bad_status is None or enemy.tactics[5] != ally_target.bad_status['name'])
+            and ally_target.bad_status is None
+            and random.random() < enemy_prob
+            and random.random() < .5 # we don't want to be using these all the time
+        ):
+            enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
+            return {
+                'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[5], 'target': ally_target,
+            }
+
+        # assassin
+        if (
+            (enemy.tactics[5] if enemy.tactics else None) == 'assassin'
+            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
             and random.random() < enemy_prob
             and random.random() < .5 # we don't want to be using these all the time
         ):
@@ -1187,6 +1292,16 @@ class Battle(object):
                 return {
                     'agent': enemy, 'action': self.execute_move_tactic, 'tactic': boost_tactic, 'target': random_enemy,
                 }
+
+        # plunder
+        if (
+            (enemy.tactics[4] if enemy.tactics else None) == 'plunder'
+            and heal_cost + TACTICS['plunder']['tactical_points'] < tactical_points
+            and self.plundered != -1
+            and random.random() < .3
+        ):
+            enemy.consume_tactical_points(TACTICS['plunder']['tactical_points'])
+            return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'plunder'}
 
         # water
         effective_tactic_danger = (
@@ -1888,16 +2003,22 @@ class Battle(object):
                 return i
         return None
 
-    def handle_retreat(self):
+    def handle_retreat(self, surrender=False):
         self.menu = None
         self.warlord.move_back()
-        prompt_text = "{}'s army retreated. ".format(self.get_leader().name.title())
-        ally_agility = sum(ally.agility for ally in self.allies if ally.soldiers > 0)/255.0/5.0
-        enemy_agility = sum(enemy.agility for enemy in self.enemies if enemy.soldiers > 0)/255.0/5.0
-        agility_score = (1 + ally_agility - enemy_agility) / 2.0
-        is_warlord_battle = self.battle_type=='warlord'
-        is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
-        successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
+        if surrender:
+            prompt_text = "{} uses Surrender.".format(self.warlord.name.title())
+            for warlord in self.allies:
+                warlord.soldiers = max(1, int(warlord.soldiers / 2))
+            successful = True
+        else:
+            prompt_text = "{}'s army retreated. ".format(self.get_leader().name.title())
+            ally_agility = sum(ally.agility for ally in self.allies if ally.soldiers > 0)/255.0/5.0
+            enemy_agility = sum(enemy.agility for enemy in self.enemies if enemy.soldiers > 0)/255.0/5.0
+            agility_score = (1 + ally_agility - enemy_agility) / 2.0
+            is_warlord_battle = self.battle_type=='warlord'
+            is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
+            successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
         if successful:
             self.state = 'retreat'
             self.warlord = None
