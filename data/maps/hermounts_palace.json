@@ -3,7 +3,7 @@
     "x": 17,
     "y": 34,
     "teleport": {
-      "map": "hearthom",
+      "map": "hermounts",
       "x": 35,
       "y": 18,
       "direction": "s"
@@ -34,7 +34,7 @@
       "name": "guard",
       "direction": "e",
       "wander": true,
-      "dialog": "Seezoram is our lower judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+      "dialog": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
     }
   },
   {
@@ -44,7 +44,7 @@
       "name": "guard",
       "direction": "w",
       "wander": true,
-      "dialog": "Seezoram is our lower judge, who rules over the city of Hearthom. He wishes to thank you for your aid."
+      "dialog": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
     }
   }
 ]

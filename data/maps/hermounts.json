@@ -23,7 +23,7 @@
     "x": 35,
     "y": 18,
     "teleport": {
-      "map": "hearthom_palace",
+      "map": "hermounts_palace",
       "x": 17,
       "y": 33,
       "direction": "n"
@@ -33,7 +33,7 @@
     "x": 36,
     "y": 18,
     "teleport": {
-      "map": "hearthom_palace",
+      "map": "hermounts_palace",
       "x": 17,
       "y": 33,
       "direction": "n"
@@ -43,7 +43,7 @@
     "x": 21,
     "y": 17,
     "teleport": {
-      "map": "hearthom_merchant_shop",
+      "map": "hermounts_merchant_shop",
       "x": 13,
       "y": 17,
       "direction": "n"
@@ -53,7 +53,7 @@
     "x": 37,
     "y": 13,
     "teleport": {
-      "map": "hearthom_home2",
+      "map": "hermounts_home2",
       "x": 13,
       "y": 17,
       "direction": "n"
@@ -63,7 +63,7 @@
     "x": 26,
     "y": 17,
     "teleport": {
-      "map": "hearthom_food_shop",
+      "map": "hermounts_food_shop",
       "x": 13,
       "y": 17,
       "direction": "n"
@@ -73,7 +73,7 @@
     "x": 26,
     "y": 21,
     "teleport": {
-      "map": "hearthom_home",
+      "map": "hermounts_home",
       "x": 15,
       "y": 18,
       "direction": "n"
@@ -83,7 +83,7 @@
     "x": 15,
     "y": 17,
     "teleport": {
-      "map": "hearthom_inn",
+      "map": "hermounts_inn",
       "x": 18,
       "y": 18,
       "direction": "n"
@@ -96,7 +96,7 @@
       "name": "guard",
       "direction": "s",
       "wander": false,
-      "dialog": "Welcome to Hearthom."
+      "dialog": "Welcome to Hermounts."
     }
   },
   {
@@ -116,7 +116,7 @@
       "name": "villager",
       "direction": "w",
       "wander": true,
-      "dialog": "The land of Zarahemla has several cities. Zarahemla, the capital, is in the center between the west mountains and the river Sidon to the east. Melek lies in the valley, just east of Zarahemla. This city, Hearthom, lies in the north. If you follow the river Sidon from the north toward the south, you will find the cities of Gideon, Noah, and Ammonihah, in that order. Just west of the southern city Ammonihah is the village of Sidom."
+      "dialog": "The land of Zarahemla has several cities. Zarahemla, the capital, is in the center between the west mountains and the river Sidon to the east. Melek lies in the valley, just east of Zarahemla. This city, Hermounts, lies in the north. If you follow the river Sidon from the north toward the south, you will find the cities of Gideon, Noah, and Ammonihah, in that order. Just west of the southern city Ammonihah is the village of Sidom."
     }
   },
   {
