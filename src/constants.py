@@ -1069,15 +1069,33 @@ FACELESS_ENEMIES = [
 NAMED_TELEPORTS = {
     'zarahemla': [152,187],
     'manti': [207, 256],
+    'bountiful': [116, 138],
+    'nephihah': [246, 115],
+    'judea': [89, 162],
+    'cumeni': [116, 318],
+    'moroni': [247, 278],
+    'jerusalem': [255, 327],
+    'joshua': [57, 90],
+    'teancum': [45, 34],
 }
 
 # cities that have palaces and record offices, so that you can set up hq there
 HQ = [
     'zarahemla',
-    'ammonihah',
     'gideon',
     'ishmael',
     'manti',
+    'bountiful',
+    'nephihah',
+    'judea',
+    'cumeni',
+    'moroni',
+    'jerusalem',
+    'joshua',
+    'jashon',
+    'boaz',
+    'teancum',
+    'desolation',
 ]
 
 MAX_COMPANY_SIZE = 7

@@ -5,7 +5,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import ITEMS, NAMED_TELEPORTS
+from constants import ITEMS
 from helpers import get_map_filename
 from hero import Hero
 from report import Report
