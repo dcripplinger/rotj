@@ -13,4 +13,5 @@ convert \( +append \) \
 \( tree2.png palace5.png palace6.png palace7.png palace8.png palace9.png +append \) \
 \( palace10.png palace11.png palace12.png palace13.png palace14.png palace15.png +append \) \
 \( palace16.png palace17.png palace18.png palace19.png palace20.png palace21.png +append \) \
+\( mountains.png +append \) \
 -background none -append   tileset_cities2.png
