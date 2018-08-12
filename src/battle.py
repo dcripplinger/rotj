@@ -508,7 +508,7 @@ class Battle(object):
                 mini_result['damage'], mini_move['target'].name.title(),
             )
         if mini_result.get('killed'):
-            if mini_move['tactic'] == 'assassin':
+            if mini_move.get('tactic') == 'assassin':
                 dialog += "{} cut off the head of {}.".format(
                     mini_move['agent'].name.title(), mini_move['target'].name.title(),
                 )
