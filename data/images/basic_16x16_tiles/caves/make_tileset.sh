@@ -8,5 +8,5 @@ convert \( black.png downstairs.png ground.png ground_2.png ground_3.png ground_
 \( downstairs_4_right.png downstairs_4_left.png upstairs_3_right.png upstairs_3_left.png water.png +append \) \
 \( rock_5.png wall_5.png ground_5.png shadow_5.png bridge.png +append \) \
 \( lava_1.png lava_2.png lava_3.png lava_4.png wall_6.png +append \) \
-\( rock_6.png +append \) \
+\( rock_6.png upstairs_5_left.png upstairs_5_right.png downstairs_5_left.png downstairs_5_right.png +append \) \
 -background none -append   tileset_caves.png

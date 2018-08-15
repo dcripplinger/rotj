@@ -230,4 +230,24 @@
    <property name="wall" value="true"/>
   </properties>
  </tile>
+ <tile id="65">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+  </properties>
+ </tile>
+ <tile id="66">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+  </properties>
+ </tile>
+ <tile id="67">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+  </properties>
+ </tile>
+ <tile id="68">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+  </properties>
+ </tile>
 </tileset>
