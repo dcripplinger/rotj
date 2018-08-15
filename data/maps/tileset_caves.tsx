@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="cave" tilewidth="16" tileheight="16" tilecount="56" columns="8">
- <image source="../images/basic_16x16_tiles/caves/tileset_caves.png" width="128" height="112"/>
+<tileset name="cave" tilewidth="16" tileheight="16" tilecount="72" columns="8">
+ <image source="../images/basic_16x16_tiles/caves/tileset_caves.png" width="128" height="144"/>
  <tile id="0">
   <properties>
    <property name="encounter" type="float" value="0"/>
@@ -111,6 +111,31 @@
    <property name="encounter" type="float" value="0"/>
   </properties>
  </tile>
+ <tile id="30">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="31">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="32">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="33">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="34">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
  <tile id="35">
   <properties>
    <property name="encounter" type="float" value="0"/>
@@ -162,6 +187,45 @@
   </properties>
  </tile>
  <tile id="48">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="56">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+   <property name="lava" value="true"/>
+  </properties>
+ </tile>
+ <tile id="57">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+   <property name="lava" value="true"/>
+  </properties>
+ </tile>
+ <tile id="58">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+   <property name="lava" value="true"/>
+  </properties>
+ </tile>
+ <tile id="59">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+   <property name="lava" value="true"/>
+  </properties>
+ </tile>
+ <tile id="60">
+  <properties>
+   <property name="wall" value="true"/>
+  </properties>
+ </tile>
+ <tile id="64">
   <properties>
    <property name="wall" value="true"/>
   </properties>
