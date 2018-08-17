@@ -1762,6 +1762,22 @@
         "kingmen",
         "kingmen",
         "kingmen"
+      ],
+      [
+        "pagag",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "seth",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "esrom",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
@@ -1806,6 +1822,18 @@
         "tactical_points": 0,
         "attack_points": 30,
         "armor_class": 25
+      },
+      "pagag": {
+        "level": 20,
+        "capture": "battle18"
+      },
+      "seth": {
+        "level": 20,
+        "capture": "battle18"
+      },
+      "esrom": {
+        "level": 20,
+        "capture": "battle18"
       }
     }
   },
