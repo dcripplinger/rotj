@@ -398,7 +398,7 @@ TACTICS = {
         'max_damage': 700,
         'type': 'ally',
         'min_intelligence': 120,
-        'min_level': 15,
+        'min_level': 11,
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 6,
@@ -475,7 +475,7 @@ TACTICS = {
     'extinguish': {
         'type': 'defense',
         'min_intelligence': 120,
-        'min_level': 11,
+        'min_level': 15,
         'success_probability_type': 'one',
         'slot': 4,
         'tactical_points': 8,
@@ -484,7 +484,7 @@ TACTICS = {
     'shield': {
         'type': 'defense',
         'min_intelligence': 170,
-        'min_level': 19,
+        'min_level': 26,
         'success_probability_type': 'one',
         'slot': 4,
         'tactical_points': 12,
@@ -493,7 +493,7 @@ TACTICS = {
     'repel': {
         'type': 'defense',
         'min_intelligence': 200,
-        'min_level': 25,
+        'min_level': 37,
         'success_probability_type': 'one',
         'slot': 4,
         'tactical_points': 16,
@@ -502,7 +502,7 @@ TACTICS = {
     'deflect': {
         'type': 'defense',
         'min_intelligence': 240,
-        'min_level': 33,
+        'min_level': 50,
         'success_probability_type': 'one',
         'slot': 4,
         'tactical_points': 20,
@@ -520,7 +520,7 @@ TACTICS = {
     'disable': {
         'type': 'enemy',
         'min_intelligence': 160,
-        'min_level': 12,
+        'min_level': 20,
         'success_probability_type': 'enemy_prob',
         'slot': 5,
         'tactical_points': 10,
@@ -529,7 +529,7 @@ TACTICS = {
     'dispel': {
         'type': 'single',
         'min_intelligence': 160,
-        'min_level': 26,
+        'min_level': 33,
         'success_probability_type': 'intel_prob',
         'slot': 5,
         'tactical_points': 15,
@@ -537,15 +537,15 @@ TACTICS = {
     'plunder': {
         'type': 'single',
         'min_intelligence': 190,
-        'min_level': 31,
+        'min_level': 43,
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 20,
     },
     'train': {
         'type': 'defense',
-        'min_intelligence': 220,
-        'min_level': 36,
+        'min_intelligence': 245,
+        'min_level': 55,
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 25,
@@ -554,7 +554,7 @@ TACTICS = {
     'surrender': {
         'type': 'single',
         'min_intelligence': 255,
-        'min_level': 50,
+        'min_level': 69,
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 30,
@@ -580,7 +580,7 @@ TACTICS = {
     'confuse': {
         'type': 'enemy',
         'min_intelligence': 150,
-        'min_level': 20,
+        'min_level': 32,
         'success_probability_type': 'enemy_prob',
         'slot': 6,
         'tactical_points': 6,
@@ -591,7 +591,7 @@ TACTICS = {
         'min_damage': 1000000000,
         'max_damage': 1000000000,
         'min_intelligence': 180,
-        'min_level': 32,
+        'min_level': 48,
         'success_probability_type': 'assassin',
         'slot': 6,
         'tactical_points': 10,
@@ -599,7 +599,7 @@ TACTICS = {
     'hulk~out': {
         'type': 'ally',
         'min_intelligence': 240,
-        'min_level': 37,
+        'min_level': 65,
         'success_probability_type': 'one',
         'slot': 6,
         'tactical_points': 10,

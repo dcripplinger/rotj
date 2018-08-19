@@ -13,74 +13,77 @@ Level   Tactic      INT Required    Number of Tactics Introduced
 08      -                           06
 09      bomb        110             07
 10      geyser      115             08
-11      extinguish  120             09
-12      disable     160             10
-13      double tap  220             11
-14      -                           11
-15      cure        160             12
-16      lava        130             13
-17      hailstorm   130             14
-18      rejuvenate  180             15
-19      shield      170             16
-20      confuse     150             17
-21      -                           17
-22      monsoon     160             18
-23      brimstone   180             19
-24      restore     220             20
-25      repel       200             21
-26      dispel      160             22
-27      -                           22
-28      heal        230             23
-29      tsunami     190             24
-30      backdraft   190             25
-31      plunder     190             26
-32      assassin    180             27
-33      deflect     240             28
-34      -                           28
-35      blue flame  210             29
-36      train       220             30
-37      hulk out    240             31
-38      -                           31
-39      -                           31
-40      blizzard    225             32
-41      volcano     225             33
-42      -                           33
-43      -                           33
-44      -                           33
-45      healmore    240             34
-46      -                           34
-47      -                           34
-48      -                           34
-49      -                           34
-50      surrender   250             35
-51      -                           35
-52      napalm      235             36
-53      -                           36
-54      -                           36
-55      -                           36
-56      -                           36
-57      -                           36
-58      -                           36
-59      sharknado   240             37
-60      -                           37
-61      arise       250             38
-62      -                           38
-63      -                           38
-64      -                           38
-65      -                           38
-66      -                           38
-67      -                           38
-68      -                           38
-69      -                           38
+11      cure        160             09
+12      -                           09
+13      double tap  220             10
+14      -                           10
+15      extinguish  120             11
+16      lava        130             12
+17      hailstorm   130             13
+18      rejuvenate  180             14
+19      -                           14
+20      disable     160             15
+21      -                           15
+22      monsoon     160             16
+23      brimstone   180             17
+24      restore     220             18
+25      -                           18
+26      shield      170             19
+27      -                           19
+28      heal        230             20
+29      tsunami     190             21
+30      backdraft   190             22
+31      -                           22
+32      confuse     150             23
+33      dispel      160             24
+34      -                           24
+35      blue flame  210             25
+36      -                           25
+37      repel       200             26
+38      -                           26
+39      -                           26
+40      blizzard    225             27
+41      volcano     225             28
+42      -                           28
+43      plunder     190             29
+44      -                           29
+45      healmore    240             30
+46      -                           30
+47      -                           30
+48      assassin    180             31
+49      -                           31
+50      deflect     240             32
+
+xx      surrender   255             xx
+
+51      -                           32
+52      napalm      235             33
+53      -                           33
+54      -                           33
+55      train       245             34
+56      -                           34
+57      -                           34
+58      -                           34
+59      sharknado   240             35
+60      -                           35
+61      arise       250             36
+62      -                           36
+63      -                           36
+64      -                           36
+65      hulk out    240             37
+66      -                           37
+67      -                           37
+68      -                           37
+69      surrender   255             38
 70      -                           38
 71      -                           38
 72      -                           38
 73      baby nuke   245             39
 74      -                           39
 75      -                           39
-76      hurricane   255             40
+76      hurricane   245             40
 77      -                           40
-78      revive      255             41
+78      revive      240             41
 79      -                           41
 80      -                           41
 81      -                           41
