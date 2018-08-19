@@ -525,9 +525,9 @@ class Battle(object):
     def get_healing_dialog(self, mini_move, mini_result):
         return "Some of {}'s soldiers have recovered their strength.".format(mini_move['target'].name.title())
 
-    def get_attack_dialog(self, mini_move, mini_result):
+    def get_attack_dialog(self, mini_move, mini_result, power_pill=False):
         is_ally_move = mini_move['agent'] in self.allies
-        dialog = "{}'s attack. ".format(mini_move['agent'].name.title())
+        dialog = "" if power_pill else "{}'s attack. ".format(mini_move['agent'].name.title())
         if mini_result.get('excellent'):
             if is_ally_move:
                 dialog += "{} did heavy damage. ".format(mini_move['agent'].name.title())
@@ -620,6 +620,8 @@ class Battle(object):
             dialog += "{} is no longer affected by individual status ailments.".format(
                 mini_move['target'].name.title(),
             )
+        elif mini_move['item'] == 'power~pill':
+            dialog += self.get_attack_dialog(mini_move, mini_result, power_pill=True)
         return dialog
 
     def get_status_worn_off_dialog(self, mini_move, mini_result):
@@ -645,7 +647,13 @@ class Battle(object):
             dialog += self.get_tactic_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_item:
             dialog += self.get_item_dialog(mini_move, mini_result)
-        dialog += self.get_status_worn_off_dialog(mini_move, mini_result)
+        elif mini_move['action'] == self.execute_move_disable:
+            dialog += "{} is disabled.".format(mini_move['agent'].name.title())
+        worn_off_dialog = self.get_status_worn_off_dialog(mini_move, mini_result)
+        if worn_off_dialog and mini_move['action'] == self.execute_move_disable:
+            dialog = worn_off_dialog
+        else:
+            dialog += " {}".format(worn_off_dialog)
         if dialog:
             return create_prompt(dialog, silent=True)
         else:
@@ -726,7 +734,10 @@ class Battle(object):
             or results.get('wasted')
         ):
             return
-        elif move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
+        elif (
+            move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]
+            or move.get('item') == 'power~pill'
+        ):
             move['target'].animate_hit('attack')
         elif move.get('action') == self.execute_move_tactic:
             slot = TACTICS[move['tactic']]['slot']
@@ -791,6 +802,8 @@ class Battle(object):
     def execute_move(self, move, fast=False):
         move = self.change_move_if_dead_or_cursed(move)
         if move is not None:
+            if 'defend' in move['agent'].boosts:
+                del move['agent'].boosts['defend']
             action_handler = move['action']
             move, results = action_handler(move)
             self.results = results
@@ -848,10 +861,13 @@ class Battle(object):
         results = results or {} # Because I had a weird bug where results was None, not sure why. Maybe we can ignore.
         if (
             results.get('repel') or results.get('evade') or results.get('fail') or results.get('deflect')
-            or results.get('wasted')
+            or results.get('wasted') or results.get('status') == 'disable'
         ):
             return self.fail_sound
-        elif move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
+        elif (
+            move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]
+            or move.get('item') == 'power~pill'
+        ):
             if move.get('agent') in self.allies:
                 return self.excellent_sound if results.get('excellent') else self.hit_sound
             else:
@@ -863,38 +879,40 @@ class Battle(object):
         elif move.get('action') == self.execute_move_item:
             return None
 
-    def execute_move_battle(self, move, confused=False):
+    def execute_move_battle(self, move, confused=False, power_pill=False):
         is_ally_move = move['agent'] in self.allies
         is_ally_target = ((not is_ally_move and not confused) or (is_ally_move and confused))
         if move['target'].get_future_soldiers() == 0:
             targets = self.get_live_allies() if is_ally_target else self.get_live_enemies()
-            return self.execute_move_battle({
-                'agent': move['agent'],
-                'target': random.choice(targets),
-                'action': self.execute_move_battle,
-            })
-        if 'defend' in move['agent'].boosts:
-            del move['agent'].boosts['defend']
+            return self.execute_move_battle(
+                {
+                    'agent': move['agent'],
+                    'target': random.choice(targets),
+                    'action': self.execute_move_battle,
+                },
+                confused = confused,
+                power_pill = power_pill,
+            )
         good_target_team_statuses = self.good_ally_statuses if is_ally_target else self.good_enemy_statuses
-        if 'repel' in good_target_team_statuses:
+        if not power_pill and 'repel' in good_target_team_statuses:
             return move, {'repel': True}
         evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 2.0
-        if random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
+        if not power_pill and random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
             return move, {'evade': True}
-        excellent = random.random() < 1.0/16
+        excellent = True if power_pill else random.random() < 1.0/16
         hulk_out = move['agent'].good_statuses.get('hulk_out', 1)
         inflicted_damage = int(
             move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) * hulk_out + 1
         )
-        if move['agent'].good_statuses.get('double_tap') and random.random() < 0.5:
+        if not power_pill and move['agent'].good_statuses.get('double_tap') and random.random() < 0.5:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
         else:
             double_tap = None
-        if 'shield' in good_target_team_statuses:
+        if not power_pill and 'shield' in good_target_team_statuses:
             inflicted_damage = max(inflicted_damage/2, 1)
             if double_tap:
                 double_tap = max(double_tap/2, 1)
-        if 'defend' in move['target'].boosts:
+        if not power_pill and 'defend' in move['target'].boosts:
             inflicted_damage = max(inflicted_damage/2, 1)
             if double_tap:
                 double_tap = max(double_tap/2, 1)
@@ -936,8 +954,14 @@ class Battle(object):
         # go through items by type
         if move_type == 'ally':
             return self.execute_item_type_ally(move)
+        elif move_type == 'enemy':
+            return self.execute_item_type_enemy(move)
         else:
             return move, {}
+
+    def execute_item_type_enemy(self, move):
+        if move['item'] == 'power~pill':
+            return self.execute_move_battle(move, power_pill=True)
 
     def execute_item_type_ally(self, move):
         info = ITEMS[move['item']]
@@ -1058,7 +1082,7 @@ class Battle(object):
             return move, {'damage': damage}
         elif info.get('duration') == 'permanent':
             move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
-            if is_ally_move and self.battle_type in ['story', 'giddianhi', 'zemnarihah']:
+            if is_ally_move:
                 move['target'].bad_status['count'] = 3
             return move, {}
 
@@ -1708,6 +1732,8 @@ class Battle(object):
             self.handle_input_tactic_ally(pressed)
         elif self.state == 'item_ally':
             self.handle_input_item_ally(pressed)
+        elif self.state == 'item_enemy':
+            self.handle_input_item_enemy(pressed)
 
     def handle_input_tactic(self, pressed):
         self.menu.handle_input(pressed)
@@ -1755,6 +1781,9 @@ class Battle(object):
             if ITEMS[item].get('battle_usage') == 'ally':
                 self.state = 'item_ally'
                 self.selected_ally_index = self.get_leader().index
+            elif ITEMS[item].get('battle_usage') == 'enemy':
+                self.state = 'item_enemy'
+                self.selected_enemy_index = self.get_enemy_leader().index
             else:
                 self.right_dialog = create_prompt("That item cannot be used in battle.")
                 self.menu.unfocus()
@@ -1809,6 +1838,28 @@ class Battle(object):
             self.submit_move({
                 'agent': self.warlord,
                 'target': self.allies[self.selected_ally_index],
+                'action': self.execute_move_item,
+                'item': item,
+            })
+            self.select_sound.play()
+            self.do_next_menu()
+
+    def handle_input_item_enemy(self, pressed):
+        if pressed[K_UP]:
+            self.switch_sound.play()
+            self.selected_enemy_index = self.get_previous_live_enemy_index()
+        elif pressed[K_DOWN]:
+            self.switch_sound.play()
+            self.selected_ally_index = self.get_next_live_enemy_index()
+        elif pressed[K_z]:
+            self.state = 'item'
+            self.menu.focus()
+            self.selected_enemy_index = None
+        elif pressed[K_x]:
+            item = self.menu.get_choice().lower().strip('~')
+            self.submit_move({
+                'agent': self.warlord,
+                'target': self.enemies[self.selected_enemy_index],
                 'action': self.execute_move_item,
                 'item': item,
             })
