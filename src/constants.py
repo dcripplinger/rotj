@@ -1017,7 +1017,8 @@ ITEMS = {
     },
     'javelin': { # instantly kills enemy if user is teancum, 100% success
         'map_usage': 'battle',
-        'effect': 'assassin'
+        'battle_usage': 'enemy',
+        'effect': 'assassin',
     },
     'remedy': { # cures any negative status ailments on a single ally
         'map_usage': 'battle',
