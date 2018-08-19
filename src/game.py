@@ -340,7 +340,7 @@ class Game(object):
 
     def start_sleep(self, sleep_music, dialog, heal=False):
         self.set_current_map(
-            self.current_map.name, self.current_map.hero.position, self.current_map.hero.direction, followers='trail',
+            self.current_map.name, self.current_map.hero.position, self.current_map.hero.direction, followers='under',
             dialog=dialog,
         )
         self.set_screen_state('sleep')
