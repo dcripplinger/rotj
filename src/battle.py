@@ -1083,7 +1083,7 @@ class Battle(object):
         elif info.get('duration') == 'permanent':
             move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
             if is_ally_move:
-                move['target'].bad_status['count'] = 3
+                move['target'].bad_status['count'] = 4
             return move, {}
 
     def execute_tactic_type_enemies(self, move, good_target_team_statuses, is_ally_move):
@@ -1310,7 +1310,7 @@ class Battle(object):
             if (
                 (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
                 and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
-                and random.random() < .6
+                and random.random() < .3
             ):
                 enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
                 return {
