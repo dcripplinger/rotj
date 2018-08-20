@@ -160,7 +160,15 @@
       "name": "merchant",
       "direction": "n",
       "wander": true,
-      "dialog": "The others here have cast me out of the places of worship because I am poor and not well dressed."
+      "dialog": [
+        {
+          "text": "Because the rich Zoramites that persecuted us have deserted the city, we poor can once again inherit it.",
+          "condition": "battle19"
+        },
+        {
+          "text": "The others here have cast me out of the places of worship because I am poor and not well dressed."
+        }
+      ]
     }
   },
   {
@@ -170,7 +178,15 @@
       "name": "gentleman",
       "direction": "w",
       "wander": true,
-      "dialog": "Our leader Zoram is truly inspired."
+      "dialog": [
+        {
+          "text": "Our leader Zoram was truly uninspired.",
+          "condition": "battle19"
+        }
+        {
+          "text": "Our leader Zoram is truly inspired."
+        }
+      ]
     }
   },
   {
@@ -178,6 +194,9 @@
     "y": 31,
     "ai_sprite": {
       "name": "villager2",
+      "conditions": {
+        "battle19": false
+      },
       "direction": "w",
       "wander": true,
       "dialog": "We do not wish for a quarrel, but we no longer recognize the rule of the judges. We are now Zoramites."
