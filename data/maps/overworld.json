@@ -1085,7 +1085,49 @@
       "x": 35,
       "y": 37,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle19",
+        "conditions": {
+          "battle18": true
+        },
+        "intro": "The people of Ammon in Jershon have mocked us and must therefore be humbled. You would really defend a band of pacifists? It is no wonder that God has chosen my people over you!",
+        "exit": "Regroup, men! We will join forces with the Lamanites!",
+        "enemies": [
+          {
+            "name": "zoram",
+            "level": 22
+          },
+          {
+            "name": "lehi",
+            "level": 20
+          },
+          {
+            "name": "aha",
+            "level": 20
+          },
+          {
+            "name": "korihor",
+            "level": 20
+          },
+          {
+            "name": "zoramites",
+            "stats": {
+              "soldiers": 250,
+              "strength": 55,
+              "defense": 39,
+              "intelligence": 43,
+              "agility": 16,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 30,
+              "armor_class": 25
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 186,

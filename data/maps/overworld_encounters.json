@@ -1778,6 +1778,13 @@
         "esrom",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "korihor",
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
       ]
     ],
     "stats": {
@@ -1834,6 +1841,10 @@
       "esrom": {
         "level": 20,
         "capture": "battle18"
+      },
+      "korihor": {
+        "level": 20,
+        "capture": "battle19"
       }
     }
   },

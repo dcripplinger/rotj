@@ -160,6 +160,14 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'muloki'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'lehi_and_aha_join':
+            for sprite in self.group.sprites():
+                if sprite.name in ['lehi', 'aha']:
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['lehi', 'aha']
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)

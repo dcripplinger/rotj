@@ -16,7 +16,15 @@
       "name": "guard",
       "direction": "s",
       "wander": true,
-      "dialog": "This city was named after Antionum, but our current leader is Zoram."
+      "dialog": [
+        {
+          "text": "Zoram has fled to the Lamanites.",
+          "condition": "battle19"
+        },
+        {
+          "text": "This city was named after Antionum, but our current leader is Zoram."
+        }
+      ]
     }
   },
   {
@@ -26,7 +34,15 @@
       "name": "guard",
       "direction": "n",
       "wander": true,
-      "dialog": "We don't want any trouble, but you best be moving along soon here."
+      "dialog": [
+        {
+          "text": "I can't believe our leader abandoned us.",
+          "condition": "battle19"
+        },
+        {
+          "text": "We don't want any trouble, but you best be moving along soon here."
+        }
+      ]
     }
   },
   {
@@ -36,7 +52,19 @@
       "name": "guard",
       "direction": "s",
       "wander": true,
-      "dialog": "We are not interested in giving land to the defecting Lamanites."
+      "dialog": [
+        {
+          "text": "Why did I believe the words of Zoram?",
+          "condition": "battle19"
+        },
+        {
+          "text": "I am finally saved!",
+          "condition": "entered_jershon"
+        },
+        {
+          "text": "We are not interested in giving land to the defecting Lamanites."
+        }
+      ]
     }
   },
   {
@@ -44,6 +72,9 @@
     "y": 14,
     "ai_sprite": {
       "name": "zoram",
+      "conditions": {
+        "battle19": false
+      },
       "direction": "s",
       "wander": false,
       "dialog": [

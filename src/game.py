@@ -83,6 +83,7 @@ class Game(object):
             'lamoni_joins': self.handle_lamoni_joins,
             'muloki_joins': self.handle_muloki_joins,
             'entered_manti': self.handle_entered_manti,
+            'lehi_and_aha_join': self.handle_lehi_and_aha_join,
         }
 
     def conditions_are_met(self, conditions):
@@ -1121,4 +1122,7 @@ class Game(object):
                 },
             ]
         })
+
+    def handle_lehi_and_aha_join(self):
+        self.add_to_company(['lehi', 'aha'])
 
