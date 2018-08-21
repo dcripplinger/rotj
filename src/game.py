@@ -84,6 +84,7 @@ class Game(object):
             'muloki_joins': self.handle_muloki_joins,
             'entered_manti': self.handle_entered_manti,
             'lehi_and_aha_join': self.handle_lehi_and_aha_join,
+            'rejected_amalickiah': self.handle_rejected_amalickiah,
         }
 
     def conditions_are_met(self, conditions):
@@ -369,7 +370,7 @@ class Game(object):
 
         if state in ['change_map', 'sleep']:
             self.fade_out = True
-        elif state == 'battle':
+        elif state == 'battle' and not self.continue_current_music:
             battle_music_files = BATTLE_MUSIC[self.battle.battle_type]
             if battle_music_files.get('intro'):
                 self.current_music = 'intro'
@@ -386,7 +387,10 @@ class Game(object):
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
 
-    def start_battle(self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None):
+    def start_battle(
+        self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
+        continue_music=False,
+    ):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])[0:5]
         tactician = self.get_tactician()
@@ -402,11 +406,15 @@ class Game(object):
         )
         if intro:
             self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)
-        pygame.mixer.music.stop()
-        self.continue_current_music = False
-        self.current_music = None
-        time.sleep(.1)
-        self.encounter_sound.play()
+        if not continue_music:
+            pygame.mixer.music.stop()
+            self.continue_current_music = False
+            self.current_music = None
+            time.sleep(.1)
+            self.encounter_sound.play()
+        else:
+            self.continue_current_music = True
+            time.sleep(.1)
 
     def collect_spoils(self, experience, money, food):
         self.update_game_state({
@@ -1125,4 +1133,46 @@ class Game(object):
 
     def handle_lehi_and_aha_join(self):
         self.add_to_company(['lehi', 'aha'])
+
+    def handle_rejected_amalickiah(self):
+        kingmen = {
+            'name': 'kingmen',
+            'stats': {
+                "soldiers": 1000,
+                "strength": 75,
+                "defense": 40,
+                "intelligence": 60,
+                "agility": 25,
+                "evasion": 0,
+                "tactical_points": 0,
+                "attack_points": 45,
+                "armor_class": 40,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {'name': 'amalickiah', 'level': 24},
+                kingmen,
+            ],
+            'battle_type': 'story',
+            'exit': "So quick you are to throw our friendship away! We could have saved these people together. Nevertheless, I will obtain the kingdom. Don't try and stop me.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle20", continue_music=True,
+        )
 

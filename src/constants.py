@@ -415,7 +415,7 @@ TACTICS = {
     },
     'restore': {
         'min_damage': 1000000000,
-        'max_damage': 1000000000,
+        'max_damage': 1000000001,
         'type': 'ally',
         'min_intelligence': 200,
         'min_level': 24,
@@ -455,7 +455,7 @@ TACTICS = {
     },
     'revive': {
         'min_damage': 1000000000,
-        'max_damage': 1000000000,
+        'max_damage': 1000000001,
         'type': 'allies',
         'min_intelligence': 240,
         'min_level': 78,
@@ -589,7 +589,7 @@ TACTICS = {
     'assassin': {
         'type': 'enemy',
         'min_damage': 1000000000,
-        'max_damage': 1000000000,
+        'max_damage': 1000000001,
         'min_intelligence': 180,
         'min_level': 48,
         'success_probability_type': 'assassin',

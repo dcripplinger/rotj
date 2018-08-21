@@ -43,8 +43,9 @@ class MapMenu(object):
     def update(self, dt):
         if self.state == 'main':
             self.main_menu.update(dt)
-        if self.state in ['talk', 'check', 'confirm_strat', 'empty', 'item_prompt']:
+        if self.prompt:
             self.prompt.update(dt)
+        if self.state in ['talk', 'check', 'confirm_strat', 'empty', 'item_prompt']:
             if self.dialog_choice and not self.prompt.has_more_stuff_to_show():
                 self.handle_dialog_choice()
         if self.state == 'formation':
@@ -205,8 +206,16 @@ class MapMenu(object):
                 self.map.set_game_state_condition(selected_choice['game_state_action'])
             self.state = 'talk'
             self.dialog_choice_menu = None
-            self.prompt = create_prompt(selected_choice['next_dialog'])
-            self.dialog_choice = None
+            next_dialog = selected_choice['next_dialog']
+            if isinstance(next_dialog, basestring):
+                self.prompt = create_prompt(next_dialog)
+                self.dialog_choice = None
+            else: # it's a list
+                for conditional_dialog in next_dialog:
+                    if self.game.conditions_are_met(conditional_dialog.get('condition')):
+                        break
+                self.prompt = create_prompt(conditional_dialog['text'])
+                self.dialog_choice = conditional_dialog.get('prompt')
 
     def handle_input_city(self, pressed):
         self.city_menu.handle_input(pressed)

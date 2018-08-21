@@ -168,6 +168,14 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['lehi', 'aha']
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'battle20':
+            for sprite in self.group.sprites():
+                if getattr(sprite, 'name', '') == 'amalickiah':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'amalickiah'
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
@@ -525,6 +533,7 @@ class Map(object):
                         exit=self.battle_after_dialog['exit'],
                         narration=self.battle_after_dialog['narration'],
                         battle_name=self.battle_after_dialog['battle_name'],
+                        continue_music=self.battle_after_dialog['continue_music'],
                     )
                     self.battle_after_dialog = None
         elif self.company_report:
@@ -571,7 +580,9 @@ class Map(object):
             return self.game.get_dialog_for_condition(ai_sprite.dialog)
         return "There's no one there."
 
-    def start_battle_after_dialog(self, enemies, battle_type, intro=None, exit=None, battle_name=None, narration=None):
+    def start_battle_after_dialog(
+        self, enemies, battle_type, intro=None, exit=None, battle_name=None, narration=None, continue_music=False,
+    ):
         self.battle_after_dialog = {
             'enemies': enemies,
             'battle_type': battle_type,
@@ -579,4 +590,5 @@ class Map(object):
             'exit': exit,
             'narration': narration,
             'battle_name': battle_name,
+            'continue_music': continue_music,
         }

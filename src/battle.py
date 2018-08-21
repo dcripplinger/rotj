@@ -154,10 +154,15 @@ class Battle(object):
             # cancel_all_out, error
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
-        self.portraits = {
+        self.portraits = {}
+        self.portraits.update({
             warlord['name']: load_image('portraits/{}.png'.format(warlord['name']))
-            for warlord in (allies + enemies)
-        }
+            for warlord in allies
+        })
+        self.portraits.update({
+            warlord['name']: pygame.transform.flip(load_image('portraits/{}.png'.format(warlord['name'])), True, False)
+            for warlord in enemies
+        })
         self.portrait = None
         self.pointer_right = load_image('pointer.png')
         self.pointer_left = pygame.transform.flip(self.pointer_right, True, False)
@@ -466,15 +471,15 @@ class Battle(object):
         if move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             mini_moves.append(move)
             mini_result = copy.copy(results)
-            if 'double_tap' in mini_result:
-                del mini_result['double_tap']
+            if 'double~tap' in mini_result:
+                del mini_result['double~tap']
                 if 'killed' in mini_result:
                     del mini_result['killed']
                 mini_results.append(mini_result)
                 mini_moves.append(move)
                 mini_result = copy.copy(results)
-                mini_result['damage'] = mini_result['double_tap']
-                del mini_result['double_tap']
+                mini_result['damage'] = mini_result['double~tap']
+                del mini_result['double~tap']
                 mini_results.append(mini_result)
             else:
                 mini_results.append(results)
@@ -900,11 +905,11 @@ class Battle(object):
         if not power_pill and random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
             return move, {'evade': True}
         excellent = True if power_pill else random.random() < 1.0/16
-        hulk_out = move['agent'].good_statuses.get('hulk_out', 1)
+        hulk_out = move['agent'].good_statuses.get('hulk~out', 1)
         inflicted_damage = int(
             move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) * hulk_out + 1
         )
-        if not power_pill and move['agent'].good_statuses.get('double_tap') and random.random() < 0.5:
+        if not power_pill and move['agent'].good_statuses.get('double~tap') and random.random() < 0.5:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
         else:
             double_tap = None
@@ -925,9 +930,9 @@ class Battle(object):
             if move['target'].get_future_soldiers() <= double_tap:
                 double_tap = move['target'].get_future_soldiers()
                 move['target'].get_damaged(double_tap)
-                return move, {'damage': inflicted_damage, 'double_tap': double_tap, 'killed': True, 'excellent': excellent}
+                return move, {'damage': inflicted_damage, 'double~tap': double_tap, 'killed': True, 'excellent': excellent}
             move['target'].get_damaged(double_tap)
-            return move, {'damage': inflicted_damage, 'double_tap': double_tap, 'excellent': excellent}
+            return move, {'damage': inflicted_damage, 'double~tap': double_tap, 'excellent': excellent}
         return move, {'damage': inflicted_damage, 'excellent': excellent}
 
     def execute_move_confuse(self, move):
@@ -1028,14 +1033,14 @@ class Battle(object):
             move['target'].good_statuses['ninja'] = True
             return move, {}
         elif move['tactic'] == 'double~tap':
-            move['target'].good_statuses['double_tap'] = True
+            move['target'].good_statuses['double~tap'] = True
             return move, {}
         elif move['tactic'] == 'hulk~out':
-            if 'hulk_out' in move['target'].good_statuses:
-                if move['target'].good_statuses['hulk_out'] < 4:
-                    move['target'].good_statuses['hulk_out'] += 1
+            if 'hulk~out' in move['target'].good_statuses:
+                if move['target'].good_statuses['hulk~out'] < 4:
+                    move['target'].good_statuses['hulk~out'] += 1
             else:
-                move['target'].good_statuses['hulk_out'] = 2
+                move['target'].good_statuses['hulk~out'] = 2
             return move, {}
 
     def execute_tactic_type_allies(self, move, good_target_team_statuses, is_ally_move):
@@ -1156,7 +1161,10 @@ class Battle(object):
             intel = move['agent'].intelligence
             enemy_intel = target.intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
-            return random.random() < enemy_prob
+            random_draw = random.random()
+            if move['agent'].name == 'moroni':
+                print random_draw
+            return random_draw < enemy_prob
         elif prob_type == 'enemy_prob2':
             intel = move['agent'].intelligence
             enemy_intel = target.intelligence
