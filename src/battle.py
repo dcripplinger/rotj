@@ -1162,8 +1162,6 @@ class Battle(object):
             enemy_intel = target.intelligence
             enemy_prob = ((intel-enemy_intel)/255.0+1.0)/2.0
             random_draw = random.random()
-            if move['agent'].name == 'moroni':
-                print random_draw
             return random_draw < enemy_prob
         elif prob_type == 'enemy_prob2':
             intel = move['agent'].intelligence

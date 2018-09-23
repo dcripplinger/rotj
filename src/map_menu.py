@@ -70,8 +70,7 @@ class MapMenu(object):
         if self.state == 'shop':
             self.shop.update(dt)
         if self.state == 'save':
-            if self.prompt.has_more_stuff_to_show():
-                self.prompt.update(dt)
+            if not self.save_menu:
                 if not self.prompt.has_more_stuff_to_show():
                     self.save_menu = MenuBox(['YES', 'NO'])
                     self.save_menu.focus()
