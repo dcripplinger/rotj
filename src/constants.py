@@ -685,7 +685,7 @@ MAP_MUSIC = {
     'melek': VILLAGE_MUSIC,
     'siron': VILLAGE_MUSIC,
     'jershon': VILLAGE_MUSIC,
-    'house_of_moroni': SHOP_MUSIC,
+    'house_of_moroni': VILLAGE_MUSIC,
     'melek_empty_house': SHOP_MUSIC,
     'overworld': {
         'intro': None,
@@ -1025,6 +1025,11 @@ ITEMS = {
         'battle_usage': 'ally',
         'effect': 'remedy',
         'cost': 200,
+    },
+    't~of~liberty': { # cancels all enemy reinforcements, meant to be used in battle21
+        'map_usage': 'battle',
+        'battle_usage': 'enemies',
+        'effect': 'cancel_reinforcements',
     },
 
     # kolob (city map usage)

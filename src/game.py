@@ -85,6 +85,7 @@ class Game(object):
             'entered_manti': self.handle_entered_manti,
             'lehi_and_aha_join': self.handle_lehi_and_aha_join,
             'rejected_amalickiah': self.handle_rejected_amalickiah,
+            'got_title_of_liberty': self.handle_got_title_of_liberty,
         }
 
     def conditions_are_met(self, conditions):
@@ -552,6 +553,14 @@ class Game(object):
             'company': company,
         })
 
+    def _find_first_item_in_inventory(self, item_name):
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            for index, item in enumerate(warlord['items']):
+                if item['name'] == item_name:
+                    return warlord['name'], index
+        return None, None
+
     def is_in_company(self, enemy_name):
         for warlord in self.game_state['company']:
             if warlord['name'] == enemy_name:
@@ -939,6 +948,14 @@ class Game(object):
     def lamoni_leader(self):
         return self.game_state['company'][0]['name'] == 'lamoni'
 
+    def robe_and_spear(self):
+        warlord, _index = self._find_first_item_in_inventory('robe')
+        got_robe = warlord is not None
+        warlord, _index = self._find_first_item_in_inventory('spear')
+        got_spear = warlord is not None
+        return got_robe and got_spear
+
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1175,4 +1192,11 @@ class Game(object):
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle20", continue_music=True,
         )
+
+    def handle_got_title_of_liberty(self):
+        warlord, item_index = self._find_first_item_in_inventory('robe')
+        self.remove_item(warlord, item_index)
+        warlord, item_index = self._find_first_item_in_inventory('spear')
+        self.remove_item(warlord, item_index)
+        self.add_to_inventory('t~of~liberty')
 

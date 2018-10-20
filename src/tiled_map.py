@@ -447,6 +447,7 @@ class Map(object):
                     enemies.append({
                         'name': enemy['name'],
                         'stats': stats,
+                        'reinforcements': enemy.get('reinforcements', False),
                     })
                 self.game.start_battle(
                     enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),

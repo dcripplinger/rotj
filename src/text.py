@@ -189,11 +189,13 @@ class TextBox(object):
             )
             vertical_pos = (y * y_space + (2 if self.border else 0)) * 8
             for word in self.words[line]:
+                # if word.endswith('1052'):
+                #     import pdb; pdb.set_trace()
                 # is_number is used for displaying numbers in a more readable format, where every other triplet of
                 # characters is a bit transparent over a black background, making them a bit gray.
                 is_number = True
                 for char in word:
-                    if char not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.', '?', '!', ' ', '~']:
+                    if char not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.', '?', '!', ' ', '~', '/']:
                         is_number = False
                         break
                 if is_number:
@@ -202,6 +204,8 @@ class TextBox(object):
                     for char in word:
                         if char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
                             numbers_left += 1
+                        else:
+                            break
                 for char in word:
                     if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
                         break
@@ -215,16 +219,24 @@ class TextBox(object):
                     ):
                         char_image = pygame.Surface((8, 8))
                         fade_box = pygame.Surface((8, 8))
-                        fade_box.set_alpha(32)
+                        fade_box.set_alpha(48)
                         fade_box.fill(BLACK)
                         char_image.blit(CHARS[char], (0, 0))
                         char_image.blit(fade_box, (0, 0))
                         numbers_left -= 1
                     else:
                         char_image = CHARS[char]
+                        if is_number and char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                            numbers_left -= 1
                     surface.blit(char_image, (x*8, vertical_pos))
                     x += 1
                     chars_printed += 1
+                    if is_number and numbers_left == 0 and chars_printed < len(word):
+                        for remaining_char in word[chars_printed:]:
+                            if remaining_char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                                numbers_left += 1
+                            else:
+                                break
                 if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
                     break
                 surface.blit(CHARS[' '], (x*8, vertical_pos))

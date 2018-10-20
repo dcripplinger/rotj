@@ -87,6 +87,133 @@
       "x": 23,
       "y": 37,
       "direction": "n"
+    },
+    "battles": [
+      {
+        "conditions": {
+          "battle20": true
+        },
+        "name": "battle21",
+        "intro": "How can you not see that this is the only way to save our people? It doesn't matter. There is no way you can stop me from taking the throne. The people are continually flocking to my army.",
+        "narration": "Amalickiah and some of his men escaped and fled to the south.",
+        "enemies": [
+          {
+            "name": "amalickiah",
+            "level": 24,
+            "reinforcements": true
+          },
+          {
+            "name": "ether",
+            "level": 20,
+            "reinforcements": true
+          },
+          {
+            "name": "coriantor",
+            "level": 20,
+            "reinforcements": true
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            },
+            "reinforcements": true
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            },
+            "reinforcements": true
+          }
+        ]
+      },
+      {
+        "conditions": {
+          "battle20": false,
+          "joined_amalickiah": true
+        },
+        "name": "battle21",
+        "intro": "Thank you for helping me gain the favor of the people. But you and your men are a liability. I am sorry to do this to you, Moroni, but it is for the good of the poeple.",
+        "narration": "Amalickiah and some of his men escaped and fled to the south.",
+        "enemies": [
+          {
+            "name": "amalickiah",
+            "level": 90,
+            "reinforcements": true
+          },
+          {
+            "name": "ether",
+            "level": 90,
+            "reinforcements": true
+          },
+          {
+            "name": "coriantor",
+            "level": 90,
+            "reinforcements": true
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            },
+            "reinforcements": true
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            },
+            "reinforcements": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 153,
+    "y": 188,
+    "ai_sprite": {
+      "name": "kingmen",
+      "conditions": {
+        "battle20": true,
+        "battle21": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "Captain! Amalickiah has already gained favor of nearly half the people. He cannot win an election, but many of his followers will help him overthrow the government by force. I don't think we can win against him unless we can somehow inspire the people to join us to stop him. Please go talk to your servant in your house in Melek. He says he has an idea."
     }
   },
   {
@@ -256,9 +383,9 @@
               "evasion": 20,
               "tactical_points": 0,
               "attack_points": 30,
-              "armor_class": 20,
-              "reinforcements": true
-            }
+              "armor_class": 20
+            },
+            "reinforcements": true
           },
           {
             "name": "lamanites",
@@ -271,9 +398,9 @@
               "evasion": 20,
               "tactical_points": 0,
               "attack_points": 30,
-              "armor_class": 20,
-              "reinforcements": true
-            }
+              "armor_class": 20
+            },
+            "reinforcements": true
           }
         ]
       }

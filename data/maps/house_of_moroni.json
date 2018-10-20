@@ -9,6 +9,33 @@
   		"dialog": [
         {
           "text": "Good luck on your journey.",
+          "condition": "battle21"
+        },
+        {
+          "text": "If you use the Title of Liberty in the battle against Amalickiah at Zarahemla, I am certain he won't get any more reinforcements and the people will be inspired to follow you instead.",
+          "condition": "got_title_of_liberty"
+        },
+        {
+          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Did you bring me a robe and spear?",
+          "condition": "state:robe_and_spear",
+          "prompt": [
+            {
+              "choice": "YES",
+              "next_dialog": "And it came to pass that Moroni rent the robe. And he took a piece thereof, and wrote upon it - In memory of our God, our religion, and freedom, and our peace, our wives, and our children - and he fastened it upon the end of the spear and called it the Title of Liberty. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Servant: If you use this in the battle against Amalickiah at Zarahemla, I am certain he won't get any more reinforcements and the people will be inspired to follow you instead.",
+              "game_state_action": "got_title_of_liberty"
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Please let me know once you have them."
+            }
+          ]
+        },
+        {
+          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Bring me a robe and a spear, and we should be able to make a banner you can write a message on.",
+          "condition": "battle20"
+        },
+        {
+          "text": "Good luck on your journey.",
           "condition": "talked_with_alma"
         },
         {

@@ -36,7 +36,8 @@
       {
         "name": "amalickiah",
         "conditions": {
-          "battle20": false
+          "battle20": false,
+          "battle21": false
         },
         "direction": "w",
         "wander": false,

@@ -145,7 +145,7 @@ class Battle(object):
                 'max_soldiers': soldiers,
                 'tactics': unpretty(enemy['stats'].get('tactics', ['','','','','',''])),
                 'items': [],
-                'reinforcements': enemy['stats'].get('reinforcements', False),
+                'reinforcements': enemy.get('reinforcements', False),
                 'capture': capture,
             }, self))
         self.state = 'start'
@@ -412,6 +412,7 @@ class Battle(object):
                     for enemy in self.enemies:
                         if enemy.reinforcements and enemy.soldiers == 0:
                             enemy.get_healed(enemy.max_soldiers)
+                            enemy.dequeue_soldiers_change()
                             enemy.state = 'wait'
                             enemy.rel_pos = 0
                             enemy.rel_target_pos = None
@@ -709,6 +710,7 @@ class Battle(object):
                     for enemy in self.enemies:
                         if enemy.reinforcements and enemy.soldiers == 0:
                             enemy.get_healed(enemy.max_soldiers)
+                            enemy.dequeue_soldiers_change()
                             enemy.state = 'wait'
                             enemy.rel_pos = 0
                             enemy.rel_target_pos = None
@@ -823,6 +825,8 @@ class Battle(object):
         return 'continue'
 
     def handle_win(self):
+        for enemy in self.enemies:
+            enemy.dequeue_soldiers_change()
         self.state = 'win'
         self.menu = None
         self.portrait = None
@@ -851,6 +855,8 @@ class Battle(object):
         return abs(money)
 
     def handle_lose(self):
+        for ally in self.allies:
+            ally.dequeue_soldiers_change()
         self.state = 'lose'
         self.menu = None
         self.portrait = None

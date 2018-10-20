@@ -208,7 +208,7 @@ class BattleWarlordRectBase(object):
         if self.soldiers == 0:
             width = 0
         else:
-            width = max(math.ceil(self.soldiers/self.soldiers_per_pixel), 1)
+            width = min(max(math.ceil(self.soldiers/self.soldiers_per_pixel), 1), MAX_BAR_WIDTH)
         self.soldiers_bar = pygame.Surface((width, 8))
         self.soldiers_bar.fill(self.color)
 
