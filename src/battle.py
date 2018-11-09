@@ -628,6 +628,9 @@ class Battle(object):
             )
         elif mini_move['item'] == 'power~pill':
             dialog += self.get_attack_dialog(mini_move, mini_result, power_pill=True)
+        elif mini_move['item'] == 't~of~liberty':
+            dialog = "{} uses the Title of Liberty. ".format(mini_move['agent'].name.title())
+            dialog += "Enemies are no longer receiving reinforcements."
         return dialog
 
     def get_status_worn_off_dialog(self, mini_move, mini_result):
@@ -967,12 +970,23 @@ class Battle(object):
             return self.execute_item_type_ally(move)
         elif move_type == 'enemy':
             return self.execute_item_type_enemy(move)
+        elif move_type == 'enemies':
+            return self.execute_item_type_enemies(move)
         else:
             return move, {}
 
     def execute_item_type_enemy(self, move):
         if move['item'] == 'power~pill':
             return self.execute_move_battle(move, power_pill=True)
+
+    def execute_item_type_enemies(self, move):
+        info = ITEMS[move['item']]
+        if info['effect'] == 'cancel_reinforcements': # this is the title of liberty
+            is_ally_move = move['agent'] in self.allies
+            target_warlords = self.enemies if is_ally_move else self.allies
+            for warlord in target_warlords:
+                warlord.reinforcements = False
+        return move, {}
 
     def execute_item_type_ally(self, move):
         info = ITEMS[move['item']]
@@ -1796,6 +1810,14 @@ class Battle(object):
             elif ITEMS[item].get('battle_usage') == 'enemy':
                 self.state = 'item_enemy'
                 self.selected_enemy_index = self.get_enemy_leader().index
+            elif ITEMS[item].get('battle_usage') == 'enemies':
+                self.submit_move({
+                    'agent': self.warlord,
+                    'action': self.execute_move_item,
+                    'item': item,
+                })
+                self.select_sound.play()
+                self.do_next_menu()
             else:
                 self.right_dialog = create_prompt("That item cannot be used in battle.")
                 self.menu.unfocus()
