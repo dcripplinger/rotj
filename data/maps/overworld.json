@@ -95,7 +95,7 @@
         },
         "name": "battle21",
         "intro": "How can you not see that this is the only way to save our people? It doesn't matter. There is no way you can stop me from taking the throne. The people are continually flocking to my army.",
-        "narration": "Amalickiah and some of his men escaped and fled to the south.",
+        "narration": "Amalickiah and the remainder of his army retreated and fled to the south.",
         "enemies": [
           {
             "name": "amalickiah",
@@ -130,7 +130,7 @@
           {
             "name": "kingmen",
             "stats": {
-              "soldiers": 1,
+              "soldiers": 1000,
               "strength": 75,
               "defense": 40,
               "intelligence": 60,
@@ -330,7 +330,59 @@
       "x": 25,
       "y": 33,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle24",
+        "conditions": {
+          "battle23": true
+        },
+        "intro": "I have been busy, Moroni. It is your great honor to stand before the king of the Lamanites. It's fascinating what can be accomplished with a small dagger, a few drops of poison, and some misdirection of information. Now bow before me or die!",
+        "exit": "I will be back with another army, and when I am, I swear I will drink your blood!",
+        "enemies": [
+          {
+            "name": "amalickiah",
+            "level": 24
+          },
+          {
+            "name": "zoram",
+            "level": 24
+          },
+          {
+            "name": "coriantum",
+            "level": 24
+          },
+          {
+            "name": "zoramites",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 70,
+              "defense": 45,
+              "intelligence": 49,
+              "agility": 36,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 84,
+              "defense": 24,
+              "intelligence": 27,
+              "agility": 80,
+              "evasion": 18,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 180,
@@ -1251,6 +1303,83 @@
               "attack_points": 30,
               "armor_class": 25
             }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 205,
+    "y": 109,
+    "teleport": {
+      "map": "lehi",
+      "x": 18,
+      "y": 24,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 199,
+    "y": 107,
+    "teleport": {
+      "map": "morianton",
+      "x": 36,
+      "y": 39,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle23",
+        "conditions": {
+          "battle22": true
+        },
+        "intro": "Come to rob the land that is rightfully ours? We will defend it with the sword!",
+        "exit": "Noooo!",
+        "narration": "Morianton died in battle and the dispute between the cities of Morianton and Lehi was settled.",
+        "enemies": [
+          {
+            "name": "morianton",
+            "level": 24
+          },
+          {
+            "name": "ethem",
+            "level": 22
+          },
+          {
+            "name": "ethemr",
+            "level": 22
+          },
+          {
+            "name": "kumen",
+            "level": 22
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 199,
+    "y": 292,
+    "battles": [
+      {
+        "name": "battle22",
+        "conditions": {
+          "battle21": true
+        },
+        "intro": "I was destined to save the Nephites, but they have all betrayed me! I will stir up the Lamanites to anger and use them to effect my vengeance!",
+        "narration": "In the heat of battle, Amalickiah and a few of his followers slipped away and could not be found.",
+        "enemies": [
+          {
+            "name": "amalickiah",
+            "level": 24
+          },
+          {
+            "name": "ether",
+            "level": 20
+          },
+          {
+            "name": "coriantor",
+            "level": 20
           }
         ]
       }

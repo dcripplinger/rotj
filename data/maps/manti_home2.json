@@ -8,5 +8,13 @@
       "y": 25,
       "direction": "s"
     }
+  },
+  {
+    "x": 10,
+    "y": 16,
+    "treasure": {
+      "name": "manti_treasure",
+      "item": "ring~m"
+    }
   }
 ]

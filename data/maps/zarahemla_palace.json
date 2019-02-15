@@ -28,13 +28,35 @@
     "y": 14,
     "ai_sprite": [
       {
+        "name": "pahoran",
+        "direction": "s",
+        "wander": false,
+        "conditions": {
+          "battle21": true
+        },
+        "dialog": [
+          {
+            "text": "Our peace did not last long! The city of Noah is under attack by the Lamanites! You must hurry there and defend it. Noah is nearby to the southeast, by the river.",
+            "condition": "battle23"
+          },
+          {
+            "text": "I am Pahoran, son of Nephihah. My father has died and the people have chosen me to fill the judgment seat in his stead. Now that Amalickiah has been driven out of the land, we need your help in settling a land dispute between the borders of the cities Lehi and Morianton. These cities are to the north of Jershon, by the seashore."
+          }
+        ]
+      },
+      {
         "name": "nephihah",
         "direction": "s",
         "wander": false,
         "conditions": {
-          "battle08": true
+          "battle08": true,
+          "battle21": false
         },
         "dialog": [
+          {
+            "text": "You have stopped Amalickiah from overthrowing the government, but he has fled with some of his men southward, toward the Lamanites. You must intercept him quickly, before the Lamanites gain any more power! Our scouts reported seeing him last south of Manti and Siron, in the forest just east of the land of Nephi.",
+            "condition": "battle21"
+          },
           {
             "text": "Well done, Moroni. Perhaps Amalickiah is now ready to join us again. He was last seen at his home in Ammonihah.",
             "condition": "battle19"

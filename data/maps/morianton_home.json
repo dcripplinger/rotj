@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "morianton",
+      "x": 31,
+      "y": 34,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "old_man",
+      "wander": false,
+      "direction": "s",
+      "dialog": "There is a deep cave to the west. There should still be some iron ore left over there from the mining that used to take place."
+    }
+  }
+]

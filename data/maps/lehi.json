@@ -1,0 +1,90 @@
+[
+  {
+    "x": 17,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 205,
+      "y": 109,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 205,
+      "y": 109,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 21,
+    "teleport": {
+      "map": "lehi_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 13,
+    "teleport": {
+      "map": "lehi_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 13,
+    "teleport": {
+      "map": "lehi_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 17,
+    "teleport": {
+      "map": "lehi_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 19,
+    "ai_sprite": {
+      "name": "villager",
+      "wander": true,
+      "direction": "e",
+      "dialog": "This is the city of Lehi."
+    }
+  },
+  {
+    "x": 22,
+    "y": 15,
+    "ai_sprite": {
+      "name": "villager2",
+      "wander": true,
+      "direction": "e",
+      "dialog": [
+        {
+          "condition": "battle23",
+          "text": "Thank you for coming to our aid."
+        },
+        {
+          "text": "Our neighbor city, Morianton, is disputing our border, but we built here first. I'm worried they will fight us if we don't give into their unreasonable demands."
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "morianton",
+      "x": 24,
+      "y": 21,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 11,
+    "treasure": {
+      "name": "morianton_treasure",
+      "item": "chain~m"
+    }
+  }
+]

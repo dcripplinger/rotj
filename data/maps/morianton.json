@@ -1,0 +1,102 @@
+[
+  {
+    "x": 35,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 107,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 36,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 107,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 10,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 107,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 10,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 199,
+      "y": 107,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 31,
+    "y": 34,
+    "teleport": {
+      "map": "morianton_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 39,
+    "y": 34,
+    "teleport": {
+      "map": "morianton_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 39,
+    "y": 26,
+    "teleport": {
+      "map": "morianton_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 31,
+    "y": 17,
+    "teleport": {
+      "map": "morianton_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "teleport": {
+      "map": "morianton_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "teleport": {
+      "map": "morianton_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  }
+]
