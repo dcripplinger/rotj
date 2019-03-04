@@ -393,14 +393,17 @@ class Game(object):
         continue_music=False,
     ):
         self.set_screen_state('start_battle')
-        allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])[0:5]
+        allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
         if tactician:
             tactical_points = tactician['tactical_points']
             tactics = get_tactics(load_stats(tactician['name']), self.game_state['level'], pretty=False)
+            allies.remove(tactician)
+            allies.append(tactician)
         else:
             tactical_points = 0
             tactics = None
+        allies = allies[0:5]
         self.battle = Battle(
             self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water, exit=exit,
             battle_name=battle_name, narration=narration,
