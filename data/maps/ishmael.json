@@ -128,5 +128,15 @@
         }
       ]
     }
+  },
+  {
+    "x": 12,
+    "y": 27,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "wander": true,
+      "direction": "s",
+      "dialog": "In the records office, make this city your HQ and save your game. That way, if you quit and reload, you will start in this city."
+    }
   }
 ]
