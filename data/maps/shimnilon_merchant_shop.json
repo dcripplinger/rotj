@@ -26,8 +26,7 @@
       "type": "merchant",
       "items": [
         "elixir~a",
-        "resurrect",
-        "cloak"
+        "resurrect"
       ]
     }
   }

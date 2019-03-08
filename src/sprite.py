@@ -203,7 +203,10 @@ class AiSprite(Sprite):
             moved = self.move(direction)
             if moved:
                 self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self
-                del self.tiled_map.ai_sprites[tuple(self.position)]
+                try:
+                    del self.tiled_map.ai_sprites[tuple(self.position)]
+                except KeyError: # I had an error once where mysteriously the key wasn't there.
+                    pass
 
     def get_new_pos_from_direction(self, direction):
         if direction == 'n':

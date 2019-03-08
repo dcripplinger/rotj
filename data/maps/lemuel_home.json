@@ -18,5 +18,15 @@
       "direction": "w",
       "dialog": "Different strategists have different max tactical points, and only some will increase their points when leveling up. If you want the most tactical points for your party in battle, choose the appropriate strategist as your acting tactician."
     }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "ai_sprite": {
+      "name": "villager3",
+      "wander": false,
+      "direction": "e",
+      "dialog": "The tactics you can use in battle depend on your army's level and the intelligence of your acting tactician. Very advanced tactics can only be learned at higher levels and only by the greatest strategists in the land."
+    }
   }
 ]

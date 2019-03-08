@@ -130,8 +130,8 @@
     }
   },
   {
-    "x": 12,
-    "y": 27,
+    "x": 14,
+    "y": 26,
     "ai_sprite": {
       "name": "yuppie2",
       "wander": true,
