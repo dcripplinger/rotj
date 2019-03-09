@@ -978,6 +978,8 @@ class Battle(object):
     def execute_item_type_enemy(self, move):
         if move['item'] == 'power~pill':
             return self.execute_move_battle(move, power_pill=True)
+        else:
+            return move, {}
 
     def execute_item_type_enemies(self, move):
         info = ITEMS[move['item']]
@@ -1884,7 +1886,7 @@ class Battle(object):
             self.selected_enemy_index = self.get_previous_live_enemy_index()
         elif pressed[K_DOWN]:
             self.switch_sound.play()
-            self.selected_ally_index = self.get_next_live_enemy_index()
+            self.selected_enemy_index = self.get_next_live_enemy_index()
         elif pressed[K_z]:
             self.state = 'item'
             self.menu.focus()
