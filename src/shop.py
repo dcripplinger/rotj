@@ -91,12 +91,12 @@ class Shop(object):
                 self.surface.blit(self.misc_menu.surface, (160, 128))
             else:
                 self.surface.blit(self.misc_menu.surface, (160, 160))
-        if self.company_menu:
-            self.surface.blit(self.company_menu.surface, (128, 0))
         if self.confirm_menu:
             self.surface.blit(self.confirm_menu.surface, (160, 160))
         if self.spoils_box:
             self.surface.blit(self.spoils_box.surface, (160, 104))
+        if self.company_menu:
+            self.surface.blit(self.company_menu.surface, (128, 0))
         if self.report:
             self.surface.blit(self.report.surface, (0,0))
 
