@@ -390,7 +390,9 @@ class MerchantShop(Shop):
         item = self.shop_menu.get_choice()
         if 'cost' in ITEMS[item['name']]:
             self.value = int(ITEMS[item['name']]['cost'] * 0.75)
-            self.dialog = create_prompt("{}... I'll give you {} senines. Deal?".format(item['name'], self.value))
+            self.dialog = create_prompt(
+                "{}... I'll give you {} senines. Deal?".format(item['name'].title(), self.value),
+            )
             self.next = 'confirm'
         else:
             self.next = 'shop_menu'
@@ -458,7 +460,16 @@ class MerchantShop(Shop):
         else:
             warlord_index = self.company_menu.current_choice
             items = self.game.game_state['company'][warlord_index]['items']
-            self.shop_menu = ShopMenu([{'name': item['name'], 'cost': ''} for item in items])
+            self.shop_menu = ShopMenu([
+                {
+                    'name': "{}{}".format(
+                        '*' if item.get('equipped') else '',
+                        item['name'],
+                    ),
+                    'cost': '',
+                }
+                for item in items
+            ])
 
     def handle_confirm_yes(self):
         self.state = 'dialog'

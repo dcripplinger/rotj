@@ -567,7 +567,10 @@ class ShopMenu(object):
         self.blink = (round(self.time_since_highlight_choice - int(self.time_since_highlight_choice)) == 0)
 
     def get_choice(self, strip_star=True):
-        return self.items[self.current_choice]
+        item = self.items[self.current_choice]
+        if strip_star and item['name'][0] in (u'★', '*'):
+            item['name'] = item['name'][1:]
+        return item
 
     def set_choice(self, index):
         assert 0 <= index < len(self.items)
