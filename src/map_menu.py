@@ -120,7 +120,7 @@ class MapMenu(object):
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
         if pressed[K_z]:
-            return 'exit'
+            return self.exit()
         elif pressed[K_x]:
             self.select_sound.play()
             choice = self.main_menu.get_choice()
@@ -147,14 +147,19 @@ class MapMenu(object):
         self.general_menu.focus()
         self.state = 'general'
 
+    def exit(self):
+        if self.prompt:
+            self.prompt.shutdown()
+            self.prompt = None
+        return 'exit'
+
     def handle_input(self, pressed):
         if self.state == 'main':
             return self.handle_input_main(pressed)
         elif self.state in ['talk', 'check', 'confirm_strat', 'item_prompt']:
             self.prompt.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.prompt.has_more_stuff_to_show():
-                self.prompt.shutdown()
-                return 'exit'
+                return self.exit()
         elif self.state == 'save':
             if self.save_menu:
                 self.save_menu.handle_input(pressed)
@@ -162,7 +167,7 @@ class MapMenu(object):
                     self.game.save()
                     self.game.start_sleep('data/audio/save.wav', "Your game is saved.")
                 if pressed[K_x] or pressed[K_z]:
-                    return 'exit'
+                    return self.exit()
             else:
                 self.prompt.handle_input(pressed)
         elif self.state == 'formation':
@@ -175,7 +180,7 @@ class MapMenu(object):
             return self.handle_input_general(pressed)
         elif self.state == 'report':
             if pressed[K_x] or pressed[K_z]:
-                return 'exit'
+                return self.exit()
         elif self.state == 'item':
             return self.handle_input_item(pressed)
         elif self.state == 'empty':
@@ -228,7 +233,7 @@ class MapMenu(object):
             item_index = self.items_menu.current_choice
             user = self.strat_menu.get_choice().lower()
             self.map.remove_item(user, item_index)
-            return 'exit'
+            return self.exit()
 
     def handle_input_recipient(self, pressed):
         self.recipient_menu.handle_input(pressed)
@@ -362,7 +367,7 @@ class MapMenu(object):
 
     def handle_input_empty(self, pressed):
         if pressed[K_x]:
-            return 'exit'
+            return self.exit()
         elif pressed[K_z]:
             self.prompt.shutdown()
             self.prompt = None
@@ -490,7 +495,7 @@ class MapMenu(object):
                 self.order_indices.append(index)
             else:
                 self.map.update_company_order([choice.lower() for choice in self.new_order.get_choices()])
-                return 'exit'
+                return self.exit()
 
     def handle_order(self):
         self.state = 'order'
