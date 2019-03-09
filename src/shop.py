@@ -541,6 +541,7 @@ class Reserve(Shop):
         else:
             self.game.get_surplus_item(surplus_index, warlord_index)
             if len(self.game.game_state['surplus']) > 0:
+                self.surplus_page = 0
                 self.next = 'shop_menu'
                 self.dialog = create_prompt("Here you go. Anything else?")
                 self.company_menu = None
