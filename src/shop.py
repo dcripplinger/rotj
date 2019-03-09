@@ -86,13 +86,13 @@ class Shop(object):
             self.surface.blit(self.dialog.surface, (0, 160))
         if self.shop_menu:
             self.surface.blit(self.shop_menu.surface, (0, 0))
-        if self.company_menu:
-            self.surface.blit(self.company_menu.surface, (128, 0))
         if self.misc_menu:
             if len(self.misc_menu.get_choices()) > 4:
                 self.surface.blit(self.misc_menu.surface, (160, 128))
             else:
                 self.surface.blit(self.misc_menu.surface, (160, 160))
+        if self.company_menu:
+            self.surface.blit(self.company_menu.surface, (128, 0))
         if self.confirm_menu:
             self.surface.blit(self.confirm_menu.surface, (160, 160))
         if self.spoils_box:
@@ -497,6 +497,7 @@ class Reserve(Shop):
             if len(self.game.game_state['surplus'])/8 < self.surplus_page:
                 self.surplus_page = 0
             self.create_shop_menu()
+            self.shop_menu.focus()
         else:
             self.state = 'dialog'
             self.dialog = create_prompt("And who will be carrying that?")
@@ -513,7 +514,8 @@ class Reserve(Shop):
             self.reserve_page += 1
             if len(self.game.game_state['reserve'])/8 < self.reserve_page:
                 self.reserve_page = 0
-            self.create_shop_menu()
+            self.create_company_menu()
+            self.company_menu.focus()
         else:
             self.state = 'dialog'
             mode = self.misc_menu.get_choice()
