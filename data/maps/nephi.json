@@ -202,7 +202,7 @@
       "name": "yuppie2",
       "wander": true,
       "direction": "s",
-      "dialog": "Have you heard of the tactic Double Tap? Use it on an ally, and for each subsequent physical attack he will have a 50 percent chance of hitting a 2nd time."
+      "dialog": "Have you heard of the tactic Double Tap? Use it on an ally, and for each subsequent physical attack he will have a 75 percent chance of hitting twice."
     }
   },
   {

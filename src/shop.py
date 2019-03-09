@@ -267,7 +267,7 @@ class FoodShop(Shop):
         level = self.game.game_state['level']
         company = self.game.game_state['company']
         sum_soldiers = sum(get_max_soldiers(warlord['name'], level) for warlord in company)
-        base = int(math.pow(10, len(str(sum_soldiers))-1))
+        base = int(math.pow(10, len(str(sum_soldiers))-2))
         self.shop_menu = ShopMenu([
             {'name': str(3*base), 'cost': base},
             {'name': str(30*base), 'cost': 10*base},

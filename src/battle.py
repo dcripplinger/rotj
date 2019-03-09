@@ -918,7 +918,7 @@ class Battle(object):
         inflicted_damage = int(
             move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) * hulk_out + 1
         )
-        if not power_pill and move['agent'].good_statuses.get('double~tap') and random.random() < 0.5:
+        if not power_pill and move['agent'].good_statuses.get('double~tap') and random.random() < 0.75:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
         else:
             double_tap = None

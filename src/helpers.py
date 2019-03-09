@@ -187,7 +187,12 @@ def load_save_states():
 
 def save_game_state(slot, game_state):
     with open('data/state/{}.json'.format(slot), 'w') as f:
-        f.write(json.dumps(game_state))
+        f.write(json.dumps(
+            game_state,
+            sort_keys = True,
+            indent = 2,
+            separators=(',', ': '),
+        ))
 
 
 def erase_save_state(slot):

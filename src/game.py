@@ -130,10 +130,12 @@ class Game(object):
 
     def set_game_state_condition(self, condition):
         side_effect = self.condition_side_effects.get(condition)
-        if side_effect and condition not in self.game_state['conditions']:
+        condition_not_found = condition not in self.game_state['conditions']
+        if side_effect and condition_not_found:
             side_effect()
         conditions = list(self.game_state['conditions'])
-        conditions.append(condition)
+        if condition_not_found:
+            conditions.append(condition)
         self.update_game_state({
             'conditions': conditions,
         })
@@ -524,7 +526,7 @@ class Game(object):
                     break
             self.fire(warlord_index)
 
-    def add_to_inventory(self, item, warlord_index=None):
+    def add_to_inventory(self, item_name, warlord_index=None):
         """
         This is for picking up items when warlord_index is None.
         This is used for buying items when warlord_index is not None, since the warlord who buys it is specified.
@@ -533,24 +535,24 @@ class Game(object):
         placed = False
         if warlord_index is not None:
             assert len(company[warlord_index]['items']) < MAX_ITEMS_PER_PERSON
-            company[warlord_index]['items'].append({'name': item})
+            company[warlord_index]['items'].append({'name': item_name})
             placed = True
         else:
             for warlord in company:
                 if len(warlord['items']) >= MAX_ITEMS_PER_PERSON or warlord['soldiers'] == 0:
                     continue
                 placed = True
-                warlord['items'].append({'name': item})
+                warlord['items'].append({'name': item_name})
                 break
         surplus = list(self.game_state['surplus'])
         if not placed:
-            surplus.insert(0, {'name': item})
+            surplus.insert(0, item_name)
         self.update_game_state({'company': company, 'surplus': surplus})
 
     def sell_item(self, warlord_index, item_index):
         company = copy.deepcopy(self.game_state['company'])
-        item = company[warlord_index]['items'].pop(item_index)['name']
-        value = int(ITEMS[item]['cost'] * 0.75)
+        item_name = company[warlord_index]['items'].pop(item_index)['name']
+        value = int(ITEMS[item_name]['cost'] * 0.75)
         self.update_game_state({
             'money': min(MAX_NUM, self.game_state['money'] + value),
             'company': company,
