@@ -29,7 +29,7 @@ from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 from treasure import Treasure
 
-MAX_NO_FOOD_DELTA = 0.07
+MAX_NO_FOOD_DELTA = 0.06
 
 
 class Map(object):
@@ -380,10 +380,9 @@ class Map(object):
         self.group.center(self.hero.rect.center)
         self.group.draw(self.screen)
         if self.no_food_left:
-            faded_red_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
-            # faded_red_box.set_alpha(0.5)
-            faded_red_box.fill(RED)
-            self.screen.blit(faded_red_box, (0,0))
+            red_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+            red_box.fill(RED)
+            self.screen.blit(red_box, (0,0))
         if self.map_menu:
             self.map_menu.draw()
         if self.opening_dialog:

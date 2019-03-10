@@ -154,7 +154,8 @@ class Game(object):
         self.update_game_state({'food': new_food})
         if new_food == 0:
             self.starve_the_soldiers()
-            return True # indicate that we ran out of food
+            # indicate that we ran out of food and whether we lost soldiers because of it
+            return not all(warlord['soldiers'] <= 1 for warlord in self.game_state['company'])
         else:
             return False # indicate that we didn't run out of food
 
