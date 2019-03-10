@@ -32,7 +32,7 @@
         "direction": "s",
         "wander": false,
         "conditions": {
-          "battle21": true
+          "battle22": true
         },
         "dialog": [
           {
@@ -50,7 +50,7 @@
         "wander": false,
         "conditions": {
           "battle08": true,
-          "battle21": false
+          "battle22": false
         },
         "dialog": [
           {
