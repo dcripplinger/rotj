@@ -36,6 +36,7 @@
       {
         "name": "amalickiah",
         "conditions": {
+          "battle19": true,
           "battle20": false,
           "battle21": false
         },
