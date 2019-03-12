@@ -319,6 +319,55 @@
         ],
         "intro": "The Order of the Nehors has claimed this village!",
         "name": "battle03"
+      },
+      {
+        "conditions": {
+          "battle24": true
+        },
+        "enemies": [
+          {
+            "name": "shule",
+            "level": 24
+          },
+          {
+            "name": "riplakish",
+            "level": 24
+          },
+          {
+            "name": "limhi",
+            "level": 24
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 75,
+              "defense": 40,
+              "intelligence": 60,
+              "agility": 25,
+              "evasion": 0,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ],
+        "intro": "We will not fight the Lamanites until we can have a king established in the land!",
+        "name": "battle25"
       }
     ]
   },
@@ -1204,7 +1253,7 @@
         "enemies": [
           {
             "name": "zerahemnah",
-            "level": 24
+            "level": 22
           },
           {
             "name": "pagag",
@@ -1254,7 +1303,38 @@
       "x": 37,
       "y": 38,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "conditions": {
+          "battle24": true
+        },
+        "name": "battle26",
+        "enemies": [
+          {
+            "name": "hemla",
+            "level": 24
+          },
+          {
+            "name": "hemlon",
+            "level": 24
+          },
+          {
+            "name": "hemlori",
+            "level": 24
+          },
+          {
+            "name": "hemlorihah",
+            "level": 24
+          },
+          {
+            "name": "hemlorum",
+            "level": 24
+          }
+        ],
+        "intro": "We will not fight the Lamanites until we can have a king established in the land!"
+      }
+    ]
   },
   {
     "x": 216,
@@ -1339,19 +1419,19 @@
         "enemies": [
           {
             "name": "morianton",
-            "level": 24
+            "level": 22
           },
           {
             "name": "ethem",
-            "level": 22
+            "level": 20
           },
           {
             "name": "ethemr",
-            "level": 22
+            "level": 20
           },
           {
             "name": "kumen",
-            "level": 22
+            "level": 20
           }
         ]
       }

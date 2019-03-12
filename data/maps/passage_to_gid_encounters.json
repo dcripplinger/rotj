@@ -1,0 +1,209 @@
+[
+    {
+      "x": -1,
+      "y": -1,
+      "encounters": [
+        [
+          "zoramites",
+          "zoramites",
+          "zoramites"
+        ],
+        [
+          "robbers",
+          "robbers",
+          "robbers",
+          "robbers"
+        ],
+        [
+          "lamanites",
+          "lamanites",
+          "lamanites",
+          "lamanites"
+        ],
+        [
+          "lamanites",
+          "lamanites",
+          "lamanites",
+          "lamanites",
+          "lamanites"
+        ],
+        [
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "coriantum",
+          "lamanites",
+          "lamanites",
+          "lamanites",
+          "lamanites"
+        ],
+        [
+          "shule",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "riplakish",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "limhi",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "hemla",
+          "hemlori"
+        ],
+        [
+          "hemlon",
+          "kingmen",
+          "kingmen",
+          "kingmen",
+          "kingmen"
+        ],
+        [
+          "hemlorihah",
+          "hemlorum",
+          "kingmen"
+        ]
+      ],
+      "stats": {
+        "zoramites": {
+          "soldiers": [
+            700,
+            900,
+            1000
+          ],
+          "strength": 70,
+          "defense": 45,
+          "intelligence": 49,
+          "agility": 36,
+          "evasion": 0,
+          "tactical_points": 0,
+          "attack_points": 45,
+          "armor_class": 40
+        },
+        "robbers": {
+          "soldiers": [
+            700,
+            900,
+            1000
+          ],
+          "strength": 78,
+          "defense": 48,
+          "intelligence": 49,
+          "agility": 80,
+          "evasion": 28,
+          "tactical_points": 0,
+          "attack_points": 45,
+          "armor_class": 40
+        },
+        "kingmen": {
+          "soldiers": [
+            700,
+            900,
+            1000
+          ],
+          "strength": 75,
+          "defense": 40,
+          "intelligence": 60,
+          "agility": 25,
+          "evasion": 0,
+          "tactical_points": 0,
+          "attack_points": 45,
+          "armor_class": 40
+        },
+        "lamanites": {
+          "soldiers": [
+            700,
+            900,
+            1000
+          ],
+          "strength": 84,
+          "defense": 24,
+          "intelligence": 27,
+          "agility": 80,
+          "evasion": 18,
+          "tactical_points": 0,
+          "attack_points": 45,
+          "armor_class": 40
+        },
+        "coriantum": {
+          "level": 24,
+          "capture": "battle24"
+        },
+        "shule": {
+          "level": 24,
+          "capture": "battle25"
+        },
+        "riplakish": {
+          "level": 24,
+          "capture": "battle25"
+        },
+        "limhi": {
+          "level": 24,
+          "capture": "battle25"
+        },
+        "hemla": {
+          "level": 24,
+          "capture": "battle26"
+        },
+        "hemlon": {
+          "level": 24,
+          "capture": "battle26"
+        },
+        "hemlori": {
+          "level": 24,
+          "capture": "battle26"
+        },
+        "hemlorihah": {
+          "level": 24,
+          "capture": "battle26"
+        },
+        "hemlorum": {
+          "level": 24,
+          "capture": "battle26"
+        }
+      }
+    }
+  ]
+  

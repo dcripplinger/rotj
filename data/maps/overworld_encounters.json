@@ -694,6 +694,15 @@
         "kingmen",
         "kingmen",
         "kingmen"
+      ],
+      [
+        "ethem",
+        "ethemr"
+      ],
+      [
+        "kumen",
+        "kingmen",
+        "kingmen"
       ]
     ],
     "stats": {
@@ -744,6 +753,18 @@
         "tactical_points": 0,
         "attack_points": 35,
         "armor_class": 40
+      },
+      "ethem": {
+        "level": 20,
+        "capture": "battle23"
+      },
+      "ethemr": {
+        "level": 20,
+        "capture": "battle23"
+      },
+      "kumen": {
+        "level": 20,
+        "capture": "battle23"
       }
     }
   },
@@ -1249,6 +1270,20 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "ether",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "coriantor",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
       ]
     ],
     "stats": {
@@ -1311,6 +1346,14 @@
         "tactical_points": 0,
         "attack_points": 45,
         "armor_class": 40
+      },
+      "ether": {
+        "level": 20,
+        "capture": "battle22"
+      },
+      "coriantor": {
+        "level": 20,
+        "capture": "battle22"
       }
     }
   },
