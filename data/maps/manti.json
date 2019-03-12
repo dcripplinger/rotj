@@ -164,5 +164,15 @@
         }
       ]
     }
+  },
+  {
+    "x": 25,
+    "y": 16,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "e",
+      "wander": true,
+      "dialog": "This merchant shop has power pills! You can use one in battle to ensure an excellent hit. With how tough the armies are around here, I'd stock up with as many of these as I could, if I were you."
+    }
   }
 ]
