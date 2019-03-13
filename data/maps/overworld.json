@@ -767,7 +767,50 @@
       "x": 25,
       "y": 54,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle27",
+        "conditions": {
+          "battle25": true,
+          "battle26": true
+        },
+        "intro": "Look what your betrayal has cost you. Nearly all Nephite cities are under my control. When I reach Zarahemla, I will slay Pahoran on his throne and finally rule over all the land!",
+        "exit": "Teancum put a javelin to the king's heart, immediately causing his death. Amalickiah's treachery was finally brought to an end.",
+        "enemies": [
+          {
+            "name": "amalickiah",
+            "level": 27
+          },
+          {
+            "name": "helem",
+            "level": 24
+          },
+          {
+            "name": "helorum",
+            "level": 24
+          },
+          {
+            "name": "lamonihah",
+            "level": 24
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 84,
+              "defense": 24,
+              "intelligence": 27,
+              "agility": 80,
+              "evasion": 18,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 140,

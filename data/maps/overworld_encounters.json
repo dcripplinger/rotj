@@ -623,6 +623,34 @@
         "kingmen",
         "kingmen",
         "kingmen"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "helem",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "helorum",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamoni",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
@@ -657,6 +685,34 @@
         "tactical_points": 0,
         "attack_points": 35,
         "armor_class": 40
+      },
+      "lamanites": {
+        "soldiers": [
+          300,
+          320,
+          350,
+          380
+        ],
+        "strength": 76,
+        "defense": 21,
+        "intelligence": 30,
+        "agility": 68,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 35,
+        "armor_class": 30
+      },
+      "helem": {
+        "level": 24,
+        "capture": "battle27"
+      },
+      "helorum": {
+        "level": 24,
+        "capture": "battle27"
+      },
+      "lamonihah": {
+        "level": 24,
+        "capture": "battle27"
       }
     }
   },
