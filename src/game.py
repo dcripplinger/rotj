@@ -962,6 +962,8 @@ class Game(object):
         got_spear = warlord is not None
         return got_robe and got_spear
 
+    def battle25_and_battle26(self):
+        return self.conditions_are_met(['battle25', 'battle26'])
 
     ###########################################################
     # Condition side effect handlers get defined here         #

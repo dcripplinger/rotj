@@ -36,6 +36,18 @@
         },
         "dialog": [
           {
+            "text": "Will you retake our cities to the west first, or the east first? You can get to both areas from the city Bountiful to the north.",
+            "condition": "battle27"
+          },
+          {
+            "text": "While the King Men distracted us, the Lamanites have taken many of our outer cities! Amalickiah himself marches at the head of his army towards Bountiful, to the north. Protect it!",
+            "condition": "state:battle24_and_battle25"
+          },
+          {
+            "text": "There is a new faction calling themselves King Men. Like many before them, they wish to establish a king in the land so that they may be put into high positions over the people. Meanwhile the Lamanites have regrouped and are already attacking our outer cities! The King Men are refusing to fight, hoping to gain a political advantage. Talk to our people, find out where the King Men are, and end their insurrection before we lose too much from the Lamanites!",
+            "condition": "battle24"
+          },
+          {
             "text": "Our peace did not last long! The city of Noah is under attack by the Lamanites! You must hurry there and defend it. Noah is nearby to the southeast, by the river.",
             "condition": "battle23"
           },
