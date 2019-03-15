@@ -16,13 +16,24 @@
       "name": "villager3",
       "wander": true,
       "direction": "s",
-      "dialog": "Helaman prefers a peaceful life helping others, but he's also singularly adept on the battlefield."
+      "dialog": [
+        {
+          "condition": "battle27",
+          "text": "Helaman isn't here anymore. He left to help in the war, far off to the frontier cities."
+        },
+        {
+          "text": "Helaman prefers a peaceful life helping others, but he's also singularly adept on the battlefield."
+        }
+      ]
     }
   },
   {
     "x": 13,
     "y": 11,
     "ai_sprite": {
+      "conditions": {
+        "battle27": false
+      },
       "name": "helaman",
       "wander": false,
       "direction": "s",
