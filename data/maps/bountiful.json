@@ -163,6 +163,9 @@
     "x": 25,
     "y": 49,
     "ai_sprite": {
+      "conditions": {
+        "battle27": false
+      },
       "direction": "s",
       "wander": false,
       "name": "guard",
@@ -173,10 +176,43 @@
     "x": 26,
     "y": 49,
     "ai_sprite": {
+      "conditions": {
+        "battle27": false
+      },
       "direction": "s",
       "wander": false,
       "name": "guard",
       "dialog": "We'll be here protecting the city Bountiful while you fortify the other cities."
+    }
+  },
+  {
+    "x": 27,
+    "y": 48,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "w",
+      "wander": false,
+      "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
+    }
+  },
+  {
+    "x": 11,
+    "y": 25,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
+    }
+  },
+  {
+    "x": 40,
+    "y": 25,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
     }
   }
 ]
