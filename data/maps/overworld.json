@@ -813,6 +813,21 @@
     ]
   },
   {
+    "x": 117,
+    "y": 140,
+    "ai_sprite": {
+      "name": "kingmen",
+      "direction": "s",
+      "wander": false,
+      "conditions": {
+        "battle25": true,
+        "battle26": true,
+        "got_javelin": false
+      },
+      "dialog": "To the east and north, there is a cove in the mountains where a swordsmith and his apprentice reside. The apprentice has made a special weapon which can help us in the fight with Amalickiah."
+    }
+  },
+  {
     "x": 140,
     "y": 132,
     "teleport": {

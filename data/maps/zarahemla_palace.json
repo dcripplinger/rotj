@@ -41,7 +41,7 @@
           },
           {
             "text": "While the King Men distracted us, the Lamanites have taken many of our outer cities! Amalickiah himself marches at the head of his army towards Bountiful, to the north. Protect it!",
-            "condition": "state:battle24_and_battle25"
+            "condition": "state:battle25_and_battle26"
           },
           {
             "text": "There is a new faction calling themselves King Men. Like many before them, they wish to establish a king in the land so that they may be put into high positions over the people. Meanwhile the Lamanites have regrouped and are already attacking our outer cities! The King Men are refusing to fight, hoping to gain a political advantage. Talk to our people, find out where the King Men are, and end their insurrection before we lose too much from the Lamanites!",

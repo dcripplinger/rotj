@@ -1021,6 +1021,7 @@ ITEMS = {
         'map_usage': 'battle',
         'battle_usage': 'enemy',
         'effect': 'assassin',
+        'cost': 2000,
     },
     'remedy': { # cures any negative status ailments on a single ally
         'map_usage': 'battle',

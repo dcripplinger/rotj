@@ -86,6 +86,7 @@ class Game(object):
             'lehi_and_aha_join': self.handle_lehi_and_aha_join,
             'rejected_amalickiah': self.handle_rejected_amalickiah,
             'got_title_of_liberty': self.handle_got_title_of_liberty,
+            'got_javelin': self.handle_got_javelin,
         }
 
     def conditions_are_met(self, conditions):
@@ -965,6 +966,17 @@ class Game(object):
     def battle25_and_battle26(self):
         return self.conditions_are_met(['battle25', 'battle26'])
 
+    def not_enough_money_for_first_javelin(self):
+        return self.battle25_and_battle26() and self.game_state['money'] < ITEMS['javelin']['cost']
+
+    def not_enough_money_for_javelin(self):
+        return self.conditions_are_met('got_javelin') and self.game_state['money'] < ITEMS['javelin']['cost']
+
+    def have_javelin(self):
+        in_surplus = 'javelin' in self.game_state['surplus']
+        _, index = self._find_first_item_in_inventory('javelin')
+        return in_surplus or index is not None
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1209,3 +1221,6 @@ class Game(object):
         self.remove_item(warlord, item_index)
         self.add_to_inventory('t~of~liberty')
 
+    def handle_got_javelin(self):
+        self.add_to_inventory('javelin')
+        self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
