@@ -8,5 +8,22 @@
       "y": 29,
       "direction": "s"
     }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "shop": {
+      "type": "reserve"
+    }
   }
 ]

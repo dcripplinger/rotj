@@ -8,5 +8,28 @@
       "y": 25,
       "direction": "s"
     }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "macana",
+        "sling",
+        "ring~m",
+        "copper~h"
+      ]
+    }
   }
 ]

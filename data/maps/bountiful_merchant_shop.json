@@ -8,5 +8,29 @@
       "y": 33,
       "direction": "s"
     }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~c",
+        "resurrect",
+        "remedy",
+        "power~pill",
+        "kolob"
+      ]
+    }
   }
 ]

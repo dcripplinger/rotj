@@ -8,5 +8,13 @@
       "y": 38,
       "direction": "s"
     }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "treasure": {
+      "name": "bountiful_home_treasure",
+      "money": 2283
+    }
   }
 ]
