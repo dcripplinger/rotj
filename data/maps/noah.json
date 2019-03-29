@@ -98,6 +98,10 @@
       "wander": true,
       "dialog": [
         {
+          "text": "Long live Pahoran, our chief judge!",
+          "condition": "battle22"
+        },
+        {
           "text": "Long live Nephihah, our chief judge!",
           "condition": "battle08"
         },
