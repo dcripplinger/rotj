@@ -146,7 +146,19 @@
       "name": "guard",
       "direction": "s",
       "wander": false,
-      "dialog": "This is the city of Zarahemla, the Nephite capital."
+      "dialog": [
+        {
+          "condition": "battle25",
+          "text": "This is the city of Zarahemla, the Nephite capital."
+        },
+        {
+          "condition": "battle24",
+          "text": "I saw some of the king men holed up at the village Sidom to the south."
+        },
+        {
+          "text": "This is the city of Zarahemla, the Nephite capital."
+        }
+      ]
     }
   },
   {
@@ -224,7 +236,19 @@
       "name": "old_man",
       "direction": "e",
       "wander": true,
-      "dialog": "Use RISK-IT in battles to make them go really fast. But only do it if you're sure you will win."
+      "dialog": [
+        {
+          "condition": "battle26",
+          "text": "Use RISK-IT in battles to make them go really fast. But only do it if you're sure you will win."
+        },
+        {
+          "condition": "battle24",
+          "text": "I just got back from visiting Jershon, where I saw many king men rallying. Jershon is in the forest east of the river, where the peaceful Anti Nephi Lehies live."
+        },
+        {
+          "text": "Use RISK-IT in battles to make them go really fast. But only do it if you're sure you will win."
+        }
+      ]
     }
   },
   {
