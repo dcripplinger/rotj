@@ -98,5 +98,53 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 34,
+    "y": 38,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "This is the city of Morianton."
+    }
+  },
+  {
+    "x": 32,
+    "y": 31,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle23",
+          "text": "Ok, fine. We will respect the boundaries of the city of Lehi."
+        },
+        {
+          "text": "We are going to claim the land by the city of Lehi, no matter what it takes!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 28,
+    "y": 21,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": "There is a cave west of here called the Passage to Gid. I don't know why though, since you can only leave Gid through that passage, not reach it."
+    }
+  },
+  {
+    "x": 20,
+    "y": 13,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": true,
+      "dialog": "The bridge to Nephihah isn't finished yet. Hagar was supposed to build it, but nobody has seen him since he went into the Passage to Gid."
+    }
   }
 ]
