@@ -3,3 +3,5 @@
 venv/
 dist/
 .idea/
+build/
+rotj.spec
