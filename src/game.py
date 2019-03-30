@@ -132,7 +132,7 @@ class Game(object):
     def set_game_state_condition(self, condition):
         side_effect = self.condition_side_effects.get(condition)
         condition_not_found = condition not in self.game_state['conditions']
-        if side_effect and condition_not_found:
+        if side_effect and (condition_not_found or condition == 'got_javelin'):
             side_effect()
         conditions = list(self.game_state['conditions'])
         if condition_not_found:
