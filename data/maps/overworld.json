@@ -776,7 +776,7 @@
           "battle26": true
         },
         "intro": "Look what your betrayal has cost you. Nearly all Nephite cities are under my control. When I reach Zarahemla, I will slay Pahoran on his throne and finally rule over all the land!",
-        "exit": "Teancum put a javelin to the king's heart, immediately causing his death. Amalickiah's treachery was finally brought to an end.",
+        "narration": "Teancum put a javelin to the king's heart, immediately causing his death. Amalickiah's treachery was finally brought to an end.",
         "enemies": [
           {
             "name": "amalickiah",

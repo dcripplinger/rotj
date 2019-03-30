@@ -331,6 +331,9 @@ class TextBox(object):
                 self.typing_sound.play(-1)
             self.max_starting_line += self.lines_available_now - 1
 
+    def __del__(self):
+        self.shutdown()
+
 
 class MenuBox(object):
     def __init__(self, choices, border=True, title=None, width=None, height=None):

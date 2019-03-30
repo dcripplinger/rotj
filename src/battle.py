@@ -631,6 +631,11 @@ class Battle(object):
         elif mini_move['item'] == 't~of~liberty':
             dialog = "{} uses the Title of Liberty. ".format(mini_move['agent'].name.title())
             dialog += "Enemies are no longer receiving reinforcements."
+        elif mini_move['item'] == 'javelin':
+            if mini_result.get('fail'):
+                dialog += "He doesn't have very good aim."
+            else:
+                dialog += "It plunges through {}'s heart.".format(mini_move['target'].name.title())
         return dialog
 
     def get_status_worn_off_dialog(self, mini_move, mini_result):
@@ -891,7 +896,10 @@ class Battle(object):
         elif move.get('action') == self.execute_move_tactic:
             return self.tactic_sound if TACTICS[move['tactic']]['type'] in ['enemy', 'enemies'] else None
         elif move.get('action') == self.execute_move_item:
-            return None
+            if move.get('item') == 'javelin':
+                return self.excellent_sound
+            else:
+                return None
 
     def execute_move_battle(self, move, confused=False, power_pill=False):
         is_ally_move = move['agent'] in self.allies
@@ -978,6 +986,12 @@ class Battle(object):
     def execute_item_type_enemy(self, move):
         if move['item'] == 'power~pill':
             return self.execute_move_battle(move, power_pill=True)
+        if move['item'] == 'javelin':
+            if move['agent'].name == 'teancum':
+                move['target'].get_damaged(move['target'].get_future_soldiers())
+                return move, {'killed': True}
+            else:
+                return move, {'fail': True}
         else:
             return move, {}
 
