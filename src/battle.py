@@ -81,7 +81,7 @@ REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of 
 class Battle(object):
     def __init__(
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
-        battle_name=None, narration=None,
+        battle_name=None, narration=None, offguard=None,
     ):
         # plundered can be 0, -1, or 1.
         # If you use plunder, it moves up 1 and you get money.
@@ -169,6 +169,15 @@ class Battle(object):
         self.screen = screen
         self.right_dialog = None
         self.set_bar_color()
+        
+        # The constructor can get offguard passed in as None, 0, 1, or -1.
+        # (This needs to be set after allies and enemies and before set_start_dialog.)
+        # * None means let battle.py calculate it for you.
+        # * 0 means a regular battle.
+        # * 1 means the player gets an extra volley at the beginning.
+        # * -1 means the enemy gets an extra volley at the beginning.
+        self.offguard = self.get_offguard() if offguard is None else offguard
+
         self.set_start_dialog()
         self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
         self.selected_enemy_index = None
@@ -197,6 +206,37 @@ class Battle(object):
         self.exit_choices = None
         self.win_state = None
 
+    # There is a 1/4 chance that offguard is non-zero. If the player has a lower base_num (a score based on
+    # soldiers and attack points) than the enemy and the offguard is non-zero, there's a 50/50 chance of it
+    # being in favor of the player or in favor of the enemy. If the player's base_num is greater than 10x
+    # that of the enemy, and the offguard is non-zero, it is always in favor of the player. Any base_num
+    # score in between results in a proportional decrease in the chance of offguard being in favor of the
+    # enemy.
+    def get_offguard(self):
+        ally_base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.allies])
+        enemy_base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
+        random_num = random.random()
+        if ally_base_num < enemy_base_num:
+            if random_num < 0.125:
+                return -1
+            elif random_num < 0.25:
+                return 1
+            else:
+                return 0
+        elif ally_base_num > 10 * enemy_base_num:
+            if random_num < 0.25:
+                return 1
+            else:
+                return 0
+        else:
+            fraction = (1.0 - ally_base_num / enemy_base_num / 10.0)
+            if random_num < fraction * 0.125:
+                return -1
+            elif random_num < 0.25:
+                return 1
+            else:
+                return 0
+
     def set_start_dialog(self):
         script = ''
         last_enemy_name = ''
@@ -204,6 +244,10 @@ class Battle(object):
             if enemy.name != last_enemy_name:
                 script += '{} approaching.\n'.format(enemy.name.title())
                 last_enemy_name = enemy.name
+        if self.offguard == 1:
+            script += "The enemy is not aware of our approach."
+        elif self.offguard == -1:
+            script += "We were caught off guard."
         self.left_dialog = create_prompt(script, silent=True)
 
     def set_bar_color(self):
