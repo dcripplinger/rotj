@@ -1467,7 +1467,16 @@ class Battle(object):
     def handle_input_start(self, pressed):
         self.left_dialog.handle_input(pressed)
         if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
-            self.init_menu_state()
+            if self.offguard == -1:
+                self.generate_enemy_moves()
+                self.ordered_moves = self.get_moves_in_order_of_agility()
+                self.state = 'execute'
+                self.execute_state = 'move_back'
+                self.offguard = 0
+                self.left_dialog = None
+                self.right_dialog = None
+            else:
+                self.init_menu_state()
 
     def init_menu_state(self):
         self.state = 'menu'
