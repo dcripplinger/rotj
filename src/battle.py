@@ -1292,12 +1292,15 @@ class Battle(object):
         return move
 
     def generate_enemy_moves(self):
-        ally_dangers = {ally.index: ally.get_danger() for ally in self.allies if ally.soldiers > 0}
-        sum_dangers = sum(ally_dangers.values())
-        ally_target_probabilities = {index: danger*1.0 / sum_dangers for index, danger in ally_dangers.items()}
-        for enemy in self.get_live_enemies():
-            ally_target_index = self.choose_random_target(ally_target_probabilities)
-            self.enemy_moves.append(self.generate_enemy_move(enemy, ally_target_index, sum_dangers))
+        if self.offguard == 1:
+            self.offguard = 0
+        else:
+            ally_dangers = {ally.index: ally.get_danger() for ally in self.allies if ally.soldiers > 0}
+            sum_dangers = sum(ally_dangers.values())
+            ally_target_probabilities = {index: danger*1.0 / sum_dangers for index, danger in ally_dangers.items()}
+            for enemy in self.get_live_enemies():
+                ally_target_index = self.choose_random_target(ally_target_probabilities)
+                self.enemy_moves.append(self.generate_enemy_move(enemy, ally_target_index, sum_dangers))
 
     def choose_random_target(self, target_probabilities):
         sample = random.random()
