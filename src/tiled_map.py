@@ -459,7 +459,8 @@ class Map(object):
                 self.game.start_battle(
                     enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
                     exit=battle_data.get('exit'), battle_name=battle_data['name'],
-                    narration=battle_data.get('narration'),
+                    narration=battle_data.get('narration'), offguard=battle_data.get('offguard'),
+                    enemy_retreat=battle_data.get('enemy_retreat'),
                 )
                 return
         moved = self.hero.move(direction)

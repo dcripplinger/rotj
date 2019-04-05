@@ -81,7 +81,7 @@ REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of 
 class Battle(object):
     def __init__(
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
-        battle_name=None, narration=None, offguard=None,
+        battle_name=None, narration=None, offguard=None, enemy_retreat=False,
     ):
         # plundered can be 0, -1, or 1.
         # If you use plunder, it moves up 1 and you get money.
@@ -151,7 +151,7 @@ class Battle(object):
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
             # tactic_ally, tactic_enemy, item, item_ally, item_enemy, win, lose, execute, risk_it,
-            # cancel_all_out, error
+            # cancel_all_out, error, enemy_retreat
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {}
@@ -205,6 +205,8 @@ class Battle(object):
         self.exit_choice = None
         self.exit_choices = None
         self.win_state = None
+        self.enemy_retreat = enemy_retreat
+        self.enemy_retreat_state = 'start'
 
     # There is a 1/4 chance that offguard is non-zero. If the player has a lower base_num (a score based on
     # soldiers and attack points) than the enemy and the offguard is non-zero, there's a 50/50 chance of it
@@ -316,6 +318,13 @@ class Battle(object):
                 self.exit_choice = None
                 self.exit_choices = None
 
+    def update_enemy_retreat(self, dt):
+        if self.enemy_retreat_state == 'start':
+            self.init_exit(self.exit)
+            self.enemy_retreat_state = 'dialog'
+        elif self.enemy_retreat_state == 'dialog':
+            self.exit_dialog.update(dt)
+    
     def update_win(self, dt):
         if self.win_state == 'start':
             if self.exit:
@@ -428,6 +437,8 @@ class Battle(object):
             self.right_dialog.update(dt)
         elif self.state == 'tactic':
             self.menu.update(dt)
+        elif self.state == 'enemy_retreat':
+            self.update_enemy_retreat(dt)
 
     def update_execute(self, dt):
         if self.execute_state == 'move_back':
@@ -493,7 +504,10 @@ class Battle(object):
                 dialog.update(dt)
             else:
                 if len(self.ordered_moves) == 0:
-                    self.init_menu_state()
+                    if self.enemy_retreat:
+                        self.state = 'enemy_retreat'
+                    else:
+                        self.init_menu_state()
                 else:
                     self.execute_state = 'mini_move'
 
@@ -1503,6 +1517,14 @@ class Battle(object):
             self.game.set_game_state_condition(choice['game_state_action'])
         self.init_exit(choice['next_dialog'])
 
+    def handle_input_enemy_retreat(self, pressed):
+        if self.enemy_retreat_state == 'dialog':
+            self.exit_dialog.handle_input(pressed)
+            if pressed[K_x] and not self.exit_dialog.has_more_stuff_to_show():
+                self.exit_dialog.shutdown()
+                self.exit_dialog = None
+                self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+    
     def handle_input_win(self, pressed):
         if self.win_state == 'exit_dialog':
             self.exit_dialog.handle_input(pressed)
@@ -1832,6 +1854,8 @@ class Battle(object):
             self.handle_input_item_ally(pressed)
         elif self.state == 'item_enemy':
             self.handle_input_item_enemy(pressed)
+        elif self.state == 'enemy_retreat':
+            self.handle_input_enemy_retreat(pressed)
 
     def handle_input_tactic(self, pressed):
         self.menu.handle_input(pressed)
@@ -1901,7 +1925,10 @@ class Battle(object):
             dialog.handle_input(pressed)
             if pressed[K_x] and not dialog.has_more_stuff_to_show():
                 if self.warlord is None:
-                    self.init_menu_state()
+                    if self.enemy_retreat:
+                        self.state = 'enemy_retreat'
+                    else:
+                        self.init_menu_state()
                 else:
                     self.execute_state = 'mini_move'
                 dialog.shutdown()
@@ -2238,7 +2265,7 @@ class Battle(object):
             self.screen.blit(self.pointer_right, (GAME_WIDTH-96, self.selected_enemy_index*24+top_margin))
         if self.selected_ally_index is not None:
             self.screen.blit(self.pointer_left, (96, self.selected_ally_index*24+top_margin))
-        if self.state == 'win' and self.exit_dialog:
+        if self.state in ['win', 'enemy_retreat'] and self.exit_dialog:
             self.screen.blit(self.exit_dialog.surface, (0, 128 + top_margin))
             self.screen.blit(self.portraits[self.enemies[0].name], (GAME_WIDTH-64, 160))
         if self.state == 'win' and self.win_state == 'exit_choice':

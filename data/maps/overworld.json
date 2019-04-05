@@ -828,6 +828,96 @@
     }
   },
   {
+    "x": 113,
+    "y": 138,
+    "battles": [
+      {
+        "name": "battle28",
+        "intro": "I will finish this war in the name of my brother Amalickiah, whom you have murdered.",
+        "exit": "Go home, Moroni. You are no match for me.",
+        "offguard": -1,
+        "enemy_retreat": true,
+        "enemies": [
+          {
+            "name": "ammoron",
+            "level": 28
+          },
+          {
+            "name": "leantum",
+            "level": 28
+          },
+          {
+            "name": "jacob",
+            "level": 28
+          },
+          {
+            "name": "akish",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 84,
+              "defense": 24,
+              "intelligence": 27,
+              "agility": 80,
+              "evasion": 18,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 133,
+    "y": 116,
+    "battles": [
+      {
+        "name": "battle28",
+        "intro": "I will finish this war in the name of my brother Amalickiah, whom you have murdered.",
+        "exit": "Go home, Moroni. You are no match for me.",
+        "offguard": -1,
+        "enemy_retreat": true,
+        "enemies": [
+          {
+            "name": "ammoron",
+            "level": 28
+          },
+          {
+            "name": "leantum",
+            "level": 28
+          },
+          {
+            "name": "jacob",
+            "level": 28
+          },
+          {
+            "name": "akish",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1000,
+              "strength": 84,
+              "defense": 24,
+              "intelligence": 27,
+              "agility": 80,
+              "evasion": 18,
+              "tactical_points": 0,
+              "attack_points": 45,
+              "armor_class": 40
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     "x": 140,
     "y": 132,
     "teleport": {
