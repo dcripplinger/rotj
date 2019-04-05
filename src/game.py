@@ -1140,14 +1140,7 @@ class Game(object):
                 self.recruit(reserve_index)
 
         # get rid of amalickiah
-        company_index = None
-        for i, warlord in enumerate(self.game_state['company']):
-            if warlord['name'] == 'amalickiah':
-                company_index = i
-                break
-        if company_index is not None:
-            self.delete_member(company_index)
-        self.fire(-1)
+        self.remove_from_company_and_reserve('amalickiah')
 
     def handle_lamoni_joins(self):
         self.add_to_company(['lamoni'])
