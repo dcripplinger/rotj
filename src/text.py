@@ -165,11 +165,11 @@ class TextBox(object):
                     fitting_words.append(word)
                     left_over = left_over - to_consume
                 else:
-                    new_lines.append(' '.join(fitting_words))
+                    new_lines.append(u' '.join(fitting_words))
                     fitting_words = [word]
                     left_over = self.text_width - to_consume
             if len(fitting_words) > 0:
-                new_lines.append(' '.join(fitting_words))
+                new_lines.append(u' '.join(fitting_words))
         self.lines = new_lines
         self.words = {}
         for line in self.lines:
@@ -211,7 +211,7 @@ class TextBox(object):
                     if self.appear == 'scroll' and y == self.lines_to_show - 1 and chars_printed == self.chars_to_show:
                         break
                     if char not in CHARS:
-                        raise Exception('char not in CHARS. char={}, text="{}"'.format(char, self.text))
+                        raise Exception(u'char not in CHARS. char={}, text="{}"'.format(char, self.text))
                     if (
                         is_number
                         and numbers_left > 0
@@ -347,7 +347,7 @@ class MenuBox(object):
 
     def create_text_box(self, title, width, height):
         self.text_box = TextBox(
-            '\n'.join(self.choices), double_space=True, border=self.border, indent=1, title=title, width=width, height=height,
+            u'\n'.join(self.choices), double_space=True, border=self.border, indent=1, title=title, width=width, height=height,
         )
         self.surface = self.text_box.surface
 
@@ -549,8 +549,8 @@ class ShopMenu(object):
         lines = []
         for item in self.items:
             lines.append(item['name'].title())
-            lines.append('{:~>12}'.format(item['cost']))
-        self.text_box = TextBox('\n'.join(lines), double_space=False, indent=1, width=self._width, border=True)
+            lines.append(u'{:~>12}'.format(item['cost']))
+        self.text_box = TextBox(u'\n'.join(lines), double_space=False, indent=1, width=self._width, border=True)
         self.surface = self.text_box.surface
 
     def focus(self):

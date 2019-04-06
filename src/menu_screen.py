@@ -72,10 +72,10 @@ class MenuScreen(object):
         self.speed_menu = MenuBox(['FAST', 'FAST', 'STILL FAST'])
 
     def format_populated_save_slots(self):
-        return ['{}~{:~<8}~L{:02}'.format(i+1, slot['name'], slot['level']) for i, slot in enumerate(self.state) if slot]
+        return [u'{}~{:~<8}~L{:02}'.format(i+1, slot['name'], slot['level']) for i, slot in enumerate(self.state) if slot]
 
     def format_unpopulated_save_slots(self):
-        return ['{}~~~~~~'.format(i+1) for i, slot in enumerate(self.state) if not slot]
+        return [u'{}~~~~~~'.format(i+1) for i, slot in enumerate(self.state) if not slot]
 
     def load_erase_menu(self):
         self.erase_menu = MenuBox(self.format_populated_save_slots())
@@ -267,7 +267,7 @@ class MenuScreen(object):
                 self.game.game_state['level'] = 1
                 self.game.set_screen_state('beginning')
             else:
-                hq_map = '{}_palace'.format(self.game.game_state['hq'])
+                hq_map = u'{}_palace'.format(self.game.game_state['hq'])
                 self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
         elif pressed[K_z]:
             self.screen_state = 'start'

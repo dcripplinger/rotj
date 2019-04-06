@@ -156,11 +156,11 @@ class Battle(object):
         self.menu = None
         self.portraits = {}
         self.portraits.update({
-            warlord['name']: load_image('portraits/{}.png'.format(warlord['name']))
+            warlord['name']: load_image(u'portraits/{}.png'.format(warlord['name']))
             for warlord in allies
         })
         self.portraits.update({
-            warlord['name']: pygame.transform.flip(load_image('portraits/{}.png'.format(warlord['name'])), True, False)
+            warlord['name']: pygame.transform.flip(load_image(u'portraits/{}.png'.format(warlord['name'])), True, False)
             for warlord in enemies
         })
         self.portrait = None
@@ -244,7 +244,7 @@ class Battle(object):
         last_enemy_name = ''
         for enemy in self.enemies:
             if enemy.name != last_enemy_name:
-                script += '{} approaching.\n'.format(enemy.name.title())
+                script += u'{} approaching.\n'.format(enemy.name.title())
                 last_enemy_name = enemy.name
         if self.offguard == 1:
             script += "The enemy is not aware of our approach."
@@ -334,13 +334,13 @@ class Battle(object):
                 self.narration.update(dt)
                 return
             if self.food > 0:
-                victory_script = "{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
+                victory_script = u"{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
                 victory_script = victory_script.format(
                     self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
                     self.food,
                 )
             else:
-                victory_script = "{}'s army has conquered {}. We got {} exp. points and {} senines."
+                victory_script = u"{}'s army has conquered {}. We got {} exp. points and {} senines."
                 victory_script = victory_script.format(
                     self.get_leader().name.title(), self.enemies[0].name.title(), self.experience, self.money,
                 )
@@ -512,13 +512,13 @@ class Battle(object):
                     self.execute_state = 'mini_move'
 
     def finish_volley_dialog(self, ally_status_updates, enemy_status_updates, got_reinforcements):
-        prompt_text = ""
+        prompt_text = u""
         for status in ally_status_updates:
-            prompt_text += "Your army's {} status has worn off. ".format(status.title())
+            prompt_text += u"Your army's {} status has worn off. ".format(status.title())
         for status in enemy_status_updates:
-            prompt_text += "The enemy's {} status has worn off. ".format(status.title())
+            prompt_text += u"The enemy's {} status has worn off. ".format(status.title())
         if got_reinforcements:
-            prompt_text += "Enemy reinforcements have arrived."
+            prompt_text += u"Enemy reinforcements have arrived."
         if not prompt_text:
             return None
         else:
@@ -564,143 +564,143 @@ class Battle(object):
     def get_damage_dialog(self, mini_move, mini_result):
         is_ally_move = mini_move['agent'] in self.allies
         if is_ally_move:
-            dialog = "We defeated {} of {}'s soldiers. ".format(
+            dialog = u"We defeated {} of {}'s soldiers. ".format(
                 mini_result['damage'], mini_move['target'].name.title(),
             )
         else:
-            dialog = "{} of {}'s soldiers were defeated. ".format(
+            dialog = u"{} of {}'s soldiers were defeated. ".format(
                 mini_result['damage'], mini_move['target'].name.title(),
             )
         if mini_result.get('killed'):
             if mini_move.get('tactic') == 'assassin':
-                dialog += "{} cut off the head of {}.".format(
+                dialog += u"{} cut off the head of {}.".format(
                     mini_move['agent'].name.title(), mini_move['target'].name.title(),
                 )
             elif is_ally_move:
-                dialog += "{} vanquished {}.".format(
+                dialog += u"{} vanquished {}.".format(
                     mini_move['agent'].name.title(), mini_move['target'].name.title(),
                 )
             else:
-                dialog += "{} has been routed by {}.".format(
+                dialog += u"{} has been routed by {}.".format(
                     mini_move['target'].name.title(), mini_move['agent'].name.title(),
                 )
         return dialog
 
     def get_healing_dialog(self, mini_move, mini_result):
-        return "Some of {}'s soldiers have recovered their strength.".format(mini_move['target'].name.title())
+        return u"Some of {}'s soldiers have recovered their strength.".format(mini_move['target'].name.title())
 
     def get_attack_dialog(self, mini_move, mini_result, power_pill=False):
         is_ally_move = mini_move['agent'] in self.allies
-        dialog = "" if power_pill else "{}'s attack. ".format(mini_move['agent'].name.title())
+        dialog = u"" if power_pill else u"{}'s attack. ".format(mini_move['agent'].name.title())
         if mini_result.get('excellent'):
             if is_ally_move:
-                dialog += "{} did heavy damage. ".format(mini_move['agent'].name.title())
+                dialog += u"{} did heavy damage. ".format(mini_move['agent'].name.title())
             else:
-                dialog += "{} took heavy damage. ".format(mini_move['target'].name.title())
+                dialog += u"{} took heavy damage. ".format(mini_move['target'].name.title())
         if mini_result.get('evade'):
-            dialog += "{} evaded the attack.".format(mini_move['target'].name.title())
+            dialog += u"{} evaded the attack.".format(mini_move['target'].name.title())
         elif mini_result.get('repel'):
             if is_ally_move:
-                dialog += "The enemy is repelling all attacks."
+                dialog += u"The enemy is repelling all attacks."
             else:
-                dialog += "{}'s army is repelling all attacks.".format(self.get_leader().name.title())
+                dialog += u"{}'s army is repelling all attacks.".format(self.get_leader().name.title())
         else:
             dialog += self.get_damage_dialog(mini_move, mini_result)
         return dialog
 
     def get_defend_dialog(self, mini_move, mini_result):
-        dialog = "{} is defending.".format(mini_move['agent'].name.title())
+        dialog = u"{} is defending.".format(mini_move['agent'].name.title())
         return dialog
 
     def get_tactic_dialog(self, mini_move, mini_result):
         is_ally_move = mini_move['agent'] in self.allies
-        dialog = ""
+        dialog = u""
         if mini_result.get('first'):
-            dialog += "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['tactic'].title())
+            dialog += u"{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['tactic'].title())
         if mini_result.get('deflect'):
             if is_ally_move:
-                dialog += "The enemy is deflecting all tactics."
+                dialog += u"The enemy is deflecting all tactics."
             else:
-                dialog += "{}'s army is deflecting all tactics.".format(self.get_leader().name.title())
+                dialog += u"{}'s army is deflecting all tactics.".format(self.get_leader().name.title())
         elif mini_result.get('wasted'):
-            dialog += "They feel so dumb for wasting their move on a dead guy."
+            dialog += u"They feel so dumb for wasting their move on a dead guy."
         elif mini_result.get('fail'):
-            dialog += "Failed."
+            dialog += u"Failed."
         elif 'damage' in mini_result:
             dialog += self.get_damage_dialog(mini_move, mini_result)
         elif 'healing' in mini_result:
             dialog += self.get_healing_dialog(mini_move, mini_result)
         elif mini_move['tactic'] == 'firewall':
-            dialog += "Fire damage is reduced by half."
+            dialog += u"Fire damage is reduced by half."
         elif mini_move['tactic'] == 'extinguish':
-            dialog += 'Fire damage is reduced to one.'
+            dialog += u'Fire damage is reduced to one.'
         elif mini_move['tactic'] == 'provoke':
-            dialog += "{} is mindlessly targeting {}.".format(
+            dialog += u"{} is mindlessly targeting {}.".format(
                 mini_move['target'].name.title(), mini_move['agent'].name.title(),
             )
         elif mini_move['tactic'] == 'disable':
-            dialog += '{} can no longer take any action.'.format(mini_move['target'].name.title())
+            dialog += u'{} can no longer take any action.'.format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'ninja':
-            dialog += "{}'s agility is increased to 255.".format(mini_move['target'].name.title())
+            dialog += u"{}'s agility is increased to 255.".format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'double~tap':
-            dialog += "{} can hit twice with physical attacks.".format(mini_move['target'].name.title())
+            dialog += u"{} can hit twice with physical attacks.".format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'hulk~out':
-            dialog += "{}'s attack power is enhanced.".format(mini_move['target'].name.title())
+            dialog += u"{}'s attack power is enhanced.".format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'confuse':
-            dialog += '{} is now targeting their allies.'.format(mini_move['target'].name.title())
+            dialog += u'{} is now targeting their allies.'.format(mini_move['target'].name.title())
         elif mini_move['tactic'] == 'shield':
-            dialog += 'Physical damage is now reduced by half.'
+            dialog += u'Physical damage is now reduced by half.'
         elif mini_move['tactic'] == 'repel':
             if is_ally_move:
-                dialog += 'You are repelling all physical attacks from the enemy.'
+                dialog += u'You are repelling all physical attacks from the enemy.'
             else:
-                dialog += 'The enemy is repelling all of your physical attacks.'
+                dialog += u'The enemy is repelling all of your physical attacks.'
         elif mini_move['tactic'] == 'deflect':
             if is_ally_move:
-                dialog += "You are deflecting all the enemy's tactics."
+                dialog += u"You are deflecting all the enemy's tactics."
             else:
-                dialog += 'The enemy is deflecting all your tactics.'
+                dialog += u'The enemy is deflecting all your tactics.'
         elif mini_move['tactic'] == 'dispel':
             if is_ally_move:
-                dialog += "All your status ailments and the enemy's tactics are nullified."
+                dialog += u"All your status ailments and the enemy's tactics are nullified."
             else:
-                dialog += "The enemy has nullified all status ailments and your tactics."
+                dialog += u"The enemy has nullified all status ailments and your tactics."
         elif mini_move['tactic'] == 'plunder':
             if is_ally_move:
-                dialog += "You gained {} senines.".format(mini_result['amount'])
+                dialog += u"You gained {} senines.".format(mini_result['amount'])
             else:
-                dialog += "You lost {} senines.".format(mini_result['amount'])
+                dialog += u"You lost {} senines.".format(mini_result['amount'])
         elif mini_move['tactic'] == 'train':
-            dialog += "You can get triple the normal EXP if you win this battle."
+            dialog += u"You can get triple the normal EXP if you win this battle."
         return dialog
 
     def get_item_dialog(self, mini_move, mini_result):
-        dialog = "{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
+        dialog = u"{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['item'].title())
         if mini_result.get('wasted'):
-            dialog += "They feel so dumb for wasting their move on a dead guy."
+            dialog += u"They feel so dumb for wasting their move on a dead guy."
         elif 'healing' in mini_result:
             dialog += self.get_healing_dialog(mini_move, mini_result)
         elif mini_move['item'] == 'remedy':
-            dialog += "{} is no longer affected by individual status ailments.".format(
+            dialog += u"{} is no longer affected by individual status ailments.".format(
                 mini_move['target'].name.title(),
             )
         elif mini_move['item'] == 'power~pill':
             dialog += self.get_attack_dialog(mini_move, mini_result, power_pill=True)
         elif mini_move['item'] == 't~of~liberty':
-            dialog = "{} uses the Title of Liberty. ".format(mini_move['agent'].name.title())
-            dialog += "Enemies are no longer receiving reinforcements."
+            dialog = u"{} uses the Title of Liberty. ".format(mini_move['agent'].name.title())
+            dialog += u"Enemies are no longer receiving reinforcements."
         elif mini_move['item'] == 'javelin':
             if mini_result.get('fail'):
-                dialog += "He doesn't have very good aim."
+                dialog += u"He doesn't have very good aim."
             else:
-                dialog += "It plunges through {}'s heart.".format(mini_move['target'].name.title())
+                dialog += u"It plunges through {}'s heart.".format(mini_move['target'].name.title())
         return dialog
 
     def get_status_worn_off_dialog(self, mini_move, mini_result):
-        dialog = ""
+        dialog = u""
         status = mini_move['agent'].bad_status
         if status and status.get('count') == 0:
-            dialog += "{} is no longer ".format(mini_move['agent'].name.title())
+            dialog += u"{} is no longer ".format(mini_move['agent'].name.title())
             if status['name'] == 'provoke':
                 dialog += "provoked. "
             elif status['name'] == 'disable':
@@ -710,7 +710,7 @@ class Battle(object):
         return dialog
 
     def get_move_dialog(self, mini_move, mini_result):
-        dialog = ""
+        dialog = u""
         if mini_move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             dialog += self.get_attack_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_defend:
@@ -720,12 +720,12 @@ class Battle(object):
         elif mini_move['action'] == self.execute_move_item:
             dialog += self.get_item_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_disable:
-            dialog += "{} is disabled.".format(mini_move['agent'].name.title())
+            dialog += u"{} is disabled.".format(mini_move['agent'].name.title())
         worn_off_dialog = self.get_status_worn_off_dialog(mini_move, mini_result)
         if worn_off_dialog and mini_move['action'] == self.execute_move_disable:
             dialog = worn_off_dialog
         else:
-            dialog += " {}".format(worn_off_dialog)
+            dialog += u" {}".format(worn_off_dialog)
         if dialog:
             return create_prompt(dialog, silent=True)
         else:
@@ -1248,8 +1248,8 @@ class Battle(object):
         prob_type = TACTICS[move['tactic']]['success_probability_type']
         target = target or move.get('target')
         if not target and prob_type in ['enemy_prob', 'enemy_prob2']:
-            print "We shouldn't be having a move without a target if the prob_type is enemy_prob or enemy_prob2."
-            print "move: {}".format(move)
+            print u"We shouldn't be having a move without a target if the prob_type is enemy_prob or enemy_prob2."
+            print u"move: {}".format(move)
             raise Exception
         if prob_type == 'enemy_prob':
             intel = move['agent'].intelligence
@@ -1508,7 +1508,7 @@ class Battle(object):
         self.win_state = 'capture'
         enemy = self.captured_enemies[0]
         self.right_dialog = create_prompt(
-            'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title()),
+            u'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title()),
         )
 
     def handle_exit_choice(self):
@@ -1579,23 +1579,23 @@ class Battle(object):
                         self.convert_captured_enemy()
                     elif self.bargain == 'horse':
                         self.right_dialog = create_prompt(
-                            'I might be convinced to offer my services for an especially good horse.',
+                            u'I might be convinced to offer my services for an especially good horse.',
                         )
                         self.win_state = 'bargain'
                     elif self.bargain == 'refuse':
-                        self.right_dialog = create_prompt("I'm no traitor! I serve only my master!")
+                        self.right_dialog = create_prompt(u"I'm no traitor! I serve only my master!")
                         self.win_state = 'bargain'
                         self.captured_enemies.pop(0)
                         self.confirm_box = None
                         self.bargain = None
                     else:
                         self.right_dialog = create_prompt(
-                            'I might be convinced to offer my services for {} senines.'.format(self.bargain),
+                            u'I might be convinced to offer my services for {} senines.'.format(self.bargain),
                         )
                         self.win_state = 'bargain'
                 elif (pressed[K_x] and self.confirm_box.get_choice() == 'NO') or pressed[K_z]:
                     enemy = self.captured_enemies.pop(0)
-                    self.right_dialog = create_prompt('OK. {} was let go.'.format(enemy.name.title()))
+                    self.right_dialog = create_prompt(u'OK. {} was let go.'.format(enemy.name.title()))
                     self.confirm_box = None
                     self.bargain = None
                     self.win_state = 'bargain'
@@ -1608,7 +1608,7 @@ class Battle(object):
                     self.try_bargain()
                 elif (pressed[K_x] and self.confirm_box.get_choice() == 'NO') or pressed[K_z]:
                     self.captured_enemies.pop(0)
-                    self.right_dialog = create_prompt("Your loss! I'll see you again on the battle field!")
+                    self.right_dialog = create_prompt(u"Your loss! I'll see you again on the battle field!")
                     self.confirm_box = None
                     self.bargain = None
             else:
@@ -1626,8 +1626,8 @@ class Battle(object):
         if kwargs.get('battle_name') == 'battle08':
             kwargs.update({
                 'opening_dialog': create_prompt(
-                    "Now that Amlici is defeated, I must return to the judgment seat in Zarahemla. Please see me there "
-                    "when you get a chance."
+                    u"Now that Amlici is defeated, I must return to the judgment seat in Zarahemla. Please see me there "
+                    u"when you get a chance."
                 ),
             })
             self.game.remove_from_company_and_reserve('alma')
@@ -1648,9 +1648,9 @@ class Battle(object):
                         break
             if found:
                 self.game.add_to_company(enemy.name)
-                self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+                self.right_dialog = create_prompt(u'OK. {} has joined your army.'.format(enemy.name.title()))
             else:
-                self.right_dialog = create_prompt('Do you take me for a fool? You do not have any horses!')
+                self.right_dialog = create_prompt(u'Do you take me for a fool? You do not have any horses!')
             self.bargain = None
         else: # money bargain
             current_money = self.game.game_state['money']
@@ -1658,9 +1658,9 @@ class Battle(object):
             if current_money >= required_money:
                 self.game.update_game_state({'money': current_money - required_money})
                 self.game.add_to_company(enemy.name)
-                self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+                self.right_dialog = create_prompt(u'OK. {} has joined your army.'.format(enemy.name.title()))
             else:
-                self.right_dialog = create_prompt("You can't even afford me!")
+                self.right_dialog = create_prompt(u"You can't even afford me!")
             self.bargain = None
 
     def get_bargain(self):
@@ -1681,7 +1681,7 @@ class Battle(object):
 
     def convert_captured_enemy(self):
         enemy = self.captured_enemies.pop(0)
-        self.right_dialog = create_prompt('OK. {} has joined your army.'.format(enemy.name.title()))
+        self.right_dialog = create_prompt(u'OK. {} has joined your army.'.format(enemy.name.title()))
         self.win_state = 'bargain'
         self.game.add_to_company(enemy.name)
 
@@ -1692,24 +1692,24 @@ class Battle(object):
         pygame.mixer.music.load('data/audio/music/level.wav')
         pygame.mixer.music.play()
         self.right_dialog.shutdown()
-        dialog = "{}'s army has advanced one skill level. ".format(self.get_leader().name.title())
+        dialog = u"{}'s army has advanced one skill level. ".format(self.get_leader().name.title())
         tactic_guys = []
         tactic = get_tactic_for_level(level)
         for warlord in self.game.game_state['company']:
             if can_level_up(warlord['name']):
-                dialog += "{} now has {} soldiers. ".format(
+                dialog += u"{} now has {} soldiers. ".format(
                     warlord['name'].title(), get_max_soldiers(warlord['name'], level),
                 )
             if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
                 tactic_guys.append(warlord)
         if len(tactic_guys) > 1:
             for warlord in tactic_guys[0:-1]:
-                dialog += "{}, ".format(warlord['name'].title())
+                dialog += u"{}, ".format(warlord['name'].title())
         if len(tactic_guys) > 0:
-            dialog += "{} learned the {} tactic. ".format(tactic_guys[-1]['name'].title(), tactic.title())
+            dialog += u"{} learned the {} tactic. ".format(tactic_guys[-1]['name'].title(), tactic.title())
         tactician = self.game.get_tactician()
         if tactician:
-            dialog += "{}'s tactical ability increased to {}.".format(
+            dialog += u"{}'s tactical ability increased to {}.".format(
                 tactician['name'].title(), get_max_tactical_points(tactician['name'], level),
             )
         self.right_dialog = create_prompt(dialog)
@@ -1764,7 +1764,7 @@ class Battle(object):
         else:
             self.menu.unfocus()
             self.right_dialog = create_prompt(
-                "You do not have an assigned tactician who knows any tactics."
+                u"You do not have an assigned tactician who knows any tactics."
             )
             self.state = 'error'
 
@@ -1776,7 +1776,7 @@ class Battle(object):
         else:
             self.state = 'error'
             self.menu.unfocus()
-            self.right_dialog = create_prompt("{} doesn't have any items.".format(self.warlord.name.title()))
+            self.right_dialog = create_prompt(u"{} doesn't have any items.".format(self.warlord.name.title()))
 
     def handle_defend(self):
         self.state = 'defend'
@@ -2191,12 +2191,12 @@ class Battle(object):
         self.menu = None
         self.warlord.move_back()
         if surrender:
-            prompt_text = "{} uses Surrender.".format(self.warlord.name.title())
+            prompt_text = u"{} uses Surrender.".format(self.warlord.name.title())
             for warlord in self.allies:
                 warlord.soldiers = max(1, int(warlord.soldiers / 2))
             successful = True
         else:
-            prompt_text = "{}'s army retreated. ".format(self.get_leader().name.title())
+            prompt_text = u"{}'s army retreated. ".format(self.get_leader().name.title())
             ally_agility = sum(ally.agility for ally in self.allies if ally.soldiers > 0)/255.0/5.0
             enemy_agility = sum(enemy.agility for enemy in self.enemies if enemy.soldiers > 0)/255.0/5.0
             agility_score = (1 + ally_agility - enemy_agility) / 2.0
@@ -2207,7 +2207,7 @@ class Battle(object):
             self.state = 'retreat'
             self.warlord = None
         else:
-            prompt_text += "But they were overtaken."
+            prompt_text += u"But they were overtaken."
             self.generate_enemy_moves()
             self.ordered_moves = self.get_moves_in_order_of_agility()
             self.state = 'execute'
@@ -2224,12 +2224,12 @@ class Battle(object):
         self.menu.focus()
 
     def create_spoils_box(self):
-        spoils_text = "~MONEY\n"
-        spoils_text += "~{:~>8}~\n".format(self.game.game_state['money'])
-        spoils_text += "~FOOD\n"
-        spoils_text += "~{:~>8}~\n".format(self.game.game_state['food'])
-        spoils_text += "~EXP\n"
-        spoils_text += "~{:~>8}~".format(self.game.game_state['experience'])
+        spoils_text = u"~MONEY\n"
+        spoils_text += u"~{:~>8}~\n".format(self.game.game_state['money'])
+        spoils_text += u"~FOOD\n"
+        spoils_text += u"~{:~>8}~\n".format(self.game.game_state['food'])
+        spoils_text += u"~EXP\n"
+        spoils_text += u"~{:~>8}~".format(self.game.game_state['experience'])
         self.spoils_box = TextBox(spoils_text, border=True)
 
     def get_leader(self):
