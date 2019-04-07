@@ -1775,5 +1775,63 @@
         ]
       }
     ]
+  },
+  {
+    "x": 155,
+    "y": 99,
+    "teleport": {
+      "map": "aaron",
+      "x": 41,
+      "y": 22,
+      "direction": "w"
+    },
+    "battles": [
+      {
+        "name": "battle31",
+        "intro": "Go home and tell Pahoran how terrible Riplah is.",
+        "enemies": [
+          {
+            "name": "riplah",
+            "level": 28
+          },
+          {
+            "name": "laman",
+            "level": 28
+          },
+          {
+            "name": "sherrizah",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
