@@ -857,15 +857,15 @@
           {
             "name": "lamanites",
             "stats": {
-              "soldiers": 1000,
-              "strength": 84,
-              "defense": 24,
-              "intelligence": 27,
-              "agility": 80,
-              "evasion": 18,
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
               "tactical_points": 0,
-              "attack_points": 45,
-              "armor_class": 40
+              "attack_points": 55,
+              "armor_class": 50
             }
           }
         ]
@@ -902,15 +902,15 @@
           {
             "name": "lamanites",
             "stats": {
-              "soldiers": 1000,
-              "strength": 84,
-              "defense": 24,
-              "intelligence": 27,
-              "agility": 80,
-              "evasion": 18,
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
               "tactical_points": 0,
-              "attack_points": 45,
-              "armor_class": 40
+              "attack_points": 55,
+              "armor_class": 50
             }
           }
         ]
@@ -1664,5 +1664,67 @@
       "direction": "s",
       "dialog": "There's no one there."
     }
+  },
+  {
+    "x": 123,
+    "y": 98,
+    "battles": [
+      {
+        "name": "battle29",
+        "intro": "To the battlefield!",
+        "enemies": [
+          {
+            "name": "hearthom",
+            "level": 28
+          },
+          {
+            "name": "luram",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1800,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
