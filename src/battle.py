@@ -905,12 +905,15 @@ class Battle(object):
         base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
         trained = 3 if 'train' in self.good_ally_statuses else 1
         experience = int(0.0015 * base_num) * story_battle_gain * trained
-        money = int(0.004 * base_num) * story_battle_gain
+        money = int(0.003 * base_num) * story_battle_gain
         food = int(0.009 * base_num) if story_battle else 0
         if plunder:
             experience = 0
+            money = 2 * money # plunder is twice as much as regular spoils
             if plunder == -1:
+                # enemy can't plunder more money than you actually have
                 money = min(money, self.game.game_state['money'])
+            # make plunder money positive or negative, depending who plunders
             money = money * plunder
             food = 0
         else:
