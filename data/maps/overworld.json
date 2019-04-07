@@ -1881,5 +1881,44 @@
         ]
       }
     ]
+  },
+  {
+    "x": 160,
+    "y": 118,
+    "battles": [
+      {
+        "name": "battle33",
+        "intro": "Do you really think you stand a chance against me?",
+        "exit": "Regroup at the other cities!",
+        "enemies": [
+          {
+            "name": "kimnor",
+            "level": 28
+          },
+          {
+            "name": "nahom",
+            "level": 28
+          },
+          {
+            "name": "gilgah",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
