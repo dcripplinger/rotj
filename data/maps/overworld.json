@@ -1726,5 +1726,54 @@
         ]
       }
     ]
+  },
+  {
+    "x": 122,
+    "y": 89,
+    "teleport": {
+      "map": "mulek",
+      "x": 18,
+      "y": 32,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle30",
+        "intro": "Defend this city, men, in the name of your king!",
+        "narration": "Jacob, having an unconquerable spirit, refused to surrender and was slain in battle.",
+        "enemies": [
+          {
+            "name": "jacob",
+            "level": 28
+          },
+          {
+            "name": "jeremiah",
+            "level": 28
+          },
+          {
+            "name": "onihah",
+            "level": 28
+          },
+          {
+            "name": "zerahemla",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
