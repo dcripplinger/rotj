@@ -909,6 +909,8 @@ class Battle(object):
         food = int(0.009 * base_num) if story_battle else 0
         if plunder:
             experience = 0
+            if plunder == -1:
+                money = min(money, self.game.game_state['money'])
             money = money * plunder
             food = 0
         else:
