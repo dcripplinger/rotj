@@ -5,7 +5,7 @@ import random
 
 import pygame
 
-from constants import BLACK, GAME_WIDTH, TACTICS
+from constants import BLACK, GAME_WIDTH, TACTICS, WEAPON_POWER
 from helpers import hyphenate, load_image
 from text import MenuGrid, TextBox
 
@@ -43,7 +43,7 @@ class BattleWarlordRectBase(object):
             # relative target position when advancing or retreating the sprite (0 to MAX_BAR_WIDTH-16)
         self.strength = warlord['strength']
         self.attack_points = warlord['attack_points']
-        self.weapon_power = int(14*math.exp(0.054*self.attack_points)+45)
+        self.weapon_power = WEAPON_POWER[self.attack_points]
         self.compounded_strength = self.strength * self.weapon_power / 256.0 / 256.0
         self._tactics = warlord['tactics']
         self.intelligence = warlord['intelligence']

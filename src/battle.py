@@ -1352,7 +1352,7 @@ class Battle(object):
                 or any([enemy.bad_status for enemy in self.enemies if enemy.soldiers > 0])
             )
             and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
-            and random.random() < .3
+            and random.random() < .2
         ):
             enemy.consume_tactical_points(TACTICS['dispel']['tactical_points'])
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'dispel'}
@@ -1365,6 +1365,10 @@ class Battle(object):
             and defense_tactic != 'train'
             and heal_cost + defense_cost < tactical_points
             and defense_tactic not in self.good_enemy_statuses
+            and (
+                defense_tactic not in ['firewall', 'extinguish']
+                or ('firewall' not in self.good_enemy_statuses and 'extinguish' not in self.good_enemy_statuses)
+            )
             and random.random() < .2
         ):
             enemy.consume_tactical_points(defense_cost)
@@ -1377,7 +1381,7 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
             and ally_target.bad_status is None
             and random.random() < enemy_prob
-            and random.random() < .5 # we don't want to be using these all the time
+            and random.random() < .3 # we don't want to be using these all the time
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[4]]['tactical_points'])
             return {
@@ -1390,7 +1394,7 @@ class Battle(object):
             and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
             and ally_target.bad_status is None
             and random.random() < enemy_prob
-            and random.random() < .5 # we don't want to be using these all the time
+            and random.random() < .3 # we don't want to be using these all the time
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
             return {
@@ -1415,7 +1419,7 @@ class Battle(object):
             if (
                 (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
                 and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
-                and random.random() < .3
+                and random.random() < .2
             ):
                 enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
                 return {
@@ -1427,21 +1431,19 @@ class Battle(object):
             (enemy.tactics[4] if enemy.tactics else None) == 'plunder'
             and heal_cost + TACTICS['plunder']['tactical_points'] < tactical_points
             and self.plundered != -1
-            and random.random() < .3
+            and random.random() < .2
         ):
             enemy.consume_tactical_points(TACTICS['plunder']['tactical_points'])
             return {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': 'plunder'}
 
         # water
-        effective_tactic_danger = (
-            1 if 'extinguish' in self.good_ally_statuses
-            else enemy.tactic_danger / 2 if 'firewall' in self.good_ally_statuses
-            else enemy.tactic_danger
+        maybe_do_water_tactic_damage = (
+            enemy.tactic_danger > enemy.get_preliminary_damage()
+            or random.random() < 0.1
         )
-        maybe_do_tactic_damage = effective_tactic_danger > enemy.get_preliminary_damage()
         enemy_prob2 = min(1.0, enemy_prob*2)
         if (
-            maybe_do_tactic_damage
+            maybe_do_water_tactic_damage
             and enemy.tactics
             and enemy.tactics[1]
             and self.near_water
@@ -1455,8 +1457,17 @@ class Battle(object):
             return action
 
         # fire
+        effective_fire_tactic_danger = (
+            1 if 'extinguish' in self.good_ally_statuses
+            else enemy.tactic_danger / 2 if 'firewall' in self.good_ally_statuses
+            else enemy.tactic_danger
+        )
+        maybe_do_fire_tactic_damage = (
+            effective_fire_tactic_danger > enemy.get_preliminary_damage()
+            or random.random() < 0.1
+        )
         if (
-            maybe_do_tactic_damage
+            maybe_do_fire_tactic_damage
             and enemy.tactics
             and enemy.tactics[0]
             and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
