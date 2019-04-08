@@ -2034,5 +2034,45 @@
       "wander": false,
       "dialog": "There's no one there."
     }
+  },
+  {
+    "x": 247,
+    "y": 115,
+    "teleport": {
+      "map": "nephihah",
+      "x": 27,
+      "y": 39,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle37",
+        "intro": "Your puny army makes me laugh.",
+        "exit": "You haven't seen the last of me.",
+        "narration": "The city of Nephihah has been reclaimed, and the Lamanites have been driven further back. People are beginning to return once again to their homes. Speak to the chief judge in Zarahemla for further instructions.",
+        "enemies": [
+          {
+            "name": "akish",
+            "level": 36
+          },
+          {
+            "name": "zarahemla",
+            "level": 34
+          },
+          {
+            "name": "zeniff",
+            "level": 34
+          },
+          {
+            "name": "seon",
+            "level": 34
+          },
+          {
+            "name": "heth",
+            "level": 34
+          }
+        ]
+      }
+    ]
   }
 ]
