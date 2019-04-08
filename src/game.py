@@ -977,6 +977,12 @@ class Game(object):
         _, index = self._find_first_item_in_inventory('javelin')
         return in_surplus or index is not None
 
+    def laman_in_party(self):
+        for warlord in self.game_state['company']:
+            if warlord['name'] == 'laman':
+                return True
+        return False
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1217,3 +1223,95 @@ class Game(object):
     def handle_got_javelin(self):
         self.add_to_inventory('javelin')
         self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
+
+    def handle_battle34_sober(self):
+        lamanites = {
+            'name': 'lamanites',
+            'stats': {
+                "soldiers": 2100,
+                "strength": 96,
+                "defense": 30,
+                "intelligence": 33,
+                "agility": 84,
+                "evasion": 19,
+                "tactical_points": 0,
+                "attack_points": 55,
+                "armor_class": 50,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {'name': 'leantum', 'level': 32},
+                {'name': 'enoch', 'level': 30},
+                {'name': 'jared', 'level': 30},
+                {'name': 'antioni', 'level': 30},
+                lamanites,
+            ],
+            'battle_type': 'story',
+            'exit': "Please spare us! We surrender!",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle34",
+            offguard=-1,
+        )
+
+    def handle_battle34_drunk(self):
+        lamanites = {
+            'name': 'lamanites',
+            'stats': {
+                "soldiers": 210,
+                "strength": 96,
+                "defense": 30,
+                "intelligence": 33,
+                "agility": 84,
+                "evasion": 19,
+                "tactical_points": 0,
+                "attack_points": 55,
+                "armor_class": 50,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {'name': 'leantum', 'level': 32},
+                {'name': 'enoch', 'level': 30},
+                {'name': 'jared', 'level': 30},
+                {'name': 'antioni', 'level': 30},
+                lamanites,
+            ],
+            'battle_type': 'story',
+            'exit': "Please spare us! We surrender!",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = int(get_max_soldiers(enemy['name'], enemy['level']) / 10)
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle34",
+            offguard=1,
+        )

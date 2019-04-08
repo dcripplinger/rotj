@@ -19,7 +19,26 @@
       "direction": "n"
     }
   },
-
+  {
+    "x": 54,
+    "y": 64,
+    "teleport": {
+      "map": "gid",
+      "x": 13,
+      "y": 43,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 55,
+    "y": 64,
+    "teleport": {
+      "map": "gid",
+      "x": 13,
+      "y": 43,
+      "direction": "e"
+    }
+  },
   {
     "x": 31,
     "y": 12,

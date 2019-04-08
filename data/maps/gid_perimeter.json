@@ -1,0 +1,205 @@
+[
+  {
+    "x": 12,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 15,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 16,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 19,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 20,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 21,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 22,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 23,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 24,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 25,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 26,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 27,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 28,
+    "y": 25,
+    "teleport": {
+      "map": "overworld",
+      "x": 165,
+      "y": 114,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 20,
+    "y": 15,
+    "teleport": {
+      "map": "gid",
+      "x": 34,
+      "y": 19,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 20,
+    "y": 18,
+    "ai_sprite": {
+      "name": "leantum",
+      "conditions": {
+        "battle34": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "state:laman_in_party",
+          "text": "Who goes there? Ah, Laman! You've escaped from the Nephites! Is that wine you have with you? Our men are really thirsty. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Ah, that's the good stuff. I'm getting sleepy...",
+          "game_state_action": "battle34_drunk"
+        },
+        {
+          "text": "Who goes there? Hold the line, men! Moroni's army approaches!",
+          "game_state_action": "battle34_sober"
+        }
+      ]
+    }
+  }
+]

@@ -1920,5 +1920,15 @@
         ]
       }
     ]
+  },
+  {
+    "x": 165,
+    "y": 114,
+    "teleport": {
+      "map": "gid_perimeter",
+      "x": 20,
+      "y": 24,
+      "direction": "n"
+    }
   }
 ]
