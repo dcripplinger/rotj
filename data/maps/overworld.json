@@ -1582,6 +1582,55 @@
             "level": 20
           }
         ]
+      },
+      {
+        "name": "battle35",
+        "conditions": {
+          "battle27": true
+        },
+        "intro": "Let us see what Moroni's army is really made of.",
+        "enemies": [
+          {
+            "name": "parah",
+            "level": 30
+          },
+          {
+            "name": "corom",
+            "level": 30
+          },
+          {
+            "name": "lamah",
+            "level": 30
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
       }
     ]
   },
