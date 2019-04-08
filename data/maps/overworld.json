@@ -1544,7 +1544,49 @@
       "x": 18,
       "y": 24,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle36",
+        "conditions": {
+          "battle27": true
+        },
+        "intro": "Defend this city, men, in the name of your king!",
+        "exit": "They are too strong!",
+        "enemies": [
+          {
+            "name": "zeamnor",
+            "level": 30
+          },
+          {
+            "name": "kumenonhi",
+            "level": 30
+          },
+          {
+            "name": "shum",
+            "level": 30
+          },
+          {
+            "name": "shurr",
+            "level": 30
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 199,
