@@ -1116,7 +1116,9 @@ ITEMS = {
     'liahona': {}, # lets the user be his own tactician
     'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
         'cost': 400,
-    }
+    },
+    'iron~ore': {}, # Swordsmith asks for it
+    'diamond': {}, # Swordsmith asks for it
 }
 
 MAX_ITEMS_PER_PERSON = 8

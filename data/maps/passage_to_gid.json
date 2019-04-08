@@ -326,5 +326,135 @@
       "x": 76,
       "y": 49
     }
+  },
+  {
+    "x": 26,
+    "y": 16,
+    "ai_sprite": {
+      "conditions": {
+        "battle34": false
+      },
+      "name": "guard",
+      "wander": false,
+      "direction": "n",
+      "dialog": "We are still blasting in this mine. It isn't safe to enter yet."
+    }
+  },
+  {
+    "x": 27,
+    "y": 16,
+    "ai_sprite": {
+      "conditions": {
+        "battle34": false
+      },
+      "name": "guard",
+      "wander": false,
+      "direction": "n",
+      "dialog": "We are still blasting in this mine. It isn't safe to enter yet."
+    }
+  },
+  {
+    "x": 24,
+    "y": 173,
+    "treasure": {
+      "name": "passage_to_gid_treasure1",
+      "item": "iron~ore"
+    }
+  },
+  {
+    "x": 21,
+    "y": 153,
+    "treasure": {
+      "name": "passage_to_gid_treasure2",
+      "item": "kolob"
+    }
+  },
+  {
+    "x": 67,
+    "y": 44,
+    "treasure": {
+      "name": "passage_to_gid_treasure3",
+      "item": "power~pill"
+    }
+  },
+  {
+    "x": 70,
+    "y": 44,
+    "treasure": {
+      "name": "passage_to_gid_treasure4",
+      "money": 1999
+    }
+  },
+  {
+    "x": 73,
+    "y": 44,
+    "treasure": {
+      "name": "passage_to_gid_treasure5",
+      "item": "javelin"
+    }
+  },
+  {
+    "x": 67,
+    "y": 41,
+    "treasure": {
+      "name": "passage_to_gid_treasure6",
+      "money": 1999
+    }
+  },
+  {
+    "x": 70,
+    "y": 41,
+    "treasure": {
+      "name": "passage_to_gid_treasure7",
+      "item": "elixir~d"
+    }
+  },
+  {
+    "x": 73,
+    "y": 41,
+    "treasure": {
+      "name": "passage_to_gid_treasure8",
+      "money": 1999
+    }
+  },
+  {
+    "x": 67,
+    "y": 38,
+    "treasure": {
+      "name": "passage_to_gid_treasure9",
+      "item": "chain~m"
+    }
+  },
+  {
+    "x": 70,
+    "y": 38,
+    "treasure": {
+      "name": "passage_to_gid_treasure10",
+      "money": 1999
+    }
+  },
+  {
+    "x": 73,
+    "y": 38,
+    "treasure": {
+      "name": "passage_to_gid_treasure11",
+      "item": "cloak"
+    }
+  },
+  {
+    "x": 77,
+    "y": 24,
+    "ai_sprite": {
+      "conditions": {
+        "talked_with_hagoth": false
+      },
+      "name": "hagoth",
+      "direction": "w",
+      "wander": true,
+      "dialog": {
+        "text": "You're looking for Hagoth? Yeah, that's me. I got lost in these caves gathering supplies for the bridge to Nephihah. I should be able to find my way out now, thanks to you. I'll have that bridge done in no time.",
+        "game_state_action": "talked_with_hagoth"
+      }
+    }
   }
 ]

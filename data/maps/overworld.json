@@ -2021,5 +2021,18 @@
       "y": 24,
       "direction": "n"
     }
+  },
+  {
+    "x": 247,
+    "y": 117,
+    "ai_sprite": {
+      "name": "water",
+      "conditions": {
+        "talked_with_hagoth": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "There's no one there."
+    }
   }
 ]
