@@ -1,0 +1,290 @@
+[
+  {
+    "x": 11,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 19,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 12,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 13,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 16,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 17,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 11,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 12,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 13,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 16,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 17,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 266,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 20,
+    "teleport": {
+      "map": "overworld",
+      "x": 101,
+      "y": 268,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 15,
+    "y": 17,
+    "teleport": {
+      "map": "antiparah",
+      "x": 28,
+      "y": 38,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle41",
+        "intro": "Don't let them penetrate the defenses!",
+        "enemies": [
+          {
+            "name": "ishmael",
+            "level": 32
+          },
+          {
+            "name": "omni",
+            "level": 30
+          },
+          {
+            "name": "shiblum",
+            "level": 30
+          },
+          {
+            "name": "zeomner",
+            "level": 30
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

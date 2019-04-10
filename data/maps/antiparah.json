@@ -1,0 +1,42 @@
+[
+  {
+    "x": 28,
+    "y": 39,
+    "teleport": {
+      "map": "antiparah_perimeter",
+      "x": 15,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 29,
+    "y": 39,
+    "teleport": {
+      "map": "antiparah_perimeter",
+      "x": 15,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 10,
+    "teleport": {
+      "map": "antiparah_perimeter",
+      "x": 15,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 15,
+    "y": 10,
+    "teleport": {
+      "map": "antiparah_perimeter",
+      "x": 15,
+      "y": 17,
+      "direction": "s"
+    }
+  }
+]

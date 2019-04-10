@@ -2234,5 +2234,15 @@
         ]
       }
     ]
+  },
+  {
+    "x": 101,
+    "y": 267,
+    "teleport": {
+      "map": "antiparah_perimeter",
+      "x": 15,
+      "y": 11,
+      "direction": "s"
+    }
   }
 ]
