@@ -102,7 +102,13 @@ class Battle(object):
         self.battle_type = battle_type
         level = self.game.game_state['level']
         self.allies = []
+        self.corianton_runs_away = False
+        is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
         for i, ally in enumerate(allies):
+            if is_story_battle and ally['name'] == 'corianton':
+                self.corianton_runs_away = True
+                self.game.set_game_state_condition('corianton_runs_away')
+                continue
             json_stats = load_stats(ally['name'])
             equips = self.game.get_equips(ally['name'])
             self.allies.append(Ally({
@@ -246,6 +252,8 @@ class Battle(object):
             if enemy.name != last_enemy_name:
                 script += u'{} approaching.\n'.format(enemy.name.title())
                 last_enemy_name = enemy.name
+        if self.corianton_runs_away:
+            script += "Corianton has abandoned us to chase after a harlot.\n"
         if self.offguard == 1:
             script += "The enemy is not aware of our approach."
         elif self.offguard == -1:
@@ -1500,7 +1508,9 @@ class Battle(object):
     def handle_input_start(self, pressed):
         self.left_dialog.handle_input(pressed)
         if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
-            if self.offguard == -1:
+            if len(self.allies == 0):
+                self.handle_lose()
+            elif self.offguard == -1:
                 self.generate_enemy_moves()
                 self.ordered_moves = self.get_moves_in_order_of_agility()
                 self.state = 'execute'

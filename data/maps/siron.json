@@ -78,6 +78,10 @@
       "direction": "e",
       "dialog": [
         {
+          "condition": "corianton_runs_away",
+          "text": "Corianton? I last saw him over in the garden."
+        },
+        {
           "text": "So, the Anti Nephi Lehies settled in Jershon. That's nice. I'm glad they're safe.",
           "condition": "entered_jershon"
         },
@@ -114,7 +118,23 @@
       "name": "woman3",
       "wander": true,
       "direction": "w",
-      "dialog": "I am Isabel. If you meet a young man named Corianton, can you tell him to meet me back here?"
+      "dialog": "I am Isabel. If you meet a young man named Corianton, can you tell him to meet me back here?",
+      "conditions": {
+        "corianton_runs_away": false
+      }
+    }
+  },
+  {
+    "x": 13,
+    "y": 22,
+    "ai_sprite": {
+      "name": "corianton",
+      "wander": true,
+      "direction": "s",
+      "dialog": "I am sorry I deserted you on the battlefield. My pride and the lure of Isabel have left me without integrity. It is all I can do now to repent and commit my life to teaching others to not make the same mistakes I did.",
+      "conditions": {
+        "corianton_runs_away": true
+      }
     }
   }
 ]

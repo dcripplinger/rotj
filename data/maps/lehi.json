@@ -86,5 +86,34 @@
         }
       ]
     }
+  },
+  {
+    "x": 18,
+    "y": 23,
+    "ai_sprite": {
+      "name": "corianton",
+      "conditions": {
+        "corianton_joins": false,
+        "battle36": true
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "My father Alma has sent me to help you however I can.",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "corianton_joins",
+              "next_dialog": "Thank you. I will do my best."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I'll be here waiting if you change your mind."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

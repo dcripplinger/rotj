@@ -1315,3 +1315,6 @@ class Game(object):
             enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle34",
             offguard=1,
         )
+
+    def handle_corianton_runs_away(self):
+        self.remove_from_company_and_reserve('corianton')
