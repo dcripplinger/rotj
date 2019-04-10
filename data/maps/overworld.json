@@ -2084,5 +2084,64 @@
       "y": 19,
       "direction": "e"
     }
+  },
+  {
+    "x": 91,
+    "y": 92,
+    "teleport": {
+      "map": "zeezrom",
+      "x": 18,
+      "y": 11,
+      "direction": "s"
+    },
+    "battles": [
+      {
+        "name": "battle38",
+        "intro": "Ha! What a sorry excuse for an army.",
+        "exit": "Impossible!",
+        "enemies": [
+          {
+            "name": "kib",
+            "level": 28
+          },
+          {
+            "name": "kibnor",
+            "level": 28
+          },
+          {
+            "name": "jonas",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1800,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1800,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
