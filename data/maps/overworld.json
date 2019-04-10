@@ -2192,5 +2192,47 @@
         ]
       }
     ]
+  },
+  {
+    "x": 83,
+    "y": 211,
+    "battles": [
+      {
+        "name": "battle40",
+        "intro": "Run home and tell Pahoran how terrible Gimgimno is.",
+        "enemies": [
+          {
+            "name": "gimgimno",
+            "level": 30
+          },
+          {
+            "name": "omer",
+            "level": 30
+          },
+          {
+            "name": "morianti",
+            "level": 30
+          },
+          {
+            "name": "hem",
+            "level": 30
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
