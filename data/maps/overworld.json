@@ -2143,5 +2143,54 @@
         ]
       }
     ]
+  },
+  {
+    "x": 90,
+    "y": 162,
+    "teleport": {
+      "map": "judea",
+      "x": 10,
+      "y": 19,
+      "direction": "e"
+    },
+    "battles": [
+      {
+        "name": "battle39",
+        "intro": "You will not find this city as easy to take as Zeezrom.",
+        "exit": "You are a worthy opponent. I look forward to our next encounter.",
+        "enemies": [
+          {
+            "name": "aaron",
+            "level": 28
+          },
+          {
+            "name": "joseph",
+            "level": 28
+          },
+          {
+            "name": "gidgiddonah",
+            "level": 28
+          },
+          {
+            "name": "seezerin",
+            "level": 28
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 1800,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
