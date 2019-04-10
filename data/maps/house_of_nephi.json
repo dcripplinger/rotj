@@ -1,0 +1,48 @@
+[
+  {
+    "x": 12,
+    "y": 19,
+    "teleport": {
+      "map": "overworld",
+      "x": 259,
+      "y": 113,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 28,
+    "y": 19,
+    "teleport": {
+      "map": "overworld",
+      "x": 261,
+      "y": 113,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 20,
+    "y": 19,
+    "ai_sprite": {
+      "name": "villager",
+      "wander": false,
+      "direction": "w",
+      "conditions": {
+        "battle49": false
+      },
+      "dialog": "Master Nephi isn't home right now. When he returns, I will let him know you were looking for him."
+    }
+  },
+  {
+    "x": 17,
+    "y": 20,
+    "ai_sprite": {
+      "name": "villager",
+      "wander": true,
+      "direction": "s",
+      "conditions": {
+        "battle49": true
+      },
+      "dialog": "Master Nephi isn't home right now. When he returns, I will let him know you were looking for him."
+    }
+  }
+]

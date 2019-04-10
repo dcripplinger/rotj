@@ -2074,5 +2074,15 @@
         ]
       }
     ]
+  },
+  {
+    "x": 260,
+    "y": 113,
+    "teleport": {
+      "map": "house_of_nephi",
+      "x": 13,
+      "y": 19,
+      "direction": "e"
+    }
   }
 ]
