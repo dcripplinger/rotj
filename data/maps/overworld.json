@@ -2244,5 +2244,86 @@
       "y": 11,
       "direction": "s"
     }
+  },
+  {
+    "x": 116,
+    "y": 284,
+    "battles": [
+      {
+        "name": "battle42",
+        "enemies": [
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 11400,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 9200,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 9200,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
