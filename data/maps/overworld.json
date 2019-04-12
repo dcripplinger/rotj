@@ -2248,6 +2248,12 @@
   {
     "x": 116,
     "y": 284,
+    "teleport": {
+      "map": "west_lamanite_camp",
+      "x": 14,
+      "y": 25,
+      "direction": "n"
+    },
     "battles": [
       {
         "name": "battle42",
@@ -2320,6 +2326,93 @@
               "tactical_points": 0,
               "attack_points": 70,
               "armor_class": 60
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 263,
+    "y": 237,
+    "teleport": {
+      "map": "east_lamanite_camp",
+      "x": 28,
+      "y": 25,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle52",
+        "enemies": [
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 100000,
+              "strength": 135,
+              "defense": 52,
+              "intelligence": 44,
+              "agility": 101,
+              "evasion": 56,
+              "tactical_points": 0,
+              "attack_points": 90,
+              "armor_class": 80
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 100000,
+              "strength": 135,
+              "defense": 52,
+              "intelligence": 44,
+              "agility": 101,
+              "evasion": 56,
+              "tactical_points": 0,
+              "attack_points": 90,
+              "armor_class": 80
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 90000,
+              "strength": 135,
+              "defense": 52,
+              "intelligence": 44,
+              "agility": 101,
+              "evasion": 56,
+              "tactical_points": 0,
+              "attack_points": 90,
+              "armor_class": 80
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 90000,
+              "strength": 135,
+              "defense": 52,
+              "intelligence": 44,
+              "agility": 101,
+              "evasion": 56,
+              "tactical_points": 0,
+              "attack_points": 90,
+              "armor_class": 80
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 70000,
+              "strength": 135,
+              "defense": 52,
+              "intelligence": 44,
+              "agility": 101,
+              "evasion": 56,
+              "tactical_points": 0,
+              "attack_points": 90,
+              "armor_class": 80
             }
           }
         ]
