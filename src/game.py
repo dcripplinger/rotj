@@ -87,6 +87,10 @@ class Game(object):
             'rejected_amalickiah': self.handle_rejected_amalickiah,
             'got_title_of_liberty': self.handle_got_title_of_liberty,
             'got_javelin': self.handle_got_javelin,
+            'battle34_sober': self.handle_battle34_sober,
+            'battle34_drunk': self.handle_battle34_drunk,
+            'corianton_runs_away': self.handle_corianton_runs_away,
+            'helaman_joins': self.handle_heleman_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -1318,3 +1322,6 @@ class Game(object):
 
     def handle_corianton_runs_away(self):
         self.remove_from_company_and_reserve('corianton')
+
+    def handle_helaman_joins(self):
+        self.add_to_company(['helaman'])

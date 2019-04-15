@@ -241,6 +241,37 @@
   },
   {
     "x": 15,
+    "y": 14,
+    "ai_sprite": {
+      "name": "helaman",
+      "conditions": {
+        "helaman_joins": false
+      },
+      "dialog": [
+        {
+          "text": "Thank you for sending the young men from Jershon. We have been able to maintain this part of our lands, but perhaps we will be more successful at taking back the rest of our lands if we work together. What do you think?",
+          "condition": "got_stripling_warriors",
+          "choices": [
+            {
+              "prompt": "YES",
+              "text": "It is an honor to fight by your side, brother.",
+              "game_state_action": "helaman_joins"
+            },
+            {
+              "prompt": "NO",
+              "text": "Very well. My men and I will continue to maintain this part of our lands."
+            }
+          ]
+        },
+        {
+          "text": "The sons of the Ammonites wanted to help in the war and asked me, Helaman, to be their captain. But more of them in Jershon wish to join. Will you bring them here?",
+          "game_state_action": "talked_with_helaman_at_antiparah"
+        }
+      ]
+    }
+  },
+  {
+    "x": 15,
     "y": 17,
     "teleport": {
       "map": "antiparah",

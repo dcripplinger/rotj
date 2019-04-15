@@ -165,5 +165,22 @@
       "direction": "n",
       "dialog": "We buried our weapons of war deep in the ground."
     }
+  },
+  {
+    "x": 23,
+    "y": 18,
+    "ai_sprite": {
+      "name": "lamanites",
+      "wander": true,
+      "direction": "s",
+      "conditions": {
+        "talked_with_helaman_at_antiparah": true,
+        "got_stripling_warriors": false
+      },
+      "dialog": {
+        "text": "Helaman is waiting for us at Antiparah? We'll head there right away. Thank you!",
+        "game_state_action": "got_stripling_warriors"
+      }
+    }
   }
 ]
