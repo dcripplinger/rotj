@@ -987,6 +987,9 @@ class Game(object):
                 return True
         return False
 
+    def battle37_and_battle44(self):
+        return self.conditions_are_met(['battle37', 'battle44'])
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################

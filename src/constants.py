@@ -823,45 +823,50 @@ ITEMS = {
         'equip_type': 'weapon',
         'cost': 1000,
     },
+    'wood~sword': {
+        'attack_points': 60,
+        'equip_type': 'weapon',
+        'cost': 2000,
+    },
     'macana': {
         'attack_points': 70,
         'equip_type': 'weapon',
-        'cost': 2000,
+        'cost': 4000,
     },
     'sling': {
         'attack_points': 80,
         'equip_type': 'weapon',
-        'cost': 4000,
+        'cost': 6000,
     },
     'atlatl': {
         'attack_points': 100,
         'equip_type': 'weapon',
-        'cost': 5000,
+        'cost': 10000,
     },
     'lance': {
         'attack_points': 120,
         'equip_type': 'weapon',
-        'cost': 6000,
+        'cost': 20000,
     },
     'battleax': {
         'attack_points': 140,
         'equip_type': 'weapon',
-        'cost': 10000,
+        'cost': 50000,
     },
     'cimeter': {
         'attack_points': 160,
         'equip_type': 'weapon',
-        'cost': 20000,
+        'cost': 100000,
     },
     'bow': {
         'attack_points': 180,
         'equip_type': 'weapon',
-        'cost': 45000,
+        'cost': 200000,
     },
     'sword': {
         'attack_points': 200,
         'equip_type': 'weapon',
-        'cost': 65000,
+        'cost': 650000,
     },
     'cherev': {
         'attack_points': 230,
@@ -923,22 +928,22 @@ ITEMS = {
     'iron~m': {
         'armor_class': 115,
         'equip_type': 'armor',
-        'cost': 60000,
+        'cost': 100000,
     },
     'steel~m': {
         'armor_class': 125,
         'equip_type': 'armor',
-        'cost': 120000,
+        'cost': 300000,
     },
     'tungsten~m': {
         'armor_class': 135,
         'equip_type': 'armor',
-        'cost': 240000,
+        'cost': 1200000,
     },
     'osmium~m': {
         'armor_class': 145,
         'equip_type': 'armor',
-        'cost': 480000,
+        'cost': 3500000,
     },
 
     # helmets
@@ -965,32 +970,32 @@ ITEMS = {
     'copper~h': {
         'armor_class': 60,
         'equip_type': 'helmet',
-        'cost': 2000,
+        'cost': 3000,
     },
     'bronze~h': {
         'armor_class': 70,
         'equip_type': 'helmet',
-        'cost': 4000,
+        'cost': 10000,
     },
     'iron~h': {
         'armor_class': 80,
         'equip_type': 'helmet',
-        'cost': 15000,
+        'cost': 40000,
     },
     'steel~h': {
         'armor_class': 90,
         'equip_type': 'helmet',
-        'cost': 40000,
+        'cost': 110000,
     },
     'tungsten~h': {
         'armor_class': 100,
         'equip_type': 'helmet',
-        'cost': 110000,
+        'cost': 325000,
     },
     'osmium~h': {
         'armor_class': 110,
         'equip_type': 'helmet',
-        'cost': 325000,
+        'cost': 1100000,
     },
 
     # company items (elixirs, resurrect, etc)

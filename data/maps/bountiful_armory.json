@@ -25,8 +25,8 @@
     "shop": {
       "type": "armory",
       "items": [
+        "wood~sword",
         "macana",
-        "sling",
         "ring~m",
         "copper~h"
       ]

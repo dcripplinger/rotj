@@ -36,6 +36,10 @@
         },
         "dialog": [
           {
+            "text": "You have restored many of our cities. Thank you. For now, please set up your headquarters in Cumeni to secure the border, and wait for further instructions.",
+            "condition": "state:battle37_and_battle44"
+          },
+          {
             "text": "Will you retake our cities to the west first, or the east first? You can get to both areas from the city Bountiful to the north.",
             "condition": "battle27"
           },
