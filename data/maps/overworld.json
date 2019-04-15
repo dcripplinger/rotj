@@ -2470,5 +2470,45 @@
         ]
       }
     ]
+  },
+  {
+    "x": 117,
+    "y": 318,
+    "teleport": {
+      "map": "cumeni",
+      "x": 17,
+      "y": 39,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle44",
+        "intro": "It will be my great pleasure to end you.",
+        "exit": "The city is lost! Retreat!",
+        "narration": "The city of Cumeni has been reclaimed, and the Lamanites have been driven further back. People are beginning to return once again to their homes. Speak to the chief judge in Zarahemla for further instructions.",
+        "enemies": [
+          {
+            "name": "aaron",
+            "level": 36
+          },
+          {
+            "name": "aminadi",
+            "level": 34
+          },
+          {
+            "name": "aminadab",
+            "level": 34
+          },
+          {
+            "name": "ishmael",
+            "level": 34
+          },
+          {
+            "name": "omnihu",
+            "level": 34
+          }
+        ]
+      }
+    ]
   }
 ]

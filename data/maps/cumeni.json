@@ -1,0 +1,12 @@
+[
+  {
+    "x": 17,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 117,
+      "y": 317,
+      "direction": "s"
+    }
+  }
+]
