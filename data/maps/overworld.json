@@ -2418,5 +2418,57 @@
         ]
       }
     ]
+  },
+  {
+    "x": 106,
+    "y": 307,
+    "battles": [
+      {
+        "name": "battle43",
+        "intro": "To the battlefield! Destroy Moroni's army!",
+        "enemies": [
+          {
+            "name": "antion",
+            "level": 32
+          },
+          {
+            "name": "sheremihah",
+            "level": 30
+          },
+          {
+            "name": "luramihah",
+            "level": 30
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 2100,
+              "strength": 96,
+              "defense": 30,
+              "intelligence": 33,
+              "agility": 84,
+              "evasion": 19,
+              "tactical_points": 0,
+              "attack_points": 55,
+              "armor_class": 50
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
