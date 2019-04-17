@@ -87,10 +87,16 @@ class Game(object):
             'rejected_amalickiah': self.handle_rejected_amalickiah,
             'got_title_of_liberty': self.handle_got_title_of_liberty,
             'got_javelin': self.handle_got_javelin,
+            'battle27': self.handle_battle27,
             'battle34_sober': self.handle_battle34_sober,
             'battle34_drunk': self.handle_battle34_drunk,
+            'battle34': self.handle_battle34,
             'corianton_runs_away': self.handle_corianton_runs_away,
+            'battle37': self.handle_battle37,
+            'battle39': self.handle_battle39,
             'helaman_joins': self.handle_heleman_joins,
+            'battle44': self.handle_battle44,
+            'cumeni_hq': self.handle_cumeni_hq,
         }
 
     def conditions_are_met(self, conditions):
@@ -587,6 +593,8 @@ class Game(object):
             if city not in HQ:
                 return "I'm sorry, but this city does not have sufficient space for you to set up a base of operations."
             self.update_game_state({'hq': city})
+            if city == 'cumeni' and self.battle37_and_battle44() and not self.conditions_are_met('cumeni_hq'):
+                self.set_game_state_condition('cumeni_hq')
             return None
 
     def set_current_map(
@@ -1231,6 +1239,24 @@ class Game(object):
         self.add_to_inventory('javelin')
         self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
 
+    def handle_battle27(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+            ]
+        })
+
     def handle_battle34_sober(self):
         lamanites = {
             'name': 'lamanites',
@@ -1323,8 +1349,82 @@ class Game(object):
             offguard=1,
         )
 
+    def handle_battle34(self):
+        cities = copy.deepcopy(self.game_state['cities'])
+        cities.append({
+            'name': 'gid',
+            'teleport': True,
+        })
+        self.update_game_state({
+            'cities': cities,
+        })
+
     def handle_corianton_runs_away(self):
         self.remove_from_company_and_reserve('corianton')
 
+    def handle_battle37(self):
+        cities = copy.deepcopy(self.game_state['cities'])
+        cities.append({
+            'name': 'nephihah',
+            'teleport': True,
+        })
+        self.update_game_state({
+            'cities': cities,
+        })
+
+    def handle_battle39(self):
+        cities = copy.deepcopy(self.game_state['cities'])
+        cities.append({
+            'name': 'judea',
+            'teleport': True,
+        })
+        self.update_game_state({
+            'cities': cities,
+        })
+
     def handle_helaman_joins(self):
         self.add_to_company(['helaman'])
+
+    def handle_battle44(self):
+        cities = copy.deepcopy(self.game_state['cities'])
+        cities.append({
+            'name': 'cumeni',
+            'teleport': True,
+        })
+        self.update_game_state({
+            'cities': cities,
+        })
+
+    def handle_cumeni_hq(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': False,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': False,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+            ]
+        })

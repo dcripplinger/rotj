@@ -198,11 +198,53 @@
   {
     "x": 11,
     "y": 25,
+    "ai_sprite": [
+      {
+        "conditions": {
+          "battle48": true
+        },
+        "name": "guard",
+        "direction": "s",
+        "wander": false,
+        "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
+      },
+      {
+        "conditions": {
+          "cumeni_hq": false
+        },
+        "name": "guard",
+        "direction": "s",
+        "wander": false,
+        "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
+      }
+    ]
+  },
+  {
+    "x": 12,
+    "y": 26,
     "ai_sprite": {
+      "conditions": {
+        "cumeni_hq": true,
+        "battle48": false
+      },
       "name": "guard",
-      "direction": "s",
+      "direction": "w",
       "wander": false,
-      "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
+      "dialog": "The land of Zarahemla is now under control of the King Men. Heh heh heh."
+    }
+  },
+  {
+    "x": 12,
+    "y": 27,
+    "ai_sprite": {
+      "conditions": {
+        "cumeni_hq": true,
+        "battle48": false
+      },
+      "name": "guard",
+      "direction": "w",
+      "wander": false,
+      "dialog": "The land of Zarahemla is now under control of the King Men. Heh heh heh."
     }
   },
   {

@@ -1,0 +1,45 @@
+[
+  {
+    "x": 16,
+    "y": 18,
+    "teleport": {
+      "map": "cumeni",
+      "x": 15,
+      "y": 23,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 11,
+    "ai_sprite": {
+      "conditions": {
+        "state:battle37_and_battle44": true
+      },
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 14,
+    "y": 12,
+    "shop": {
+      "type": "record_office"
+    }
+  },
+  {
+    "x": 14,
+    "y": 13,
+    "ai_sprite": {
+      "conditions": {
+        "state:battle37_and_battle44": false
+      },
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": "The record office needs repairs done after the Lamanites ransacked the place. Please come back later."
+    }
+  }
+]

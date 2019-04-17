@@ -762,12 +762,24 @@
   {
     "x": 117,
     "y": 138,
-    "teleport": {
-      "map": "bountiful",
-      "x": 25,
-      "y": 54,
-      "direction": "n"
-    },
+    "teleport": [
+      {
+        "conditions": {
+          "cumeni_hq": true,
+          "battle48": false
+        },
+        "map": "bountiful",
+        "x": 10,
+        "y": 26,
+        "direction": "e"
+      },
+      {
+        "map": "bountiful",
+        "x": 25,
+        "y": 54,
+        "direction": "n"
+      }
+    ],
     "battles": [
       {
         "name": "battle27",
@@ -1707,54 +1719,98 @@
   {
     "x": 186,
     "y": 243,
-    "ai_sprite": {
-      "conditions": {
-        "entered_jershon": false
+    "ai_sprite": [
+      {
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
       },
-      "name": "fence",
-      "wander": false,
-      "direction": "s",
-      "dialog": "There's no one there."
-    }
+      {
+        "conditions": {
+          "entered_jershon": false
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
+      }
+    ]
   },
   {
     "x": 187,
     "y": 243,
-    "ai_sprite": {
-      "conditions": {
-        "entered_jershon": false
+    "ai_sprite": [
+      {
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
       },
-      "name": "fence",
-      "wander": false,
-      "direction": "s",
-      "dialog": "There's no one there."
-    }
+      {
+        "conditions": {
+          "entered_jershon": false
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
+      }
+    ]
   },
   {
     "x": 188,
     "y": 243,
-    "ai_sprite": {
-      "conditions": {
-        "entered_jershon": false
+    "ai_sprite": [
+      {
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
       },
-      "name": "fence",
-      "wander": false,
-      "direction": "s",
-      "dialog": "There's no one there."
-    }
+      {
+        "conditions": {
+          "entered_jershon": false
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
+      }
+    ]
   },
   {
     "x": 189,
     "y": 243,
-    "ai_sprite": {
-      "conditions": {
-        "entered_jershon": false
+    "ai_sprite": [
+      {
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
       },
-      "name": "fence",
-      "wander": false,
-      "direction": "s",
-      "dialog": "There's no one there."
-    }
+      {
+        "conditions": {
+          "entered_jershon": false
+        },
+        "name": "fence",
+        "wander": false,
+        "direction": "s",
+        "dialog": "There's no one there."
+      }
+    ]
   },
   {
     "x": 123,
