@@ -4,6 +4,48 @@
     "y": 0,
     "encounters": [
       [
+        "shiz",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "cohor",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "adam",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "mulokihah",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "lib",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "sheum",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
         "robbers",
         "robbers",
         "robbers",
@@ -24,6 +66,24 @@
       ]
     ],
     "stats": {
+      "shiz": {
+        "level": 84
+      },
+      "cohor": {
+        "level": 83
+      },
+      "adam": {
+        "level": 80
+      },
+      "mulokihah": {
+        "level": 81
+      },
+      "lib": {
+        "level": 82
+      },
+      "sheum": {
+        "level": 82
+      },
       "robbers": {
         "soldiers": [
           1000000,
@@ -46,6 +106,48 @@
     "y": 0,
     "encounters": [
       [
+        "shiz",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "cohor",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "adam",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "mulokihah",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "lib",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "sheum",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
         "robbers",
         "robbers",
         "robbers",
@@ -66,6 +168,24 @@
       ]
     ],
     "stats": {
+      "shiz": {
+        "level": 84
+      },
+      "cohor": {
+        "level": 83
+      },
+      "adam": {
+        "level": 80
+      },
+      "mulokihah": {
+        "level": 81
+      },
+      "lib": {
+        "level": 82
+      },
+      "sheum": {
+        "level": 82
+      },
       "robbers": {
         "soldiers": [
           1000000,
