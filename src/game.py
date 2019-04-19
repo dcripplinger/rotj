@@ -94,7 +94,7 @@ class Game(object):
             'corianton_runs_away': self.handle_corianton_runs_away,
             'battle37': self.handle_battle37,
             'battle39': self.handle_battle39,
-            'helaman_joins': self.handle_heleman_joins,
+            'helaman_joins': self.handle_helaman_joins,
             'battle44': self.handle_battle44,
             'cumeni_hq': self.handle_cumeni_hq,
         }
