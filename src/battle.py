@@ -1508,7 +1508,7 @@ class Battle(object):
     def handle_input_start(self, pressed):
         self.left_dialog.handle_input(pressed)
         if (pressed[K_x] or pressed[K_z]) and not self.left_dialog.has_more_stuff_to_show():
-            if len(self.allies == 0):
+            if len(self.allies) == 0:
                 self.handle_lose()
             elif self.offguard == -1:
                 self.generate_enemy_moves()
