@@ -1,0 +1,180 @@
+[
+  {
+    "x": 54,
+    "y": 56,
+    "teleport": {
+      "map": "overworld",
+      "x": 110,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 61,
+    "y": 51,
+    "teleport": {
+      "x": 17,
+      "y": 87,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 87,
+    "teleport": {
+      "x": 61,
+      "y": 51,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 89,
+    "teleport": {
+      "x": 31,
+      "y": 144,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 31,
+    "y": 144,
+    "teleport": {
+      "x": 13,
+      "y": 89,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 44,
+    "y": 146,
+    "teleport": {
+      "x": 33,
+      "y": 107,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 33,
+    "y": 107,
+    "teleport": {
+      "x": 44,
+      "y": 146,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 33,
+    "y": 105,
+    "teleport": {
+      "x": 12,
+      "y": 46,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 12,
+    "y": 46,
+    "teleport": {
+      "x": 33,
+      "y": 105,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 28,
+    "y": 52,
+    "teleport": {
+      "x": 49,
+      "y": 110,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 49,
+    "y": 110,
+    "teleport": {
+      "x": 28,
+      "y": 52,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 56,
+    "y": 110,
+    "teleport": {
+      "x": 35,
+      "y": 52,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 52,
+    "teleport": {
+      "x": 56,
+      "y": 110,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 39,
+    "y": 52,
+    "teleport": {
+      "x": 60,
+      "y": 110,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 60,
+    "y": 110,
+    "teleport": {
+      "x": 39,
+      "y": 52,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 60,
+    "y": 106,
+    "teleport": {
+      "x": 71,
+      "y": 145,
+      "direction": "w"
+    }
+  },
+  {
+    "x": 71,
+    "y": 145,
+    "teleport": {
+      "x": 60,
+      "y": 106,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 127,
+    "treasure": {
+      "name": "antum_treasure1",
+      "item": "ether"
+    }
+  },
+  {
+    "x": 63,
+    "y": 110,
+    "treasure": {
+      "name": "antum_treasure2",
+      "money": 3
+    }
+  },
+  {
+    "x": 61,
+    "y": 149,
+    "treasure": {
+      "name": "antum_treasure3",
+      "item": "sd~of~laban"
+    }
+  }
+]

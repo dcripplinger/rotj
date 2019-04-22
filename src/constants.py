@@ -1094,6 +1094,11 @@ ITEMS = {
         'battle_usage': 'enemies',
         'effect': 'cancel_reinforcements',
     },
+    'ether': { # replenishes tactical points
+        'map_usage': 'battle',
+        'battle_usage': 'allies',
+        'effect': 'ether',
+    }
 
     # kolob (city map usage)
     'kolob': {
