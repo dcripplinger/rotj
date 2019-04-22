@@ -28,5 +28,45 @@
       "y": 99,
       "direction": "s"
     }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "teleport": {
+      "map": "aaron_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 13,
+    "teleport": {
+      "map": "aaron_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "teleport": {
+      "map": "aaron_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 38,
+    "y": 21,
+    "teleport": {
+      "map": "aaron_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]

@@ -58,5 +58,45 @@
       "y": 89,
       "direction": "s"
     }
+  },
+  {
+    "x": 18,
+    "y": 27,
+    "teleport": {
+      "map": "mulek_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 14,
+    "teleport": {
+      "map": "mulek_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 14,
+    "teleport": {
+      "map": "mulek_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 22,
+    "teleport": {
+      "map": "mulek_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]
