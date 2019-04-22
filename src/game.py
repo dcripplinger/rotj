@@ -178,6 +178,14 @@ class Game(object):
                 warlord['soldiers'] = max(1, warlord['soldiers'] - int(round(0.01*max_soldiers)))
         self.update_game_state({'company': company})
 
+    def walk_in_lava(self):
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'])
+            if warlord['soldiers'] != 0:
+                warlord['soldiers'] = max(1, warlord['soldiers'] - int(round(0.03*max_soldiers)))
+        self.update_game_state({'company': company})
+
     def delete_member(self, warlord_index):
         company = copy.deepcopy(self.game_state['company'])
         surplus = copy.deepcopy(self.game_state['surplus'])

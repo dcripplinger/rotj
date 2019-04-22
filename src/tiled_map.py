@@ -67,6 +67,7 @@ class Map(object):
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
         self.random_encounter = False
+        self.lava_sound = pygame.mixer.Sound('data/audio/lava.wav')
 
     def set_game_state_condition(self, condition):
         self.game.set_game_state_condition(condition)
@@ -480,6 +481,12 @@ class Map(object):
                 self.steps_for_tactical_points -= 5
                 self.game.increment_tactical_points()
             self.no_food_left = self.game.decrement_food()
+            lava = self.cells.get(tuple(next_pos), {}).get('lava') == 'true'
+            if lava:
+                # piggy back on no_food_left for drawing red blinking screen
+                self.no_food_left = True
+                self.game.walk_in_lava()
+                self.lava_sound.play()
             if self.no_food_left:
                 self.no_food_delta = 0.0
             if self.game.cloak_steps_remaining:
