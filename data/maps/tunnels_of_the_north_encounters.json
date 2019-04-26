@@ -1,0 +1,187 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "jacom",
+        "robbers"
+      ],
+      [
+        "jacomi",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "jacomiah",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "gazalem",
+        "robbers"
+      ],
+      [
+        "gideon",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "jarom",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "benjamin",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ]
+    ],
+    "stats": {
+      "jacom": {
+        "level": 75,
+        "capture": "battle75"
+      },
+      "jacomi": {
+        "level": 75,
+        "capture": "battle83"
+      },
+      "jacomiah": {
+        "level": 75
+      },
+      "gazalem": {
+        "level": 75
+      },
+      "gideon": {
+        "level": 74
+      },
+      "jarom": {
+        "level": 71
+      },
+      "benjamin": {
+        "level": 71,
+        "capture": "battle73"
+      },
+      "robbers": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 151,
+        "defense": 88,
+        "intelligence": 69,
+        "agility": 128,
+        "evasion": 31,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      },
+      "lamanites": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 160,
+        "defense": 58,
+        "intelligence": 51,
+        "agility": 146,
+        "evasion": 70,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      }
+    }
+  }
+]
