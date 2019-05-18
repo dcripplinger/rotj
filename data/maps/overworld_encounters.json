@@ -499,6 +499,13 @@
         "robbers",
         "robbers",
         "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
         "robbers"
       ],
       [
@@ -510,26 +517,72 @@
       [
         "robbers",
         "robbers",
-        "robbers",
-        "robbers",
         "robbers"
+      ],
+      [
+        "kib",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "kibnor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "jonas",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
       "robbers": {
         "soldiers": [
-          220000,
-          320000,
-          420000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 151,
-        "defense": 88,
-        "intelligence": 69,
-        "agility": 128,
-        "evasion": 31,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
+        "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 110,
-        "armor_class": 90
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "lamanites": {
+        "soldiers": [
+          1500,
+          1800,
+          2100
+        ],
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
+        "tactical_points": 0,
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "kib": {
+        "level": 28,
+        "capture": "battle38"
+      },
+      "kibnor": {
+        "level": 28,
+        "capture": "battle38"
+      },
+      "jonas": {
+        "level": 28,
+        "capture": "battle38"
       }
     }
   },
