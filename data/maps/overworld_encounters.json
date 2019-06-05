@@ -591,6 +591,51 @@
     "y": 1,
     "encounters": [
       [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "riplah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "sherrizah",
+        "lamanites"
+      ],
+      [
+        "kim",
+        "shez"
+      ],
+      [
         "robbers",
         "robbers",
         "robbers",
@@ -617,55 +662,81 @@
         "lamanites",
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites"
       ]
     ],
     "stats": {
+      "laman": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "riplah": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "sherrizah": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "kim": {
+        "level": 28,
+        "capture": "battle32"
+      },
+      "shez": {
+        "level": 28,
+        "capture": "battle32"
+      },
       "robbers": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
-        "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
-      },
-      "kingmen": {
-        "soldiers": [
-          700,
-          900,
-          1000
-        ],
-        "strength": 75,
-        "defense": 40,
-        "intelligence": 60,
-        "agility": 25,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "kingmen": {
+        "soldiers": [
+          1500,
+          1800,
+          2100
+        ],
+        "strength": 95,
+        "defense": 66,
+        "intelligence": 71,
+        "agility": 30,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 55,
+        "armor_class": 50
       }
     }
   },
@@ -674,6 +745,51 @@
     "y": 1,
     "encounters": [
       [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "laman",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "riplah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "sherrizah",
+        "lamanites"
+      ],
+      [
+        "kim",
+        "shez"
+      ],
+      [
         "robbers",
         "robbers",
         "robbers",
@@ -700,55 +816,81 @@
         "lamanites",
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites"
       ]
     ],
     "stats": {
+      "laman": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "riplah": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "sherrizah": {
+        "level": 28,
+        "capture": "battle31"
+      },
+      "kim": {
+        "level": 28,
+        "capture": "battle32"
+      },
+      "shez": {
+        "level": 28,
+        "capture": "battle32"
+      },
       "robbers": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
-        "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
-      },
-      "kingmen": {
-        "soldiers": [
-          700,
-          900,
-          1000
-        ],
-        "strength": 75,
-        "defense": 40,
-        "intelligence": 60,
-        "agility": 25,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "kingmen": {
+        "soldiers": [
+          1500,
+          1800,
+          2100
+        ],
+        "strength": 95,
+        "defense": 66,
+        "intelligence": 71,
+        "agility": 30,
+        "evasion": 0,
+        "tactical_points": 0,
+        "attack_points": 55,
+        "armor_class": 50
       }
     }
   },
@@ -870,38 +1012,78 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "hearthom",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "luram",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "jeremiah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "onihah",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "hearthom": {
+        "level": 28,
+        "capture": "battle29"
+      },
+      "luram": {
+        "level": 28,
+        "capture": "battle29"
+      },
+      "jeremiah": {
+        "level": 28,
+        "capture": "battle30"
+      },
+      "onihah": {
+        "level": 28,
+        "capture": "battle30"
+      },
       "robbers": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
+        "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       }
     }
   },
