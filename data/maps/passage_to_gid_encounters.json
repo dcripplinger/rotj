@@ -104,6 +104,16 @@
           "hemlorihah",
           "hemlorum",
           "kingmen"
+        ],
+        [
+          "kimnor",
+          "lamanites",
+          "lamanites"
+        ],
+        [
+          "nahom",
+          "gilgah",
+          "lamanites"
         ]
       ],
       "stats": {
@@ -202,6 +212,18 @@
         "hemlorum": {
           "level": 24,
           "capture": "battle26"
+        },
+        "kimnor": {
+          "level": 28,
+          "capture": "battle33"
+        },
+        "nahom": {
+          "level": 28,
+          "capture": "battle33"
+        },
+        "gilgah": {
+          "level": 28,
+          "capture": "battle33"
         }
       }
     }
