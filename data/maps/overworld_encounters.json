@@ -1415,10 +1415,10 @@
     "y": 2,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
+        "zoramites",
+        "zoramites",
+        "zoramites",
+        "zoramites"
       ],
       [
         "lamanites",
@@ -1433,6 +1433,34 @@
       ],
       [
         "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "leantum",
+        "zoramites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "enoch",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "jared",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "antioni",
         "lamanites",
         "lamanites",
         "lamanites",
@@ -1440,35 +1468,51 @@
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          1500,
-          1800,
-          2100
-        ],
-        "strength": 90,
-        "defense": 46,
-        "intelligence": 37,
-        "agility": 45,
-        "evasion": 0,
-        "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
-      },
       "lamanites": {
         "soldiers": [
-          1500,
-          1800,
-          2100
+          9200,
+          11400,
+          13600
         ],
-        "strength": 96,
-        "defense": 30,
-        "intelligence": 33,
-        "agility": 84,
-        "evasion": 19,
+        "strength": 108,
+        "defense": 42,
+        "intelligence": 35,
+        "agility": 86,
+        "evasion": 25,
         "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+        "attack_points": 70,
+        "armor_class": 60
+      },
+      "zoramites": {
+        "soldiers": [
+          9200,
+          11400,
+          13600
+        ],
+        "strength": 98,
+        "defense": 64,
+        "intelligence": 51,
+        "agility": 49,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 70,
+        "armor_class": 60
+      },
+      "leantum": {
+        "level": 32,
+        "capture": "battle34"
+      },
+      "enoch": {
+        "level": 30,
+        "capture": "battle34"
+      },
+      "jared": {
+        "level": 30,
+        "capture": "battle34"
+      },
+      "antioni": {
+        "level": 30,
+        "capture": "battle34"
       }
     }
   },
