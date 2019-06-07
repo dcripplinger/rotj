@@ -2569,13 +2569,6 @@
     "y": 5,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "lamanites",
         "lamanites",
         "lamanites"
@@ -2592,38 +2585,104 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "parah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "corom",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeamnor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "kumenonhi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shum",
+        "shurr"
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          700,
-          900,
-          1000
-        ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
-        "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
-      },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "parah": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "corom": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "lamah": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "zeamnor": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "kumenonhi": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "shum": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "shurr": {
+        "level": 30,
+        "capture": "battle36"
       }
     }
   },
@@ -3076,13 +3135,6 @@
     "y": 6,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "lamanites",
         "lamanites",
         "lamanites"
@@ -3099,38 +3151,104 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "parah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "corom",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeamnor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "kumenonhi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "shum",
+        "shurr"
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          700,
-          900,
-          1000
-        ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
-        "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
-      },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "parah": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "corom": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "lamah": {
+        "level": 30,
+        "capture": "battle35"
+      },
+      "zeamnor": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "kumenonhi": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "shum": {
+        "level": 30,
+        "capture": "battle36"
+      },
+      "shurr": {
+        "level": 30,
+        "capture": "battle36"
       }
     }
   },
