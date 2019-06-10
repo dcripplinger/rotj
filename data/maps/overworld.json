@@ -2576,5 +2576,25 @@
       "y": 56,
       "direction": "e"
     }
+  },
+  {
+    "x": 233,
+    "y": 268,
+    "teleport": {
+      "map": "moroni_cave",
+      "x": 30,
+      "y": 54,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 233,
+    "y": 234,
+    "teleport": {
+      "map": "moroni_cave",
+      "x": 24,
+      "y": 11,
+      "direction": "s"
+    }
   }
 ]
