@@ -2596,5 +2596,25 @@
       "y": 11,
       "direction": "s"
     }
+  },
+  {
+    "x": 239,
+    "y": 226,
+    "teleport": {
+      "map": "south_desert_cave",
+      "x": 30,
+      "y": 54,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 243,
+    "y": 215,
+    "teleport": {
+      "map": "south_desert_cave",
+      "x": 24,
+      "y": 11,
+      "direction": "s"
+    }
   }
 ]
