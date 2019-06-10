@@ -1,0 +1,90 @@
+[
+  {
+    "x": 16,
+    "y": 61,
+    "teleport": {
+      "map": "overworld",
+      "x": 236,
+      "y": 204,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 17,
+    "y": 61,
+    "teleport": {
+      "map": "overworld",
+      "x": 236,
+      "y": 204,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 12,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 235,
+      "y": 198,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "teleport": {
+      "map": "overworld",
+      "x": 235,
+      "y": 198,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 16,
+    "y": 38,
+    "teleport": {
+      "x": 12,
+      "y": 88
+    }
+  },
+  {
+    "x": 12,
+    "y": 88,
+    "teleport": {
+      "x": 16,
+      "y": 38
+    }
+  },
+  {
+    "x": 30,
+    "y": 35,
+    "teleport": {
+      "x": 24,
+      "y": 87
+    }
+  },
+  {
+    "x": 24,
+    "y": 87,
+    "teleport": {
+      "x": 30,
+      "y": 35
+    }
+  },
+  {
+    "x": 33,
+    "y": 30,
+    "teleport": {
+      "x": 31,
+      "y": 80
+    }
+  },
+  {
+    "x": 31,
+    "y": 80,
+    "teleport": {
+      "x": 33,
+      "y": 30
+    }
+  }
+]
