@@ -2636,5 +2636,35 @@
       "y": 11,
       "direction": "s"
     }
+  },
+  {
+    "x": 256,
+    "y": 205,
+    "teleport": {
+      "map": "east_desert_cave",
+      "x": 11,
+      "y": 45,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 248,
+    "y": 194,
+    "teleport": {
+      "map": "east_desert_cave",
+      "x": 26,
+      "y": 29,
+      "direction": "e"
+    }
+  },
+  {
+    "x": 251,
+    "y": 187,
+    "teleport": {
+      "map": "east_desert_cave",
+      "x": 23,
+      "y": 13,
+      "direction": "w"
+    }
   }
 ]
