@@ -1465,6 +1465,18 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "seon",
+        "zoramites",
+        "zoramites",
+        "zoramites"
+      ],
+      [
+        "heth",
+        "zoramites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
@@ -1513,6 +1525,14 @@
       "antioni": {
         "level": 30,
         "capture": "battle34"
+      },
+      "seon": {
+        "level": 34,
+        "capture": "battle37"
+      },
+      "heth": {
+        "level": 34,
+        "capture": "battle37"
       }
     }
   },
