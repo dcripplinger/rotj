@@ -2666,5 +2666,15 @@
       "y": 13,
       "direction": "w"
     }
+  },
+  {
+    "x": 243,
+    "y": 182,
+    "teleport": {
+      "map": "north_grotto",
+      "x": 57,
+      "y": 13,
+      "direction": "w"
+    }
   }
 ]
