@@ -2676,5 +2676,15 @@
       "y": 13,
       "direction": "w"
     }
+  },
+  {
+    "x": 237,
+    "y": 188,
+    "teleport": {
+      "map": "west_grotto",
+      "x": 35,
+      "y": 11,
+      "direction": "s"
+    }
   }
 ]
