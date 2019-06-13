@@ -1544,37 +1544,98 @@
         "robbers",
         "robbers",
         "robbers",
-        "robbers"
-      ],
-      [
-        "robbers",
-        "robbers",
         "robbers",
         "robbers"
       ],
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "aaron",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "joseph",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "gidgiddonah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "seezerin",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "aaron": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "joseph": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "gidgiddonah": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "seezerin": {
+        "level": 28,
+        "capture": "battle39"
+      },
       "robbers": {
         "soldiers": [
-          220000,
-          320000,
-          420000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 151,
-        "defense": 88,
-        "intelligence": 69,
-        "agility": 128,
-        "evasion": 31,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
+        "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 110,
-        "armor_class": 90
+        "attack_points": 55,
+        "armor_class": 50
+      },
+      "lamanites": {
+        "soldiers": [
+          1500,
+          1800,
+          2100
+        ],
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
+        "tactical_points": 0,
+        "attack_points": 55,
+        "armor_class": 50
       }
     }
   },
@@ -1606,38 +1667,78 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "aaron",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "joseph",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "gidgiddonah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "seezerin",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "aaron": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "joseph": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "gidgiddonah": {
+        "level": 28,
+        "capture": "battle39"
+      },
+      "seezerin": {
+        "level": 28,
+        "capture": "battle39"
+      },
       "robbers": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 78,
-        "defense": 48,
-        "intelligence": 49,
-        "agility": 80,
-        "evasion": 28,
+        "strength": 90,
+        "defense": 46,
+        "intelligence": 37,
+        "agility": 45,
+        "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       },
       "lamanites": {
         "soldiers": [
-          700,
-          900,
-          1000
+          1500,
+          1800,
+          2100
         ],
-        "strength": 84,
-        "defense": 24,
-        "intelligence": 27,
-        "agility": 80,
-        "evasion": 18,
+        "strength": 96,
+        "defense": 30,
+        "intelligence": 33,
+        "agility": 84,
+        "evasion": 19,
         "tactical_points": 0,
-        "attack_points": 45,
-        "armor_class": 40
+        "attack_points": 55,
+        "armor_class": 50
       }
     }
   },
