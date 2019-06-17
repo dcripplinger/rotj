@@ -3467,9 +3467,85 @@
         "lamanites",
         "lamanites",
         "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "antion",
+        "lamanites"
+      ],
+      [
+        "sheremihah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "omnihu",
+        "luramihah",
+        "lamanites"
+      ],
+      [
+        "aminadi",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "aminadab",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ishmael",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "antion": {
+        "level": 32,
+        "capture": "battle43"
+      },
+      "sheremihah": {
+        "level": 30,
+        "capture": "battle43"
+      },
+      "luramihah": {
+        "level": 30,
+        "capture": "battle43"
+      },
+      "aminadi": {
+        "level": 34,
+        "capture": "battle44"
+      },
+      "aminadab": {
+        "level": 34,
+        "capture": "battle44"
+      },
+      "ishmael": {
+        "level": 32,
+        "capture": "battle44"
+      },
+      "omnihu": {
+        "level": 34,
+        "capture": "battle44"
+      },
       "lamanites": {
         "soldiers": [
           1500,
