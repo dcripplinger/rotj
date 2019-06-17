@@ -2202,14 +2202,25 @@
       ],
       [
         "morianti",
+        "hem",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "omni",
         "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
       ],
       [
-        "hem",
+        "shiblum",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeomner",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -2231,6 +2242,18 @@
       "hem": {
         "level": 30,
         "capture": "battle40"
+      },
+      "omni": {
+        "level": 30,
+        "capture": "battle41"
+      },
+      "shiblum": {
+        "level": 30,
+        "capture": "battle41"
+      },
+      "zeomner": {
+        "level": 30,
+        "capture": "battle41"
       },
       "robbers": {
         "soldiers": [
