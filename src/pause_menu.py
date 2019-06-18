@@ -1,3 +1,5 @@
+from pygame.locals import *
+
 from constants import BLACK
 
 
@@ -13,4 +15,5 @@ class PauseMenu(object):
         pass
 
     def handle_input(self, pressed):
-        pass
+        if pressed[K_RETURN]:
+            self.game.close_pause_menu()

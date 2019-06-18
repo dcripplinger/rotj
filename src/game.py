@@ -47,7 +47,6 @@ class Game(object):
         self.fps = 1000
         self.current_map = None
         self.title_page = TitlePage(self.virtual_screen, self)
-        self._screen_state = None # since set_screen_state expects this attribute to exist
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)
@@ -69,6 +68,7 @@ class Game(object):
         self.current_music = None
         self.battle = None
         self.pause_menu = None
+        self._screen_state_after_pause = None
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -389,12 +389,6 @@ class Game(object):
         '''
         Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu'
         '''
-        quiet_states = ['pause_menu']
-        if self._screen_state in quiet_states and state not in quiet_states:
-            pygame.mixer.music.set_volume(1.0)
-        elif self._screen_state not in quiet_states and state in quiet_states:
-            pygame.mixer.music.set_volume(0.2)
-
         self._screen_state = state
         if state in ['title', 'menu', 'battle', 'pause_menu']:
             pygame.key.set_repeat(300, 300)
@@ -421,8 +415,17 @@ class Game(object):
             self.beginning_screen = Beginning(self, self.virtual_screen)
 
     def open_pause_menu(self):
+        self._screen_state_after_pause = self._screen_state
         self.set_screen_state('pause_menu')
         self.pause_menu = PauseMenu(self.virtual_screen, self)
+        pygame.mixer.music.set_volume(0.2)
+
+    def close_pause_menu(self):
+        if self._screen_state == 'pause_menu':
+            self.pause_menu = None
+        self.set_screen_state(self._screen_state_after_pause)
+        self._screen_state_after_pause = None
+        pygame.mixer.music.set_volume(1.0)
 
     def start_battle(
         self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
