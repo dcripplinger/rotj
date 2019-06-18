@@ -1098,7 +1098,7 @@ ITEMS = {
         'map_usage': 'battle',
         'battle_usage': 'allies',
         'effect': 'ether',
-    }
+    },
 
     # kolob (city map usage)
     'kolob': {
