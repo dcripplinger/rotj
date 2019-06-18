@@ -32,5 +32,8 @@ class PauseMenu(object):
             self.game.close_pause_menu()
         elif pressed[K_x]:
             self.select_sound.play()
-            if self.menu.get_choice() == 'BACK':
+            choice = self.menu.get_choice()
+            if choice == 'BACK':
                 self.game.close_pause_menu()
+            elif choice == 'MAP':
+                self.game.open_pause_map()

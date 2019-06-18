@@ -29,6 +29,7 @@ from helpers import (
 )
 from menu_screen import MenuScreen
 from narration import Narration
+from pause_map import PauseMap
 from pause_menu import PauseMenu
 from tiled_map import Map
 from title_page import TitlePage
@@ -69,6 +70,7 @@ class Game(object):
         self.current_music = None
         self.battle = None
         self.pause_menu = None
+        self.pause_map = None
         self._screen_state_after_pause = None
 
         # See the bottom of this class for the defs of all these handlers
@@ -388,7 +390,7 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map'
         '''
         self._screen_state = state
         if state in ['title', 'menu', 'battle', 'pause_menu']:
@@ -419,14 +421,25 @@ class Game(object):
         self._screen_state_after_pause = self._screen_state
         self.set_screen_state('pause_menu')
         self.pause_menu = PauseMenu(self.virtual_screen, self)
-        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.set_volume(0.3)
 
     def close_pause_menu(self):
         if self._screen_state == 'pause_menu':
             self.pause_menu = None
+        elif self._screen_state == 'pause_map':
+            self.pause_map = None
+            self.pause_menu = None
         self.set_screen_state(self._screen_state_after_pause)
         self._screen_state_after_pause = None
         pygame.mixer.music.set_volume(1.0)
+
+    def open_pause_map(self):
+        self.set_screen_state('pause_map')
+        self.pause_map = PauseMap(self.virtual_screen, self, (169, 190)) # position for now is at melek
+
+    def close_pause_map(self):
+        self.pause_map = None
+        self.set_screen_state('pause_menu')
 
     def start_battle(
         self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
@@ -687,6 +700,8 @@ class Game(object):
                 self.narration.draw()
         elif self._screen_state == 'pause_menu':
             self.pause_menu.draw()
+        elif self._screen_state == 'pause_map':
+            self.pause_map.draw()
         self.scale()
 
     def update(self, dt):
@@ -726,6 +741,8 @@ class Game(object):
                 self.update_narration(dt)
         elif self._screen_state == 'pause_menu':
             self.pause_menu.update(dt)
+        elif self._screen_state == 'pause_map':
+            self.pause_map.update(dt)
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -969,6 +986,8 @@ class Game(object):
                         pygame.mixer.music.stop()
                 elif self._screen_state == 'pause_menu':
                     self.pause_menu.handle_input(pressed)
+                elif self._screen_state == 'pause_map':
+                    self.pause_map.handle_input(pressed)
 
     def run(self):
         self.running = True
