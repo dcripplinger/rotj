@@ -28,6 +28,7 @@ from helpers import (
 )
 from menu_screen import MenuScreen
 from narration import Narration
+from pause_menu import PauseMenu
 from tiled_map import Map
 from title_page import TitlePage
 
@@ -46,6 +47,7 @@ class Game(object):
         self.fps = 1000
         self.current_map = None
         self.title_page = TitlePage(self.virtual_screen, self)
+        self._screen_state = None # since set_screen_state expects this attribute to exist
         self.set_screen_state('title')
         pygame.event.set_blocked(MOUSEMOTION)
         pygame.event.set_blocked(ACTIVEEVENT)
@@ -66,6 +68,7 @@ class Game(object):
         self.fade_alpha = None
         self.current_music = None
         self.battle = None
+        self.pause_menu = None
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -384,10 +387,16 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu'
         '''
+        quiet_states = ['pause_menu']
+        if self._screen_state in quiet_states and state not in quiet_states:
+            pygame.mixer.music.set_volume(1.0)
+        elif self._screen_state not in quiet_states and state in quiet_states:
+            pygame.mixer.music.set_volume(0.2)
+
         self._screen_state = state
-        if state in ['title', 'menu', 'battle']:
+        if state in ['title', 'menu', 'battle', 'pause_menu']:
             pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
@@ -410,6 +419,10 @@ class Game(object):
             self.title_page.reset()
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
+
+    def open_pause_menu(self):
+        self.set_screen_state('pause_menu')
+        self.pause_menu = PauseMenu(self.virtual_screen, self)
 
     def start_battle(
         self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
@@ -668,6 +681,8 @@ class Game(object):
                 self.current_map.draw()
             else:
                 self.narration.draw()
+        elif self._screen_state == 'pause_menu':
+            self.pause_menu.draw()
         self.scale()
 
     def update(self, dt):
@@ -705,6 +720,8 @@ class Game(object):
                 self.current_map.update(dt)
             else:
                 self.update_narration(dt)
+        elif self._screen_state == 'pause_menu':
+            self.pause_menu.update(dt)
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -946,6 +963,8 @@ class Game(object):
                 elif self._screen_state == 'sleep':
                     if (pressed[K_x] or pressed[K_z]) and not self.fade_out:
                         pygame.mixer.music.stop()
+                elif self._screen_state == 'pause_menu':
+                    self.pause_menu.handle_input(pressed)
 
     def run(self):
         self.running = True

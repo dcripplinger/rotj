@@ -578,13 +578,15 @@ class Map(object):
             elif pressed[K_x]:
                 self.map_menu = MapMenu(self.screen, self)
                 pygame.key.set_repeat(300, 300)
-            elif pressed[K_RSHIFT]:
+            elif pressed[K_RSHIFT] and self.hero.velocity == [0,0]:
                 company = self.game.game_state['company']
                 money = self.game.game_state['money']
                 food = self.game.game_state['food']
                 experience = self.game.game_state['experience']
                 level = self.game.game_state['level']
                 self.company_report = CompanyReport(company, money, food, experience, level)
+            elif pressed[K_RETURN] and self.hero.velocity == [0,0]:
+                self.game.open_pause_menu()
             else:
                 self.move_hero(None)
 
