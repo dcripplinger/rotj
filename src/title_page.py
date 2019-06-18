@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+import os
 import time
 
 import pygame
@@ -23,7 +24,7 @@ class TitlePage(object):
             'shiz', 'helaman', 'lachoneus',
         ]
         self.portraits = {
-            warlord: load_image('portraits/{}.png'.format(warlord))
+            warlord: load_image(os.path.join('portraits', '{}.png'.format(warlord)))
             for warlord in self.warlords
         }
         self.biographies = {
@@ -168,11 +169,11 @@ class TitlePage(object):
         self.time_elapsed += dt
         if self.current_page == 0:
             if self.current_music is None:
-                pygame.mixer.music.load('data/audio/music/title_theme_intro.wav')
+                pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'title_theme_intro.wav'))
                 pygame.mixer.music.play()
                 self.current_music = 'intro'
             elif self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load('data/audio/music/title_theme_body.wav')
+                pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'title_theme_body.wav'))
                 pygame.mixer.music.play(-1)
                 self.current_music = 'body'
             if self.time_elapsed > self.transition_times[0]:

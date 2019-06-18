@@ -9,7 +9,6 @@ from constants import GAME_WIDTH, BLACK
 from helpers import create_save_state, erase_save_state, is_half_second, load_save_states, copy_save_state
 from text import create_prompt, MenuBox, MenuGrid, TextBox
 
-
 MAIN_MENU = [
     'GAME START',
     'REGISTER HISTORY BOOK',

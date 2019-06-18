@@ -2,6 +2,7 @@
 
 import copy
 import math
+import os
 import subprocess
 import random
 import sys
@@ -59,8 +60,8 @@ class Game(object):
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
         self.change_map_time_elapsed = None
-        self.walk_sound = pygame.mixer.Sound('data/audio/walk.wav')
-        self.encounter_sound = pygame.mixer.Sound('data/audio/encounter.wav')
+        self.walk_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'walk.wav'))
+        self.encounter_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'encounter.wav'))
         self.fade_out = False
         self.continue_current_music = False
         self.next_map = None

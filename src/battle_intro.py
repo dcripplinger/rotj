@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import os
+
 from constants import GAME_WIDTH
 from helpers import load_image
 from text import create_prompt
@@ -8,7 +10,7 @@ from text import create_prompt
 class BattleIntro(object):
     def __init__(self, screen, warlord, text):
         self.screen = screen
-        self.portrait = load_image('portraits/{}.png'.format(warlord))
+        self.portrait = load_image(os.path.join('portraits', '{}.png'.format(warlord)))
         self.dialog = create_prompt(text)
 
     def draw(self):

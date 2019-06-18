@@ -142,7 +142,7 @@ class TextBox(object):
             else 1 if appear=='scroll'
             else len(self.lines)
         )
-        self.typing_sound = pygame.mixer.Sound('data/audio/typing.wav')
+        self.typing_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'typing.wav'))
         self.needs_update = False if appear=='instant' else True
         self.started = False
 
@@ -343,7 +343,7 @@ class MenuBox(object):
         self.blink = False
         self.border = border
         self.create_text_box(title, width, height)
-        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
 
     def create_text_box(self, title, width, height):
         self.text_box = TextBox(
@@ -454,7 +454,7 @@ class MenuGrid(object):
         self.focused_menu_index = 0
         self.border = border
         self.title = title
-        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
         self.surface = None
         self.set_focused_menu(self.focused_menu_index)
         self.update_surface()

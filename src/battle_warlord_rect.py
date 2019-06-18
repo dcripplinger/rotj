@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import math
+import os
 import random
 
 import pygame
@@ -32,10 +33,10 @@ class BattleWarlordRectBase(object):
         self.color = None
         self.soldiers_per_pixel = None
         self.build_soldiers_box()
-        self.stand = load_image('sprites/{}/e/stand.png'.format(self.name))
-        self.walk = load_image('sprites/{}/e/walk.png'.format(self.name))
-        self.stand_s = load_image('sprites/{}/s/stand.png'.format(self.name))
-        self.walk_s = load_image('sprites/{}/s/walk.png'.format(self.name))
+        self.stand = load_image(os.path.join('sprites', self.name, 'e', 'stand.png'))
+        self.walk = load_image(os.path.join('sprites', self.name, 'e', 'walk.png'))
+        self.stand_s = load_image(os.path.join('sprites', self.name, 's', 'stand.png'))
+        self.walk_s = load_image(os.path.join('sprites', self.name, 's', 'walk.png'))
         self.sprite = self.stand
         self.state = 'wait'
         self.rel_pos = 0
@@ -280,16 +281,16 @@ class Ally(BattleWarlordRectBase):
         self.soldiers_box_position = (0, 16)
         self.hit_images = {
             'attack': {
-                True: pygame.transform.flip(load_image('hits/attack/a.png'), True, False),
-                False: pygame.transform.flip(load_image('hits/attack/b.png'), True, False),
+                True: pygame.transform.flip(load_image(os.path.join('hits', 'attack', 'a.png')), True, False),
+                False: pygame.transform.flip(load_image(os.path.join('hits', 'attack', 'b.png')), True, False),
             },
             'fire': {
-                True: pygame.transform.flip(load_image('hits/fire/a.png'), True, False),
-                False: pygame.transform.flip(load_image('hits/fire/b.png'), True, False),
+                True: pygame.transform.flip(load_image(os.path.join('hits', 'fire', 'a.png')), True, False),
+                False: pygame.transform.flip(load_image(os.path.join('hits', 'fire', 'b.png')), True, False),
             },
             'water': {
-                True: pygame.transform.flip(load_image('hits/water/a.png'), True, False),
-                False: pygame.transform.flip(load_image('hits/water/b.png'), True, False),
+                True: pygame.transform.flip(load_image(os.path.join('hits', 'water', 'a.png')), True, False),
+                False: pygame.transform.flip(load_image(os.path.join('hits', 'water', 'b.png')), True, False),
             },
         }
 
@@ -317,16 +318,16 @@ class Enemy(BattleWarlordRectBase):
         self.sprite = self.stand
         self.hit_images = {
             'attack': {
-                True: load_image('hits/attack/a.png'),
-                False: load_image('hits/attack/b.png'),
+                True: load_image(os.path.join('hits', 'attack', 'a.png')),
+                False: load_image(os.path.join('hits', 'attack', 'b.png')),
             },
             'fire': {
-                True: load_image('hits/fire/a.png'),
-                False: load_image('hits/fire/b.png'),
+                True: load_image(os.path.join('hits', 'fire', 'a.png')),
+                False: load_image(os.path.join('hits', 'fire', 'b.png')),
             },
             'water': {
-                True: load_image('hits/water/a.png'),
-                False: load_image('hits/water/b.png'),
+                True: load_image(os.path.join('hits', 'water', 'a.png')),
+                False: load_image(os.path.join('hits', 'water', 'b.png')),
             },
         }
 

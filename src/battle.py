@@ -2,6 +2,7 @@
 
 import copy
 import math
+import os
 import random
 import time
 
@@ -162,11 +163,11 @@ class Battle(object):
         self.menu = None
         self.portraits = {}
         self.portraits.update({
-            warlord['name']: load_image(u'portraits/{}.png'.format(warlord['name']))
+            warlord['name']: load_image(os.path.join(u'portraits', u'{}.png'.format(warlord['name'])))
             for warlord in allies
         })
         self.portraits.update({
-            warlord['name']: pygame.transform.flip(load_image(u'portraits/{}.png'.format(warlord['name'])), True, False)
+            warlord['name']: pygame.transform.flip(load_image(os.path.join(u'portraits', u'{}.png'.format(warlord['name']))), True, False)
             for warlord in enemies
         })
         self.portrait = None
@@ -185,10 +186,10 @@ class Battle(object):
         self.offguard = self.get_offguard() if offguard is None else offguard
 
         self.set_start_dialog()
-        self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
+        self.select_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'select.wav'))
         self.selected_enemy_index = None
         self.selected_ally_index = None
-        self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
+        self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
         self.report = None
         self.submitted_moves = []
         self.enemy_moves = []
@@ -196,12 +197,12 @@ class Battle(object):
         self.good_enemy_statuses = {}
         self.good_ally_statuses = {}
         self.near_water = near_water
-        self.excellent_sound = pygame.mixer.Sound('data/audio/excellent.wav')
-        self.heavy_damage_sound = pygame.mixer.Sound('data/audio/heavy_damage.wav')
-        self.hit_sound = pygame.mixer.Sound('data/audio/hit.wav')
-        self.damage_sound = pygame.mixer.Sound('data/audio/damage.wav')
-        self.fail_sound = pygame.mixer.Sound('data/audio/fail.wav')
-        self.tactic_sound = pygame.mixer.Sound('data/audio/tactic.wav')
+        self.excellent_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'excellent.wav'))
+        self.heavy_damage_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'heavy_damage.wav'))
+        self.hit_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'hit.wav'))
+        self.damage_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'damage.wav'))
+        self.fail_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'fail.wav'))
+        self.tactic_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'tactic.wav'))
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
         self.exit = exit
@@ -354,7 +355,7 @@ class Battle(object):
                 )
             self.right_dialog = create_prompt(victory_script)
             self.captured_enemies = self.get_captured_enemies()
-            pygame.mixer.music.load('data/audio/music/victory.wav')
+            pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'victory.wav'))
             pygame.mixer.music.play()
             self.win_state = 'main'
         elif self.win_state == 'exit_dialog':
@@ -395,7 +396,7 @@ class Battle(object):
     def update_lose(self, dt):
         if self.lose_state == 'start':
             self.right_dialog = create_prompt('Your army has been overcome by the enemy. Game over.', silent=True)
-            pygame.mixer.music.load('data/audio/music/game_over.wav')
+            pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'game_over.wav'))
             pygame.mixer.music.play()
             self.lose_state = 'main'
         elif self.lose_state == 'main':
@@ -1715,7 +1716,7 @@ class Battle(object):
         if len(self.levels) == 0:
             return False
         level = self.levels.pop(0)
-        pygame.mixer.music.load('data/audio/music/level.wav')
+        pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'level.wav'))
         pygame.mixer.music.play()
         self.right_dialog.shutdown()
         dialog = u"{}'s army has advanced one skill level. ".format(self.get_leader().name.title())
