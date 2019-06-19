@@ -36,7 +36,8 @@ from title_page import TitlePage
 
 
 class Game(object):
-    def __init__(self, screen):
+    def __init__(self, screen, debug_info):
+        self.debug_info = debug_info
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None

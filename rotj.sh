@@ -1,2 +1,2 @@
 #!/bin/bash
-./src/rotj.py
+./src/rotj.py $1 $2 $3
