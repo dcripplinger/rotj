@@ -18,11 +18,15 @@ def _validate_debug_args(args):
         print("Otherwise start rotj with no arguments")
         raise ValueError("Debug args are not correct, see info directly above this stack trace ^^^")
 
+    # If no args are provided, return no debug info
     if len(args) == 1:
         return None
 
+    # If the map name is less than 3 characters, bail out
     if len(args[1]) < 3:
         bail_out()
+
+    # Check to make sure the coordinate args are numbers
     try:
         x = int(args[2])
         y = int(args[3])
