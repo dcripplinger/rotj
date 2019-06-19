@@ -292,8 +292,12 @@ class MenuScreen(object):
                 self.game.game_state['level'] = 1
                 self.game.set_screen_state('beginning')
             else:
-                hq_map = u'{}_palace'.format(self.game.game_state['hq'])
-                self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
+                if self.game.debug_info:
+                    start_map = self.game.debug_info['map']
+                    self.game.set_current_map(start_map, list(self.game.debug_info['coords']), 'n')
+                else:
+                    hq_map = u'{}_palace'.format(self.game.game_state['hq'])
+                    self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
         elif pressed[K_z]:
             self.screen_state = 'start'
             self.start_menu.focus()

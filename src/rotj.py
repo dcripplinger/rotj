@@ -4,12 +4,39 @@
 import builtins
 import ctypes
 import os
+import sys
 
 import pygame
 
 from game import Game
 
+def _validate_debug_args(args):
+
+    def bail_out():
+        print("If you're going to provide debug args")
+        print("Usage: rotj.py <map name> <x coord> <y coord>")
+        print("Otherwise start rotj with no arguments")
+        raise ValueError("Debug args are not correct, see info directly above this stack trace ^^^")
+
+    # If no args are provided, return no debug info
+    if len(args) == 1:
+        return None
+
+    # If the map name is less than 3 characters, bail out
+    if len(args[1]) < 3:
+        bail_out()
+
+    # Check to make sure the coordinate args are numbers
+    try:
+        x = int(args[2])
+        y = int(args[3])
+    except:
+        bail_out()
+
+    return {"map": args[1], "coords": (x, y)}
+
 if __name__ == '__main__':
+    debug_info = _validate_debug_args(sys.argv)
     if os.name == 'nt':
         ctypes.windll.user32.SetProcessDPIAware()
     pygame.display.init()
@@ -18,7 +45,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((int(.8*info_object.current_w), int(.8*info_object.current_h)))
     pygame.mixer.init(frequency=44100)
     try:
-        game = Game(screen)
+        game = Game(screen, debug_info)
         game.run()
     except:
         pygame.quit()
