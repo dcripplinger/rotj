@@ -268,7 +268,7 @@ class MenuScreen(object):
             else:
                 if self.game.debug_info:
                     start_map = self.game.debug_info['map']
-                    self.game.set_current_map(start_map, list(self.game.debug_info['coords']), 'n', followers='under', continue_current_music=True)
+                    self.game.set_current_map(start_map, list(self.game.debug_info['coords']), 'n')
                 else:
                     hq_map = u'{}_palace'.format(self.game.game_state['hq'])
                     self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
