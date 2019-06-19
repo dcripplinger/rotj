@@ -18,20 +18,17 @@ MAP_HEIGHT = 400
 
 class PauseMap(object):
     def __init__(self, screen, game, position):
+        # init basic values
         self.screen = screen
         self.game = game
-        self.set_visible_tiles()
-        map_filename = get_map_filename('overworld_map.tmx')
-        self.tmx_data = load_pygame(map_filename)
-        map_data = pyscroll.data.TiledMapData(self.tmx_data)
-        self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
-        self.map_layer.zoom = 1
-        self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.bound_position(position)
         self.direction = [0, 0]
+        map_filename = get_map_filename('overworld_map.tmx')
+        self.tmx_data = load_pygame(map_filename)
 
-    def set_visible_tiles(self):
-        self.visible_tiles = [[False] * MAP_HEIGHT for i in range(MAP_WIDTH)]
+        # set all visible tiles to transparent
+        layer = self.tmx_data.get_layer_by_name('blackout')
+        tileset = self.tmx_data.tilesets[2]
         for tile in self.game.game_state['beaten_path'].keys():
             X, Y = [int(i) for i in tile.split()]
             for x in range(X-8, X+9):
@@ -40,7 +37,19 @@ class PauseMap(object):
                 for y in range(Y-7, Y+8):
                     if y < 0 or y >= MAP_HEIGHT:
                         continue
-                    self.visible_tiles[x][y] = True
+                    # This is a hack that only works if we leave the file overworld_map.tmx alone.
+                    # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
+                    # If overworld_map.tmx does not have the single transparent tile in the "blackout" layer,
+                    # that type of tile never gets assigned the gid of 344.
+                    # Also, if we change ANYTHING in the overworld_map.tmx file, there is the potential that
+                    # pytmx's gids will get scrambled up.
+                    layer.data[y][x] = 344
+
+        # init pyscroll data
+        map_data = pyscroll.data.TiledMapData(self.tmx_data)
+        self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
+        self.map_layer.zoom = 1
+        self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
 
     def bound_position(self, position):
         self.position = [min(XMAX, max(XMIN, position[0])), min(YMAX, max(YMIN, position[1]))]
