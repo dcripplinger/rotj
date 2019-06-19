@@ -5,8 +5,8 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import TILE_SIZE, WHITE
-from helpers import get_map_filename
+from constants import ORANGE, RED, TILE_SIZE, WHITE
+from helpers import get_map_filename, is_quarter_second
 
 XMIN = 7.5
 XMAX = 291.5
@@ -70,6 +70,15 @@ class PauseMap(object):
         self.group.draw(self.screen)
         pygame.draw.rect(self.screen, WHITE, (0, 0, 62, 82), 1) # border around minimap
         self.screen.blit(self.minimap_surface, (1, 1))
+
+        # Draw the highlighter box over the minimap
+        # Note: x and y are -1 of below calculation for the highlighter being a 3x3 box (need to find top left corner, not center),
+        #       but they are +1 of below calculation for blitting it on the whole screen, while the minimap is offset by one (due to the border).
+        #       Thus, it evens out. But I wanted to document what was going on.
+        x = int(self.position[0] * 1.0 / MAP_WIDTH * 60)
+        y = int(self.position[1] * 1.0 / MAP_HEIGHT * 80)
+        color = RED if is_quarter_second() else ORANGE
+        pygame.draw.rect(self.screen, color, (x, y, 3, 3), 1)
 
     def update(self, dt):
         self.position[0] += self.direction[0] * SPEED * dt
