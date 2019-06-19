@@ -560,6 +560,7 @@ class Map(object):
                         narration=self.battle_after_dialog['narration'],
                         battle_name=self.battle_after_dialog['battle_name'],
                         continue_music=self.battle_after_dialog['continue_music'],
+                        offguard = self.battle_after_dialog['offguard'],
                     )
                     self.battle_after_dialog = None
         elif self.company_report:
@@ -609,7 +610,7 @@ class Map(object):
         return "There's no one there."
 
     def start_battle_after_dialog(
-        self, enemies, battle_type, intro=None, exit=None, battle_name=None, narration=None, continue_music=False,
+        self, enemies, battle_type, intro=None, exit=None, battle_name=None, narration=None, continue_music=False, offguard=None,
     ):
         self.battle_after_dialog = {
             'enemies': enemies,
@@ -619,4 +620,5 @@ class Map(object):
             'narration': narration,
             'battle_name': battle_name,
             'continue_music': continue_music,
+            'offguard': offguard,
         }
