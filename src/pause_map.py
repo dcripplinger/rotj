@@ -13,11 +13,14 @@ XMAX = 291.5
 YMIN = 7
 YMAX = 392
 SPEED = 50 # tiles per second when moving
+MAP_WIDTH = 300
+MAP_HEIGHT = 400
 
 class PauseMap(object):
     def __init__(self, screen, game, position):
         self.screen = screen
         self.game = game
+        self.set_visible_tiles()
         map_filename = get_map_filename('overworld_map.tmx')
         self.tmx_data = load_pygame(map_filename)
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
@@ -26,6 +29,18 @@ class PauseMap(object):
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.bound_position(position)
         self.direction = [0, 0]
+
+    def set_visible_tiles(self):
+        self.visible_tiles = [[False] * MAP_HEIGHT for i in range(MAP_WIDTH)]
+        for tile in self.game.game_state['beaten_path'].keys():
+            X, Y = [int(i) for i in tile.split()]
+            for x in range(X-8, X+9):
+                if x < 0 or x >= MAP_WIDTH:
+                    continue
+                for y in range(Y-7, Y+8):
+                    if y < 0 or y >= MAP_HEIGHT:
+                        continue
+                    self.visible_tiles[x][y] = True
 
     def bound_position(self, position):
         self.position = [min(XMAX, max(XMIN, position[0])), min(YMAX, max(YMIN, position[1]))]
