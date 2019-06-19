@@ -41,15 +41,23 @@ class PauseMap(object):
                     # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
                     # If overworld_map.tmx does not have the single transparent tile in the "blackout" layer,
                     # that type of tile never gets assigned the gid of 344.
-                    # Also, if we change ANYTHING in the overworld_map.tmx file, there is the potential that
-                    # pytmx's gids will get scrambled up.
+                    # Here is an explanation of what exactly pytmx is doing and why:
+                    # https://github.com/bitcraft/PyTMX/blob/3fb9788dd66ecfd0c8fa0e9f38c582337d89e1d9/pytmx/pytmx.py#L330
                     layer.data[y][x] = 344
 
-        # init pyscroll data
+        # init pyscroll regular map
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
+
+        # init pyscroll minimap
+        self.minimap_layer = pyscroll.BufferedRenderer(map_data, (60, 80))
+        self.minimap_layer.zoom = 1.0/80.0
+        self.minimap_group = pyscroll.group.PyscrollGroup(map_layer=self.minimap_layer)
+        self.minimap_surface = pygame.Surface((60, 80))
+        self.minimap_group.center((30, 40))
+        self.minimap_group.draw(self.minimap_surface)
 
     def bound_position(self, position):
         self.position = [min(XMAX, max(XMIN, position[0])), min(YMAX, max(YMIN, position[1]))]
@@ -61,6 +69,7 @@ class PauseMap(object):
         self.group.center(self.get_group_center())
         self.group.draw(self.screen)
         pygame.draw.rect(self.screen, WHITE, (0, 0, 62, 82), 1) # border around minimap
+        self.screen.blit(self.minimap_surface, (1, 1))
 
     def update(self, dt):
         self.position[0] += self.direction[0] * SPEED * dt
