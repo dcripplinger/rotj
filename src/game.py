@@ -661,6 +661,12 @@ class Game(object):
         self.fade_alpha = 0
         self.set_screen_state('change_map')
         self.retreat_counter = 0
+        if map_name == 'overworld':
+            self.mark_beaten_path(position)
+
+    def mark_beaten_path(self, position):
+        position = [int(x) for x in position]
+        self.game_state['beaten_path']['{} {}'.format(*position)] = True
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)

@@ -182,7 +182,14 @@ def is_quarter_second():
 
 
 def load_save_states():
-    return [load_json_file_if_exists('data/state/{}.json'.format(x)) for x in [1,2,3]]
+    states = []
+    for x in [1,2,3]:
+        try:
+            state = load_json_file_if_exists(os.path.join('data', 'state', '{}.json'.format(x)))
+        except ValueError:
+            state = {'corrupt': True, 'level': -1, 'name': '??'}
+        states.append(state)
+    return states
 
 
 def save_game_state(slot, game_state):

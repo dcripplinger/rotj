@@ -109,7 +109,7 @@ class MenuScreen(object):
         top_menu_vert_pos = 16
         if self.screen_state == 'main':
             self.screen.blit(self.main_menu.surface, ((GAME_WIDTH - self.main_menu.get_width())/2, top_menu_vert_pos))
-        elif self.screen_state == 'start':
+        elif self.screen_state in ['start', 'start_prompt']:
             self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)/2, prompt_vert_pos))
             self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())/2, top_menu_vert_pos))
         elif self.screen_state == 'speed':
@@ -134,7 +134,7 @@ class MenuScreen(object):
             self.screen.blit(self.name_field.surface, ((GAME_WIDTH - self.name_field.width)/2, top_menu_vert_pos + 16))
             self.screen.blit(self.name_underline.surface, ((GAME_WIDTH - self.name_underline.width)/2, top_menu_vert_pos + 24))
             self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos + 40))
-        elif self.screen_state == 'copy':
+        elif self.screen_state in ['copy', 'copy_prompt']:
             self.screen.blit(self.copy_prompt.surface, ((GAME_WIDTH - self.copy_prompt.width)/2, prompt_vert_pos))
             self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())/2, top_menu_vert_pos))
         elif self.screen_state == 'paste':
@@ -154,6 +154,11 @@ class MenuScreen(object):
         elif self.screen_state == 'start':
             self.start_menu.update(dt)
             self.start_prompt.update(dt)
+        elif self.screen_state == 'start_prompt':
+            self.start_prompt.update(dt)
+            if not self.start_prompt.has_more_stuff_to_show():
+                self.screen_state = 'start'
+                self.start_menu.focus()
         elif self.screen_state == 'speed':
             self.speed_menu.update(dt)
             self.start_prompt.update(dt)
@@ -177,6 +182,11 @@ class MenuScreen(object):
         elif self.screen_state == 'copy':
             self.copy_menu.update(dt)
             self.copy_prompt.update(dt)
+        elif self.screen_state == 'copy_prompt':
+            self.copy_prompt.update(dt)
+            if not self.copy_prompt.has_more_stuff_to_show():
+                self.screen_state = 'copy'
+                self.copy_menu.focus()
         elif self.screen_state == 'paste':
             self.paste_menu.update(dt)
             self.paste_prompt.update(dt)
@@ -205,11 +215,18 @@ class MenuScreen(object):
     def handle_input_start(self, pressed):
         self.start_menu.handle_input(pressed)
         if pressed[K_x]:
-            self.screen_state = 'speed'
-            self.load_speed_menu()
-            self.speed_menu.focus()
-            self.start_menu.unfocus()
-            self.start_prompt.shutdown()
+            slot = int(self.start_menu.get_choice()[0])
+            game_state = self.state[slot-1]
+            if game_state.get('corrupt'):
+                self.start_prompt = create_prompt('That history is corrupt and should be deleted. Which history do you wish to continue?')
+                self.screen_state = 'start_prompt'
+                self.start_menu.unfocus()
+            else:
+                self.screen_state = 'speed'
+                self.load_speed_menu()
+                self.speed_menu.focus()
+                self.start_menu.unfocus()
+                self.start_prompt.shutdown()
         elif pressed[K_z]:
             self.screen_state = 'main'
             self.load_main_menu()
@@ -221,11 +238,18 @@ class MenuScreen(object):
     def handle_input_copy(self, pressed):
         self.copy_menu.handle_input(pressed)
         if pressed[K_x]:
-            self.screen_state = 'paste'
-            self.load_paste_menu()
-            self.paste_menu.focus()
-            self.copy_menu.unfocus()
-            self.copy_prompt.shutdown()
+            slot = int(self.copy_menu.get_choice()[0])
+            game_state = self.state[slot-1]
+            if game_state.get('corrupt'):
+                self.copy_prompt = create_prompt('That history is corrupt and should be deleted. Which history book do you wish to copy?')
+                self.screen_state = 'copy_prompt'
+                self.copy_menu.unfocus()
+            else:
+                self.screen_state = 'paste'
+                self.load_paste_menu()
+                self.paste_menu.focus()
+                self.copy_menu.unfocus()
+                self.copy_prompt.shutdown()
         elif pressed[K_z]:
             self.screen_state = 'main'
             self.load_main_menu()
@@ -261,6 +285,8 @@ class MenuScreen(object):
             time.sleep(.5)
             slot = int(self.start_menu.get_choice()[0])
             self.game.game_state = self.state[slot-1]
+            if 'beaten_path' not in self.game.game_state:
+                self.game.game_state['beaten_path'] = {}
             self.game.slot = slot
             if self.game.game_state['level'] == 0:
                 self.game.game_state['level'] = 1
@@ -358,6 +384,8 @@ class MenuScreen(object):
             self.handle_input_main(pressed)
         elif self.screen_state == 'start':
             self.handle_input_start(pressed)
+        elif self.screen_state == 'start_prompt':
+            self.start_prompt.handle_input(pressed)
         elif self.screen_state == 'speed':
             self.handle_input_speed(pressed)
         elif self.screen_state == 'register':
@@ -370,5 +398,7 @@ class MenuScreen(object):
             self.handle_input_name(pressed)
         elif self.screen_state == 'copy':
             self.handle_input_copy(pressed)
+        elif self.screen_state == 'copy_prompt':
+            self.copy_prompt.handle_input(pressed)
         elif self.screen_state == 'paste':
             self.handle_input_paste(pressed)

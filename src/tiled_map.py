@@ -493,6 +493,8 @@ class Map(object):
                 self.game.cloak_steps_remaining -= 1
                 if not self.game.cloak_steps_remaining:
                     self.opening_dialog = create_prompt("The cloak has worn off. We are now visible to the enemy.")
+            if self.name == 'overworld':
+                self.game.mark_beaten_path(next_pos)
 
     def try_getting_random_encounter(self):
         # This function assumes that outside of it has already checked that self.name in MAPS_WITH_RANDOM_ENCOUNTERS.
