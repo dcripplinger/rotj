@@ -5,7 +5,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import TILE_SIZE
+from constants import TILE_SIZE, WHITE
 from helpers import get_map_filename
 
 XMIN = 7.5
@@ -60,6 +60,7 @@ class PauseMap(object):
     def draw(self):
         self.group.center(self.get_group_center())
         self.group.draw(self.screen)
+        pygame.draw.rect(self.screen, WHITE, (0, 0, 62, 82), 1) # border around minimap
 
     def update(self, dt):
         self.position[0] += self.direction[0] * SPEED * dt
