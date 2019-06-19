@@ -1175,6 +1175,25 @@ HQ = [
     'desolation',
 ]
 
+# Used for setting last_overworld_position when loading the game
+HQ_LOCATIONS = {
+    'zarahemla': [153, 187],
+    'gideon': [180, 174],
+    'ishmael': [134, 267],
+    'manti': [208, 256],
+    'bountiful': [117, 138],
+    'nephihah': [247, 115],
+    'judea': [90, 162],
+    'cumeni': [117, 318],
+    'moroni': [248, 278],
+    'jerusalem': [256, 327],
+    'joshua': [58, 90],
+    'jashon': [102, 43],
+    'boaz': [126, 63],
+    'teancum': [46, 34],
+    'desolation': [37, 87],
+}
+
 MAX_COMPANY_SIZE = 7
 
 # we may or may not reference these

@@ -73,6 +73,7 @@ class Game(object):
         self.pause_menu = None
         self.pause_map = None
         self._screen_state_after_pause = None
+        self.last_overworld_position = [169, 190] # default to melek
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -436,7 +437,7 @@ class Game(object):
 
     def open_pause_map(self):
         self.set_screen_state('pause_map')
-        self.pause_map = PauseMap(self.virtual_screen, self, (169, 190)) # position for now is at melek
+        self.pause_map = PauseMap(self.virtual_screen, self, self.last_overworld_position) # position for now is at melek
 
     def close_pause_map(self):
         self.pause_map = None
@@ -665,8 +666,12 @@ class Game(object):
         if map_name == 'overworld':
             self.mark_beaten_path(position)
 
+    # This should only be called for marking the latest position the player has walked in the overworld.
+    # Loading the game in a palace counts, and menu_screen.py makes sure to call this for the HQ's location
+    # on the overworld map when the game starts.
     def mark_beaten_path(self, position):
         position = [int(x) for x in position]
+        self.last_overworld_position = position
         self.game_state['beaten_path']['{} {}'.format(*position)] = True
 
     def resize_window(self, size):

@@ -5,7 +5,7 @@ import time
 import pygame
 from pygame.locals import *
 
-from constants import GAME_WIDTH, BLACK
+from constants import BLACK, GAME_WIDTH, HQ_LOCATIONS
 from helpers import create_save_state, erase_save_state, is_half_second, load_save_states, copy_save_state
 from text import create_prompt, MenuBox, MenuGrid, TextBox
 
@@ -297,6 +297,7 @@ class MenuScreen(object):
                     self.game.set_current_map(start_map, list(self.game.debug_info['coords']), 'n')
                 else:
                     hq_map = u'{}_palace'.format(self.game.game_state['hq'])
+                    self.game.mark_beaten_path(HQ_LOCATIONS[self.game.game_state['hq']])
                     self.game.set_current_map(hq_map, [17,15], 'n', followers='trail', continue_current_music=True)
         elif pressed[K_z]:
             self.screen_state = 'start'
