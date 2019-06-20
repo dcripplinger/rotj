@@ -185,6 +185,14 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'kingmen'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'battle34':
+            for sprite in self.group.sprites():
+                if getattr(sprite, 'name', '') == 'leantum':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'leantum'
+            }
+            self.ai_sprites = ai_sprites
         elif condition == 'helaman_joins':
             for sprite in self.group.sprites():
                 if sprite.name == 'helaman':
