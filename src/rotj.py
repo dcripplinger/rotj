@@ -22,6 +22,7 @@ class PosAction(argparse.Action):
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--devtools', action='store_true', help='enable dev tools in the pause menu')
     parser.add_argument('--pos', nargs=3, action=PosAction, metavar=('MAPNAME', 'X', 'Y'), help='load a game at a specific position')
     args = parser.parse_args()
     if not hasattr(args, 'map'):
