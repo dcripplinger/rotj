@@ -307,7 +307,7 @@ class Battle(object):
             return list(self.captured_enemies)
         captured_enemies = []
         for enemy in self.enemies:
-            if enemy.capture and random.random() < 0.5:
+            if enemy.capture and (enemy.name in ['samuel', 'laman'] or random.random() < 0.5):
                 captured_enemies.append(enemy)
         return captured_enemies
 
