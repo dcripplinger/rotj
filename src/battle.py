@@ -1534,9 +1534,12 @@ class Battle(object):
     def start_next_capture(self):
         self.win_state = 'capture'
         enemy = self.captured_enemies[0]
-        self.right_dialog = create_prompt(
-            u'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title()),
-        )
+        if enemy.name == 'samuel':
+            self.portrait = self.portraits['samuel']
+            text = u'I see that your cause is just and your resolve is strong. I wish to offer my assistance.'
+        else:
+            text = u'We captured a general named {}. Should we try to recruit him to our side?'.format(enemy.name.title())
+        self.right_dialog = create_prompt(text)
 
     def handle_exit_choice(self):
         choice = self.exit_choices[self.exit_choice.current_choice]
@@ -1691,12 +1694,13 @@ class Battle(object):
             self.bargain = None
 
     def get_bargain(self):
+        enemy = self.captured_enemies[0]
         random_number = random.random()
-        if random_number < 0.25:
+        if random_number < 0.25 or enemy.name == 'samuel':
             return None
         elif random_number < 0.5:
             return self.get_required_money_for_recruiting(self.captured_enemies[0].max_soldiers)
-        elif random_number < 0.75:
+        elif random_number < 0.75 or enemy.name == 'laman':
             return 'refuse'
         else:
             return 'horse'
