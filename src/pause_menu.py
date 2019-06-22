@@ -15,7 +15,12 @@ class PauseMenu(object):
         self.screen = screen
         self.game = game
         self.title = TextBox('PAUSE MENU', GAME_WIDTH, 16, adjust='center')
-        self.menu = MenuBox(['MAP', 'BACK'], border=False)
+        menu_items = []
+        menu_items.append('MAP')
+        if self.game.args.devtools:
+            menu_items.append('DEV TOOLS')
+        menu_items.append('BACK')
+        self.menu = MenuBox(menu_items, border=False)
         self.menu.focus()
 
     def draw(self):

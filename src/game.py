@@ -38,6 +38,10 @@ from title_page import TitlePage
 class Game(object):
     def __init__(self, screen, args):
         self.args = args # Parsed args from the command line
+        self.devtools = {
+            'No encounters': False,
+            'Infinity gauntlet': False,
+        }
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None
