@@ -293,9 +293,8 @@ class MenuScreen(object):
                 self.game.mark_beaten_path((169, 190)) # we start the game in melek
                 self.game.set_screen_state('beginning')
             else:
-                if self.game.debug_info:
-                    start_map = self.game.debug_info['map']
-                    self.game.set_current_map(start_map, list(self.game.debug_info['coords']), 'n')
+                if self.game.args.map:
+                    self.game.set_current_map(self.game.args.map, list(self.game.args.position), 'n')
                 else:
                     hq_map = u'{}_palace'.format(self.game.game_state['hq'])
                     self.game.mark_beaten_path(HQ_LOCATIONS[self.game.game_state['hq']])

@@ -36,8 +36,8 @@ from title_page import TitlePage
 
 
 class Game(object):
-    def __init__(self, screen, debug_info):
-        self.debug_info = debug_info # Used in MenuScreen to start on a specified map and coords
+    def __init__(self, screen, args):
+        self.args = args # Parsed args from the command line
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import argparse
 import builtins
 import ctypes
 import os
@@ -10,33 +11,27 @@ import pygame
 
 from game import Game
 
-def _validate_debug_args(args):
 
-    def bail_out():
-        print("If you're going to provide debug args")
-        print("Usage: rotj.py <map name> <x coord> <y coord>")
-        print("Otherwise start rotj with no arguments")
-        raise ValueError("Debug args are not correct, see info directly above this stack trace ^^^")
+class PosAction(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, 'map', None if values[0] == 'None' else values[0])
+        x = int(values[1])
+        y = int(values[2])
+        setattr(namespace, 'position', (x, y))
 
-    # If no args are provided, return no debug info
-    if len(args) == 1:
-        return None
 
-    # If the map name is less than 3 characters, bail out
-    if len(args[1]) < 3:
-        bail_out()
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pos', nargs=3, action=PosAction, metavar=('MAPNAME', 'X', 'Y'), help='load a game at a specific position')
+    args = parser.parse_args()
+    if not hasattr(args, 'map'):
+        setattr(args, 'map', None)
+        setattr(args, 'position', None)
+    return args
 
-    # Check to make sure the coordinate args are numbers
-    try:
-        x = int(args[2])
-        y = int(args[3])
-    except:
-        bail_out()
-
-    return {"map": args[1], "coords": (x, y)}
 
 if __name__ == '__main__':
-    debug_info = _validate_debug_args(sys.argv)
+    args = parse_args()
     if os.name == 'nt':
         ctypes.windll.user32.SetProcessDPIAware()
     pygame.display.init()
@@ -45,7 +40,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((int(.8*info_object.current_w), int(.8*info_object.current_h)))
     pygame.mixer.init(frequency=44100)
     try:
-        game = Game(screen, debug_info)
+        game = Game(screen, args)
         game.run()
     except:
         pygame.quit()
