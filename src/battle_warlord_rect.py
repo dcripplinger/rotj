@@ -162,6 +162,11 @@ class BattleWarlordRectBase(object):
         return self.compounded_strength * self.get_soldier_gain() * 25 * hulk_boost
 
     def get_damage(self, excellent=False):
+        if self.battle.game.devtools['Infinity gauntlet']:
+            if self.is_enemy:
+                return 0 # With infinity gauntlet on, bad guys hit with zero (battly.py corrects this to 1 though)
+            else:
+                return 1e8 # With infinity gauntlet on, good guys always hit with 100,000,000 damage (before target's attack exposure)
         return self.get_preliminary_damage() * self.get_damage_potential(excellent=excellent)
 
     def get_damage_potential(self, excellent=False):
