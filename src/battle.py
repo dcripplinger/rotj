@@ -884,8 +884,8 @@ class Battle(object):
     def execute_move(self, move, fast=False):
         move = self.change_move_if_dead_or_cursed(move)
         if move is not None:
-            if 'defend' in move['agent'].boosts:
-                del move['agent'].boosts['defend']
+            if 'defend' in move['agent'].good_statuses:
+                del move['agent'].good_statuses['defend']
             action_handler = move['action']
             move, results = action_handler(move)
             self.results = results
@@ -994,9 +994,8 @@ class Battle(object):
         if not power_pill and random.random() < evade_prob / 4.0: # divide by 4 so that evades aren't too common
             return move, {'evade': True}
         excellent = True if power_pill else random.random() < 1.0/16
-        hulk_out = move['agent'].good_statuses.get('hulk~out', 1)
         inflicted_damage = int(
-            move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) * hulk_out + 1
+            move['target'].attack_exposure * move['agent'].get_damage(excellent=excellent) + 1
         )
         if not power_pill and move['agent'].good_statuses.get('double~tap') and random.random() < 0.75:
             double_tap = int( move['target'].attack_exposure * move['agent'].get_damage() + 1 )
@@ -1006,7 +1005,7 @@ class Battle(object):
             inflicted_damage = max(inflicted_damage/2, 1)
             if double_tap:
                 double_tap = max(double_tap/2, 1)
-        if not power_pill and 'defend' in move['target'].boosts:
+        if not power_pill and move['target'].good_statuses.get('defend'):
             inflicted_damage = max(inflicted_damage/2, 1)
             if double_tap:
                 double_tap = max(double_tap/2, 1)
@@ -1291,7 +1290,7 @@ class Battle(object):
             return random.random() < assassin
 
     def execute_move_defend(self, move):
-        move['agent'].boosts['defend'] = True
+        move['agent'].good_statuses['defend'] = True
         return move, {'defend': True}
 
     def change_move_if_dead_or_cursed(self, move):

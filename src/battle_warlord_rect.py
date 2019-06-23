@@ -56,7 +56,6 @@ class BattleWarlordRectBase(object):
         self.bad_status = None
         self.good_statuses = {}
         self.index = warlord['index']
-        self.boosts = {}
         self.attack_exposure = 1.0 - warlord['defense'] / 341.0 # defense of 255 cuts damage by 75%
         self.agility = warlord['agility']
         self.evasion = warlord['evasion']
@@ -159,7 +158,7 @@ class BattleWarlordRectBase(object):
 
     def get_preliminary_damage(self):
         # including *25 for accurate get_danger() results, simulating a good damage potential
-        hulk_boost = self.boosts.get('hulk_boost', 1.0)
+        hulk_boost = self.good_statuses.get('hulk~out', 1.0)
         return self.compounded_strength * self.get_soldier_gain() * 25 * hulk_boost
 
     def get_damage(self, excellent=False):
