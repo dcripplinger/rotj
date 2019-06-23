@@ -39,8 +39,8 @@ class Game(object):
     def __init__(self, screen, args):
         self.args = args # Parsed args from the command line
         self.devtools = {
-            'No encounters': False,
-            'Infinity gauntlet': False,
+            'No encounters': False, # When on, disables all random encounters
+            'Infinity gauntlet': False, # When on, makes player very powerful/successful and enemies very weak/unsuccessful
         }
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0

@@ -506,7 +506,7 @@ class Map(object):
 
     def try_getting_random_encounter(self):
         # This function assumes that outside of it has already checked that self.name in MAPS_WITH_RANDOM_ENCOUNTERS.
-        if self.game.cloak_steps_remaining:
+        if self.game.devtools['No encounters'] or self.game.cloak_steps_remaining:
             return False
         (x,y) = self.get_pos_in_front(self.hero.position, self.hero.direction)
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
