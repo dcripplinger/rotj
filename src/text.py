@@ -12,6 +12,7 @@ from constants import BLACK, ITEMS, WHITE
 from helpers import is_half_second, load_image
 
 CHARS = {
+    # numbers
     '0': load_image(os.path.join('font', '0.png')),
     '1': load_image(os.path.join('font', '1.png')),
     '2': load_image(os.path.join('font', '2.png')),
@@ -22,6 +23,8 @@ CHARS = {
     '7': load_image(os.path.join('font', '7.png')),
     '8': load_image(os.path.join('font', '8.png')),
     '9': load_image(os.path.join('font', '9.png')),
+
+    # lower case letters
     'a': load_image(os.path.join('font', 'a.png')),
     'b': load_image(os.path.join('font', 'b.png')),
     'c': load_image(os.path.join('font', 'c.png')),
@@ -48,6 +51,8 @@ CHARS = {
     'x': load_image(os.path.join('font', 'x.png')),
     'y': load_image(os.path.join('font', 'y.png')),
     'z': load_image(os.path.join('font', 'z.png')),
+
+    # uppercase letters
     'A': load_image(os.path.join('font', 'caps', 'a.png')),
     'B': load_image(os.path.join('font', 'caps', 'b.png')),
     'C': load_image(os.path.join('font', 'caps', 'c.png')),
@@ -74,8 +79,9 @@ CHARS = {
     'X': load_image(os.path.join('font', 'caps', 'x.png')),
     'Y': load_image(os.path.join('font', 'caps', 'y.png')),
     'Z': load_image(os.path.join('font', 'caps', 'z.png')),
+
+    # as-is ascii punctuation (images look like their ascii characters)
     ' ': load_image(os.path.join('font', 'space.png')),
-    '~': load_image(os.path.join('font', 'space.png')), # cheap way to force space integrity by making multiple words and spaces look like one word
     '.': load_image(os.path.join('font', 'period.png')),
     ',': load_image(os.path.join('font', 'comma.png')),
     ':': load_image(os.path.join('font', 'colon.png')),
@@ -86,17 +92,31 @@ CHARS = {
     '/': load_image(os.path.join('font', 'slash.png')),
     '*': load_image(os.path.join('font', 'asterisk.png')),
     '-': load_image(os.path.join('font', 'mdash.png')), # yes, the game uses mdashes like they were hyphens
+    
     # what looks like a hyphen in the game is not used as a hyphen, but it appears as a character you can
     # include in creating a save file. Since what looks like an mdash in the game is used as a hyphen, I'm
     # using the unicode character "ndash", or U+2013, to invoke this character that looks like a hyphen and
     # is not commonly used in the game. Note that in some editors, like sublime, the ndash and mdash look
     # the same. This unicode character is an ndash.
+
+    # as-is unicode punctuation (images look like their unicode characters)
     u'–': load_image(os.path.join('font', 'hyphen.png')), # this unicode is an ndash, U+2013
     u'©': load_image(os.path.join('font', 'copyright.png')),
     u'▶': load_image(os.path.join('font', 'arrow.png')),
     u'▼': load_image(os.path.join('font', 'down_arrow.png')),
     u'★': load_image(os.path.join('font', 'star.png')),
-    u'ŕ': load_image(os.path.join('font', 'mdash.png')), # this is a hack to show hyphens without capitalizing the next letter
+
+    # characters used for drawing feature switches inline with text ("[]" is an off switch and "<>" is an on switch)
+    '[': load_image(os.path.join('font', 'left_off_switch.png')),
+    ']': load_image(os.path.join('font', 'right_off_switch.png')),
+    '<': load_image(os.path.join('font', 'left_on_switch.png')),
+    '>': load_image(os.path.join('font', 'right_on_switch.png')),
+    
+    # cheap way to force space integrity by making multiple words and spaces look like one word
+    '~': load_image(os.path.join('font', 'space.png')),
+    
+    # this is a hack to show hyphens without capitalizing the next letter (used in sword name shamshir-e)
+    u'ŕ': load_image(os.path.join('font', 'mdash.png')),
 }
 
 
@@ -336,11 +356,11 @@ class TextBox(object):
 
 
 class MenuBox(object):
-    def __init__(self, choices, border=True, title=None, width=None, height=None):
+    def __init__(self, choices, border=True, title=None, width=None, height=None, current_choice=0):
         self.choices = choices
-        self.current_choice = 0
+        self.current_choice = current_choice
         self.is_active = False
-        self.blink = False
+        self.blink = True
         self.border = border
         self.create_text_box(title, width, height)
         self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
@@ -540,7 +560,7 @@ class ShopMenu(object):
             self.items = items
         self.current_choice = 0
         self.is_active = False
-        self.blink = False
+        self.blink = True
         self.border = None
         self.create_text_box()
         self.switch_sound = pygame.mixer.Sound('data/audio/switch.wav')
