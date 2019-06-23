@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from collections import OrderedDict
 import copy
 import math
 import os
@@ -38,10 +39,11 @@ from title_page import TitlePage
 class Game(object):
     def __init__(self, screen, args):
         self.args = args # Parsed args from the command line
-        self.devtools = {
-            'No encounters': False, # When on, disables all random encounters
-            'Infinity gauntlet': False, # When on, makes player very powerful/successful and enemies very weak/unsuccessful
-        }
+        self.devtools = OrderedDict((
+            ('No encounters', False), # When on, disables all random encounters
+            ('Infinity gauntlet', False), # When on, makes player very powerful/successful and enemies very weak/unsuccessful
+            ('Fasting', False), # When on, food is not consumed while traveling
+        ))
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None
@@ -170,6 +172,8 @@ class Game(object):
         return MAP_MUSIC.get(map_name, SHOP_MUSIC)
 
     def decrement_food(self):
+        if self.devtools['Fasting']:
+            return False
         food = copy.deepcopy(self.game_state['food'])
         soldiers = sum(warlord['soldiers'] for warlord in self.game_state['company'])
         eaten = int(math.ceil(soldiers/1000.0))
