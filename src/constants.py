@@ -667,6 +667,11 @@ VILLAGE_MUSIC = {
     'repeat': 'data/audio/music/menu.wav',
 }
 
+MARCH_MUSIC = {
+    'intro': None,
+    'repeat': 'data/audio/music/march.wav',
+}
+
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
@@ -698,10 +703,7 @@ MAP_MUSIC = {
     'jershon': VILLAGE_MUSIC,
     'house_of_moroni': VILLAGE_MUSIC,
     'melek_empty_house': SHOP_MUSIC,
-    'overworld': {
-        'intro': None,
-        'repeat': 'data/audio/music/march.wav',
-    },
+    'overworld': MARCH_MUSIC,
     'tunnels_of_the_north': CAVE_MUSIC,
     'cave_of_gadianton': CAVE_MUSIC,
     'sierra_pass': CAVE_MUSIC,
@@ -724,7 +726,8 @@ MAP_MUSIC = {
     'destroyed_ammonihah': {
         'intro': None,
         'repeat': 'data/audio/music/destroyed.wav',
-    }
+    },
+    'gid_perimeter': MARCH_MUSIC,
 }
 
 BATTLE_MUSIC = {
