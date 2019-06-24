@@ -627,6 +627,14 @@ MAPS_WITH_RANDOM_ENCOUNTERS = [
     'sierra_pass',
     'cavity_of_a_rock',
     'passage_to_gid',
+    'antum',
+    'east_desert_cave',
+    'moroni_cave',
+    'north_grotto',
+    'onidah',
+    'south_desert_cave',
+    'west_desert_cave',
+    'west_grotto',
 ]
 
 CAVE_MUSIC = {
