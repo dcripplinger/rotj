@@ -5,8 +5,8 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import ORANGE, RED, TILE_SIZE, WHITE
-from helpers import get_map_filename, is_quarter_second
+from constants import BLACK, ORANGE, RED, TILE_SIZE, WHITE
+from helpers import get_map_filename, is_quarter_second, load_image
 
 XMIN = 7
 XMAX = 292
@@ -27,6 +27,7 @@ class PauseMap(object):
         self.tmx_data = load_pygame(map_filename)
 
         # set all visible tiles to transparent
+        visible_minitiles = [[0] * 60 for i in range(80)]
         layer = self.tmx_data.get_layer_by_name('blackout')
         tileset = self.tmx_data.tilesets[2]
         for tile in self.game.game_state['beaten_path'].keys():
@@ -37,6 +38,8 @@ class PauseMap(object):
                 for y in range(Y-7, Y+8):
                     if y < 0 or y >= MAP_HEIGHT:
                         continue
+                    mini_x, mini_y = self.mini_coordinates((x, y))
+                    visible_minitiles[mini_y][mini_x] += 1
                     # This is a hack that only works if we leave the file overworld_map.tmx alone.
                     # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
                     # If overworld_map.tmx does not have the single transparent tile in the "blackout" layer,
@@ -52,12 +55,13 @@ class PauseMap(object):
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
 
         # init pyscroll minimap
-        self.minimap_layer = pyscroll.BufferedRenderer(map_data, (60, 80))
-        self.minimap_layer.zoom = 1.0/80.0
-        self.minimap_group = pyscroll.group.PyscrollGroup(map_layer=self.minimap_layer)
-        self.minimap_surface = pygame.Surface((60, 80))
-        self.minimap_group.center((30, 40))
-        self.minimap_group.draw(self.minimap_surface)
+        self.minimap = load_image('minimap.png')
+        for x in range(60):
+            for y in range(80):
+                # Mark the minitile as black if there are 0 to 12 visible tiles corresponding to it.
+                # This is because there is a maximum of 25 tiles that can get mapped to a minitile.
+                if visible_minitiles[y][x] < 13:
+                    self.minimap.set_at((x, y), BLACK)
 
     def bound_position(self, position):
         self.position = [min(XMAX, max(XMIN, position[0])), min(YMAX, max(YMIN, position[1]))]
@@ -65,18 +69,22 @@ class PauseMap(object):
     def get_group_center(self):
         return [int((coord + 0.5) * TILE_SIZE) for coord in self.position]
 
+    def mini_coordinates(self, coordinates):
+        mini_x = int(round(coordinates[0] * 1.0 / MAP_WIDTH * 60))
+        mini_y = int(round(coordinates[1] * 1.0 / MAP_HEIGHT * 80))
+        return mini_x, mini_y
+    
     def draw(self):
         self.group.center(self.get_group_center())
         self.group.draw(self.screen)
         pygame.draw.rect(self.screen, WHITE, (0, 0, 62, 82), 1) # border around minimap
-        self.screen.blit(self.minimap_surface, (1, 1))
+        self.screen.blit(self.minimap, (1, 1))
 
         # Draw the highlighter box over the minimap
         # Note: x and y are -1 of below calculation for the highlighter being a 3x3 box (need to find top left corner, not center),
         #       but they are +1 of below calculation for blitting it on the whole screen, while the minimap is offset by one (due to the border).
         #       Thus, it evens out. But I wanted to document what was going on.
-        x = round(self.position[0] * 1.0 / MAP_WIDTH * 60)
-        y = round(self.position[1] * 1.0 / MAP_HEIGHT * 80)
+        x, y = self.mini_coordinates(self.position)
         color = RED if is_quarter_second() else ORANGE
         pygame.draw.rect(self.screen, color, (x, y, 3, 3), 1)
 
