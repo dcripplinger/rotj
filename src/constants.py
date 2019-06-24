@@ -672,6 +672,16 @@ MARCH_MUSIC = {
     'repeat': 'data/audio/music/march.wav',
 }
 
+PEACE_MUSIC = {
+    'intro': None,
+    'repeat': os.path.join('data', 'audio', 'music', 'peace.wav'),
+}
+
+TRIUMPH_MUSIC = {
+    'intro': None,
+    'repeat': os.path.join('data', 'audio', 'music', 'triumph.wav'),
+}
+
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
 MAP_MUSIC = {
