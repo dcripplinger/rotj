@@ -165,7 +165,8 @@ class AiSprite(Sprite):
         super(AiSprite, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.wander = wander
         self.elapsed_time = 0.0
-        self.tiled_map.ai_sprites[tuple(position)] = self
+        if self.tiled_map:
+            self.tiled_map.ai_sprites[tuple(position)] = self
         self.dialog = dialog
 
     def is_a_wall(self, offset, update_hitting_wall=True):

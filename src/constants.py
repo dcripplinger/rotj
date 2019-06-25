@@ -10,6 +10,7 @@ BLACK = (0,0,0)
 COPPER = (164, 82, 41)
 RED = (128, 0, 0)
 ORANGE = (255, 106, 0)
+BLUE = (15, 125, 255)
 
 # sizes
 TILE_SIZE = 16 # pixels

@@ -5,8 +5,9 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import BLACK, ORANGE, RED, TILE_SIZE, WHITE
+from constants import BLACK, BLUE, ORANGE, RED, TILE_SIZE, WHITE
 from helpers import get_map_filename, is_quarter_second, load_image
+from sprite import AiSprite
 
 XMIN = 7
 XMAX = 292
@@ -21,6 +22,7 @@ class PauseMap(object):
         # init basic values
         self.screen = screen
         self.game = game
+        self.player_position = list(position)
         self.bound_position(position)
         self.direction = [0, 0]
         map_filename = get_map_filename('overworld_map.tmx')
@@ -53,6 +55,10 @@ class PauseMap(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
+                    
+        # Mark spot where player currently is
+        you_are_here = AiSprite(tmx_data=self.tmx_data, game=game, character='you_are_here', position=position, direction='s', wander=False)
+        self.group.add(you_are_here)
 
         # init pyscroll minimap
         self.minimap = load_image('minimap.png')
@@ -85,10 +91,16 @@ class PauseMap(object):
         #       but they are +1 of below calculation for blitting it on the whole screen, while the minimap is offset by one (due to the border).
         #       Thus, it evens out. But I wanted to document what was going on.
         x, y = self.mini_coordinates(self.position)
-        color = RED if is_quarter_second() else ORANGE
-        pygame.draw.rect(self.screen, color, (x, y, 3, 3), 1)
+        highlighter_color = RED if is_quarter_second() else ORANGE
+        pygame.draw.rect(self.screen, highlighter_color, (x, y, 3, 3), 1)
+
+        # Draw a current position dot on the minimap
+        x, y = self.mini_coordinates(self.player_position)
+        current_dot_color = BLUE if is_quarter_second() else WHITE
+        pygame.draw.rect(self.screen, current_dot_color, (x+1, y+1, 1, 1), 1)
 
     def update(self, dt):
+        self.group.update(dt)
         self.position[0] += self.direction[0] * SPEED * dt
         self.position[1] += self.direction[1] * SPEED * dt
         self.bound_position(self.position)
