@@ -659,7 +659,7 @@ CAMP_MUSIC = {
     'repeat': 'data/audio/music/camp.wav',
 }
 
-PALACE_MUSIC = {
+JUDGE_MUSIC = {
     'intro': None,
     'repeat': 'data/audio/music/palace.wav',
 }
@@ -687,11 +687,21 @@ PEACE_MUSIC = {
 TRIUMPH_MUSIC = {
     'intro': None,
     'repeat': os.path.join('data', 'audio', 'music', 'triumph.wav'),
+    'conditions': {
+        'battle90': True, # zemnarihah
+        'battle80': True, # giddianhi
+        'battle69': True, # tubaloth
+    }
 }
 
 OVERWORLD_MUSIC = [
     PEACE_MUSIC,
     MARCH_MUSIC,
+]
+
+PALACE_MUSIC = [
+    TRIUMPH_MUSIC,
+    JUDGE_MUSIC,
 ]
 
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
