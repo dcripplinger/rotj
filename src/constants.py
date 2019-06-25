@@ -691,11 +691,20 @@ TRIUMPH_MUSIC = {
         'battle90': True, # zemnarihah
         'battle80': True, # giddianhi
         'battle69': True, # tubaloth
-    }
+    },
+}
+
+WANDER_MUSIC = {
+    'intro': os.path.join('data', 'audio', 'music', 'wander_intro.wav'),
+    'repeat': os.path.join('data', 'audio', 'music', 'wander_repeat.wav'),
+    'conditions': {
+        "battle55": True, # ammoron
+    },
 }
 
 OVERWORLD_MUSIC = [
     PEACE_MUSIC,
+    WANDER_MUSIC,
     MARCH_MUSIC,
 ]
 
