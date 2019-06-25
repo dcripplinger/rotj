@@ -702,8 +702,17 @@ WANDER_MUSIC = {
     },
 }
 
+RESOLVE_MUSIC = {
+    'intro': None,
+    'repeat': os.path.join('data', 'audio', 'music', 'resolve.wav'),
+    'conditions': {
+        'battle71': True, # battle at kishkumen
+    },
+}
+
 OVERWORLD_MUSIC = [
     PEACE_MUSIC,
+    RESOLVE_MUSIC,
     WANDER_MUSIC,
     MARCH_MUSIC,
 ]
