@@ -118,7 +118,7 @@ class Game(object):
             return True
         if isinstance(conditions, basestring):
             conditions = {conditions: True}
-        elif isinstance(conditions, (tuple, list)):
+        elif type(conditions) in (tuple, list):
             conditions = {condition: True for condition in conditions}
         for condition, expected in conditions.items():
             if expected and not self._condition_is_true(condition):
@@ -169,7 +169,14 @@ class Game(object):
             the_map.handle_game_state_condition(condition)
 
     def get_music(self, map_name):
-        return MAP_MUSIC.get(map_name, SHOP_MUSIC)
+        music = MAP_MUSIC.get(map_name, SHOP_MUSIC)
+        if type(music) in (list, tuple):
+            for item in music:
+                if self.conditions_are_met(item.get('conditions')):
+                    return item
+            return SHOP_MUSIC
+        else:
+            return music
 
     def decrement_food(self):
         if self.devtools['Fasting']:
@@ -728,7 +735,7 @@ class Game(object):
         if self._screen_state == 'game':
             self.current_map.update(dt)
             if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load(MAP_MUSIC[self.current_map.name]['repeat'])
+                pygame.mixer.music.load(self.get_music(self.current_map.name)['repeat'])
                 pygame.mixer.music.play(-1)
                 self.current_music = 'repeat'
         elif self._screen_state == 'title':

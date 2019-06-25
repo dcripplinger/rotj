@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import os
+
 from pygame.locals import *
 
 # colors
@@ -675,12 +677,22 @@ MARCH_MUSIC = {
 PEACE_MUSIC = {
     'intro': None,
     'repeat': os.path.join('data', 'audio', 'music', 'peace.wav'),
+    'conditions': {
+        'battle90': True, # zemnarihah
+        'battle80': True, # giddianhi
+        'battle69': True, # tubaloth
+    },
 }
 
 TRIUMPH_MUSIC = {
     'intro': None,
     'repeat': os.path.join('data', 'audio', 'music', 'triumph.wav'),
 }
+
+OVERWORLD_MUSIC = [
+    PEACE_MUSIC,
+    MARCH_MUSIC,
+]
 
 # If a map name is omitted here, the default music should be SHOP_MUSIC.
 # The class Game in game.py has a method get_music() that follows this guideline.
@@ -713,7 +725,7 @@ MAP_MUSIC = {
     'jershon': VILLAGE_MUSIC,
     'house_of_moroni': VILLAGE_MUSIC,
     'melek_empty_house': SHOP_MUSIC,
-    'overworld': MARCH_MUSIC,
+    'overworld': OVERWORLD_MUSIC,
     'tunnels_of_the_north': CAVE_MUSIC,
     'cave_of_gadianton': CAVE_MUSIC,
     'sierra_pass': CAVE_MUSIC,
