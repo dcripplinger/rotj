@@ -2999,49 +2999,29 @@
             "level": 44
           },
           {
-            "name": "zemulek",
+            "name": "ezias",
+            "level": 44
+          },
+          {
+            "name": "agosh",
+            "level": 44
+          },
+          {
+            "name": "abram",
             "level": 44
           },
           {
             "name": "lamanites",
             "stats": {
-              "soldiers": 13600,
-              "strength": 108,
-              "defense": 42,
-              "intelligence": 35,
-              "agility": 86,
-              "evasion": 25,
+              "soldiers": 22000,
+              "strength": 116,
+              "defense": 48,
+              "intelligence": 39,
+              "agility": 88,
+              "evasion": 37,
               "tactical_points": 0,
-              "attack_points": 70,
-              "armor_class": 60
-            }
-          },
-          {
-            "name": "lamanites",
-            "stats": {
-              "soldiers": 13600,
-              "strength": 108,
-              "defense": 42,
-              "intelligence": 35,
-              "agility": 86,
-              "evasion": 25,
-              "tactical_points": 0,
-              "attack_points": 70,
-              "armor_class": 60
-            }
-          },
-          {
-            "name": "lamanites",
-            "stats": {
-              "soldiers": 13600,
-              "strength": 108,
-              "defense": 42,
-              "intelligence": 35,
-              "agility": 86,
-              "evasion": 25,
-              "tactical_points": 0,
-              "attack_points": 70,
-              "armor_class": 60
+              "attack_points": 80,
+              "armor_class": 70
             }
           }
         ]
