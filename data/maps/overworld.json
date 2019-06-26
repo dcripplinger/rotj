@@ -2979,5 +2979,73 @@
         ]
       }
     ]
+  },
+  {
+    "x": 260,
+    "y": 180,
+    "teleport": {
+      "map": "omner",
+      "x": 23,
+      "y": 8,
+      "direction": "s"
+    },
+    "battles": [
+      {
+        "name": "battle51",
+        "intro": "Run home and tell Pahoran how terrible Lehonti is.",
+        "enemies": [
+          {
+            "name": "lehonti",
+            "level": 44
+          },
+          {
+            "name": "zemulek",
+            "level": 44
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
