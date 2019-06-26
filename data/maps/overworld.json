@@ -90,6 +90,47 @@
     },
     "battles": [
       {
+        "name": "battle48",
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "intro": "I will not give up my rule so easily, Pahoran.",
+        "exit": "Please have mercy on me!",
+        "narration": "Pachus and the leaders of the King Men were swiftly executed for their treason. The rest swore an oath to defend the cause of liberty.",
+        "enemies": [
+          {
+            "name": "pachus",
+            "level": 44
+          },
+          {
+            "name": "giddonah",
+            "level": 42
+          },
+          {
+            "name": "amos",
+            "level": 42
+          },
+          {
+            "name": "gilgal",
+            "level": 42
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 98,
+              "defense": 64,
+              "intelligence": 51,
+              "agility": 49,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      },
+      {
         "conditions": {
           "battle20": true
         },
@@ -441,7 +482,31 @@
       "x": 35,
       "y": 37,
       "direction": "n"
-    }
+    },
+    "battles": [
+      {
+        "name": "battle47",
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "intro": "Halt! Who dares to attack the chief judge?",
+        "exit": "Moroni, is that you? I thought you were King Men. There is much we need to discuss. Please come see me in the palace.",
+        "enemies": [
+          {
+            "name": "pahoran",
+            "level": 44
+          },
+          {
+            "name": "paanchi",
+            "level": 42
+          },
+          {
+            "name": "mormon",
+            "level": 42
+          }
+        ]
+      }
+    ]
   },
   {
     "x": 124,
@@ -2686,5 +2751,107 @@
       "y": 11,
       "direction": "s"
     }
+  },
+  {
+    "x": 181,
+    "y": 162,
+    "battles": [
+      {
+        "name": "battle45",
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "intro": "The land of Zarahemla belongs to the King Men now!",
+        "enemies": [
+          {
+            "name": "antumr",
+            "level": 40
+          },
+          {
+            "name": "sam",
+            "level": 40
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 9200,
+              "strength": 98,
+              "defense": 64,
+              "intelligence": 51,
+              "agility": 49,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 179,
+    "y": 168,
+    "battles": [
+      {
+        "name": "battle46",
+        "conditions": {
+          "cumeni_hq": true
+        },
+        "intro": "Your army will go no further.",
+        "enemies": [
+          {
+            "name": "josh",
+            "level": 40
+          },
+          {
+            "name": "isaiah",
+            "level": 40
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 11400,
+              "strength": 98,
+              "defense": 64,
+              "intelligence": 51,
+              "agility": 49,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 9200,
+              "strength": 98,
+              "defense": 64,
+              "intelligence": 51,
+              "agility": 49,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "kingmen",
+            "stats": {
+              "soldiers": 9200,
+              "strength": 98,
+              "defense": 64,
+              "intelligence": 51,
+              "agility": 49,
+              "evasion": 20,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

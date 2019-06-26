@@ -26,7 +26,19 @@
       "name": "guard",
       "direction": "n",
       "wander": true,
-      "dialog": "Our judge in Gideon is rarely in the judgment seat. He keeps busy helping the people."
+      "dialog": [
+        {
+          "text": "Our judge in Gideon is rarely in the judgment seat. He keeps busy helping the people.",
+          "condition": "pahoran_joins"
+        },
+        {
+          "text": "Please speak with our chief judge Pahoran.",
+          "condition": "cumeni_hq"
+        },
+        {
+          "text": "Our judge in Gideon is rarely in the judgment seat. He keeps busy helping the people."
+        }
+      ]
     }
   },
   {
@@ -36,7 +48,15 @@
       "name": "guard",
       "direction": "w",
       "wander": true,
-      "dialog": "Heh heh, sometimes I sit in the judgment seat when nobody is looking."
+      "dialog": [
+        {
+          "text": "Oh man, I got in so much trouble for sitting in the judgment seat. What a suprise when not the city's judge but the CHIEF judge of all the land walked in.",
+          "condition": "cumeni_hq"
+        },
+        {
+          "text": "Heh heh, sometimes I sit in the judgment seat when nobody is looking."
+        }
+      ]
     }
   },
   {
@@ -46,7 +66,43 @@
       "name": "guard",
       "direction": "s",
       "wander": true,
-      "dialog": "Sometimes the Lamanites have attacked us from the east and the north, so we have increased our defenses near this city."
+      "dialog": [
+        {
+          "text": "I have faith that you will prevail.",
+          "condition": "battle48"
+        },
+        {
+          "text": "The King Men turned our defenses to the north against us, cutting us off from the rest of the Nephite armies. But Pahoran has caused the Free Men to gather at Gideon. Many join us every day.",
+          "condition": "cumeni_hq"
+        },
+        {
+          "text": "Sometimes the Lamanites have attacked us from the east and the north, so we have increased our defenses near this city."
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "pahoran",
+      "conditions": {
+        "cumeni_hq": true,
+        "battle48": false,
+        "pahoran_joins": false
+      }
+    },
+    "direction": "s",
+    "wander": false,
+    "dialog": {
+      "text": "I know it looked to you like I had betrayed our people by not sending food and men to the outer armies, but I assure you I am on your side. The King Men have risen up again and driven me out of Zarahemla. They have placed a king over them named Pachus, and he has made an agreement with the Lamanites to maintain this part of the land while the Lamanites conquer everything else. If we join forces, we can stop Pachus at Zarahemla and unite our people against the Lamanites.",
+      "prompt": [
+        {
+          "choice": "OK",
+          "game_state_action": "pahoran_joins",
+          "next_dialog": "Let us leave at once! --- Pahoran has joined your army."
+        }
+      ]
     }
   }
 ]
