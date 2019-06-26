@@ -2158,6 +2158,20 @@
   },
   {
     "x": 247,
+    "y": 119,
+    "ai_sprite": {
+      "name": "kingmen",
+      "conditions": {
+        "cumeni_hq": true,
+        "battle48": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "The Lamanites have retaken the city of Nephihah. We don't know why the government stopped sending us food and men. Can you go find out what is happening in Zarahemla? We can't take back Nephihah until we get reinforcements."
+    }
+  },
+  {
+    "x": 247,
     "y": 115,
     "teleport": {
       "map": "nephihah",
@@ -2166,6 +2180,56 @@
       "direction": "n"
     },
     "battles": [
+      {
+        "name": "battle49",
+        "conditions": {
+          "battle48": true
+        },
+        "intro": "You wish to have your precious city back, do you?",
+        "exit": "Retreat! Retreat!",
+        "enemies": [
+          {
+            "name": "akish",
+            "level": 46
+          },
+          {
+            "name": "zarahemla",
+            "level": 44
+          },
+          {
+            "name": "zeniff",
+            "level": 44
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 13600,
+              "strength": 108,
+              "defense": 42,
+              "intelligence": 35,
+              "agility": 86,
+              "evasion": 25,
+              "tactical_points": 0,
+              "attack_points": 70,
+              "armor_class": 60
+            }
+          }
+        ]
+      },
       {
         "name": "battle37",
         "intro": "Your puny army makes me laugh.",
