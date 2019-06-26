@@ -3027,5 +3027,97 @@
         ]
       }
     ]
+  },
+  {
+    "x": 261,
+    "y": 268,
+    "battles": [
+      {
+        "name": "battle53",
+        "intro": "Fight in the name of your king!",
+        "exit": "Ammoron, I have failed you!",
+        "enemies": [
+          {
+            "name": "angolianhi",
+            "level": 50
+          },
+          {
+            "name": "amgid",
+            "level": 48
+          },
+          {
+            "name": "amgiddoni",
+            "level": 48
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 42000,
+              "strength": 116,
+              "defense": 48,
+              "intelligence": 39,
+              "agility": 88,
+              "evasion": 37,
+              "tactical_points": 0,
+              "attack_points": 80,
+              "armor_class": 70
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 262,
+    "y": 272,
+    "battles": [
+      {
+        "name": "battle54",
+        "intro": "Ha! What a sorry excuse for an army.",
+        "exit": "Impossible!",
+        "enemies": [
+          {
+            "name": "mathonihah",
+            "level": 52
+          },
+          {
+            "name": "amgid",
+            "level": 48
+          },
+          {
+            "name": "amgiddoni",
+            "level": 48
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 42000,
+              "strength": 116,
+              "defense": 48,
+              "intelligence": 39,
+              "agility": 88,
+              "evasion": 37,
+              "tactical_points": 0,
+              "attack_points": 80,
+              "armor_class": 70
+            }
+          },
+          {
+            "name": "lamanites",
+            "stats": {
+              "soldiers": 42000,
+              "strength": 116,
+              "defense": 48,
+              "intelligence": 39,
+              "agility": 88,
+              "evasion": 37,
+              "tactical_points": 0,
+              "attack_points": 80,
+              "armor_class": 70
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
