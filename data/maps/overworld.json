@@ -3119,5 +3119,45 @@
         ]
       }
     ]
+  },
+  {
+    "x": 248,
+    "y": 278,
+    "teleport": {
+      "map": "moroni",
+      "x": 39,
+      "y": 37,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle55",
+        "intro": "Well done, Moroni. You have come so far only to be crushed by my hand. It is time the Nephites subjected themselves to whom the government belongs!",
+        "narration": "The massive slaughter wrought by Amalickiah and his brother Ammoron has finally been brought to an end. With Ammoron slain and the city of Moroni recovered, all the Nephite lands are once again protected, and perhaps we will know peace.",
+        "offguard": -1,
+        "enemies": [
+          {
+            "name": "ammoron",
+            "level": 56
+          },
+          {
+            "name": "akish",
+            "level": 55
+          },
+          {
+            "name": "aaron",
+            "level": 54
+          },
+          {
+            "name": "mathonihah",
+            "level": 52
+          },
+          {
+            "name": "angolianhi",
+            "level": 50
+          }
+        ]
+      }
+    ]
   }
 ]
