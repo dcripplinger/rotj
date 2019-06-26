@@ -877,6 +877,8 @@ class Battle(object):
         for move in self.ordered_moves:
             self.move = move
             result = self.execute_move(fast=True)
+            if not self.move:
+                continue
             self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
             if result != 'continue':
                 break
