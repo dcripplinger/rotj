@@ -82,7 +82,7 @@ REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of 
 class Battle(object):
     def __init__(
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
-        battle_name=None, narration=None, offguard=None, enemy_retreat=False,
+        battle_name=None, narration=None, offguard=None, enemy_retreat=False, chapter11_city=None,
     ):
         # plundered can be 0, -1, or 1.
         # If you use plunder, it moves up 1 and you get money.

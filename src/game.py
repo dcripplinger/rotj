@@ -462,7 +462,7 @@ class Game(object):
 
     def start_battle(
         self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
-        continue_music=False, offguard=None, enemy_retreat=False,
+        continue_music=False, offguard=None, enemy_retreat=False, chapter11_city=None,
     ):
         self.set_screen_state('start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])
@@ -478,7 +478,7 @@ class Game(object):
         allies = allies[0:5]
         self.battle = Battle(
             self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water, exit=exit,
-            battle_name=battle_name, narration=narration, offguard=offguard, enemy_retreat=enemy_retreat,
+            battle_name=battle_name, narration=narration, offguard=offguard, enemy_retreat=enemy_retreat, chapter11_city=chapter11_city,
         )
         if intro:
             self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)

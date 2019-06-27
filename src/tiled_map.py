@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import os
 import random
 
 import pygame
@@ -10,7 +11,7 @@ from pytmx.util_pygame import load_pygame
 
 from constants import (
     DEFAULT_ENCOUNTER_CHANCE, FACELESS_ENEMIES, MAX_NUM, ITEMS, MAPS_WITH_RANDOM_ENCOUNTERS, NAMED_TELEPORTS,
-    REUSABLE_MAP_NAMES, RED, GAME_WIDTH, GAME_HEIGHT,
+    REUSABLE_MAP_NAMES, RED, GAME_WIDTH, GAME_HEIGHT, CHAPTER11_CITIES,
 )
 from helpers import (
     get_enemy_stats,
@@ -20,6 +21,7 @@ from helpers import (
     get_attack_points_by_level,
     get_armor_class_by_level,
     get_tactics,
+    load_json_file_if_exists,
     load_stats,
 )
 from hero import Hero
@@ -491,6 +493,13 @@ class Map(object):
         next_pos = self.get_pos_in_front(self.hero.position, direction)
         battles = self.cells.get(tuple(next_pos), {}).get('battles') if next_pos else None
         if battles:
+            chapter11_city = None
+            if battles == 'chapter11_battles':
+                chapter11_city = CHAPTER11_CITIES['{} {}'.format(*[int(x) for x in next_pos])]
+                if self.game.conditions_are_met('battle_at_{}'.format(chapter11_city)):
+                    battles = []
+                else:
+                    battles = load_json_file_if_exists(os.path.join('data', 'maps', 'chapter11_battles'))
             for battle_data in battles:
                 if 'conditions' in battle_data and not self.game.conditions_are_met(battle_data['conditions']):
                     continue
@@ -517,7 +526,7 @@ class Map(object):
                     enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
                     exit=battle_data.get('exit'), battle_name=battle_data['name'],
                     narration=battle_data.get('narration'), offguard=battle_data.get('offguard'),
-                    enemy_retreat=battle_data.get('enemy_retreat'),
+                    enemy_retreat=battle_data.get('enemy_retreat'), chapter11_city=chapter11_city,
                 )
                 return
         moved = self.hero.move(direction)

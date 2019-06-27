@@ -3190,5 +3190,40 @@
         ]
       }
     ]
+  },
+  {
+    "x": 144,
+    "y": 311,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 175,
+    "y": 350,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 206,
+    "y": 346,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 212,
+    "y": 377,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 255,
+    "y": 356,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 256,
+    "y": 327,
+    "battles": "chapter11_battles"
+  },
+  {
+    "x": 284,
+    "y": 336,
+    "battles": "chapter11_battles"
   }
 ]

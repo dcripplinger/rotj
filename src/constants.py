@@ -1242,6 +1242,16 @@ FACELESS_ENEMIES = [
     'amalekites',
 ]
 
+CHAPTER11_CITIES = {
+    '144 311': 'helam',
+    '175 350': 'amulon',
+    '206 346': 'shilom',
+    '212 377': 'midian',
+    '255 356': 'ani-anti',
+    '256 327': 'jerusalem',
+    '284 336': 'shemlon',
+}
+
 NAMED_TELEPORTS = {
     'zarahemla': [152,187],
     'manti': [207, 256],
