@@ -112,6 +112,7 @@ class Game(object):
             'battle44': self.handle_battle44,
             'cumeni_hq': self.handle_cumeni_hq,
             'showed_sign_to_seezoram': self.handle_showed_sign_to_seezoram,
+            'talked_with_gadianton_in_bountiful': self.handle_talked_with_gadianton_in_bountiful,
         }
 
     def conditions_are_met(self, conditions):
@@ -1550,4 +1551,50 @@ class Game(object):
             })
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle56",
+        )
+
+    def handle_talked_with_gadianton_in_bountiful(self):
+        robbers = {
+            'name': 'robbers',
+            'stats': {
+                "soldiers": 42000,
+                "strength": 151,
+                "defense": 88,
+                "intelligence": 69,
+                "agility": 128,
+                "evasion": 31,
+                "tactical_points": 0,
+                "attack_points": 110,
+                "armor_class": 90,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {'name': 'gadianton', 'level': 60},
+                {'name': 'kishkumen', 'level': 60},
+                robbers,
+                robbers,
+                robbers,
+            ],
+            'battle_type': 'story',
+            'exit': "You'll never be able to stop me! My secret band has infiltrated every level of government!",
+            'narration': "Gadianton fled to the caves south of Zarahemla.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], narration=battle_data['narration'], battle_name="battle58",
         )

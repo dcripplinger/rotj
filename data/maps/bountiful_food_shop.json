@@ -25,5 +25,24 @@
     "shop": {
       "type": "food"
     }
+  },
+  {
+    "x": 11,
+    "y": 14,
+    "ai_sprite": {
+      "name": "gadianton",
+      "conditions": {
+        "battle56": true,
+        "battle58": false
+      },
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "How did you find our secret hideout!? No matter. There is no escape for you now.",
+          "game_state_action": "talked_with_gadianton_in_bountiful"
+        }
+      ]
+    }
   }
 ]
