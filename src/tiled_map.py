@@ -217,6 +217,30 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'gadianton'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'battle59':
+            for sprite in self.group.sprites():
+                if sprite.name == 'gadianton':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'gadianton'
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'battle60':
+            for sprite in self.group.sprites():
+                if sprite.name == 'kishkumen':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'kishkumen'
+            }
+            self.ai_sprites = ai_sprites
+        elif condition == 'battle61':
+            for sprite in self.group.sprites():
+                if sprite.name in ['paanchi', 'sherem']:
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['paanchi', 'sherem']
+            }
+            self.ai_sprites = ai_sprites
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)

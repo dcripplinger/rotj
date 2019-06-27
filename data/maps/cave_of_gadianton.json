@@ -115,5 +115,227 @@
       "x": 68,
       "y": 31
     }
+  },
+  {
+    "x": 28,
+    "y": 72,
+    "ai_sprite": {
+      "name": "gadianton",
+      "conditions": {
+        "battle58": true,
+        "battle59": false
+      },
+      "direction": "n",
+      "wander": false,
+      "dialog": ""
+    },
+    "battles": [
+      {
+        "name": "battle59",
+        "conditions": {
+          "battle58": true
+        },
+        "intro": "You will never take me alive!",
+        "narration": "Gadianton was slain in battle.",
+        "enemies": [
+          {
+            "name": "gadianton",
+            "level": 60
+          },
+          {
+            "name": "moriantum",
+            "level": 60
+          },
+          {
+            "name": "zeezra",
+            "level": 60
+          },
+          {
+            "name": "robbers",
+            "soldiers": 42000,
+            "strength": 151,
+            "defense": 88,
+            "intelligence": 69,
+            "agility": 128,
+            "evasion": 31,
+            "tactical_points": 0,
+            "attack_points": 110,
+            "armor_class": 90
+          },
+          {
+            "name": "robbers",
+            "soldiers": 42000,
+            "strength": 151,
+            "defense": 88,
+            "intelligence": 69,
+            "agility": 128,
+            "evasion": 31,
+            "tactical_points": 0,
+            "attack_points": 110,
+            "armor_class": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 66,
+    "y": 69,
+    "ai_sprite": {
+      "name": "kishkumen",
+      "conditions": {
+        "battle58": true,
+        "battle60": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    },
+    "battles": [
+      {
+        "name": "battle60",
+        "conditions": {
+          "battle58": true
+        },
+        "intro": "Ha! You think just because you have found two of our hideouts that you have won against the band of Gadianton? We are in your cities, your wilderness, your government, your homes. We are everywhere!",
+        "exit": "Until we meet again, Moronihah.",
+        "enemies": [
+          {
+            "name": "kishkumen",
+            "level": 60
+          },
+          {
+            "name": "moses",
+            "level": 60
+          },
+          {
+            "name": "ramah",
+            "level": 60
+          },
+          {
+            "name": "robbers",
+            "soldiers": 42000,
+            "strength": 151,
+            "defense": 88,
+            "intelligence": 69,
+            "agility": 128,
+            "evasion": 31,
+            "tactical_points": 0,
+            "attack_points": 110,
+            "armor_class": 90
+          },
+          {
+            "name": "robbers",
+            "soldiers": 42000,
+            "strength": 151,
+            "defense": 88,
+            "intelligence": 69,
+            "agility": 128,
+            "evasion": 31,
+            "tactical_points": 0,
+            "attack_points": 110,
+            "armor_class": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 28,
+    "y": 47,
+    "ai_sprite": {
+      "name": "paanchi",
+      "conditions": {
+        "battle59": true,
+        "battle60": true,
+        "battle61": false
+      },
+      "direction": "n",
+      "wander": false,
+      "dialog": ""
+    },
+    "battles": [
+      {
+        "name": "battle61",
+        "conditions": {
+          "battle59": true,
+          "battle60": true
+        },
+        "intro": "I am the one who sent Kishkumen to murder my brother Pahoran. And once I have murdered Pacumeni too, the judgment seat will be mine. Too bad you won't be around to warn anyone.",
+        "exit": "My life is forfeit! I spent my years plotting in the shadows, deceiving, and murdering. My punishment is just.",
+        "narration": "The last known leaders of the Gadianton Robbers have been driven out of the land and gone into hiding. Hopefully the chief judge and the people are safe now from their secret combinations.",
+        "enemies": [
+          {
+            "name": "paanchi",
+            "level": 62
+          },
+          {
+            "name": "sherem",
+            "level": 60
+          },
+          {
+            "name": "zenehor",
+            "level": 60
+          },
+          {
+            "name": "mulek",
+            "level": 60
+          },
+          {
+            "name": "cumenihah",
+            "level": 60
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "x": 29,
+    "y": 47,
+    "ai_sprite": {
+      "name": "sherem",
+      "conditions": {
+        "battle59": true,
+        "battle60": true,
+        "battle61": false
+      },
+      "direction": "n",
+      "wander": false,
+      "dialog": ""
+    },
+    "battles": [
+      {
+        "name": "battle61",
+        "conditions": {
+          "battle59": true,
+          "battle60": true
+        },
+        "intro": "I am the one who sent Kishkumen to murder my brother Pahoran. And once I have murdered Pacumeni too, the judgment seat will be mine. Too bad you won't be around to warn anyone.",
+        "exit": "My life is forfeit! I spent my years plotting in the shadows, deceiving, and murdering. My punishment is just.",
+        "narration": "The last known leaders of the Gadianton Robbers have been driven out of the land and gone into hiding. Hopefully the chief judge and the people are safe now from their secret combinations.",
+        "enemies": [
+          {
+            "name": "paanchi",
+            "level": 62
+          },
+          {
+            "name": "sherem",
+            "level": 60
+          },
+          {
+            "name": "zenehor",
+            "level": 60
+          },
+          {
+            "name": "mulek",
+            "level": 60
+          },
+          {
+            "name": "cumenihah",
+            "level": 60
+          }
+        ]
+      }
+    ]
   }
 ]
