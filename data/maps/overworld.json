@@ -90,6 +90,37 @@
     },
     "battles": [
       {
+        "name": "battle62",
+        "conditions": {
+          "battle61": true
+        },
+        "intro": "You spent so much effort fortifying your outer cities that you left the heart of your nation ripe for the taking. Your chief judge is dead, and I am claiming this land in the name of Tubaloth, son of Ammoron, King of the Lamanites!",
+        "exit": "Noooo!",
+        "narration": "Thus endeth the days of Coriantumr, the only one to have ever conquered the great city Zarahemla, only to lose it again in a day.",
+        "enemies": [
+          {
+            "name": "coriantumr",
+            "level": 62
+          },
+          {
+            "name": "zerahemnah",
+            "level": 62
+          },
+          {
+            "name": "ripliancum",
+            "level": 62
+          },
+          {
+            "name": "amnihu",
+            "level": 62
+          },
+          {
+            "name": "shemnon",
+            "level": 62
+          }
+        ]
+      },
+      {
         "name": "battle48",
         "conditions": {
           "cumeni_hq": true
