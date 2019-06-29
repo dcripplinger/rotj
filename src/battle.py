@@ -83,6 +83,7 @@ class Battle(object):
     def __init__(
         self, screen, game, allies, enemies, battle_type, ally_tactical_points, ally_tactics, near_water, exit=None,
         battle_name=None, narration=None, offguard=None, enemy_retreat=False, chapter11_city=None,
+        prev_experience=0, prev_money=0, prev_food=0, next_battle=None,
     ):
         # plundered can be 0, -1, or 1.
         # If you use plunder, it moves up 1 and you get money.
@@ -92,6 +93,10 @@ class Battle(object):
         # The amount plundered is equal to the spoils if you win, but the change to your money is immediate.
         self.plundered = 0
         
+        self.prev_experience = prev_experience
+        self.prev_money = prev_money
+        self.prev_food = prev_food
+        self.next_battle = next_battle
         self.chapter11_city = chapter11_city
         self.spoils_box = None
         self.mini_moves = []
@@ -342,6 +347,12 @@ class Battle(object):
                 return
             if self.narration:
                 self.narration.update(dt)
+                return
+            if self.next_battle:
+                self.end_battle(
+                    self.get_company(), self.ally_tactical_points, battle_name=self.battle_name, chapter11_city=self.chapter11_city,
+                    next_battle=self.next_battle, prev_experience=self.experience, prev_money=self.money, prev_food=self.food,
+                )
                 return
             if self.food > 0:
                 victory_script = u"{}'s army has conquered {}. We got {} exp. points, {} senines, and {} rations."
@@ -932,6 +943,9 @@ class Battle(object):
             money = money * plunder
             food = 0
         else:
+            experience += self.prev_experience
+            money += self.prev_money
+            food += self.prev_food
             self.experience = experience
             self.money = money
             self.food = food

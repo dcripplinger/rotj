@@ -463,8 +463,9 @@ class Game(object):
     def start_battle(
         self, enemies, battle_type, near_water, intro=None, exit=None, battle_name=None, narration=None,
         continue_music=False, offguard=None, enemy_retreat=False, chapter11_city=None,
+        prev_experience=0, prev_money=0, prev_food=0, next_battle=None,
     ):
-        self.set_screen_state('start_battle')
+        self.set_screen_state('battle_intro' if prev_experience else 'start_battle')
         allies = copy.deepcopy([warlord for warlord in self.game_state['company'] if warlord['soldiers'] > 0])
         tactician = self.get_tactician()
         if tactician:
@@ -479,6 +480,7 @@ class Game(object):
         self.battle = Battle(
             self.virtual_screen, self, allies, enemies, battle_type, tactical_points, tactics, near_water, exit=exit,
             battle_name=battle_name, narration=narration, offguard=offguard, enemy_retreat=enemy_retreat, chapter11_city=chapter11_city,
+            prev_experience=prev_experience, prev_money=prev_money, prev_food=prev_food, next_battle=next_battle,
         )
         if intro:
             self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)
@@ -520,12 +522,16 @@ class Game(object):
                 warlord['tactical_points'] += 1
         self.update_game_state({'company': company})
 
-    def end_battle(self, battle_company, tactical_points, battle_name=None, opening_dialog=None, chapter11_city=None):
-        self.next_map = self.current_map
-        self.current_map = None
-        self.fade_alpha = 0
-        self.continue_current_music = False
-        self.set_screen_state('change_map')
+    def end_battle(
+        self, battle_company, tactical_points, battle_name=None, opening_dialog=None, chapter11_city=None, next_battle=None,
+        prev_experience=0, prev_money=0, prev_food=0,
+    ):
+        if not next_battle:
+            self.next_map = self.current_map
+            self.current_map = None
+            self.fade_alpha = 0
+            self.continue_current_music = False
+            self.set_screen_state('change_map')
         company = []
         for warlord in self.game_state['company']:
             if warlord['name'] in battle_company:
@@ -549,7 +555,8 @@ class Game(object):
         self.update_game_state({'company': company})
         followers = 'under' if battle_name == 'battle08' else 'inplace'
         direction = 'w' if battle_name == 'battle08' else self.next_map.hero.direction
-        self.next_map.load_company_sprites(self.next_map.hero.position, direction, followers)
+        if not next_battle:
+            self.next_map.load_company_sprites(self.next_map.hero.position, direction, followers)
         if battle_name:
             self.set_game_state_condition(battle_name)
         if chapter11_city:
@@ -558,7 +565,10 @@ class Game(object):
             self.next_map.load_ai_sprites()
             # This needs to happen after load_ai_sprites so that Alma appears in the overworld only once.
             self.set_game_state_condition('talked_with_alma_after_battle08')
-        self.next_map.opening_dialog = opening_dialog
+        if not next_battle:
+            self.next_map.opening_dialog = opening_dialog
+        if next_battle:
+            self.current_map.start_battle(next_battle, prev_experience=prev_experience, prev_money=prev_money, prev_food=prev_food)
 
     def update_game_state(self, updates):
         self.game_state.update(updates)

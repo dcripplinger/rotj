@@ -505,29 +505,7 @@ class Map(object):
                     continue
                 if self.game.conditions_are_met(battle_data['name']):
                     continue
-                battle_type = battle_data.get('battle_type', 'story')
-                enemies = []
-                for enemy in battle_data['enemies']:
-                    if 'stats' in enemy:
-                        stats = enemy['stats']
-                    else:
-                        stats = load_stats(enemy['name'])
-                        stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
-                        stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
-                        stats['attack_points'] = get_attack_points_by_level(enemy['level'])
-                        stats['armor_class'] = get_armor_class_by_level(enemy['level'])
-                        stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
-                    enemies.append({
-                        'name': enemy['name'],
-                        'stats': stats,
-                        'reinforcements': enemy.get('reinforcements', False),
-                    })
-                self.game.start_battle(
-                    enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
-                    exit=battle_data.get('exit'), battle_name=battle_data['name'],
-                    narration=battle_data.get('narration'), offguard=battle_data.get('offguard'),
-                    enemy_retreat=battle_data.get('enemy_retreat'), chapter11_city=chapter11_city,
-                )
+                self.start_battle(battle_data, chapter11_city=chapter11_city)
                 return
         moved = self.hero.move(direction)
         if moved and self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
@@ -552,6 +530,33 @@ class Map(object):
                     self.opening_dialog = create_prompt("The cloak has worn off. We are now visible to the enemy.")
             if self.name == 'overworld':
                 self.game.mark_beaten_path(next_pos)
+
+    def start_battle(self, battle_data, prev_experience=0, prev_money=0, prev_food=0, chapter11_city=None):
+        battle_type = battle_data.get('battle_type', 'story')
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+                'reinforcements': enemy.get('reinforcements', False),
+            })
+        self.game.start_battle(
+            enemies, battle_type, self.is_near_water(), intro=battle_data.get('intro'),
+            exit=battle_data.get('exit'), battle_name=battle_data['name'],
+            narration=battle_data.get('narration'), offguard=battle_data.get('offguard'),
+            enemy_retreat=battle_data.get('enemy_retreat'), chapter11_city=chapter11_city,
+            next_battle=battle_data.get('next_battle'), prev_experience=prev_experience,
+            prev_money=prev_money, prev_food=prev_food,
+        )
 
     def try_getting_random_encounter(self):
         # This function assumes that outside of it has already checked that self.name in MAPS_WITH_RANDOM_ENCOUNTERS.
