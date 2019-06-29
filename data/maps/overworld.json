@@ -3194,6 +3194,12 @@
   {
     "x": 144,
     "y": 311,
+    "teleport": {
+      "map": "helam",
+      "x": 18,
+      "y": 24,
+      "direction": "n" 
+    },
     "battles": "chapter11_battles"
   },
   {
