@@ -3885,33 +3885,33 @@
     "stats": {
       "lamanites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 116,
-        "defense": 48,
-        "intelligence": 39,
-        "agility": 88,
-        "evasion": 37,
+        "strength": 145,
+        "defense": 60,
+        "intelligence": 60,
+        "agility": 140,
+        "evasion": 50,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       },
       "amalekites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 106,
-        "defense": 139,
-        "intelligence": 35,
-        "agility": 40,
-        "evasion": 17,
+        "strength": 139,
+        "defense": 88,
+        "intelligence": 58,
+        "agility": 135,
+        "evasion": 42,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       }
     }
   },
@@ -3946,33 +3946,33 @@
     "stats": {
       "lamanites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 116,
-        "defense": 48,
-        "intelligence": 39,
-        "agility": 88,
-        "evasion": 37,
+        "strength": 145,
+        "defense": 60,
+        "intelligence": 60,
+        "agility": 140,
+        "evasion": 50,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       },
       "amalekites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 106,
-        "defense": 139,
-        "intelligence": 35,
-        "agility": 40,
-        "evasion": 17,
+        "strength": 139,
+        "defense": 88,
+        "intelligence": 58,
+        "agility": 135,
+        "evasion": 42,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       }
     }
   },
@@ -4007,33 +4007,33 @@
     "stats": {
       "lamanites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 116,
-        "defense": 48,
-        "intelligence": 39,
-        "agility": 88,
-        "evasion": 37,
+        "strength": 145,
+        "defense": 60,
+        "intelligence": 60,
+        "agility": 140,
+        "evasion": 50,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       },
       "amalekites": {
         "soldiers": [
-          22000,
-          32000,
-          42000
+          220000,
+          320000,
+          420000
         ],
-        "strength": 106,
-        "defense": 139,
-        "intelligence": 35,
-        "agility": 40,
-        "evasion": 17,
+        "strength": 139,
+        "defense": 88,
+        "intelligence": 58,
+        "agility": 135,
+        "evasion": 42,
         "tactical_points": 0,
-        "attack_points": 80,
-        "armor_class": 70
+        "attack_points": 110,
+        "armor_class": 90
       }
     }
   }
