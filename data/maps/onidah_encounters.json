@@ -1,0 +1,89 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amalekites",
+        "amalekites",
+        "amalekites",
+        "amalekites",
+        "amalekites"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "lamanites": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 145,
+        "defense": 60,
+        "intelligence": 60,
+        "agility": 140,
+        "evasion": 50,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      },
+      "amalekites": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 139,
+        "defense": 88,
+        "intelligence": 58,
+        "agility": 135,
+        "evasion": 42,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      },
+      "robbers": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 151,
+        "defense": 88,
+        "intelligence": 69,
+        "agility": 128,
+        "evasion": 31,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      }
+    }
+  }
+]
