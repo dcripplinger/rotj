@@ -248,5 +248,33 @@
         }
       }
     ]
+  },
+  {
+    "name": "battle69",
+    "intro": "I admire your audacity of coming into my own land to hunt me down. But you will not make it out alive!",
+    "exit": "As swift my rise to power was, so has been my downfall!",
+    "narration": "Tubaloth, son of Ammoron, is now dead. The Lamanite people have finally covenanted to live peacefully in their own lands.",
+    "enemies": [
+      {
+        "name": "tubaloth",
+        "level": 68
+      },
+      {
+        "name": "amaleki",
+        "level": 64
+      },
+      {
+        "name": "zerahemnah",
+        "level": 64
+      },
+      {
+        "name": "ezrom",
+        "level": 64
+      },
+      {
+        "name": "shemulon",
+        "level": 64
+      }
+    ]
   }
 ]
