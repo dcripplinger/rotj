@@ -90,5 +90,52 @@
         }
       }
     ]
+  },
+  {
+    "name": "battle65",
+    "intro": "You dare invade our land? I will crush you like an ant.",
+    "exit": "You may have routed me, but you do not stand a chance against our king.",
+    "enemies": [
+      {
+        "name": "irreantum",
+        "level": 62
+      },
+      {
+        "name": "abinadi",
+        "level": 62
+      },
+      {
+        "name": "mantor",
+        "level": 62
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 320000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 320000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      }
+    ]
   }
 ]
