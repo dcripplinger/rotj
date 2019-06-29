@@ -3238,6 +3238,12 @@
   {
     "x": 255,
     "y": 356,
+    "teleport": {
+      "map": "ani-anti",
+      "x": 11,
+      "y": 16,
+      "direction": "e" 
+    },
     "battles": "chapter11_battles"
   },
   {
