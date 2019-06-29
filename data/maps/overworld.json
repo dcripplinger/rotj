@@ -3277,5 +3277,39 @@
       "y": 21,
       "direction": "w"
     }
+  },
+  {
+    "x": 17,
+    "y": 125,
+    "teleport": {
+      "map": "kishkumen",
+      "x": 19,
+      "y": 54,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle71",
+        "conditions": {
+          "battle62": true
+        },
+        "intro": "Most noble Moronihah! It seems a pity to me that you suppose you can stand against my great band of robbers. They do now wait with great anxiety for me to give the word to descend upon your people and destroy them.",
+        "narration": "Giddianhi retreated with the remainder of his men to their other strongholds.",
+        "enemies": [
+          {
+            "name": "giddianhi",
+            "level": 71
+          },
+          {
+            "name": "kishkumen",
+            "level": 71
+          },
+          {
+            "name": "benjamin",
+            "level": 71
+          }
+        ]
+      }
+    ]
   }
 ]
