@@ -520,7 +520,7 @@ class Game(object):
                 warlord['tactical_points'] += 1
         self.update_game_state({'company': company})
 
-    def end_battle(self, battle_company, tactical_points, battle_name=None, opening_dialog=None):
+    def end_battle(self, battle_company, tactical_points, battle_name=None, opening_dialog=None, chapter11_city=None):
         self.next_map = self.current_map
         self.current_map = None
         self.fade_alpha = 0
@@ -552,6 +552,8 @@ class Game(object):
         self.next_map.load_company_sprites(self.next_map.hero.position, direction, followers)
         if battle_name:
             self.set_game_state_condition(battle_name)
+        if chapter11_city:
+            self.set_game_state_condition('battle_at_{}'.format(chapter11_city))
         if battle_name == 'battle08':
             self.next_map.load_ai_sprites()
             # This needs to happen after load_ai_sprites so that Alma appears in the overworld only once.

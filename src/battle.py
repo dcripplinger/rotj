@@ -92,6 +92,7 @@ class Battle(object):
         # The amount plundered is equal to the spoils if you win, but the change to your money is immediate.
         self.plundered = 0
         
+        self.chapter11_city = chapter11_city
         self.spoils_box = None
         self.mini_moves = []
         self.confirm_box = None
@@ -1596,7 +1597,7 @@ class Battle(object):
                     self.start_next_capture()
                 else:
                     self.right_dialog.shutdown()
-                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name, chapter11_city=self.chapter11_city)
         elif self.win_state == 'level_up':
             self.right_dialog.handle_input(pressed)
             if (pressed[K_x] or pressed[K_z]) and not self.right_dialog.has_more_stuff_to_show():
@@ -1607,7 +1608,7 @@ class Battle(object):
                     self.start_next_capture()
                 else:
                     self.right_dialog.shutdown()
-                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
+                    self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name, chapter11_city=self.chapter11_city)
         elif self.win_state == 'capture':
             if self.confirm_box:
                 self.confirm_box.handle_input(pressed)
@@ -1658,7 +1659,7 @@ class Battle(object):
                     else:
                         self.right_dialog.shutdown()
                         self.end_battle(
-                            self.get_company(), self.ally_tactical_points, battle_name=self.battle_name,
+                            self.get_company(), self.ally_tactical_points, battle_name=self.battle_name, chapter11_city=self.chapter11_city,
                         )
 
     def end_battle(self, *args, **kwargs):
