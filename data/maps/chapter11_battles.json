@@ -1,1 +1,48 @@
-[]
+[
+  {
+    "name": "battle63",
+    "intro": "Tremble before the might of Amulon!",
+    "enemies": [
+      {
+        "name": "amulon",
+        "level": 62
+      },
+      {
+        "name": "abinadom",
+        "level": 62
+      },
+      {
+        "name": "amgideon",
+        "level": 62
+      },
+      {
+        "name": "amalekites",
+        "stats": {
+          "soldiers": 220000,
+          "strength": 139,
+          "defense": 88,
+          "intelligence": 58,
+          "agility": 135,
+          "evasion": 42,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      },
+      {
+        "name": "amalekites",
+        "stats": {
+          "soldiers": 220000,
+          "strength": 139,
+          "defense": 88,
+          "intelligence": 58,
+          "agility": 135,
+          "evasion": 42,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      }
+    ]
+  }
+]
