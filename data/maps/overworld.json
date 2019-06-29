@@ -3216,6 +3216,12 @@
   {
     "x": 206,
     "y": 346,
+    "teleport": {
+      "map": "shilom",
+      "x": 34,
+      "y": 34,
+      "direction": "n" 
+    },
     "battles": "chapter11_battles"
   },
   {
