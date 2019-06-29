@@ -210,5 +210,43 @@
         }
       }
     ]
+  },
+  {
+    "name": "battle68",
+    "intro": "So quaint that you think you can circumvent my husband's designs.",
+    "exit": "Oh Tubaloth! I have failed you!",
+    "narration": "The queen of the Lamanites was killed in battle.",
+    "enemies": [
+      {
+        "name": "abish",
+        "level": 66
+      },
+      {
+        "name": "zemnari",
+        "level": 62
+      },
+      {
+        "name": "shazer",
+        "level": 62
+      },
+      {
+        "name": "shiblom",
+        "level": 62
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 420000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      }
+    ]
   }
 ]
