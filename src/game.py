@@ -1544,7 +1544,75 @@ class Game(object):
                 robbers,
             ],
             'battle_type': 'story',
-            'exit': "Placeholder text until we make Seanti battle happen immediately after.",
+            'exit': "Please spare me! ~~~~~~~~ ~~~~~~~~ Seantum? What are you doing here?",
+            'narration': 'Seantum suddenly appears and murders Seezoram!',
+            'next_battle': {
+                "name": "battle57",
+                "intro": "Thank you for distracting my brother so that I could dispatch of him easily. Now his judgment seat will be mine, and I will gain more influence in the secret band of Gadianton.",
+                "exit": "Let me go, and I will tell you where Gadianton is hiding. He is somewhere in the city Bountiful.",
+                "enemies": [
+                    {
+                        "name": "seantum",
+                        "level": 60
+                    },
+                    {
+                        'name': 'robbers',
+                        'stats': {
+                            "soldiers": 42000,
+                            "strength": 151,
+                            "defense": 88,
+                            "intelligence": 69,
+                            "agility": 128,
+                            "evasion": 31,
+                            "tactical_points": 0,
+                            "attack_points": 110,
+                            "armor_class": 90,
+                        },
+                    },
+                    {
+                        'name': 'robbers',
+                        'stats': {
+                            "soldiers": 42000,
+                            "strength": 151,
+                            "defense": 88,
+                            "intelligence": 69,
+                            "agility": 128,
+                            "evasion": 31,
+                            "tactical_points": 0,
+                            "attack_points": 110,
+                            "armor_class": 90,
+                        },
+                    },
+                    {
+                        'name': 'robbers',
+                        'stats': {
+                            "soldiers": 42000,
+                            "strength": 151,
+                            "defense": 88,
+                            "intelligence": 69,
+                            "agility": 128,
+                            "evasion": 31,
+                            "tactical_points": 0,
+                            "attack_points": 110,
+                            "armor_class": 90,
+                        },
+                    },
+                    {
+                        'name': 'robbers',
+                        'stats': {
+                            "soldiers": 42000,
+                            "strength": 151,
+                            "defense": 88,
+                            "intelligence": 69,
+                            "agility": 128,
+                            "evasion": 31,
+                            "tactical_points": 0,
+                            "attack_points": 110,
+                            "armor_class": 90,
+                        },
+                    },
+                ],
+            },
         }
         enemies = []
         for enemy in battle_data['enemies']:
