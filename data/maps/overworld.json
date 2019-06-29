@@ -3205,6 +3205,12 @@
   {
     "x": 175,
     "y": 350,
+    "teleport": {
+      "map": "amulon",
+      "x": 24,
+      "y": 33,
+      "direction": "n" 
+    },
     "battles": "chapter11_battles"
   },
   {
