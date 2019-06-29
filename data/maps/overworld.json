@@ -3249,6 +3249,12 @@
   {
     "x": 256,
     "y": 327,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 24,
+      "y": 35,
+      "direction": "n" 
+    },
     "battles": "chapter11_battles"
   },
   {
