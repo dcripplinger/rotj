@@ -44,5 +44,51 @@
         }
       }
     ]
+  },
+  {
+    "name": "battle64",
+    "intro": "Run home and tell Lachoneus how terrible Ogath is.",
+    "enemies": [
+      {
+        "name": "ogath",
+        "level": 62
+      },
+      {
+        "name": "malachi",
+        "level": 62
+      },
+      {
+        "name": "zerin",
+        "level": 62
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 220000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 220000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      }
+    ]
   }
 ]
