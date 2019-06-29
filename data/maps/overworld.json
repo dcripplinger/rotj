@@ -3227,6 +3227,12 @@
   {
     "x": 212,
     "y": 377,
+    "teleport": {
+      "map": "midian",
+      "x": 41,
+      "y": 22,
+      "direction": "w" 
+    },
     "battles": "chapter11_battles"
   },
   {
