@@ -174,5 +174,41 @@
         }
       }
     ]
+  },
+  {
+    "name": "battle67",
+    "intro": "To the battlefield!",
+    "enemies": [
+      {
+        "name": "neum",
+        "level": 62
+      },
+      {
+        "name": "amnigaddah",
+        "level": 62
+      },
+      {
+        "name": "zenock",
+        "level": 62
+      },
+      {
+        "name": "limher",
+        "level": 62
+      },
+      {
+        "name": "lamanites",
+        "stats": {
+          "soldiers": 420000,
+          "strength": 145,
+          "defense": 60,
+          "intelligence": 60,
+          "agility": 140,
+          "evasion": 50,
+          "tactical_points": 0,
+          "attack_points": 110,
+          "armor_class": 90
+        }
+      }
+    ]
   }
 ]
