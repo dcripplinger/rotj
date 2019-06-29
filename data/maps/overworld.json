@@ -3311,5 +3311,39 @@
         ]
       }
     ]
+  },
+  {
+    "x": 58,
+    "y": 90,
+    "teleport": {
+      "map": "joshua",
+      "x": 15,
+      "y": 26,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle73",
+        "conditions": {
+          "battle71": true
+        },
+        "intro": "Destroy Moronihah's army!",
+        "exit": "They are too strong!",
+        "enemies": [
+          {
+            "name": "jacobugath",
+            "level": 73
+          },
+          {
+            "name": "jarom",
+            "level": 71
+          },
+          {
+            "name": "benjamin",
+            "level": 71
+          }
+        ]
+      }
+    ]
   }
 ]
