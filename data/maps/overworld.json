@@ -3225,5 +3225,15 @@
     "x": 284,
     "y": 336,
     "battles": "chapter11_battles"
+  },
+  {
+    "x": 231,
+    "y": 330,
+    "teleport": {
+      "map": "onidah",
+      "x": 57,
+      "y": 21,
+      "direction": "w"
+    }
   }
 ]
