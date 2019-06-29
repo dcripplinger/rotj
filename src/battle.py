@@ -1685,6 +1685,15 @@ class Battle(object):
                 ),
             })
             self.game.remove_from_company_and_reserve('alma')
+        elif kwargs.get('battle_name') == 'battle70':
+            kwargs.update({
+                'opening_dialog': create_prompt(
+                    u"Oh, Moronihah, is that you? My apologies. I am Gidgiddoni. Lachoneus sent me to these tunnels to root out the remainder "
+                    u"of the Gadianton Robbers. But they have grown too strong. Many Nephites and Lamanites alike have joined their society, "
+                    u"and they have taken control of the strongholds in the land northward. I attacked the city Kishkumen and lost almost all "
+                    u"my men."
+                ),
+            })
         self.game.end_battle(*args, **kwargs)
 
     def try_bargain(self):

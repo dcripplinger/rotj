@@ -140,5 +140,49 @@
       "x": 58,
       "y": 50
     }
+  },
+  {
+    "x": 42,
+    "y": 16,
+    "ai_sprite": {
+      "name": "gidgiddoni",
+      "conditions": {
+        "gidgiddoni_joins": false,
+        "battle62": true
+      },
+      "direction": "n",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "The Gadianton Robbers have grown too strong in the land northward. Perhaps if we join forces, we may yet be victorious?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "gidgiddoni_joins",
+              "next_dialog": "Very good. You have given me great hope."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I think you are going to need my help."
+            }
+          ]
+        }
+      ]
+    },
+    "battles": [
+      {
+        "name": "battle70",
+        "conditions": {
+          "battle62": true
+        },
+        "intro": "Whoever you are, you do not want to mess with me right now.",
+        "enemies": [
+          {
+            "name": "gidgiddoni",
+            "level": 70
+          }
+        ]
+      }
+    ]
   }
 ]
