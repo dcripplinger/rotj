@@ -3260,6 +3260,12 @@
   {
     "x": 284,
     "y": 336,
+    "teleport": {
+      "map": "shemlon",
+      "x": 18,
+      "y": 40,
+      "direction": "n" 
+    },
     "battles": "chapter11_battles"
   },
   {
