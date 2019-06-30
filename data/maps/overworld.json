@@ -3408,5 +3408,54 @@
         ]
       }
     ]
+  },
+  {
+    "x": 76,
+    "y": 92,
+    "teleport": {
+      "map": "angola",
+      "x": 11,
+      "y": 14,
+      "direction": "e"
+    },
+    "battles": [
+      {
+        "name": "battle75",
+        "intro": "You will not find the fortress of Angola so easy to pass through.",
+        "exit": "Regroup at Jashon!",
+        "enemies": [
+          {
+            "name": "jacom",
+            "level": 75
+          },
+          {
+            "name": "jacomi",
+            "level": 75
+          },
+          {
+            "name": "jacomiah",
+            "level": 75
+          },
+          {
+            "name": "gazalem",
+            "level": 75
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

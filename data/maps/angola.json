@@ -1,0 +1,42 @@
+[
+  {
+    "x": 10,
+    "y": 14,
+    "teleport": {
+      "map": "overworld",
+      "x": 76,
+      "y": 92,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 10,
+    "y": 15,
+    "teleport": {
+      "map": "overworld",
+      "x": 76,
+      "y": 92,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 35,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 76,
+      "y": 92,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 36,
+    "y": 40,
+    "teleport": {
+      "map": "overworld",
+      "x": 76,
+      "y": 92,
+      "direction": "s"
+    }
+  }
+]
