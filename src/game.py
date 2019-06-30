@@ -1684,15 +1684,15 @@ class Game(object):
         robbers = {
             'name': 'robbers',
             'stats': {
-                "soldiers": 42000,
-                "strength": 151,
-                "defense": 88,
-                "intelligence": 69,
+                "soldiers": 1600000,
+                "strength": 200,
+                "defense": 130,
+                "intelligence": 99,
                 "agility": 128,
-                "evasion": 31,
+                "evasion": 35,
                 "tactical_points": 0,
-                "attack_points": 110,
-                "armor_class": 90,
+                "attack_points": 180,
+                "armor_class": 180,
             },
         }
         battle_data = {
