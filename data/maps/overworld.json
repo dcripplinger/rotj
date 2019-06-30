@@ -3561,5 +3561,33 @@
         ]
       }
     ]
+  },
+  {
+    "x": 99,
+    "y": 54,
+    "battles": [
+      {
+        "name": "battle78",
+        "intro": "Why waste your talents supporting a fallen government?",
+        "enemies": [
+          {
+            "name": "kish",
+            "level": 78
+          },
+          {
+            "name": "omner",
+            "level": 78
+          },
+          {
+            "name": "sherem",
+            "level": 78
+          },
+          {
+            "name": "mulek",
+            "level": 78
+          }
+        ]
+      }
+    ]
   }
 ]
