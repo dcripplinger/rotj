@@ -3509,5 +3509,57 @@
         ]
       }
     ]
+  },
+  {
+    "x": 96,
+    "y": 61,
+    "battles": [
+      {
+        "name": "battle77",
+        "intro": "Learn of our secret combinations, and you will find riches and power.",
+        "enemies": [
+          {
+            "name": "enos",
+            "level": 77
+          },
+          {
+            "name": "gilead",
+            "level": 77
+          },
+          {
+            "name": "zeezra",
+            "level": 77
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
