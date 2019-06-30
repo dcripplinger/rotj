@@ -3589,5 +3589,43 @@
         ]
       }
     ]
+  },
+  {
+    "x": 102,
+    "y": 43,
+    "teleport": {
+      "map": "jashon",
+      "x": 26,
+      "y": 48,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle79",
+        "intro": "Who is Moronihah, that I and my people should fear him?",
+        "enemies": [
+          {
+            "name": "noah",
+            "level": 79
+          },
+          {
+            "name": "cohor",
+            "level": 79
+          },
+          {
+            "name": "com",
+            "level": 79
+          },
+          {
+            "name": "comnor",
+            "level": 79
+          },
+          {
+            "name": "gilead",
+            "level": 79
+          }
+        ]
+      }
+    ]
   }
 ]
