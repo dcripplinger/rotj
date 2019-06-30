@@ -212,7 +212,16 @@ class Battle(object):
         self.ally_tactical_points = ally_tactical_points
         self.cancel_all_out = False
         self.exit = exit
-        self.narration = create_prompt(narration) if narration else None
+        current_narration = None
+        if narration:
+            if isinstance(narration, basestring):
+                current_narration = narration
+            else:
+                for n in narration:
+                    if self.conditions_are_met(n.get('conditions')):
+                        current_narration = n.get('text')
+                        break
+        self.narration = create_prompt(current_narration) if current_narration else None
         self.captured_enemies = []
         self.exit_dialog = None
         self.exit_choice = None

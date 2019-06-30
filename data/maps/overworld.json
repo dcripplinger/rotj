@@ -3627,5 +3627,55 @@
         ]
       }
     ]
+  },
+  {
+    "x": 126,
+    "y": 63,
+    "teleport": {
+      "map": "boaz",
+      "x": 23,
+      "y": 37,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle80",
+        "battle_type": "giddianhi",
+        "intro": "I see you have decided against my offer. Understand this. I'm not just going to destroy you. I will hunt down your father, your mother, your wife, and your children. My band will enter into their homes at night as they sleep peacefully in their beds. Your death is only the beginning of your suffering.",
+        "narration": [
+          {
+            "conditions": {
+              "battle90": true
+            },
+            "text": "Giddianhi was taken and hanged from a tree. The secret band of Gadianton has been eradicated."
+          },
+          {
+            "text": "Giddianhi was taken and hanged from a tree. But Zemnarihah has assumed command of the Gadianton Robbers farther north."
+          }
+        ],
+        "enemies": [
+          {
+            "name": "giddianhi",
+            "level": 82
+          },
+          {
+            "name": "shiz",
+            "level": 80
+          },
+          {
+            "name": "akish",
+            "level": 80
+          },
+          {
+            "name": "amaleki",
+            "level": 80
+          },
+          {
+            "name": "adam",
+            "level": 80
+          }
+        ]
+      }
+    ]
   }
 ]
