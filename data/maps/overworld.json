@@ -3355,5 +3355,58 @@
         ]
       }
     ]
+  },
+  {
+    "x": 78,
+    "y": 77,
+    "battles": [
+      {
+        "name": "battle74",
+        "intro": "Ha! What a sorry excuse for an army.",
+        "exit": "Impossible!",
+        "enemies": [
+          {
+            "name": "gideon",
+            "level": 74
+          },
+          {
+            "name": "moriantum",
+            "level": 74
+          },
+          {
+            "name": "moses",
+            "level": 74
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
