@@ -3313,6 +3313,16 @@
     ]
   },
   {
+    "x": 23,
+    "y": 107,
+    "teleport": {
+      "map": "raiders_hideout",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
     "x": 58,
     "y": 90,
     "teleport": {

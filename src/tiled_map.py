@@ -60,8 +60,8 @@ class Map(object):
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
-        self.load_ai_sprites()
         self.load_treasures()
+        self.load_ai_sprites()
         self.hero = None
         self.follower_one = None
         self.follower_two = None
