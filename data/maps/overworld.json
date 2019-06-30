@@ -3457,5 +3457,57 @@
         ]
       }
     ]
+  },
+  {
+    "x": 92,
+    "y": 67,
+    "battles": [
+      {
+        "name": "battle76",
+        "intro": "Join us, and we will spare your miserable lives.",
+        "enemies": [
+          {
+            "name": "com",
+            "level": 76
+          },
+          {
+            "name": "comnor",
+            "level": 76
+          },
+          {
+            "name": "ramah",
+            "level": 76
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
