@@ -3801,5 +3801,44 @@
         ]
       }
     ]
+  },
+  {
+    "x": 86,
+    "y": 64,
+    "teleport": {
+      "map": "jordan",
+      "x": 15,
+      "y": 10,
+      "direction": "s"
+    },
+    "battles": [
+      {
+        "name": "battle83",
+        "intro": "You will not find the city of Jordan so easy to pass through.",
+        "exit": "Fall back!",
+        "enemies": [
+          {
+            "name": "cohor",
+            "level": 83
+          },
+          {
+            "name": "mahonri",
+            "level": 83
+          },
+          {
+            "name": "moriancumer",
+            "level": 83
+          },
+          {
+            "name": "shem",
+            "level": 83
+          },
+          {
+            "name": "jacomi",
+            "level": 83
+          }
+        ]
+      }
+    ]
   }
 ]
