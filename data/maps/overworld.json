@@ -4021,5 +4021,37 @@
         ]
       }
     ]
+  },
+  {
+    "x": 34,
+    "y": 81,
+    "battles": [
+      {
+        "name": "battle88",
+        "intro": "Why waste your talents supporting a fallen government?",
+        "enemies": [
+          {
+            "name": "adam",
+            "level": 86
+          },
+          {
+            "name": "nimrod",
+            "level": 86
+          },
+          {
+            "name": "shared",
+            "level": 86
+          },
+          {
+            "name": "mulokihah",
+            "level": 86
+          },
+          {
+            "name": "jacobugath",
+            "level": 86
+          }
+        ]
+      }
+    ]
   }
 ]
