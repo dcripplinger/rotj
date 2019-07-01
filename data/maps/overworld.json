@@ -3889,5 +3889,57 @@
         ]
       }
     ]
+  },
+  {
+    "x": 46,
+    "y": 35,
+    "battles": [
+      {
+        "name": "battle85",
+        "intro": "Destroy the Nephite army!",
+        "enemies": [
+          {
+            "name": "gazalem",
+            "level": 86
+          },
+          {
+            "name": "kish",
+            "level": 86
+          },
+          {
+            "name": "moron",
+            "level": 85
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
