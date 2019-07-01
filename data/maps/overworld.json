@@ -3979,5 +3979,47 @@
         ]
       }
     ]
+  },
+  {
+    "x": 32,
+    "y": 78,
+    "battles": [
+      {
+        "name": "battle87",
+        "intro": "Learn of our secret combinations, and you will find riches and power.",
+        "enemies": [
+          {
+            "name": "seantum",
+            "level": 86
+          },
+          {
+            "name": "cumeni",
+            "level": 86
+          },
+          {
+            "name": "gideon",
+            "level": 86
+          },
+          {
+            "name": "jacomiah",
+            "level": 86
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
