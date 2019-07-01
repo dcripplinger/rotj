@@ -135,6 +135,12 @@ class Battle(object):
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
             }, self))
+        
+        # short circuit this battle if there are no enemies
+        if len(enemies) == 0:
+            self.end_battle(self.get_company(), ally_tactical_points, battle_name=battle_name)
+            return
+
         self.enemies = []
         for i, enemy in enumerate(enemies):
             if isinstance(enemy['stats']['soldiers'], list):
@@ -1702,6 +1708,10 @@ class Battle(object):
                     u"and they have taken control of the strongholds in the land northward. I attacked the city Kishkumen and lost almost all "
                     u"my men."
                 ),
+            })
+        elif kwargs.get('battle_name') == 'nonbattle':
+            kwargs.update({
+                'opening_dialog': create_prompt("There's no one here?"),
             })
         self.game.end_battle(*args, **kwargs)
 
