@@ -3840,5 +3840,54 @@
         ]
       }
     ]
+  },
+  {
+    "x": 46,
+    "y": 34,
+    "teleport": {
+      "map": "teancum",
+      "x": 16,
+      "y": 37,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle84",
+        "intro": "Long has it been since I have faced a worthy opponent.",
+        "exit": "We will meet again.",
+        "enemies": [
+          {
+            "name": "shiz",
+            "level": 84
+          },
+          {
+            "name": "shared",
+            "level": 84
+          },
+          {
+            "name": "omner",
+            "level": 84
+          },
+          {
+            "name": "kishkumen",
+            "level": 84
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
