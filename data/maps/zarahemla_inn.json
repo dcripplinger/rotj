@@ -26,5 +26,18 @@
       "type": "inn",
       "cost": 1
     }
+  },
+  {
+    "x": 19,
+    "y": 16,
+    "ai_sprite": {
+      "name": "kingmen",
+      "conditions": {
+        "got_thundered": true
+      },
+      "wander": true,
+      "direction": "w",
+      "dialog": "I found you unconscious on the battle field and brought you back here. Your father wishes to speak to you in Melek. I think he has information about Zemnarihah's thunder attack."
+    }
   }
 ]

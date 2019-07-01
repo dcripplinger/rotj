@@ -45,6 +45,67 @@
   	}
   },
   {
+    "x": 19,
+    "y": 13,
+    "ai_sprite": {
+      "name": "moroni",
+      "conditions": {
+        "battle55": true
+      },
+      "direction": "w",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "battle90",
+          "text": "I am proud of the man you have become, Moronihah. Perhaps all these wars could have been avoided if I had been a truer friend to Amalickiah. If I had protected his family, he might have remained a good man. But you have shown the greatest courage and loyalty to God, your country, and your friends. Thank you."
+        },
+        {
+          "condition": "battle81",
+          "text": "My son, Zemnarihah and the Gadianton Robbers pose the greatest threat our nation has ever faced. Your resolve must be unbreakable. I believe in you."
+        },
+        {
+          "condition": "got_thundered",
+          "text": "My son, Zemnarihah and the Gadianton Robbers pose the greatest threat our nation has ever faced. Your resolve must be unbreakable. If you wish to counter his thunder attack, you must use the following sequence as he prepares it. Up, up, down, down, left, right, up, down. I believe in you.",
+          "game_state_action": "learned_thunder_counter"
+        },
+        {
+          "condition": "moronihah_joins",
+          "text": "I am too old and injured to continue fighting. You must take my place, my son."
+        },
+        {
+          "text": "I am too old and injured to continue fighting. My son Moronihah is prepared to take my place as commander of the Nephite armies. You will find my belongings in surplus at any army reserve barracks."
+        }
+      ]
+    }
+  },
+  {
+    "ai_sprite": {
+      "name": "moronihah",
+      "conditions": {
+        "battle55": true,
+        "moronihah_joins": false
+      },
+      "wander": false,
+      "direction": "e",
+      "dialog": [
+        {
+          "text": "I am ready to lead the Nephite armies.",
+          "prompt": [
+            {
+              "choice": "Welcome!",
+              "game_state_action": "moronihah_joins",
+              "next_dialog": "Let us go speak to the chief judge in Zarahemla."
+            },
+            {
+              "choice": "Hold on...",
+              "next_dialog": "Let me know once you have prepared your things."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
     "x": 15,
     "y": 19,
     "teleport": {

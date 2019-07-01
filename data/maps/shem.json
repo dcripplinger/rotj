@@ -1,49 +1,49 @@
 [
   {
-    "x": 15,
-    "y": 27,
+    "x": 34,
+    "y": 35,
     "teleport": [
       {
         "conditions": {
           "battle71": true
         },
         "map": "overworld",
-        "x": 58,
-        "y": 90,
+        "x": 46,
+        "y": 63,
         "direction": "s"
       },
       {
         "map": "overworld",
-        "x": 58,
-        "y": 89,
+        "x": 46,
+        "y": 64,
         "direction": "s"
       }
     ]
   },
   {
-    "x": 16,
-    "y": 27,
+    "x": 35,
+    "y": 35,
     "teleport": [
       {
         "conditions": {
           "battle71": true
         },
         "map": "overworld",
-        "x": 58,
-        "y": 90,
+        "x": 46,
+        "y": 63,
         "direction": "s"
       },
       {
         "map": "overworld",
-        "x": 58,
-        "y": 89,
+        "x": 46,
+        "y": 64,
         "direction": "s"
       }
     ]
   },
   {
-    "x": 15,
-    "y": 25,
+    "x": 34,
+    "y": 31,
     "ai_sprite": {
       "name": "guard",
       "conditions": {
@@ -55,8 +55,8 @@
     }
   },
   {
-    "x": 16,
-    "y": 25,
+    "x": 35,
+    "y": 31,
     "ai_sprite": {
       "name": "guard",
       "conditions": {

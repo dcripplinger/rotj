@@ -80,6 +80,7 @@ class Game(object):
         self.pause_map = None
         self._screen_state_after_pause = None
         self.last_overworld_position = [169, 190] # default to melek
+        self.play_walk_sound = True
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -114,6 +115,7 @@ class Game(object):
             'showed_sign_to_seezoram': self.handle_showed_sign_to_seezoram,
             'talked_with_gadianton_in_bountiful': self.handle_talked_with_gadianton_in_bountiful,
             'talked_with_robbers': self.handle_talked_with_robbers,
+            'moronihah_joins': self.handle_moronihah_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -484,7 +486,13 @@ class Game(object):
             prev_experience=prev_experience, prev_money=prev_money, prev_food=prev_food, next_battle=next_battle,
         )
         if intro:
-            self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro)
+            intro_type = 'regular'
+            if battle_name == 'battle81':
+                if self.conditions_are_met('got_thundered'):
+                    intro_type = 'zemnarihah2'
+                else:
+                    intro_type = 'zemnarihah1'
+            self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro, intro_type=intro_type)
         if not continue_music:
             pygame.mixer.music.stop()
             self.continue_current_music = False
@@ -668,7 +676,7 @@ class Game(object):
             return None
 
     def set_current_map(
-        self, map_name, position, direction, followers='under', dialog=None, continue_current_music=False,
+        self, map_name, position, direction, followers='under', dialog=None, continue_current_music=False, play_walk_sound=True
     ):
         # set game state conditions for entering or exiting certain maps
         if self.current_map:
@@ -690,6 +698,7 @@ class Game(object):
             opening_dialog=dialog,
         )
         self.continue_current_music = continue_current_music
+        self.play_walk_sound = play_walk_sound
         self.fade_alpha = 0
         self.set_screen_state('change_map')
         self.retreat_counter = 0
@@ -928,7 +937,8 @@ class Game(object):
                 pygame.mixer.music.stop()
                 self.current_music = None
                 time.sleep(.1)
-                self.walk_sound.play()
+                if self.play_walk_sound:
+                    self.walk_sound.play()
         self.change_map_time_elapsed += dt
         update_interval = .1
         alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
@@ -1007,9 +1017,14 @@ class Game(object):
                     self.battle.handle_input(pressed)
                 elif self._screen_state == 'battle_intro' and self.battle_intro:
                     self.battle_intro.handle_input(pressed)
-                    if pressed[K_x] and not self.battle_intro.dialog.has_more_stuff_to_show():
-                        self.set_screen_state('battle')
-                        self.battle_intro.dialog.shutdown()
+                    if pressed[K_x] and self.battle_intro.is_finished():
+                        if self.battle_intro.got_thundered():
+                            self.set_game_state_condition('got_thundered')
+                            dialog = "Where are we? Zemnarihah attacked us with thunder. But I don't remember anything after that." 
+                            self.set_current_map('zarahemla_inn', (12, 15), 's', dialog=dialog, play_walk_sound=False)
+                        else:
+                            self.set_screen_state('battle')
+                            self.battle_intro.dialog.shutdown()
                         self.battle_intro = None
                 elif self._screen_state == 'narration' and self.narration:
                     if self.current_map.map_menu:
@@ -1724,3 +1739,6 @@ class Game(object):
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], exit=battle_data['exit'], narration=battle_data['narration'], battle_name="battle72",
         )
+
+    def handle_moronihajh_joins(self):
+        self.add_to_company(['moronihah'])

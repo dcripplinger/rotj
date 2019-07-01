@@ -3677,5 +3677,67 @@
         ]
       }
     ]
+  },
+  {
+    "x": 46,
+    "y": 63,
+    "teleport": {
+      "map": "shem",
+      "x": 34,
+      "y": 34,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle81",
+        "conditions": {
+          "battle71": true
+        },
+        "intro": "Moronihah's army. You can't stand against my thunder.",
+        "exit": "I will be waiting for you in Desolation, if you are so eager to die.",
+        "enemies": [
+          {
+            "name": "zemnarihah",
+            "level": 81
+          },
+          {
+            "name": "mulokihah",
+            "level": 81
+          },
+          {
+            "name": "enos",
+            "level": 81
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
