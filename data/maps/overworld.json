@@ -3941,5 +3941,43 @@
         ]
       }
     ]
+  },
+  {
+    "x": 31,
+    "y": 75,
+    "battles": [
+      {
+        "name": "battle86",
+        "intro": "Join us, and we will spare your miserable lives.",
+        "enemies": [
+          {
+            "name": "archeantus",
+            "level": 86
+          },
+          {
+            "name": "irreantum",
+            "level": 86
+          },
+          {
+            "name": "jarom",
+            "level": 86
+          },
+          {
+            "name": "robbers",
+            "stats": {
+              "soldiers": 1600000,
+              "strength": 162,
+              "defense": 94,
+              "intelligence": 79,
+              "agility": 128,
+              "evasion": 35,
+              "tactical_points": 0,
+              "attack_points": 120,
+              "armor_class": 100
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
