@@ -1,0 +1,68 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "zenehor",
+        "robbers"
+      ],
+      [
+        "cumenihah",
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "zenehor": {
+        "level": 55,
+        "capture": "battle61"
+      },
+      "cumenihah": {
+        "level": 55,
+        "capture": "battle61"
+      },
+      "robbers": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 117,
+        "defense": 70,
+        "intelligence": 80,
+        "agility": 75,
+        "evasion": 24,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      }
+    }
+  }
+]

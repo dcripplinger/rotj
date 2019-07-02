@@ -948,6 +948,9 @@
     "encounters": [
       [
         "robbers",
+        "robbers"
+      ],
+      [
         "robbers",
         "robbers",
         "robbers"
@@ -962,11 +965,33 @@
         "robbers",
         "robbers",
         "robbers",
+        "robbers"
+      ],
+      [
         "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "ezrom",
+        "robbers"
+      ],
+      [
+        "shemulon",
         "robbers"
       ]
     ],
     "stats": {
+      "ezrom": {
+        "level": 64,
+        "capture": "battle69"
+      },
+      "shemulon": {
+        "level": 64,
+        "capture": "battle69"
+      },
       "robbers": {
         "soldiers": [
           220000,
@@ -1566,12 +1591,6 @@
         "lamanites"
       ],
       [
-        "aaron",
-        "lamanites",
-        "lamanites",
-        "lamanites"
-      ],
-      [
         "joseph",
         "lamanites",
         "lamanites",
@@ -1591,10 +1610,6 @@
       ]
     ],
     "stats": {
-      "aaron": {
-        "level": 28,
-        "capture": "battle39"
-      },
       "joseph": {
         "level": 28,
         "capture": "battle39"
@@ -1669,12 +1684,6 @@
         "lamanites"
       ],
       [
-        "aaron",
-        "lamanites",
-        "lamanites",
-        "lamanites"
-      ],
-      [
         "joseph",
         "lamanites",
         "lamanites",
@@ -1694,10 +1703,6 @@
       ]
     ],
     "stats": {
-      "aaron": {
-        "level": 28,
-        "capture": "battle39"
-      },
       "joseph": {
         "level": 28,
         "capture": "battle39"

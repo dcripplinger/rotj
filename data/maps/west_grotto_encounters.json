@@ -1,0 +1,68 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "amnihu",
+        "robbers"
+      ],
+      [
+        "shemnon",
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "amnihu": {
+        "level": 56,
+        "capture": "battle62"
+      },
+      "shemnon": {
+        "level": 56,
+        "capture": "battle62"
+      },
+      "robbers": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 117,
+        "defense": 70,
+        "intelligence": 80,
+        "agility": 75,
+        "evasion": 24,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      }
+    }
+  }
+]
