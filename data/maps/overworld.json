@@ -3192,6 +3192,16 @@
     ]
   },
   {
+    "x": 198,
+    "y": 333,
+    "teleport": {
+      "map": "waters_of_mormon",
+      "x": 22,
+      "y": 11,
+      "direction": "s"
+    }
+  },
+  {
     "x": 144,
     "y": 311,
     "teleport": {
