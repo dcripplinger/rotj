@@ -1,0 +1,108 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "angolianhi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amgid",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amgiddoni",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mathonihah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ]
+    ],
+    "stats": {
+      "angolianhi": {
+        "level": 50,
+        "capture": "battle55"
+      },
+      "amgid": {
+        "level": 48,
+        "capture": "battle54"
+      },
+      "amgiddoni": {
+        "level": 48,
+        "capture": "battle54"
+      },
+      "mathonihah": {
+        "level": 52,
+        "capture": "battle55"
+      },
+      "robbers": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 117,
+        "defense": 70,
+        "intelligence": 80,
+        "agility": 75,
+        "evasion": 24,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      },
+      "lamanites": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 116,
+        "defense": 48,
+        "intelligence": 39,
+        "agility": 88,
+        "evasion": 37,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      }
+    }
+  }
+]

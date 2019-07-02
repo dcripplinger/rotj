@@ -72,10 +72,14 @@ class MapMenu(object):
         if self.state == 'save':
             if not self.save_menu:
                 if not self.prompt.has_more_stuff_to_show():
-                    self.save_menu = MenuBox(['YES', 'NO'])
-                    self.save_menu.focus()
-                    self.prompt.shutdown()
-                    self.item_selected_menu = None
+                    if self.map.name in CAVE_NAMES:
+                        self.prompt = create_prompt("It's too dark to record here.")
+                        self.main_menu.unfocus()
+                    else:
+                        self.save_menu = MenuBox(['YES', 'NO'])
+                        self.save_menu.focus()
+                        self.prompt.shutdown()
+                        self.item_selected_menu = None
             else:
                 self.save_menu.update(dt)
 
