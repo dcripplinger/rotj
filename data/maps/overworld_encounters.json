@@ -2070,12 +2070,6 @@
     "y": 3,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "lamanites",
         "lamanites",
         "lamanites"
@@ -2088,6 +2082,56 @@
       ],
       [
         "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zarahemla",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeniff",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "agosh",
+        "zemulek"
+      ],
+      [
+        "lehonti",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abram",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ezias",
         "lamanites",
         "lamanites",
         "lamanites",
@@ -2095,35 +2139,48 @@
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          1500,
-          1800,
-          2100
-        ],
-        "strength": 90,
-        "defense": 46,
-        "intelligence": 37,
-        "agility": 45,
-        "evasion": 0,
-        "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+      "zarahemla": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "zeniff": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "agosh": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "zemulek": {
+        "level": 44,
+        "capture": "battle50"
+      },
+      "lehonti": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "ezias": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "abram": {
+        "level": 44,
+        "capture": "battle51"
       },
       "lamanites": {
         "soldiers": [
-          1500,
-          1800,
-          2100
+          9200,
+          11400,
+          13600
         ],
-        "strength": 96,
-        "defense": 30,
-        "intelligence": 33,
-        "agility": 84,
-        "evasion": 19,
+        "strength": 108,
+        "defense": 42,
+        "intelligence": 35,
+        "agility": 86,
+        "evasion": 25,
         "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+        "attack_points": 70,
+        "armor_class": 60
       }
     }
   },
@@ -2713,12 +2770,6 @@
     "y": 4,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "lamanites",
         "lamanites",
         "lamanites"
@@ -2731,6 +2782,56 @@
       ],
       [
         "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zarahemla",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeniff",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "agosh",
+        "zemulek"
+      ],
+      [
+        "lehonti",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abram",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ezias",
         "lamanites",
         "lamanites",
         "lamanites",
@@ -2738,35 +2839,48 @@
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          1500,
-          1800,
-          2100
-        ],
-        "strength": 90,
-        "defense": 46,
-        "intelligence": 37,
-        "agility": 45,
-        "evasion": 0,
-        "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+      "zarahemla": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "zeniff": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "agosh": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "zemulek": {
+        "level": 44,
+        "capture": "battle50"
+      },
+      "lehonti": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "ezias": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "abram": {
+        "level": 44,
+        "capture": "battle51"
       },
       "lamanites": {
         "soldiers": [
-          1500,
-          1800,
-          2100
+          9200,
+          11400,
+          13600
         ],
-        "strength": 96,
-        "defense": 30,
-        "intelligence": 33,
-        "agility": 84,
-        "evasion": 19,
+        "strength": 108,
+        "defense": 42,
+        "intelligence": 35,
+        "agility": 86,
+        "evasion": 25,
         "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+        "attack_points": 70,
+        "armor_class": 60
       }
     }
   },
@@ -3279,12 +3393,6 @@
     "y": 5,
     "encounters": [
       [
-        "robbers",
-        "robbers",
-        "robbers",
-        "robbers"
-      ],
-      [
         "lamanites",
         "lamanites",
         "lamanites"
@@ -3297,6 +3405,56 @@
       ],
       [
         "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zarahemla",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zeniff",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "agosh",
+        "zemulek"
+      ],
+      [
+        "lehonti",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abram",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ezias",
         "lamanites",
         "lamanites",
         "lamanites",
@@ -3304,35 +3462,48 @@
       ]
     ],
     "stats": {
-      "robbers": {
-        "soldiers": [
-          1500,
-          1800,
-          2100
-        ],
-        "strength": 90,
-        "defense": 46,
-        "intelligence": 37,
-        "agility": 45,
-        "evasion": 0,
-        "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+      "zarahemla": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "zeniff": {
+        "level": 44,
+        "capture": "battle49"
+      },
+      "agosh": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "zemulek": {
+        "level": 44,
+        "capture": "battle50"
+      },
+      "lehonti": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "ezias": {
+        "level": 44,
+        "capture": "battle51"
+      },
+      "abram": {
+        "level": 44,
+        "capture": "battle51"
       },
       "lamanites": {
         "soldiers": [
-          1500,
-          1800,
-          2100
+          9200,
+          11400,
+          13600
         ],
-        "strength": 96,
-        "defense": 30,
-        "intelligence": 33,
-        "agility": 84,
-        "evasion": 19,
+        "strength": 108,
+        "defense": 42,
+        "intelligence": 35,
+        "agility": 86,
+        "evasion": 25,
         "tactical_points": 0,
-        "attack_points": 55,
-        "armor_class": 50
+        "attack_points": 70,
+        "armor_class": 60
       }
     }
   },

@@ -2305,6 +2305,9 @@ class Battle(object):
             # no retreating allowed if this is a 2nd battle in a row
             if self.prev_experience:
                 successful = False
+            # always allow retreat from samuel
+            if self.enemies[0].name == 'samuel':
+                successful = True
         if successful:
             self.state = 'retreat'
             self.warlord = None
