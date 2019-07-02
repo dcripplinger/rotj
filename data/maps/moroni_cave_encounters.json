@@ -1,0 +1,93 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "mormon",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "giddonah",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "amos",
+        "kingmen",
+        "kingmen",
+        "kingmen",
+        "kingmen"
+      ],
+      [
+        "gilgal",
+        "kingmen",
+        "kingmen"
+      ]
+    ],
+    "stats": {
+      "mormon": {
+        "level": 42,
+        "capture": "battle47"
+      },
+      "giddonah": {
+        "level": 42,
+        "capture": "battle48"
+      },
+      "amos": {
+        "level": 42,
+        "capture": "battle48"
+      },
+      "gilgal": {
+        "level": 42,
+        "capture": "battle48"
+      },
+      "kingmen": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 106,
+        "defense": 74,
+        "intelligence": 61,
+        "agility": 55,
+        "evasion": 20,
+        "tactical_points": 0,
+        "attack_points": 80,
+        "armor_class": 70
+      }
+    }
+  }
+]
