@@ -66,13 +66,24 @@ COLORS = [
     {
         'soldiers': 10485760,
         'color': (167,126,31), # vegas gold
-        'soldiers_per_pixel': 40960,
+        'soldiers_per_pixel': 163840,
     },
     {
         'soldiers': 1000000000,
         'color': (210,64,64), # dark red
-        'soldiers_per_pixel': 81920,
+        'soldiers_per_pixel': 655360,
     },
+]
+
+TAUNTS = [
+    "If you serve us, we can pay you well.",
+    "You are strong, but you can't stand against my attack.",
+    "If you stand by us, we will treat you very well.",
+    "How much are you paid to throw your lives away?",
+    "Learn of our secret combinations.",
+    "Join us, and we will spare your miserable lives.",
+    "There is nowhere for you to run.",
+    "We want to hear you beg for mercy.",
 ]
 
 RETREAT_TIME_PER_PERSON = 0.2
@@ -747,6 +758,8 @@ class Battle(object):
 
     def get_move_dialog(self, mini_move, mini_result):
         dialog = u""
+        if self.battle_name == 'battle89' and mini_move['agent'].name in ['zedekiah', 'gadiomnah']:
+            dialog += self.get_random_taunt()
         if mini_move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             dialog += self.get_attack_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_defend:
@@ -766,6 +779,9 @@ class Battle(object):
             return create_prompt(dialog, silent=True)
         else:
             return None
+
+    def get_random_taunt(self):
+        return random.choice(TAUNTS)
 
     def pop_and_handle_mini_move(self, silent=False):
         if len(self.mini_moves) > 0:
@@ -2286,6 +2302,9 @@ class Battle(object):
             is_warlord_battle = self.battle_type=='warlord'
             is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
             successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
+            # no retreating allowed if this is a 2nd battle in a row
+            if self.prev_experience:
+                successful = False
         if successful:
             self.state = 'retreat'
             self.warlord = None

@@ -3647,10 +3647,10 @@
             "conditions": {
               "battle90": true
             },
-            "text": "Giddianhi was taken and hanged from a tree. The secret band of Gadianton has been eradicated."
+            "text": "As his army fled before Moronihah, Giddianhi was overtaken and slain. The secret band of Gadianton has been eradicated."
           },
           {
-            "text": "Giddianhi was taken and hanged from a tree. But Zemnarihah has assumed command of the Gadianton Robbers farther north."
+            "text": "As his army fled before Moronihah, Giddianhi was overtaken and slain. But Zemnarihah has assumed command of the Gadianton Robbers farther north."
           }
         ],
         "enemies": [
@@ -4061,6 +4061,83 @@
       {
         "name": "nonbattle",
         "enemies": []
+      }
+    ]
+  },
+  {
+    "x": 37,
+    "y": 87,
+    "teleport": {
+      "map": "desolation",
+      "x": 26,
+      "y": 39,
+      "direction": "n"
+    },
+    "battles": [
+      {
+        "name": "battle89",
+        "intro": "You've gone far enough. It ends here.",
+        "exit": "How could you have withstood our attack?",
+        "enemies": [
+          {
+            "name": "zedekiah",
+            "level": 90
+          },
+          {
+            "name": "gadiomnah",
+            "level": 90
+          },
+          {
+            "name": "adam",
+            "level": 86
+          },
+          {
+            "name": "seantum",
+            "level": 86
+          },
+          {
+            "name": "archeantus",
+            "level": 86
+          }
+        ],
+        "next_battle": {
+          "name": "battle90",
+          "intro": "Moronihah. My destiny is to conquer the whole land. You can't prevent it.",
+          "exit": "If I am to die, I consider it an honor for it to be by your hand.",
+          "narration": [
+            {
+              "text": "Zemnarihah was taken and hanged upon a tree. The secret band of Gadianton has been eradicated.",
+              "conditions": {
+                "battle80": true
+              }
+            },
+            {
+              "text": "Zemnarihah was taken and hanged upon a tree. But Giddianhi is preparing his robbers to terrorize and destroy our people."
+            }
+          ],
+          "enemies": [
+            {
+              "name": "zemnarihah",
+              "level": 92
+            },
+            {
+              "name": "shiz",
+              "level": 92
+            },
+            {
+              "name": "zedekiah",
+              "level": 90
+            },
+            {
+              "name": "gadiomnah",
+              "level": 90
+            },
+            {
+              "name": "cohor",
+              "level": 90
+            }
+          ]
+        }
       }
     ]
   }
