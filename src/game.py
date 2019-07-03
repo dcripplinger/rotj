@@ -1740,5 +1740,5 @@ class Game(object):
             enemies, battle_data['battle_type'], exit=battle_data['exit'], narration=battle_data['narration'], battle_name="battle72",
         )
 
-    def handle_moronihajh_joins(self):
+    def handle_moronihah_joins(self):
         self.add_to_company(['moronihah'])
