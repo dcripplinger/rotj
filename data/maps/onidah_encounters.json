@@ -36,9 +36,75 @@
         "robbers",
         "robbers",
         "robbers"
+      ],
+      [
+        "timothy",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "levi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "neum",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amnigaddah",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "zenock",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "limher",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "timothy": {
+        "level": 62,
+        "capture": "battle66"
+      },
+      "levi": {
+        "level": 62,
+        "capture": "battle66"
+      },
+      "neum": {
+        "level": 62,
+        "capture": "battle67"
+      },
+      "amnigaddah": {
+        "level": 62,
+        "capture": "battle67"
+      },
+      "zenock": {
+        "level": 62,
+        "capture": "battle67"
+      },
+      "limher": {
+        "level": 62,
+        "capture": "battle67"
+      },
       "lamanites": {
         "soldiers": [
           220000,
