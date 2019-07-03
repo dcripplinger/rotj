@@ -3830,6 +3830,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -3838,9 +3849,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "amulon",
+        "amalekites",
+        "amalekites",
+        "amalekites"
+      ],
+      [
+        "abinadom",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amgideon",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ogath",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "malachi",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "amulon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "abinadom": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "amgideon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "ogath": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "malachi": {
+        "level": 62,
+        "capture": "battle64"
+      },
       "lamanites": {
         "soldiers": [
           22000,
@@ -3891,6 +3953,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -3899,9 +3972,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "amulon",
+        "amalekites",
+        "amalekites",
+        "amalekites"
+      ],
+      [
+        "abinadom",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amgideon",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ogath",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "malachi",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "amulon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "abinadom": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "amgideon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "ogath": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "malachi": {
+        "level": 62,
+        "capture": "battle64"
+      },
       "lamanites": {
         "soldiers": [
           22000,
@@ -3952,6 +4076,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -3960,9 +4095,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "amulon",
+        "amalekites",
+        "amalekites",
+        "amalekites"
+      ],
+      [
+        "abinadom",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "amgideon",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ogath",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "malachi",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "amulon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "abinadom": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "amgideon": {
+        "level": 62,
+        "capture": "battle63"
+      },
+      "ogath": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "malachi": {
+        "level": 62,
+        "capture": "battle64"
+      },
       "lamanites": {
         "soldiers": [
           22000,
