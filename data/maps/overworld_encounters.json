@@ -958,6 +958,16 @@
       [
         "robbers",
         "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
         "robbers",
         "robbers"
       ],
@@ -981,6 +991,21 @@
       [
         "shemulon",
         "robbers"
+      ],
+      [
+        "zemnari",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "shazer",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "shiblom",
+        "robbers",
+        "robbers"
       ]
     ],
     "stats": {
@@ -991,6 +1016,18 @@
       "shemulon": {
         "level": 64,
         "capture": "battle69"
+      },
+      "zemnari": {
+        "level": 62,
+        "capture": "battle68"
+      },
+      "shazer": {
+        "level": 62,
+        "capture": "battle68"
+      },
+      "shiblom": {
+        "level": 62,
+        "capture": "battle68"
       },
       "robbers": {
         "soldiers": [
