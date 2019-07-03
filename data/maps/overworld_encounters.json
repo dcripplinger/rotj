@@ -4271,6 +4271,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -4279,9 +4290,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "zerin",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abinadi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mantor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ripliancum",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "himnah",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "zerin": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "abinadi": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "mantor": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "ripliancum": {
+        "level": 62,
+        "capture": "battle66"
+      },
+      "himnah": {
+        "level": 62,
+        "capture": "battle66"
+      },
       "lamanites": {
         "soldiers": [
           220000,
@@ -4332,6 +4394,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -4340,9 +4413,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "zerin",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abinadi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mantor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ripliancum",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "himnah",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "zerin": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "abinadi": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "mantor": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "ripliancum": {
+        "level": 62,
+        "capture": "battle66"
+      },
+      "himnah": {
+        "level": 62,
+        "capture": "battle66"
+      },
       "lamanites": {
         "soldiers": [
           220000,
@@ -4393,6 +4517,17 @@
       [
         "lamanites",
         "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "lamanites",
+        "lamanites",
         "lamanites",
         "lamanites",
         "lamanites"
@@ -4401,9 +4536,60 @@
         "amalekites",
         "amalekites",
         "amalekites"
+      ],
+      [
+        "zerin",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "abinadi",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "mantor",
+        "lamanites",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "ripliancum",
+        "lamanites",
+        "lamanites",
+        "lamanites"
+      ],
+      [
+        "himnah",
+        "lamanites",
+        "lamanites"
       ]
     ],
     "stats": {
+      "zerin": {
+        "level": 62,
+        "capture": "battle64"
+      },
+      "abinadi": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "mantor": {
+        "level": 62,
+        "capture": "battle65"
+      },
+      "ripliancum": {
+        "level": 62,
+        "capture": "battle66"
+      },
+      "himnah": {
+        "level": 62,
+        "capture": "battle66"
+      },
       "lamanites": {
         "soldiers": [
           220000,
