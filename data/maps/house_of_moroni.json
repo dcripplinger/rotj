@@ -79,6 +79,8 @@
     }
   },
   {
+    "x": 17,
+    "y": 13,
     "ai_sprite": {
       "name": "moronihah",
       "conditions": {

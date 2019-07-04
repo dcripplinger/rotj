@@ -8,5 +8,49 @@
       "y": 17,
       "direction": "s"
     }
+  },
+  {
+    "x": 16,
+    "y": 28,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "We'll maintain and protect this city for you, sir!"
+    }
+  },
+  {
+    "x": 20,
+    "y": 24,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": true,
+      "dialog": "We'll maintain and protect this city for you, sir!"
+    }
+  },
+  {
+    "x": 11,
+    "y": 13,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": true,
+      "dialog": "What a bunch of brown nosers."
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "zoramites",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "An epistle arrived from our chief judge. It reads: Will you retake our cities to the west first, or the east first?"
+        }
+      ]
+    }
   }
 ]

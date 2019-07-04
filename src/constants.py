@@ -818,6 +818,22 @@ MAP_MUSIC = {
     'zeezrom': CITY_MUSIC,
 }
 
+CAVE_NAMES = [
+    'tunnels_of_the_north',
+    'cave_of_gadianton',
+    'sierra_pass',
+    'cavity_of_a_rock',
+    'passage_to_gid',
+    'antum',
+    'east_desert_cave',
+    'moroni_cave',
+    'north_grotto',
+    'onidah',
+    'south_desert_cave',
+    'west_desert_cave',
+    'west_grotto',
+]
+
 BATTLE_MUSIC = {
     'regular': {
         'intro': 'data/audio/music/regular_battle_intro.wav',
@@ -1213,8 +1229,9 @@ ITEMS = {
     },
 
     # map items
-    'key': {
+    'silver~key': {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
+        'cost': 10000
     },
 
     # save items

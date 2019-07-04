@@ -102,6 +102,7 @@ class Game(object):
             'rejected_amalickiah': self.handle_rejected_amalickiah,
             'got_title_of_liberty': self.handle_got_title_of_liberty,
             'got_javelin': self.handle_got_javelin,
+            'bought_key': self.handle_bought_key,
             'battle27': self.handle_battle27,
             'battle34_sober': self.handle_battle34_sober,
             'battle34_drunk': self.handle_battle34_drunk,
@@ -1096,6 +1097,9 @@ class Game(object):
         _, index = self._find_first_item_in_inventory('javelin')
         return in_surplus or index is not None
 
+    def not_enough_for_key(self):
+        return not self.conditions_are_met('bought_key') and self.game_state['money'] < ITEMS['silver~key']['cost']
+
     def laman_in_party(self):
         for warlord in self.game_state['company']:
             if warlord['name'] == 'laman':
@@ -1363,6 +1367,10 @@ class Game(object):
                 },
             ]
         })
+
+    def handle_bought_key(self):
+        self.add_to_inventory('silver~key')
+        self.update_game_state({'money': self.game_state['money'] - ITEMS['silver~key']['cost']})
 
     def handle_battle34_sober(self):
         lamanites = {

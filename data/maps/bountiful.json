@@ -256,5 +256,76 @@
       "wander": false,
       "dialog": "Welcome to Bountiful. When you are ready to leave, please choose the appropriate exit based on where you wish to travel."
     }
+  },
+  {
+    "x": 36,
+    "y": 14,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Heh heh heh. Did you ever find a use for that key, or is it still burning a hole in your pocket? Heh heh heh.",
+          "condition": "bought_key"
+        },
+        {
+          "text": "Heh heh heh. I've got a rare key I'm willing to sell you. It's yours for just... 10000 senines! Looks like you don't have enough. Heh heh heh.",
+          "condition": "state:not_enough_for_key"
+        },
+        {
+          "text": "Heh heh heh. I've got a rare key I'm willing to sell you. It's yours for just... 10000 senines! Heh heh heh.",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "bought_key",
+              "next_dialog": "Nice doing business with you. What? I have no idea what it unlocks. Heh heh heh."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Your loss. I might have sold it to someone else when you come asking me again. Heh heh heh."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "x": 34,
+    "y": 35,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Get away from me, you brute!"
+    }
+  },
+  {
+    "x": 12,
+    "y": 39,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Thank you for protecting our city."
+    }
+  },
+  {
+    "x": 26,
+    "y": 28,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "I am concerned there will always be yet another conflict awaiting our people.",
+          "condition": "battle55"
+        },
+        {
+          "text": "I hear that Ammoron, the brother of Amalickiah, has taken his place as king of the Lamanites and continues to occupy our cities. Will this war never end?"
+        }
+      ]
+    }
   }
 ]

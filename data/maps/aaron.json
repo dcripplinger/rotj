@@ -68,5 +68,51 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 39,
+    "y": 23,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "n",
+      "wander": false,
+      "dialog": "This city is named Aaron."
+    }
+  },
+  {
+    "x": 15,
+    "y": 22,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Thank you for rescuing the captives at Gid.",
+          "condition": "battle34"
+        },
+        {
+          "text": "The Lamanites took many men, women, and children captive and are holding them at the city of Gid, to the east."
+        }
+      ]
+    }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle34",
+          "text": "Were you ever able to recruit Laman?"
+        },
+        {
+          "text": "Laman was the servant blamed for the previous king's death when Amalickiah took power. Perhaps if we can recruit him, he can help us sneak into Gid. Did I see him wandering to the north of here?"
+        }
+      ]
+    }
   }
 ]

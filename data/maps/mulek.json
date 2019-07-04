@@ -98,5 +98,25 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 15,
+    "y": 25,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "w",
+      "wander": true,
+      "dialog": "You have arrived at the city of Mulek."
+    }
+  },
+  {
+    "x": 21,
+    "y": 19,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "n",
+      "wander": true,
+      "dialog": "I thought I would never be able to return to my home!"
+    }
   }
 ]
