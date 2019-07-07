@@ -1,0 +1,30 @@
+[
+  {
+    "x": 18,
+    "y": 19,
+    "teleport": {
+      "map": "gid",
+      "x": 37,
+      "y": 36,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 18,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 18,
+    "y": 12,
+    "shop": {
+      "type": "inn",
+      "cost": 17
+    }
+  }
+]

@@ -17,13 +17,16 @@ from battle_intro import BattleIntro
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC,
+    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS,
 )
 from helpers import (
+    can_level_up,
     get_armor_class_by_level,
     get_attack_points_by_level,
+    get_intelligence,
     get_max_soldiers,
     get_max_tactical_points,
+    get_tactic_for_level,
     get_tactics,
     load_stats,
     save_game_state,
@@ -107,6 +110,8 @@ class Game(object):
             'battle34_sober': self.handle_battle34_sober,
             'battle34_drunk': self.handle_battle34_drunk,
             'battle34': self.handle_battle34,
+            'recruited_prisoners': self.handle_recruited_prisoners,
+            'recruited_prisoners_again': self.handle_recruited_prisoners_again,
             'corianton_runs_away': self.handle_corianton_runs_away,
             'battle37': self.handle_battle37,
             'battle39': self.handle_battle39,
@@ -160,10 +165,11 @@ class Game(object):
         return dialog
 
     def set_game_state_condition(self, condition):
+        action_dialog = None
         side_effect = self.condition_side_effects.get(condition)
         condition_not_found = condition not in self.game_state['conditions']
         if side_effect and (condition_not_found or condition == 'got_javelin'):
-            side_effect()
+            action_dialog = side_effect()
         conditions = list(self.game_state['conditions'])
         if condition_not_found:
             conditions.append(condition)
@@ -173,6 +179,7 @@ class Game(object):
         the_map = self.current_map or self.next_map
         if the_map:
             the_map.handle_game_state_condition(condition)
+        return action_dialog
 
     def get_music(self, map_name):
         music = MAP_MUSIC.get(map_name, SHOP_MUSIC)
@@ -1750,3 +1757,37 @@ class Game(object):
 
     def handle_moronihah_joins(self):
         self.add_to_company(['moronihah'])
+
+    def handle_recruited_prisoners(self):
+        level = self.game_state['level'] + 1
+        self.update_game_state({'level': level})
+        pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'level.wav'))
+        pygame.mixer.music.play()
+        company = self.game_state['company']
+        dialog = u"{}'s army has advanced one skill level. ".format(company[0]['name'].title())
+        tactic_guys = []
+        tactic = get_tactic_for_level(level)
+        for warlord in company:
+            if can_level_up(warlord['name']):
+                dialog += u"{} now has {} soldiers. ".format(
+                    warlord['name'].title(), get_max_soldiers(warlord['name'], level),
+                )
+            if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
+                tactic_guys.append(warlord)
+        if len(tactic_guys) > 1:
+            for warlord in tactic_guys[0:-1]:
+                dialog += u"{}, ".format(warlord['name'].title())
+        if len(tactic_guys) > 0:
+            dialog += u"{} learned the {} tactic. ".format(tactic_guys[-1]['name'].title(), tactic.title())
+        tactician = self.get_tactician()
+        if tactician:
+            new_tactical_points = get_max_tactical_points(tactician['name'], level)
+            old_tactical_points = get_max_tactical_points(tactician['name'], level-1)
+            if new_tactical_points > old_tactical_points:
+                dialog += u"{}'s tactical ability increased to {}.".format(
+                    tactician['name'].title(), new_tactical_points,
+                )
+        return dialog
+
+    def handle_recruited_prisoners_again(self):
+        return self.handle_recruited_prisoners()

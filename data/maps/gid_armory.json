@@ -1,0 +1,33 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "gid",
+      "x": 17,
+      "y": 46,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "sling",
+        "ring~m"
+      ]
+    }
+  }
+]

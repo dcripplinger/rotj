@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "gid",
+      "x": 36,
+      "y": 27,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 12,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "s",
+      "wander": true,
+      "dialog": "My family and I can return to our home now, thanks to you."
+    }
+  }
+]

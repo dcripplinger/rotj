@@ -408,5 +408,85 @@
       "y": 63,
       "direction": "n"
     }
+  },
+  {
+    "x": 36,
+    "y": 27,
+    "teleport": {
+      "map": "gid_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 36,
+    "teleport": {
+      "map": "gid_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 46,
+    "teleport": {
+      "map": "gid_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 29,
+    "y": 46,
+    "teleport": {
+      "map": "gid_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 31,
+    "teleport": {
+      "map": "gid_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 21,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "This is the city of Gid."
+    }
+  },
+  {
+    "x": 28,
+    "y": 43,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "People tell me there is a way to travel east from the city through a hidden passage, but I can't seem to find the entrance."
+    }
+  },
+  {
+    "x": 22,
+    "y": 48,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Have you heard of the tactic Dispel? It will remove all your party's status ailments and nullify all your enemy's tactics already in effect."
+    }
   }
 ]

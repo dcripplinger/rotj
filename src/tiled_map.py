@@ -72,7 +72,7 @@ class Map(object):
         self.lava_sound = pygame.mixer.Sound('data/audio/lava.wav')
 
     def set_game_state_condition(self, condition):
-        self.game.set_game_state_condition(condition)
+        return self.game.set_game_state_condition(condition)
 
     def load_cells_and_encounter_regions(self):
         with open(self.json_filename) as f:

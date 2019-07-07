@@ -1808,9 +1808,12 @@ class Battle(object):
             dialog += u"{} learned the {} tactic. ".format(tactic_guys[-1]['name'].title(), tactic.title())
         tactician = self.game.get_tactician()
         if tactician:
-            dialog += u"{}'s tactical ability increased to {}.".format(
-                tactician['name'].title(), get_max_tactical_points(tactician['name'], level),
-            )
+            new_tactical_points = get_max_tactical_points(tactician['name'], level)
+            old_tactical_points = get_max_tactical_points(tactician['name'], level-1)
+            if new_tactical_points > old_tactical_points:
+                dialog += u"{}'s tactical ability increased to {}.".format(
+                    tactician['name'].title(), new_tactical_points,
+                )
         self.right_dialog = create_prompt(dialog)
         return True
 

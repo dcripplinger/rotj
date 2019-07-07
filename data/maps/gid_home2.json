@@ -1,0 +1,54 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "gid",
+      "x": 23,
+      "y": 31,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "Thank you for freeing us from the Lamanites.",
+          "condition": "recruited_prisoners_again"
+        },
+        {
+          "text": "There are still more of us who wish to join your ranks. I am sure it will help you level up again.",
+          "condition": "recruited_prisoners",
+          "prompt": [
+            {
+              "choice": "Alright!",
+              "game_state_action": "recruited_prisoners_again"
+            },
+            {
+              "choice": "Not yet",
+              "next_dialog": "Come see us when you are ready."
+            }
+          ]
+        },
+        {
+          "text": "The Lamanites kept us prisoner here after attacking our cities. Now that you have freed us, many of us wish to join your ranks. I am sure it will help you level up.",
+          "prompt": [
+            {
+              "choice": "Great!",
+              "game_state_action": "recruited_prisoners"
+            },
+            {
+              "choice": "Not yet",
+              "next_dialog": "Come see us when you are ready."
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

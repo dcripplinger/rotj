@@ -211,10 +211,10 @@ class MapMenu(object):
                     selected_choice = choice
                     break
             if 'game_state_action' in selected_choice:
-                self.map.set_game_state_condition(selected_choice['game_state_action'])
+                action_dialog = self.map.set_game_state_condition(selected_choice['game_state_action'])
             self.state = 'talk'
             self.dialog_choice_menu = None
-            next_dialog = selected_choice['next_dialog']
+            next_dialog = action_dialog or selected_choice.get('next_dialog', 'OK')
             if isinstance(next_dialog, basestring):
                 self.prompt = create_prompt(next_dialog)
                 self.dialog_choice = None
