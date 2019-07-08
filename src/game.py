@@ -1760,7 +1760,11 @@ class Game(object):
 
     def handle_recruited_prisoners(self):
         level = self.game_state['level'] + 1
-        self.update_game_state({'level': level})
+        experience = EXP_REQUIRED_BY_LEVEL.get(level, 9999999)
+        self.update_game_state({
+            'level': level,
+            'experience': experience,
+        })
         pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'level.wav'))
         pygame.mixer.music.play()
         company = self.game_state['company']
