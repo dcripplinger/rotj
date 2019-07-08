@@ -206,6 +206,7 @@ class MapMenu(object):
                 if choice['choice'] == self.dialog_choice_menu.get_choice():
                     selected_choice = choice
                     break
+            action_dialog = None
             if 'game_state_action' in selected_choice:
                 action_dialog = self.map.set_game_state_condition(selected_choice['game_state_action'])
             self.state = 'talk'

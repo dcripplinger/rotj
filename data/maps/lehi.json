@@ -100,7 +100,7 @@
       "wander": false,
       "dialog": [
         {
-          "text": "My father Alma has sent me to help you however I can.",
+          "text": "I am Corianton. My father Alma has sent me to help you however I can.",
           "prompt": [
             {
               "choice": "YES",

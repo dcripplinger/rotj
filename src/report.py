@@ -65,13 +65,19 @@ class Report(object):
         self.level = level
         self.surface = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         self.surface.fill(BLACK)
+        self.tp_star = None
+        self.soldiers_star = None
         if name == None: # This is an enemy report
             self.stats = stats
             self.name = stats['name']
             self.stats_provided = True
-        else:
+        else: # This is an ally report
             self.stats = load_stats(self.name)
             self.stats_provided = False
+            if 'tactical_points_by_level' in self.stats:
+                self.tp_star = TextBox('*')
+            if 'max_soldiers_by_level' in self.stats:
+                self.soldiers_star = TextBox('*')
         self.portrait = load_image('portraits/{}.png'.format(self.name))
         self.blit_stats()
 
@@ -100,6 +106,10 @@ class Report(object):
         self.surface.blit(TextBox("SOLDIERS").surface, (16, 96))
         soldiers = "{:~>8}".format(self.get_max_soldiers())
         self.surface.blit(TextBox(soldiers).surface, (16, 112))
+        if self.tp_star:
+            self.surface.blit(self.tp_star.surface, (120, 112))
+        if self.soldiers_star:
+            self.surface.blit(self.soldiers_star.surface, (80, 96))
 
     def get_max_soldiers(self):
         if 'max_soldiers_by_level' in self.stats:

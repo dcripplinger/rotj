@@ -112,6 +112,7 @@ class Game(object):
             'battle34': self.handle_battle34,
             'recruited_prisoners': self.handle_recruited_prisoners,
             'recruited_prisoners_again': self.handle_recruited_prisoners_again,
+            'corianton_joins': self.handle_corianton_joins,
             'corianton_runs_away': self.handle_corianton_runs_away,
             'battle37': self.handle_battle37,
             'battle39': self.handle_battle39,
@@ -1480,6 +1481,9 @@ class Game(object):
         self.update_game_state({
             'cities': cities,
         })
+
+    def handle_corianton_joins(self):
+        self.add_to_company(['corianton'])
 
     def handle_corianton_runs_away(self):
         self.remove_from_company_and_reserve('corianton')
