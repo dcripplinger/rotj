@@ -14,7 +14,7 @@
     "y": 11,
     "ai_sprite": {
       "conditions": {
-        "state:battle37_and_battle44": true
+        "state:battles34_37_44": true
       },
       "name": "villager",
       "direction": "s",
@@ -34,7 +34,7 @@
     "y": 13,
     "ai_sprite": {
       "conditions": {
-        "state:battle37_and_battle44": false
+        "state:battles34_37_44": false
       },
       "name": "villager",
       "direction": "s",

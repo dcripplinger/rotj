@@ -680,7 +680,7 @@ class Game(object):
             if city not in HQ:
                 return "I'm sorry, but this city does not have sufficient space for you to set up a base of operations."
             self.update_game_state({'hq': city})
-            if city == 'cumeni' and self.battle37_and_battle44() and not self.conditions_are_met('cumeni_hq'):
+            if city == 'cumeni' and self.battles34_37_44() and not self.conditions_are_met('cumeni_hq'):
                 self.set_game_state_condition('cumeni_hq')
             return None
 
@@ -1114,8 +1114,8 @@ class Game(object):
                 return True
         return False
 
-    def battle37_and_battle44(self):
-        return self.conditions_are_met(['battle37', 'battle44'])
+    def battles34_37_44(self):
+        return self.conditions_are_met(['battle34', 'battle37', 'battle44'])
 
     ###########################################################
     # Condition side effect handlers get defined here         #

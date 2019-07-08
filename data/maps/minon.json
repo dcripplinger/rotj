@@ -5,7 +5,7 @@
     "teleport": [
       {
         "conditions": {
-          "battle06": true
+          "talked_with_nephihah": true
         },
         "map": "overworld",
         "x": 124,

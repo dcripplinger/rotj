@@ -1709,7 +1709,7 @@
       {
         "name": "battle23",
         "conditions": {
-          "battle22": true
+          "talked_with_pahoran": true
         },
         "intro": "Come to rob the land that is rightfully ours? We will defend it with the sword!",
         "exit": "Noooo!",

@@ -1,0 +1,109 @@
+[
+  {
+    "condition": "cumeni_hq",
+    "text": "The city of Nephihah has been retaken by the Lamanites! Why didn't our chief judge send more men to aid them? -- Moroni: I haven't received any communication from Zarahemla. I know a captain in Manti who might know what is going on.",
+    "no_epistle": true
+  },
+  {
+    "text": "You have restored many of our cities. Thank you. For now, please set up your headquarters in Cumeni to secure the border, and wait for further instructions.",
+    "condition": "state:battles34_37_44"
+  },
+  {
+    "condition": "battle37",
+    "text": "The Lamanites still occupy cities to the west of Bountiful."
+  },
+  {
+    "condition": "battle34",
+    "text": "You are trying to reach Nephihah in the northeast? I was told Hagoth was tasked with building the bridge. He was last seen in Morianton."
+  },
+  {
+    "text": "Will you retake our cities to the west first, or the east first? You can get to both areas from Bountiful.",
+    "condition": "battle27"
+  },
+  {
+    "text": "While the King Men distracted us, the Lamanites have taken many of our outer cities! Amalickiah himself marches at the head of his army towards Bountiful, to the north. Protect it!",
+    "condition": "state:battle25_and_battle26"
+  },
+  {
+    "text": "There is a new faction calling themselves King Men. Like many before them, they wish to establish a king in the land so that they may be put into high positions over the people. Meanwhile the Lamanites have regrouped and are already attacking our outer cities! The King Men are refusing to fight, hoping to gain a political advantage. Talk to our people, find out where the King Men are, and end their insurrection before we lose too much from the Lamanites!",
+    "condition": "battle24"
+  },
+  {
+    "text": "Our peace did not last long! The city of Noah is under attack by the Lamanites! You must hurry there and defend it. Noah is nearby to the southeast, by the river.",
+    "condition": "battle23"
+  },
+  {
+    "text": "We need your help in settling a land dispute between the borders of the cities Lehi and Morianton. These cities are to the north of Jershon, by the seashore.",
+    "condition": "talked_with_pahoran"
+  },
+  {
+    "text": "We need to speak in person at Zarahemla.",
+    "condition": "battle22",
+    "chief_judge": {
+      "text": "I am Pahoran, son of Nephihah. My father has died and the people have chosen me to fill the judgment seat in his stead. Now that Amalickiah has been driven out of the land, we need your help in settling a land dispute between the borders of the cities Lehi and Morianton. These cities are to the north of Jershon, by the seashore.",
+      "game_state_action": "talked_with_pahoran"
+    }
+  },
+  {
+    "text": "You have stopped Amalickiah from overthrowing the government, but he has fled with some of his men southward, toward the Lamanites. You must intercept him quickly, before the Lamanites gain any more power! Our scouts reported seeing him in the forest just east of the city of Nephi.",
+    "condition": "battle21"
+  },
+  {
+    "text": "Well done, Moroni. Perhaps Amalickiah is now ready to join us again. He was last seen at his home in Ammonihah.",
+    "condition": "battle19"
+  },
+  {
+    "text": "The Zoramites in Antionum have broken off from the Nephites. We would leave them alone, but now they are threatening the people in Jershon because they took care of the poor that the Zoramites had cast out. Most people in Jershon took an oath to never fight again. You must defend them! Antionum is northeast of Manti.",
+    "condition": "battle18"
+  },
+  {
+    "text": "I am truly sorry I could not recruit enough soldiers to defend Ammonihah earlier. But Manti to the south is still in danger. Check the area near the city and stop the Lamanite army before they attack Manti. Once they are driven back, report to me.",
+    "condition": "entered_destroyed_ammonihah"
+  },
+  {
+    "text": "You must hurry and secure Ammonihah against the Lamanites. Then return and report back.",
+    "condition": "entered_jershon"
+  },
+  {
+    "condition": "battle17",
+    "text": "Good job in liberating the friendly Lamanites. Our people have given up the land of Jershon for our Lamanite friends to inherit. It is east of Zarahemla beyond the river, but you may have to go a round-about way to get there."
+  },
+  {
+    "condition": "talked_with_nephihah",
+    "text": "There are many Lamanites beyond the mountain passage south of Minon who wish to defect to the Nephites, but their rulers will not let them. You must go liberate them and find a safe place in Nephite territory to harbor them."
+  },
+  {
+    "condition": "battle08",
+    "text": "Please come at once to Zarahemla. We have much to discuss.",
+    "chief_judge": {
+      "text": "I am the new chief judge Nephihah, chosen by the voice of the people. Moroni, there are many Lamanites beyond the mountain passage south of Minon who wish to defect to the Nephites, but their rulers will not let them. You must go liberate them and find a safe place in Nephite territory to harbor them.",
+      "game_state_action": "talked_with_nephihah"
+    }
+  },
+  {
+    "text": "We need to stop Amlici at Minon, on the west side of the mountains.",
+    "condition": "talked_with_alma_after_nehor",
+    "chief_judge": {
+      "text": "Good work, Moroni."
+    }
+  },
+  {
+    "text": "Well done capturing Nehor. Bring him to me at Zarahemla.",
+    "condition": "battle05",
+    "chief_judge": {
+      "text": "You have done our country a great service, Moroni, by capturing Nehor and bringing him to me. As promised, I am appointing you captain of all the Nephite armies. You may face many challenges, but I can think of no other to best fight our battles and support the cause of liberty.",
+      "game_state_action": "talked_with_alma_after_nehor"
+    }
+  },
+  {
+    "text": "Moroni, you must bring Nehor to me to face justice. If you do this, I will appoint you as chief captain of our armies. Ask around to figure out where Nehor is.",
+    "condition": "talked_with_alma"
+  },
+  {
+    "text": "Please come see me at the palace of Zarahemla, our nation's capital.",
+    "chief_judge": {
+      "text": "Moroni, listen! Before our last king, Mosiah, passed away, he established just laws and a government of judges chosen by the people because he didn't want our people in bondage ever again by an evil king. I have been chosen as the first chief judge, and yet we have already seen a faction rise up in rebellion. They are led by a man named Nehor, who has killed an innocent man simply for debating against him and his religion. You must bring order again to the land and capture Nehor so that he can face justice for his crimes. If you do this, I will appoint you as chief captain of our armies.",
+      "game_state_action": "talked_with_alma"
+    }
+  }
+]
