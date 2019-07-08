@@ -148,7 +148,15 @@
       "name": "advisor",
       "direction": "s",
       "wander": true,
-      "dialog": "The bridge to Nephihah isn't finished yet. Hagoth was supposed to build it, but nobody has seen him since he went into the Passage to Gid."
+      "dialog": [
+        {
+          "condition": "talked_with_hagoth",
+          "text": "The bridge to Nephihah got finished. It's about time."
+        },
+        {
+          "text": "The bridge to Nephihah isn't finished yet. Hagoth was supposed to build it, but nobody has seen him since he went into the Passage to Gid."
+        }
+      ]
     }
   }
 ]
