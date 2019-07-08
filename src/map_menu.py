@@ -72,14 +72,10 @@ class MapMenu(object):
         if self.state == 'save':
             if not self.save_menu:
                 if not self.prompt.has_more_stuff_to_show():
-                    if self.map.name in CAVE_NAMES:
-                        self.prompt = create_prompt("It's too dark to record here.")
-                        self.main_menu.unfocus()
-                    else:
-                        self.save_menu = MenuBox(['YES', 'NO'])
-                        self.save_menu.focus()
-                        self.prompt.shutdown()
-                        self.item_selected_menu = None
+                    self.save_menu = MenuBox(['YES', 'NO'])
+                    self.save_menu.focus()
+                    self.prompt.shutdown()
+                    self.item_selected_menu = None
             else:
                 self.save_menu.update(dt)
 
@@ -363,8 +359,12 @@ class MapMenu(object):
             self.map.game.cloak_steps_remaining = 100
             self.map.remove_item(user, self.items_menu.current_choice)
         elif map_usage == 'save':
-            self.state = 'save'
-            self.prompt = create_prompt("Are you sure you want to save your game?")
+            if self.map.name in CAVE_NAMES:
+                self.state = 'item_prompt'
+                self.prompt = create_prompt("It's too dark to record here.")
+            else:
+                self.prompt = create_prompt("Are you sure you want to save your game?")
+                self.state = 'save'
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")

@@ -118,6 +118,10 @@
       "wander": true,
       "dialog": [
         {
+          "condition": "battle35",
+          "text": "We do not deserve your kindness."
+        },
+        {
           "condition": "battle23",
           "text": "Ok, fine. We will respect the boundaries of the city of Lehi."
         },
