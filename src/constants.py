@@ -1273,6 +1273,7 @@ NAMED_TELEPORTS = {
     'zarahemla': [152,187],
     'manti': [207, 256],
     'bountiful': [116, 138],
+    'gid': [164, 114],
     'nephihah': [246, 115],
     'judea': [89, 162],
     'cumeni': [116, 318],
