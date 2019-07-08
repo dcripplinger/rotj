@@ -382,7 +382,7 @@
     "y": 44,
     "treasure": {
       "name": "passage_to_gid_treasure4",
-      "money": 1999
+      "money": 999
     }
   },
   {
@@ -390,7 +390,7 @@
     "y": 44,
     "treasure": {
       "name": "passage_to_gid_treasure5",
-      "item": "javelin"
+      "item": "copper~h"
     }
   },
   {
@@ -398,7 +398,7 @@
     "y": 41,
     "treasure": {
       "name": "passage_to_gid_treasure6",
-      "money": 1999
+      "money": 999
     }
   },
   {
@@ -414,7 +414,7 @@
     "y": 41,
     "treasure": {
       "name": "passage_to_gid_treasure8",
-      "money": 1999
+      "money": 999
     }
   },
   {
@@ -430,7 +430,7 @@
     "y": 38,
     "treasure": {
       "name": "passage_to_gid_treasure10",
-      "money": 1999
+      "money": 999
     }
   },
   {
@@ -439,6 +439,22 @@
     "treasure": {
       "name": "passage_to_gid_treasure11",
       "item": "cloak"
+    }
+  },
+  {
+    "x": 54,
+    "y": 59,
+    "treasure": {
+      "name": "passage_to_gid_treasure12",
+      "item": "javelin"
+    }
+  },
+  {
+    "x": 22,
+    "y": 25,
+    "treasure": {
+      "name": "passage_to_gid_treasure13",
+      "money": 2
     }
   },
   {
