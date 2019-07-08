@@ -28,6 +28,7 @@ from helpers import (
     get_max_tactical_points,
     get_tactic_for_level,
     get_tactics,
+    load_json_file_if_exists,
     load_stats,
     save_game_state,
 )
@@ -150,8 +151,13 @@ class Game(object):
         """
         Returns the first dialog text with a condition matching the game state.
         """
+        is_chief_judge = False
         if isinstance(dialog, basestring):
-            return dialog
+            if dialog == 'judge_dialog':
+                dialog = load_json_file_if_exists(os.path.join('data', 'maps', 'judge_dialog.json'))
+                is_chief_judge = self.current_map.name == 'zarahemla_palace'
+            else:
+                return dialog
         if isinstance(dialog, (list, tuple)):
             for (i, potential_dialog) in enumerate(dialog):
                 if self._condition_is_true(potential_dialog.get('condition', '')):
@@ -161,6 +167,12 @@ class Game(object):
                     dialog = potential_dialog
 
         # Now dialog is a dict with the correct dialog for the game state.
+        if is_chief_judge and 'chief_judge' in dialog:
+            dialog['text'] = dialog['chief_judge']['text']
+            if 'game_state_action' in dialog['chief_judge']:
+                dialog['game_state_action'] = dialog['chief_judge']['game_state_action']
+            if 'prompt' in dialog['chief_judge']:
+                dialog['prompt'] = dialog['chief_judge']['prompt']
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
         return dialog
