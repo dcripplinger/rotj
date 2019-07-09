@@ -173,6 +173,8 @@ class Game(object):
                 dialog['game_state_action'] = dialog['chief_judge']['game_state_action']
             if 'prompt' in dialog['chief_judge']:
                 dialog['prompt'] = dialog['chief_judge']['prompt']
+        if not is_chief_judge and not dialog.get('no_epistle'):
+            dialog['text'] = "An epistle arrived from our chief judge. It reads: {}".format(dialog['text'])
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
         return dialog

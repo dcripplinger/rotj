@@ -46,11 +46,7 @@
       "name": "zoramites",
       "direction": "s",
       "wander": false,
-      "dialog": [
-        {
-          "text": "An epistle arrived from our chief judge. It reads: Will you retake our cities to the west first, or the east first?"
-        }
-      ]
+      "dialog": "judge_dialog"
     }
   }
 ]
