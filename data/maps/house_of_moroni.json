@@ -12,6 +12,11 @@
           "condition": "battle21"
         },
         {
+          "text": "Woops, looks like you dropped the Title of Liberty. Here you go.",
+          "condition": "state:lost_title_of_liberty",
+          "game_state_action": "found_title_of_liberty"
+        },
+        {
           "text": "If you use the Title of Liberty in the battle against Amalickiah at Zarahemla, I am certain he won't get any more reinforcements and the people will be inspired to follow you instead.",
           "condition": "got_title_of_liberty"
         },

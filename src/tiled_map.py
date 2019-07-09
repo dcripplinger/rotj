@@ -288,6 +288,11 @@ class Map(object):
     def remove_item(self, warlord, index):
         self.game.remove_item(warlord, index)
 
+    def add_to_lost_and_found(self, item):
+        lost_and_found = self.game.game_state.get('lost_and_found', [])
+        lost_and_found.append(item)
+        self.game.update_game_state({'lost_and_found': lost_and_found})
+
     def teleport(self, place):
         self.game.set_current_map('overworld', NAMED_TELEPORTS[place], 's')
 

@@ -1,0 +1,31 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "judea",
+      "x": 37,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "state:lost_and_found_has_stuff",
+          "text": "Welcome to the Lost and Found. If you lose any special items, they might turn up here. ~~~~~~~~ You're looking for {lost_and_found[0]}? You're in luck. Someone dropped it off recently. Here you go.",
+          "game_state_action": "got_lost_and_found_item"
+        },
+        {
+          "text": "Welcome to the Lost and Found. If you lose any special items, they might turn up here. Nothing has been turned in at the moment, though."
+        }
+      ]
+    }
+  }
+]

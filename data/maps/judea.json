@@ -18,5 +18,15 @@
       "y": 162,
       "direction": "s"
     }
+  },
+  {
+    "x": 37,
+    "y": 13,
+    "teleport": {
+      "map": "judea_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]

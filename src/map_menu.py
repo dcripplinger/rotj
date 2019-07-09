@@ -309,8 +309,11 @@ class MapMenu(object):
 
     def handle_drop(self):
         item_index = self.items_menu.current_choice
+        item = self.items_menu.get_choice().lower()
         user = self.strat_menu.get_choice().lower()
         self.map.remove_item(user, item_index)
+        if ITEMS[item].get('rare'):
+            self.map.add_to_lost_and_found(item)
         self.items_menu = self.create_items_menu()
         self.item_selected_menu = None
         self.items_menu.focus()
@@ -524,6 +527,7 @@ class MapMenu(object):
         else:
             dialog = self.map.get_dialog()
             text = dialog if isinstance(dialog, basestring) else dialog['text']
+            text = text.format(**self.game.game_state)
             self.prompt = create_prompt(text)
             self.state = 'talk'
             self.main_menu.unfocus()

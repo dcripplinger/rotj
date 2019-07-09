@@ -987,22 +987,27 @@ ITEMS = {
     'cherev': {
         'attack_points': 230,
         'equip_type': 'weapon',
+        'rare': True,
     },
     'samson': {
         'attack_points': 235,
         'equip_type': 'weapon',
+        'rare': True,
     },
     'hamashchit': {
         'attack_points': 240,
         'equip_type': 'weapon',
+        'rare': True,
     },
     u'shamshirŕe': { # the ŕ is a hack to show a hyphen without capitalizing the next letter when calling title()
         'attack_points': 245,
         'equip_type': 'weapon',
+        'rare': True,
     },
     'sd~of~laban': {
         'attack_points': 255,
         'equip_type': 'weapon',
+        'rare': True,
     },
 
     # armor
@@ -1209,11 +1214,13 @@ ITEMS = {
         'map_usage': 'battle',
         'battle_usage': 'enemies',
         'effect': 'cancel_reinforcements',
+        'rare': True,
     },
     'ether': { # replenishes tactical points
         'map_usage': 'battle',
         'battle_usage': 'allies',
         'effect': 'ether',
+        'rare': True,
     },
 
     # kolob (city map usage)
@@ -1231,21 +1238,29 @@ ITEMS = {
     # map items
     'silver~key': {
         'map_usage': 'map', # means it interacts with the cell/tile you're on
-        'cost': 10000
+        'cost': 10000,
+        'rare': True,
     },
 
     # save items
     'g.~plates': { # short for gold plates
         'map_usage': 'save', # means you can use it to save your game anywhere except in battle
+        'rare': True,
     },
 
     # unusable items (just carrying it has an effect, or it gets used indirectly)
-    'liahona': {}, # lets the user be his own tactician
+    'liahona': { # lets the user be his own tactician
+        'rare': True,
+    },
     'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
         'cost': 400,
     },
-    'iron~ore': {}, # Swordsmith asks for it
-    'diamond': {}, # Swordsmith asks for it
+    'iron~ore': { # Swordsmith asks for it
+        'rare': True,
+    },
+    'diamond': { # Swordsmith asks for it
+        'rare': True,
+    },
 }
 
 MAX_ITEMS_PER_PERSON = 8

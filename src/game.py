@@ -39,6 +39,12 @@ from pause_menu import PauseMenu
 from tiled_map import Map
 from title_page import TitlePage
 
+REPEAT_CONDITIONS = [
+    'got_javelin',
+    'found_title_of_liberty',
+    'got_lost_and_found_item',
+]
+
 
 class Game(object):
     def __init__(self, screen, args):
@@ -105,6 +111,7 @@ class Game(object):
             'lehi_and_aha_join': self.handle_lehi_and_aha_join,
             'rejected_amalickiah': self.handle_rejected_amalickiah,
             'got_title_of_liberty': self.handle_got_title_of_liberty,
+            'found_title_of_liberty': self.handle_found_title_of_liberty,
             'got_javelin': self.handle_got_javelin,
             'bought_key': self.handle_bought_key,
             'battle27': self.handle_battle27,
@@ -124,6 +131,7 @@ class Game(object):
             'talked_with_gadianton_in_bountiful': self.handle_talked_with_gadianton_in_bountiful,
             'talked_with_robbers': self.handle_talked_with_robbers,
             'moronihah_joins': self.handle_moronihah_joins,
+            'got_lost_and_found_item': self.handle_got_lost_and_found_item,
         }
 
     def conditions_are_met(self, conditions):
@@ -152,8 +160,10 @@ class Game(object):
         Returns the first dialog text with a condition matching the game state.
         """
         is_chief_judge = False
+        is_judge = False
         if isinstance(dialog, basestring):
             if dialog == 'judge_dialog':
+                is_judge = True
                 dialog = load_json_file_if_exists(os.path.join('data', 'maps', 'judge_dialog.json'))
                 is_chief_judge = self.current_map.name == 'zarahemla_palace'
             else:
@@ -173,7 +183,7 @@ class Game(object):
                 dialog['game_state_action'] = dialog['chief_judge']['game_state_action']
             if 'prompt' in dialog['chief_judge']:
                 dialog['prompt'] = dialog['chief_judge']['prompt']
-        if not is_chief_judge and not dialog.get('no_epistle'):
+        if is_judge and not is_chief_judge and not dialog.get('no_epistle'):
             dialog['text'] = "An epistle arrived from our chief judge. It reads: {}".format(dialog['text'])
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
@@ -183,7 +193,7 @@ class Game(object):
         action_dialog = None
         side_effect = self.condition_side_effects.get(condition)
         condition_not_found = condition not in self.game_state['conditions']
-        if side_effect and (condition_not_found or condition == 'got_javelin'):
+        if side_effect and (condition_not_found or condition in REPEAT_CONDITIONS):
             action_dialog = side_effect()
         conditions = list(self.game_state['conditions'])
         if condition_not_found:
@@ -1131,6 +1141,9 @@ class Game(object):
     def battles34_37_44(self):
         return self.conditions_are_met(['battle34', 'battle37', 'battle44'])
 
+    def lost_and_found_has_stuff(self):
+        return len(self.game_state.get('lost_and_found', [])) > 0
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1813,3 +1826,15 @@ class Game(object):
 
     def handle_recruited_prisoners_again(self):
         return self.handle_recruited_prisoners()
+
+    def handle_got_lost_and_found_item(self):
+        lost_and_found = self.game_state['lost_and_found']
+        item = lost_and_found.pop(0)
+        self.add_to_inventory(item)
+        self.update_game_state({'lost_and_found': lost_and_found})
+
+    def handle_found_title_of_liberty(self):
+        lost_and_found = self.game_state['lost_and_found']
+        lost_and_found.remove('t~of~liberty')
+        self.add_to_inventory('t~of~liberty')
+        self.update_game_state({'lost_and_found': lost_and_found})
