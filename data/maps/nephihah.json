@@ -18,5 +18,13 @@
       "y": 115,
       "direction": "s"
     }
+  },
+  {
+    "x": 36,
+    "y": 11,
+    "treasure": {
+      "name": "nephihah_treasure",
+      "item": "atlatl"
+    }
   }
 ]
