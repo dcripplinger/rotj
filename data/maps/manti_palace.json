@@ -28,5 +28,15 @@
       "wander": true,
       "dialog": "Hurrah for Moroni!"
     }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "s",
+      "wander": false,
+      "dialog": "judge_dialog"
+    }
   }
 ]
