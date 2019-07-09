@@ -1,0 +1,40 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "nephihah",
+      "x": 26,
+      "y": 18,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 26,
+    "ai_sprite": {
+      "name": "kingmen",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle55",
+          "text": "Nephihah has become a beacon of hope to the people of this region."
+        },
+        {
+          "text": "King Ammoron continues to strengthen his armies southeast of here."
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "s",
+      "wander": false,
+      "dialog": "judge_dialog"
+    }
+  }
+]

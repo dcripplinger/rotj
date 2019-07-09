@@ -26,5 +26,125 @@
       "name": "nephihah_treasure",
       "item": "atlatl"
     }
+  },
+  {
+    "x": 31,
+    "y": 36,
+    "teleport": {
+      "map": "nephihah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 36,
+    "teleport": {
+      "map": "nephihah_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 32,
+    "teleport": {
+      "map": "nephihah_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 28,
+    "teleport": {
+      "map": "nephihah_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 32,
+    "teleport": {
+      "map": "nephihah_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 31,
+    "y": 28,
+    "teleport": {
+      "map": "nephihah_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 18,
+    "teleport": {
+      "map": "nephihah_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 27,
+    "y": 18,
+    "teleport": {
+      "map": "nephihah_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 38,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "This is the city Nephihah."
+    }
+  },
+  {
+    "x": 24,
+    "y": 31,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "w",
+      "wander": true,
+      "dialog": "If I were younger, I would happily help you in your struggle."
+    }
+  },
+  {
+    "x": 38,
+    "y": 38,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Now that Hagoth has finished the bridge, he is planning to build ships to sail north of here. It sounds dangerous to go out on the unknown sea, but I think I'll go anyway. I'm looking for an adventure and a new place to call home."
+    }
+  },
+  {
+    "x": 15,
+    "y": 29,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Thank you for restoring us to our lands."
+    }
   }
 ]

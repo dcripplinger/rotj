@@ -804,6 +804,7 @@ MAP_MUSIC = {
     'moroni_cave': CAVE_MUSIC,
     'mulek': CITY_MUSIC,
     'nephihah': CITY_MUSIC,
+    'nephihah_palace': PALACE_MUSIC,
     'north_grotto': CAVE_MUSIC,
     'omner': CITY_MUSIC,
     'onidah': CAVE_MUSIC,
