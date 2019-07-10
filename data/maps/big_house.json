@@ -1,0 +1,72 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "zeezrom",
+      "x": 13,
+      "y": 37,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 25,
+    "y": 19,
+    "teleport": {
+      "map": "zeezrom",
+      "x": 15,
+      "y": 37,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 11,
+    "y": 12,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Rumor has it there are warlords who have learned a dangerous tactic called Assassin. Though more difficult to execute, it instantly kills a foe and all his soldiers when successful."
+    }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Rumor has it there is a relic somewhere that allows the person holding it to use his own tactics and tactical points instead of his party's."
+    }
+  },
+  {
+    "x": 25,
+    "y": 13,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Rumor has it there is a secret society quietly infiltrating our government."
+    }
+  },
+  {
+    "x": 29,
+    "y": 16,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Rumor has it there is a great Lamanite strategist who answers to no one and wanders the wilderness."
+    }
+  },
+  {
+    "x": 21,
+    "y": 15,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Rumor has it you woke me up from my nap. Go away."
+    }
+  }
+]

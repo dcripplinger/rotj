@@ -1,0 +1,33 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "zeezrom",
+      "x": 22,
+      "y": 37,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~c",
+        "kolob"
+      ]
+    }
+  }
+]

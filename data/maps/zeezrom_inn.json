@@ -3,9 +3,9 @@
     "x": 18,
     "y": 19,
     "teleport": {
-      "map": "gid",
-      "x": 37,
-      "y": 36,
+      "map": "zeezrom",
+      "x": 21,
+      "y": 16,
       "direction": "s"
     }
   },
@@ -24,7 +24,7 @@
     "y": 12,
     "shop": {
       "type": "inn",
-      "cost": 20
+      "cost": 16
     }
   }
 ]

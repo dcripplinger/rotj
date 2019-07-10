@@ -38,5 +38,115 @@
       "y": 92,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "teleport": {
+      "map": "zeezrom_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 16,
+    "teleport": {
+      "map": "zeezrom_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 20,
+    "teleport": {
+      "map": "zeezrom_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 20,
+    "teleport": {
+      "map": "zeezrom_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 33,
+    "teleport": {
+      "map": "zeezrom_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 37,
+    "teleport": {
+      "map": "big_house",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 37,
+    "teleport": {
+      "map": "big_house",
+      "x": 25,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 37,
+    "teleport": {
+      "map": "zeezrom_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 14,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": true,
+      "dialog": "We all built homes here in Zeezrom because all the cities in the land of Zarahemla got too crowded."
+    }
+  },
+  {
+    "x": 22,
+    "y": 25,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Heading south, the enemies should be manageable. However, if you stray too far to the west, you might not make it out alive."
+    }
+  },
+  {
+    "x": 18,
+    "y": 35,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Moroni has done so much for us. We owe him our very lives."
+    }
   }
 ]

@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "zeezrom",
+      "x": 13,
+      "y": 16,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 19,
+    "y": 13,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "direction": "w",
+      "wander": false,
+      "dialog": "Have you bought a replacement javelin? Every time you use one, you should be able to buy another."
+    }
+  }
+]
