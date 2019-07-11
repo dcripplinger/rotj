@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import copy
+
 import pygame
 from pygame.locals import *
 import pyscroll
@@ -525,9 +527,13 @@ class MapMenu(object):
             self.shop = create_shop(shop, self.map.game)
             self.main_menu.unfocus()
         else:
+            lost_and_found = self.game.game_state.get('lost_and_found', [])
+            formatters = {
+                'lost_and_found': len(lost_and_found) and lost_and_found[0].title(),
+            }
             dialog = self.map.get_dialog()
             text = dialog if isinstance(dialog, basestring) else dialog['text']
-            text = text.format(**self.game.game_state)
+            text = text.format(**formatters)
             self.prompt = create_prompt(text)
             self.state = 'talk'
             self.main_menu.unfocus()

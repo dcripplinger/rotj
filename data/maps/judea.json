@@ -28,5 +28,133 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 15,
+    "y": 17,
+    "teleport": {
+      "map": "judea_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 17,
+    "teleport": {
+      "map": "judea_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 17,
+    "teleport": {
+      "map": "judea_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 21,
+    "teleport": {
+      "map": "judea_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 18,
+    "teleport": {
+      "map": "judea_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 18,
+    "teleport": {
+      "map": "judea_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 17,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to Judea."
+    }
+  },
+  {
+    "x": 19,
+    "y": 19,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Long live Lachoneus!",
+          "condition": "battle62"
+        },
+        {
+          "text": "Long live Pacumeni!",
+          "condition": "nephi_joins"
+        },
+        {
+          "text": "Long live Pahoran!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 25,
+    "y": 14,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "You have saved us from our enemies.",
+          "condition": "battle44"
+        },
+        {
+          "text": "You may have beaten Aaron here, but he is regrouping with a larger army at Cumeni to the south. Take caution."
+        }
+      ]
+    }
+  },
+  {
+    "x": 32,
+    "y": 23,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "It's a miracle! My wife and children have returned home.",
+          "condition": "battle69"
+        },
+        {
+          "text": "I am able to return to my home now, but the Lamanites carried off my wife and children. I fear I will never see them again."
+        }
+      ]
+    }
   }
 ]

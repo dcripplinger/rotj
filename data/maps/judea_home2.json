@@ -19,7 +19,7 @@
       "dialog": [
         {
           "condition": "state:lost_and_found_has_stuff",
-          "text": "Welcome to the Lost and Found. If you lose any special items, they might turn up here. ~~~~~~~~ You're looking for {lost_and_found[0]}? You're in luck. Someone dropped it off recently. Here you go.",
+          "text": "Welcome to the Lost and Found. If you lose any special items, they might turn up here. ~~~~~~~~ You're looking for {lost_and_found}? You're in luck. Someone dropped it off recently. Here you go.",
           "game_state_action": "got_lost_and_found_item"
         },
         {
