@@ -15,7 +15,7 @@ HEIGHT = 24
 TEXT_AREA_CHAR_LEN = 8
 TEXT_AREA_WIDTH = TEXT_AREA_CHAR_LEN*8
 MAX_BAR_WIDTH = 64
-
+MAX_TIME_TO_SWITCH_SPRITE = 0.05 # seconds between switching to stand then walk then stand during movement
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord, battle, is_enemy=False):
@@ -64,6 +64,7 @@ class BattleWarlordRectBase(object):
         self.hit_type = None
         self.hit_image_a = True
         self.hit_time = 0
+        self.switch_sprite_time = 0
 
     def consume_tactical_points(self, points):
         raise NotImplementedError
@@ -238,22 +239,25 @@ class BattleWarlordRectBase(object):
         animate_time = 0.5
 
         if self.state == 'forward':
-            self.switch_sprite()
+            self.switch_sprite(dt)
             self.rel_pos += int(dt*100)
             if self.rel_pos > self.rel_target_pos:
                 self.rel_pos = self.rel_target_pos
                 self.state = 'wait'
+                self.switch_sprite_time = 0
         elif self.state == 'backward':
-            self.switch_sprite()
+            self.switch_sprite(dt)
             self.rel_pos -= int(dt*100)
             if self.rel_pos < 0:
                 self.rel_pos = 0.0
                 self.state = 'wait'
+                self.switch_sprite_time = 0
         elif self.state == 'animate_all_out':
-            self.switch_sprite()
+            self.switch_sprite(dt)
             self.animate_time += dt
             if self.animate_time > animate_time:
                 self.state = 'wait'
+                self.switch_sprite_time = 0
 
         # animate the hits independent of the overall state, use hit_type instead
         if self.hit_type:
@@ -262,11 +266,14 @@ class BattleWarlordRectBase(object):
             if self.hit_time > animate_time:
                 self.hit_type = None
 
-    def switch_sprite(self):
-        if self.sprite == self.walk:
-            self.sprite = self.stand
-        else:
-            self.sprite = self.walk
+    def switch_sprite(self, dt):
+        self.switch_sprite_time += dt
+        if self.switch_sprite_time >= MAX_TIME_TO_SWITCH_SPRITE:
+            self.switch_sprite_time = 0
+            if self.sprite == self.walk:
+                self.sprite = self.stand
+            else:
+                self.sprite = self.walk
 
     def get_future_soldiers(self):
         '''
