@@ -327,5 +327,15 @@
         }
       ]
     }
+  },
+  {
+    "x": 34,
+    "y": 43,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": true,
+      "dialog": "If you look at a friendly warlord's report, you will sometimes see a * next to SOLDIERS or T.P. The * means that the stat increases as your party levels up. Only the most skilled warlords can increase their soldiers or tactical points, so take advantage of any you can recruit!"
+    }
   }
 ]

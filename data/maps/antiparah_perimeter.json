@@ -247,19 +247,21 @@
       "conditions": {
         "helaman_joins": false
       },
+      "wander": false,
+      "direction": "n",
       "dialog": [
         {
           "text": "Thank you for sending the young men from Jershon. We have been able to maintain this part of our lands, but perhaps we will be more successful at taking back the rest of our lands if we work together. What do you think?",
           "condition": "got_stripling_warriors",
-          "choices": [
+          "prompt": [
             {
-              "prompt": "YES",
-              "text": "It is an honor to fight by your side, brother.",
+              "choice": "YES",
+              "next_dialog": "It is an honor to fight by your side, brother.",
               "game_state_action": "helaman_joins"
             },
             {
-              "prompt": "NO",
-              "text": "Very well. My men and I will continue to maintain this part of our lands."
+              "choice": "NO",
+              "next_dialog": "Very well. My men and I will continue to maintain this part of our lands."
             }
           ]
         },

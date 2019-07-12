@@ -38,5 +38,93 @@
       "y": 17,
       "direction": "s"
     }
+  },
+  {
+    "x": 32,
+    "y": 35,
+    "teleport": {
+      "map": "antiparah_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 22,
+    "teleport": {
+      "map": "antiparah_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 16,
+    "teleport": {
+      "map": "antiparah_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 33,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "s",
+      "wander": true,
+      "dialog": "We haven't built much here in Antiparah, but it's still our home. We thank you for driving out the Lamanites."
+    }
+  },
+  {
+    "x": 33,
+    "y": 25,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Hey, thanks for handling the reserve Lamanite army.",
+          "condition": "battle42"
+        },
+        {
+          "text": "There's an encampment southeast of here with a reserve Lamanite army. We better clear them out before they join up at one of the cities behind stronger defenses!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 23,
+    "y": 17,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is my pet jaguar, Po. Sick 'em, Po! Heh heh, just kidding."
+    }
+  },
+  {
+    "x": 24,
+    "y": 17,
+    "ai_sprite": {
+      "name": "jaguar",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Grrr..."
+    }
+  },
+  {
+    "x": 16,
+    "y": 19,
+    "ai_sprite": {
+      "name": "amlicites",
+      "direction": "n",
+      "wander": true,
+      "dialog": "We will maintain this city as you advance on the enemy, sir."
+    }
   }
 ]
