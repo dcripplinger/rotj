@@ -18,8 +18,31 @@
       "direction": "e",
       "dialog": [
         {
+          "text": "I am so sorry. I made four beautiful swords patterned after the legendary Sword of Laban. I named them Cherev, Samson, Hamashchit, and Shamshir\u0155e. But robbers broke in and stole them! I have no idea where they could have gone.",
+          "condition": "swordsmith_finished"
+        },
+        {
+          "text": "I am still working on the swords. Please come back later when I have finished.",
+          "condition": "gave_iron_ore_and_diamond"
+        },
+        {
+          "condition": "state:iron_ore_and_diamond",
+          "text": "Ah, I see you found Iron Ore and a Diamond. May I please have them?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "gave_iron_ore_and_diamond",
+              "next_dialog": "Excellent. I will start making the swords right away. Please come back after a little while."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Then I suppose I can't make powerful swords for you."
+            }
+          ]
+        },
+        {
           "condition": "got_javelin",
-          "text": "I can make powerful swords for you, but I don't have the materials. If you find some iron ore and a diamond, please bring them to me."
+          "text": "I can make powerful swords for you, but I don't have the materials. If you find some Iron Ore and a Diamond, please bring them to me."
         },
         {
           "condition": "state:battle25_and_battle26",

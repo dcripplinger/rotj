@@ -321,22 +321,29 @@ class Map(object):
         self.game.update_company_order(new_order)
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
-    def check_for_item(self):
+    def check_for_item(self, unlocker=None):
         cell = self.cells.get(tuple(self.hero.position))
         treasure = cell.get('treasure') if cell else None
         if not treasure or self.game.conditions_are_met(treasure['name']):
-            return None
+            return "But nothing happened." if unlocker else "But found nothing."
+        if 'locked' in treasure:
+            if unlocker and treasure['locked'] != unlocker:
+                return "But nothing happened."
+            if not unlocker:
+                return "The treasure is locked."
+        if unlocker and 'locked' not in treasure:
+            return "But nothing happened."
         self.treasures[tuple(self.hero.position)].open()
         self.game.set_game_state_condition(treasure['name'])
         if 'item' in treasure:
             self.game.add_to_inventory(treasure['item'])
-            return treasure['item'].title()
+            return "{} found.".format(treasure['item'].title())
         elif 'money' in treasure:
             money = self.game.game_state['money'] + treasure['money']
             self.game.update_game_state({'money': min(MAX_NUM, money)})
-            return '{} senines'.format(treasure['money'])
+            return '{} senines found.'.format(treasure['money'])
         else:
-            return None
+            return "Something is wrong."
 
     def load_ai_sprites(self):
         for cell in self.cells.values():

@@ -1,0 +1,39 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "west_lamanite_camp",
+      "x": 26,
+      "y": 14,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 15,
+    "ai_sprite": {
+      "name": "lamanites",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "Wow, you figured out how to open the treasure?",
+          "condition": "west_lamanite_camp_treasure1"
+        },
+        {
+          "text": "Look, if you spare me, I'll let you have my treasure. I admit, though, it's locked. I don't know how to open it."
+        }
+      ] 
+    }
+  },
+  {
+    "x": 13,
+    "y": 15,
+    "treasure": {
+      "name": "west_lamanite_camp_treasure1",
+      "item": "diamond",
+      "locked": "silver~key"
+    }
+  }
+]

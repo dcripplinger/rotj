@@ -18,5 +18,45 @@
       "y": 284,
       "direction": "s"
     }
+  },
+  {
+    "x": 26,
+    "y": 14,
+    "teleport": {
+      "map": "west_lamanite_camp_tent1",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 18,
+    "teleport": {
+      "map": "west_lamanite_camp_tent2",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 22,
+    "teleport": {
+      "map": "west_lamanite_camp_tent3",
+      "x": 17,
+      "y": 21,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 19,
+    "ai_sprite": {
+      "name": "lamanites",
+      "direction": "w",
+      "wander": true,
+      "dialog": "We surrender! Perhaps you will let us live peacefully with the Ammonites? We don't want to fight this war anymore."
+    }
   }
 ]

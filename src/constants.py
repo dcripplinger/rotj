@@ -817,6 +817,9 @@ MAP_MUSIC = {
     'west_desert_cave': CAVE_MUSIC,
     'west_grotto': CAVE_MUSIC,
     'west_lamanite_camp': CAMP_MUSIC,
+    'west_lamanite_camp_tent1': CAMP_MUSIC,
+    'west_lamanite_camp_tent2': CAMP_MUSIC,
+    'west_lamanite_camp_tent3': CAMP_MUSIC,
     'zeezrom': CITY_MUSIC,
 }
 
@@ -1237,9 +1240,9 @@ ITEMS = {
         'cost': 200,
     },
 
-    # map items
+    # unlock items
     'silver~key': {
-        'map_usage': 'map', # means it interacts with the cell/tile you're on
+        'map_usage': 'unlock', # means it attempts to unlock a locked treasure on the cell/tile you're on
         'cost': 10000,
         'rare': True,
     },

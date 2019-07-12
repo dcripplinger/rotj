@@ -955,6 +955,11 @@ class Battle(object):
         self.portrait = None
         self.collect_spoils()
         self.win_state = 'start'
+        if (
+            self.battle_type in ['story', 'giddianhi', 'zemnarihah']
+            and self.game.conditions_are_met('gave_iron_ore_and_diamond')
+        ):
+            self.game.set_game_state_condition('swordsmith_finished')
 
     def collect_spoils(self, plunder=0):
         story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']

@@ -318,8 +318,12 @@ class MapMenu(object):
             self.map.add_to_lost_and_found(item)
         self.items_menu = self.create_items_menu()
         self.item_selected_menu = None
-        self.items_menu.focus()
-        self.state = 'items'
+        if self.items_menu:
+            self.items_menu.focus()
+            self.state = 'items'
+        else:
+            self.state = 'item'
+            self.strat_menu.focus()
 
     def handle_equip(self):
         item_index = self.items_menu.current_choice
@@ -371,6 +375,11 @@ class MapMenu(object):
             else:
                 self.prompt = create_prompt("Are you sure you want to save your game?")
                 self.state = 'save'
+        elif map_usage == 'unlock':
+            result_text = self.map.check_for_item(unlocker=item_name)
+            text = "{} used {}. {}".format(self.map.hero.name.title(), item_name.title(), result_text)
+            self.prompt = create_prompt(text)
+            self.state = 'item_prompt'
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")
@@ -541,8 +550,8 @@ class MapMenu(object):
                 self.dialog_choice = dialog['prompt']
 
     def handle_check(self):
-        item = self.map.check_for_item()
-        text = "{} searched. ".format(self.map.hero.name.title()) + ("{} found.".format(item) if item else "But found nothing.")
+        result_text = self.map.check_for_item()
+        text = "{} searched. {}".format(self.map.hero.name.title(), result_text)
         self.prompt = create_prompt(text)
         self.state = 'check'
         self.main_menu.unfocus()

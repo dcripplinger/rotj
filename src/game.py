@@ -132,6 +132,7 @@ class Game(object):
             'talked_with_robbers': self.handle_talked_with_robbers,
             'moronihah_joins': self.handle_moronihah_joins,
             'got_lost_and_found_item': self.handle_got_lost_and_found_item,
+            'gave_iron_ore_and_diamond': self.handle_gave_iron_ore_and_diamond,
         }
 
     def conditions_are_met(self, conditions):
@@ -1144,6 +1145,11 @@ class Game(object):
     def lost_and_found_has_stuff(self):
         return len(self.game_state.get('lost_and_found', [])) > 0
 
+    def iron_ore_and_diamond(self):
+        iron_ore_carrier, _ = self._find_first_item_in_inventory('iron~ore')
+        diamond_carrier, _ = self._find_first_item_in_inventory('diamond')
+        return iron_ore_carrier and diamond_carrier
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1838,3 +1844,9 @@ class Game(object):
         lost_and_found.remove('t~of~liberty')
         self.add_to_inventory('t~of~liberty')
         self.update_game_state({'lost_and_found': lost_and_found})
+
+    def handle_gave_iron_ore_and_diamond(self):
+        warlord, item_index = self._find_first_item_in_inventory('iron~ore')
+        self.remove_item(warlord, item_index)
+        warlord, item_index = self._find_first_item_in_inventory('diamond')
+        self.remove_item(warlord, item_index)
