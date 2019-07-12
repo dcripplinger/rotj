@@ -1421,7 +1421,7 @@ class Battle(object):
             (enemy.tactics[4] if enemy.tactics else None) == 'dispel'
             and (
                 len(self.good_ally_statuses) > 0
-                or any([enemy.bad_status for enemy in self.enemies if enemy.get_future_soldiers() > 0])
+                or any([an_enemy.bad_status for an_enemy in self.enemies if an_enemy.get_future_soldiers() > 0])
             )
             and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
             and random.random() < .2
