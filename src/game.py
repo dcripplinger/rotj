@@ -794,12 +794,18 @@ class Game(object):
         self.scale()
 
     def update(self, dt):
+        # handle music
+        if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+            if self._screen_state == 'battle':
+                repeat_music = BATTLE_MUSIC[self.battle.battle_type]['repeat']
+            else:
+                repeat_music = self.get_music(self.current_map.name)['repeat']
+            pygame.mixer.music.load(repeat_music)
+            pygame.mixer.music.play(-1)
+            self.current_music = 'repeat'
+
         if self._screen_state == 'game':
             self.current_map.update(dt)
-            if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load(self.get_music(self.current_map.name)['repeat'])
-                pygame.mixer.music.play(-1)
-                self.current_music = 'repeat'
         elif self._screen_state == 'title':
             self.title_page.update(dt)
         elif self._screen_state == 'menu':
@@ -814,10 +820,6 @@ class Game(object):
             self.update_battle_fade(dt)
         elif self._screen_state == 'battle':
             self.battle.update(dt)
-            if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-                pygame.mixer.music.load(BATTLE_MUSIC[self.battle.battle_type]['repeat'])
-                pygame.mixer.music.play(-1)
-                self.current_music = 'repeat'
         elif self._screen_state == 'battle_intro':
             if self.battle_intro:
                 self.battle_intro.update(dt)
