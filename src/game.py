@@ -1122,6 +1122,9 @@ class Game(object):
         got_spear = warlord is not None
         return got_robe and got_spear
 
+    def lost_title_of_liberty(self):
+        return 't~of~liberty' in self.game_state.get('lost_and_found', [])
+
     def battle25_and_battle26(self):
         return self.conditions_are_met(['battle25', 'battle26'])
 
