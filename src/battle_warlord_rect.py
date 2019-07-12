@@ -16,6 +16,8 @@ TEXT_AREA_CHAR_LEN = 8
 TEXT_AREA_WIDTH = TEXT_AREA_CHAR_LEN*8
 MAX_BAR_WIDTH = 64
 MAX_TIME_TO_SWITCH_SPRITE = 0.05 # seconds between switching to stand then walk then stand during movement
+ALL_OUT_SPEED = 125 # how fast they walk (pixels/second) forward or backward during all-out
+TURN_SPEED = 100 # how fast they walk (pixels/second) forward or backward when they take their turn
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord, battle, is_enemy=False):
@@ -65,6 +67,7 @@ class BattleWarlordRectBase(object):
         self.hit_image_a = True
         self.hit_time = 0
         self.switch_sprite_time = 0
+        self.all_out_speed = False
 
     def consume_tactical_points(self, points):
         raise NotImplementedError
@@ -185,14 +188,22 @@ class BattleWarlordRectBase(object):
     def move_forward(self):
         self.state = 'forward'
         self.rel_target_pos = 16
+        self.all_out_speed = False
 
     def move_to_front(self):
         self.state = 'forward'
         self.rel_target_pos = 48
+        self.all_out_speed = True
 
     def move_back(self):
         self.state = 'backward'
         self.rel_target_pos = 0
+        self.all_out_speed = False
+
+    def move_to_back(self):
+        self.state = 'backward'
+        self.rel_target_pos = 0
+        self.all_out_speed = True
 
     def get_healed(self, soldiers):
         self.soldiers_change_queue.append(soldiers)
@@ -240,14 +251,16 @@ class BattleWarlordRectBase(object):
 
         if self.state == 'forward':
             self.switch_sprite(dt)
-            self.rel_pos += int(dt*100)
+            speed = ALL_OUT_SPEED if self.all_out_speed else TURN_SPEED
+            self.rel_pos += int(dt*speed)
             if self.rel_pos > self.rel_target_pos:
                 self.rel_pos = self.rel_target_pos
                 self.state = 'wait'
                 self.switch_sprite_time = 0
         elif self.state == 'backward':
             self.switch_sprite(dt)
-            self.rel_pos -= int(dt*100)
+            speed = ALL_OUT_SPEED if self.all_out_speed else TURN_SPEED
+            self.rel_pos -= int(dt*speed)
             if self.rel_pos < 0:
                 self.rel_pos = 0.0
                 self.state = 'wait'

@@ -836,7 +836,7 @@ class Battle(object):
                                 enemy.rel_target_pos = None
                         if self.cancel_all_out == True:
                             for warlord in self.get_live_allies() + self.get_live_enemies():
-                                warlord.move_back()
+                                warlord.move_to_back()
                             self.state = 'cancel_all_out'
                             self.cancel_all_out = False
                             return
