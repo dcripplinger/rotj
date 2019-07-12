@@ -1749,6 +1749,12 @@ class Battle(object):
                         found = True
                         warlord.items.pop(i)
                         break
+            if not found:
+                # not in battle allies, maybe in extra party member's inventory
+                horse_guy, horse_index = self.game._find_first_item_in_inventory('horse')
+                if horse_guy:
+                    found = True
+                    self.game.remove_item(horse_guy, horse_index)
             if found:
                 self.game.add_to_company(enemy.name)
                 self.right_dialog = create_prompt(u'OK. {} has joined your army.'.format(enemy.name.title()))
@@ -1767,6 +1773,7 @@ class Battle(object):
             self.bargain = None
 
     def get_bargain(self):
+        return 'horse' # TEMP. For testing.
         enemy = self.captured_enemies[0]
         random_number = random.random()
         if random_number < 0.25 or enemy.name == 'samuel':
