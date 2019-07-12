@@ -40,6 +40,10 @@ class BattleIntro(object):
             self.screen.blit(self.white_box, (0,0))
 
     def update(self, dt):
+        # make short blurbs stop beeping forever
+        if not self.dialog.has_more_stuff_to_show():
+            self.dialog.shutdown()
+
         if self.dialog.has_more_stuff_to_show():
             self.dialog.update(dt)
         elif self.timer and not self.countered and not self.second_dialog:
