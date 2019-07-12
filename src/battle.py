@@ -816,32 +816,32 @@ class Battle(object):
         elif self.all_out_state == 'main' and self.get_leader().state == 'wait':
             time.sleep(.1) # pause between each all-out animation
             if not self.mini_moves:
-                if len(self.ordered_moves) == 0:
-                    self.submitted_moves = []
-                    self.enemy_moves = []
-                    for (status, duration) in list(self.good_ally_statuses.items()):
-                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
-                            del self.good_ally_statuses[status]
-                    for (status, duration) in list(self.good_enemy_statuses.items()):
-                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
-                            del self.good_enemy_statuses[status]
-                    for enemy in self.enemies:
-                        if enemy.reinforcements and enemy.get_future_soldiers() == 0:
-                            enemy.get_healed(enemy.max_soldiers)
-                            enemy.dequeue_soldiers_change()
-                            enemy.state = 'wait'
-                            enemy.rel_pos = 0
-                            enemy.rel_target_pos = None
-                    if self.cancel_all_out == True:
-                        for warlord in self.get_live_allies() + self.get_live_enemies():
-                            warlord.move_back()
-                        self.state = 'cancel_all_out'
-                        self.cancel_all_out = False
-                        return
-                    else:
-                        self.submit_ai_moves()
                 self.move = None
                 while self.move is None: # This skips dead guys without wasting time animating on their turn
+                    if len(self.ordered_moves) == 0:
+                        self.submitted_moves = []
+                        self.enemy_moves = []
+                        for (status, duration) in list(self.good_ally_statuses.items()):
+                            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                                del self.good_ally_statuses[status]
+                        for (status, duration) in list(self.good_enemy_statuses.items()):
+                            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                                del self.good_enemy_statuses[status]
+                        for enemy in self.enemies:
+                            if enemy.reinforcements and enemy.get_future_soldiers() == 0:
+                                enemy.get_healed(enemy.max_soldiers)
+                                enemy.dequeue_soldiers_change()
+                                enemy.state = 'wait'
+                                enemy.rel_pos = 0
+                                enemy.rel_target_pos = None
+                        if self.cancel_all_out == True:
+                            for warlord in self.get_live_allies() + self.get_live_enemies():
+                                warlord.move_back()
+                            self.state = 'cancel_all_out'
+                            self.cancel_all_out = False
+                            return
+                        else:
+                            self.submit_ai_moves()
                     self.move = self.ordered_moves.pop(0)
                     self.execute_move()
                 self.mini_moves, self.mini_results = self.get_mini_moves(self.move, self.results)
