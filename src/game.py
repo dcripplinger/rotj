@@ -91,6 +91,7 @@ class Game(object):
         self._screen_state_after_pause = None
         self.last_overworld_position = [169, 190] # default to melek
         self.play_walk_sound = True
+        self.two_yuppies_state = False
 
         # See the bottom of this class for the defs of all these handlers
         self.condition_side_effects = {
@@ -133,6 +134,8 @@ class Game(object):
             'moronihah_joins': self.handle_moronihah_joins,
             'got_lost_and_found_item': self.handle_got_lost_and_found_item,
             'gave_iron_ore_and_diamond': self.handle_gave_iron_ore_and_diamond,
+            'state:two_yuppies': self.handle_two_yuppies,
+            'state:one_yuppie': self.handle_one_yuppie,
         }
 
     def conditions_are_met(self, conditions):
@@ -196,12 +199,13 @@ class Game(object):
         condition_not_found = condition not in self.game_state['conditions']
         if side_effect and (condition_not_found or condition in REPEAT_CONDITIONS):
             action_dialog = side_effect()
-        conditions = list(self.game_state['conditions'])
-        if condition_not_found:
-            conditions.append(condition)
-        self.update_game_state({
-            'conditions': conditions,
-        })
+        if not condition.startswith('state:'):
+            conditions = list(self.game_state['conditions'])
+            if condition_not_found:
+                conditions.append(condition)
+            self.update_game_state({
+                'conditions': conditions,
+            })
         the_map = self.current_map or self.next_map
         if the_map:
             the_map.handle_game_state_condition(condition)
@@ -1150,6 +1154,9 @@ class Game(object):
         diamond_carrier, _ = self._find_first_item_in_inventory('diamond')
         return iron_ore_carrier and diamond_carrier
 
+    def two_yuppies(self):
+        return self.two_yuppies_state
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
@@ -1850,3 +1857,9 @@ class Game(object):
         self.remove_item(warlord, item_index)
         warlord, item_index = self._find_first_item_in_inventory('diamond')
         self.remove_item(warlord, item_index)
+
+    def handle_two_yuppies(self):
+        self.two_yuppies_state = True
+
+    def handle_one_yuppie(self):
+        self.two_yuppies_state = False

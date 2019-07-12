@@ -104,5 +104,27 @@
         }
       ]
     }
+  },
+  {
+    "x": 15,
+    "y": 14,
+    "treasure": {
+      "name": "gideon_treasure2",
+      "conditions": {
+        "cumeni_hq": true
+      },
+      "item": "atlatl"
+    }
+  },
+  {
+    "x": 19,
+    "y": 14,
+    "treasure": {
+      "name": "gideon_treasure3",
+      "conditions": {
+        "cumeni_hq": true
+      },
+      "item": "atlatl"
+    }
   }
 ]

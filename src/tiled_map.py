@@ -324,7 +324,11 @@ class Map(object):
     def check_for_item(self, unlocker=None):
         cell = self.cells.get(tuple(self.hero.position))
         treasure = cell.get('treasure') if cell else None
-        if not treasure or self.game.conditions_are_met(treasure['name']):
+        if (
+            not treasure
+            or self.game.conditions_are_met(treasure['name'])
+            or not self.game.conditions_are_met(treasure.get('conditions'))
+        ):
             return "But nothing happened." if unlocker else "But found nothing."
         if 'locked' in treasure:
             if unlocker and treasure['locked'] != unlocker:
@@ -358,6 +362,7 @@ class Map(object):
                         tmx_data=self.tmx_data, game=self.game, character=potential_sprite['name'],
                         position=[cell['x'], cell['y']], direction=potential_sprite['direction'],
                         wander=potential_sprite['wander'], tiled_map=self, dialog=potential_sprite['dialog'],
+                        walk=potential_sprite.get('walk'),
                     )
                     self.group.add(ai_sprite)
                     break # Just load the first matching sprite in the list

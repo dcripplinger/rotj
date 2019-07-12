@@ -18,5 +18,132 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 20,
+    "y": 36,
+    "teleport": {
+      "map": "cumeni_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 32,
+    "teleport": {
+      "map": "cumeni_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 28,
+    "teleport": {
+      "map": "cumeni_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 16,
+    "teleport": {
+      "map": "cumeni_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 16,
+    "teleport": {
+      "map": "cumeni_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 38,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "Welcome to Cumeni, the frontier of Nephite territory."
+    }
+  },
+  {
+    "x": 21,
+    "y": 30,
+    "ai_sprite": {
+      "name": "kingmen",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Beyond the bridge is the land of the Lamanites.",
+          "condition": "battle62"
+        },
+        {
+          "text": "Beyond the bridge is the land of the Lamanites. We have no need to venture there. It's best we stay and secure our border to prevent further attacks."
+        }
+      ]
+    }
+  },
+  {
+    "x": 13,
+    "y": 28,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Thank goodness you are here to fight. I have not the strength or youth to defend myself."
+    }
+  },
+  {
+    "x": 23,
+    "y": 20,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "C'mon, video games don't have to be 100 percent realistic.",
+          "game_state_action": "state:two_yuppies"
+        }
+      ]
+    }
+  },
+  {
+    "x": 34,
+    "y": 17,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "w",
+      "wander": false,
+      "walk": {
+        "to": {
+          "x": 0,
+          "y": 17
+        },
+        "reset": {
+          "x": 34,
+          "y": 17
+        },
+        "conditions": {
+          "state:two_yuppies": true
+        },
+        "game_state_action": "state:one_yuppie"
+      },
+      "dialog": "..."
+    }
   }
 ]

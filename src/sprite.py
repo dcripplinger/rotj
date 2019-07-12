@@ -63,16 +63,16 @@ class Sprite(pygame.sprite.Sprite):
         self.follower = follower
         self.hitting_wall = False # actually only needed for Hero
 
-    def velocity_from_speed_direction_walking(self, speed, direction, walking=True):
+    def velocity_from_speed_direction_walking(self, speed, direction, walking=True, ignore_walls=False):
         if not walking:
             return [0,0]
-        if direction == 'n' and not self.is_a_wall([0, -1]):
+        if direction == 'n' and (ignore_walls or not self.is_a_wall([0, -1])):
             return [0, -speed]
-        elif direction == 's' and not self.is_a_wall([0, 1]):
+        elif direction == 's' and (ignore_walls or not self.is_a_wall([0, 1])):
             return [0, speed]
-        elif direction == 'w' and not self.is_a_wall([-1, 0]):
+        elif direction == 'w' and (ignore_walls or not self.is_a_wall([-1, 0])):
             return [-speed, 0]
-        elif direction == 'e' and not self.is_a_wall([1, 0]):
+        elif direction == 'e' and (ignore_walls or not self.is_a_wall([1, 0])):
             return [speed, 0]
         else:
             return [0, 0]
@@ -84,7 +84,7 @@ class Sprite(pygame.sprite.Sprite):
     def update_image(self):
         self.image = self.images[self.direction]['stand' if is_half_second() else 'walk']
 
-    def move(self, direction):
+    def move(self, direction, ignore_walls=False):
         '''
         Moves sprite in direction if not already in a move transition. Returns true if actually starts a move of one tile unit.
         '''
@@ -94,13 +94,13 @@ class Sprite(pygame.sprite.Sprite):
             self.velocity = [0,0]
             return False
         self.direction = direction
-        self.velocity = self.velocity_from_speed_direction_walking(self.speed, self.direction)
+        self.velocity = self.velocity_from_speed_direction_walking(self.speed, self.direction, ignore_walls=ignore_walls)
         moved = self.velocity != [0,0]
         if self.follower and moved: # the leader is actually starting a move to a new tile
             self.follower.move_to(self.position)
         return moved
 
-    def move_to(self, position):
+    def move_to(self, position, ignore_walls=False):
         if position[0] > self.position[0]:
             direction = 'e'
         elif position[0] < self.position[0]:
@@ -111,7 +111,7 @@ class Sprite(pygame.sprite.Sprite):
             direction = 'n'
         else:
             direction = None
-        self.move(direction)
+        return self.move(direction, ignore_walls=ignore_walls)
 
     def update_position(self, dt):
         self.old_position = self.position[:]
@@ -160,7 +160,7 @@ class Sprite(pygame.sprite.Sprite):
 class AiSprite(Sprite):
     def __init__(
         self, tmx_data, game, character, position, speed=5, direction='s', walking=False, wander=False, follower=None,
-        tiled_map=None, dialog=None,
+        tiled_map=None, dialog=None, walk=None,
     ):
         super(AiSprite, self).__init__(tmx_data, game, character, position, speed, direction, walking, follower, tiled_map)
         self.wander = wander
@@ -168,6 +168,7 @@ class AiSprite(Sprite):
         if self.tiled_map:
             self.tiled_map.ai_sprites[tuple(position)] = self
         self.dialog = dialog
+        self.walk = walk
 
     def is_a_wall(self, offset, update_hitting_wall=True):
         if super(AiSprite, self).is_a_wall(offset, update_hitting_wall):
@@ -186,6 +187,8 @@ class AiSprite(Sprite):
         self.elapsed_time += dt
         if self.character == 'nehor':
             cutoff = .02 # nehor moves fast
+        elif self.walk:
+            cutoff = 0 # if self.walk is set, they constantly move (move_maybe() will check velocity in this case)
         else:
             cutoff = 1 # everyone else possibly moves every second
         if self.elapsed_time > cutoff:
@@ -194,20 +197,35 @@ class AiSprite(Sprite):
         super(AiSprite, self).update(dt)
 
     def move_maybe(self):
-        if not self.wander:
-            return
-        if self.tiled_map.map_menu: # don't do random movements if the menu is open
-            return
-        # every time we might move the ai_sprite, the probability is 0.33 unless nehor
-        if random.random() < 0.33 or self.character == 'nehor':
-            direction = random.choice(['n', 's', 'e', 'w'])
-            moved = self.move(direction)
-            if moved:
-                self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self
-                try:
-                    del self.tiled_map.ai_sprites[tuple(self.position)]
-                except KeyError: # I had an error once where mysteriously the key wasn't there.
-                    pass
+        moved = None
+        if self.walk and self.game.conditions_are_met(self.walk.get('conditions')) and self.velocity == [0, 0]:
+            destination = [self.walk['to']['x'], self.walk['to']['y']]
+            if self.position == destination:
+                if 'game_state_action' in self.walk:
+                    self.game.set_game_state_condition(self.walk['game_state_action'])
+                if 'reset' in self.walk:
+                    self.position = [self.walk['reset']['x'], self.walk['reset']['y']]
+                else:
+                    self.walk = None
+            else:
+                moved = self.move_to(destination, ignore_walls=True)
+                direction = self.direction
+        else:
+            if not self.wander:
+                return
+            if self.tiled_map.map_menu: # don't do random movements if the menu is open
+                return
+            # every time we might move the ai_sprite, the probability is 0.33 unless nehor
+            if random.random() < 0.33 or self.character == 'nehor':
+                direction = random.choice(['n', 's', 'e', 'w'])
+                moved = self.move(direction)
+
+        if moved:
+            self.tiled_map.ai_sprites[self.get_new_pos_from_direction(direction)] = self
+            try:
+                del self.tiled_map.ai_sprites[tuple(self.position)]
+            except KeyError: # I had an error once where mysteriously the key wasn't there.
+                pass
 
     def get_new_pos_from_direction(self, direction):
         if direction == 'n':

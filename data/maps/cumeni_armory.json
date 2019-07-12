@@ -1,0 +1,33 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "cumeni",
+      "x": 20,
+      "y": 28,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "sling",
+        "bronze~h"
+      ]
+    }
+  }
+]
