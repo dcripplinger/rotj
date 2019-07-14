@@ -136,6 +136,7 @@ class Game(object):
             'gave_iron_ore_and_diamond': self.handle_gave_iron_ore_and_diamond,
             'state:two_yuppies': self.handle_two_yuppies,
             'state:one_yuppie': self.handle_one_yuppie,
+            'got_explosive': self.handle_got_explosive,
         }
 
     def conditions_are_met(self, conditions):
@@ -1868,3 +1869,6 @@ class Game(object):
 
     def handle_one_yuppie(self):
         self.two_yuppies_state = False
+
+    def handle_got_explosive(self):
+        self.add_to_inventory('explosive')

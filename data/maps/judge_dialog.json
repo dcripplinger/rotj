@@ -1,5 +1,10 @@
 [
   {
+    "condition": "talked_with_gidgiddoni",
+    "text": "It sounds like Gidgiddoni in Manti had a good idea how we can get into Zarahmela and confront Pahoran.",
+    "no_epistle": true
+  },
+  {
     "condition": "cumeni_hq",
     "text": "The city of Nephihah has been retaken by the Lamanites! Why didn't our chief judge send more men to aid them? -- Moroni: I haven't received any communication from Zarahemla. I know a captain in Manti who might know what is going on.",
     "no_epistle": true

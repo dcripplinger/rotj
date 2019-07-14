@@ -19,7 +19,6 @@
       "direction": "s"
     }
   },
-
   {
     "x": 38,
     "y": 28,
@@ -81,7 +80,7 @@
     "y": 81,
     "treasure": {
       "name": "cavity_treasure2",
-      "item": "sling"
+      "item": "splint~m"
     }
   },
   {
@@ -89,7 +88,7 @@
     "y": 90,
     "treasure": {
       "name": "cavity_treasure3",
-      "item": "macana"
+      "item": "remedy"
     }
   },
   {
@@ -105,7 +104,7 @@
     "y": 9,
     "treasure": {
       "name": "cavity_treasure5",
-      "item": "plate~m"
+      "item": "splint~m"
     }
   },
   {
@@ -139,5 +138,73 @@
       "name": "cavity_treasure9",
       "item": "elixir~e"
     }
+  },
+  {
+    "x": 40,
+    "y": 45,
+    "ai_sprite": {
+      "name": "hagoth",
+      "conditions": {
+        "cumeni_hq": true
+      },
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "This cave is perfect for finding and mixing the ingredients for my explosives. They help a bunch with my shipping business. How did the explosive work out I gave you?",
+          "condition": "got_explosive"
+        },
+        {
+          "text": "This cave is perfect for finding and mixing the ingredients for my explosives. They help a bunch with my shipping business. ~~~~~~~~ ~~~~~~~~ Oh, you needed some for the war? No problem. Here you go. Obtained Explosive.",
+          "game_state_action": "got_explosive"
+        }
+      ]
+    },
+    "explosive": "watch_it"
+  },
+  {
+    "x": 41,
+    "y": 45,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 40,
+    "y": 46,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 41,
+    "y": 46,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 40,
+    "y": 47,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 41,
+    "y": 47,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 40,
+    "y": 48,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 41,
+    "y": 48,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 40,
+    "y": 49,
+    "explosive": "watch_it"
+  },
+  {
+    "x": 41,
+    "y": 49,
+    "explosive": "watch_it"
   }
 ]

@@ -32,10 +32,33 @@ from text import create_prompt, MenuBox
 from treasure import Treasure
 
 MAX_NO_FOOD_DELTA = 0.06
+MAX_EXPLODING_TIME = 1.5 # seconds
+SHAKE = [
+    [8, 0],
+    [0, 0],
+    [-8, 0],
+    [0, 0],
+    [0, 8],
+    [0, 0],
+    [0, -8],
+    [0, 0],
+    [8, 0],
+    [0, 0],
+    [-8, 0],
+    [0, 0],
+    [0, 8],
+    [0, 0],
+    [0, -8],
+    [0, 0],
+]
 
 
 class Map(object):
     def __init__(self, screen, map_name, game, hero_position, direction='s', followers='under', opening_dialog=None):
+        self.ready_explosion = False
+        self.exploding = False
+        self.exploding_time = 0
+        self.shake = [0, 0]
         self.no_food_left = False
         self.no_food_delta = 0.0
         self.battle_after_dialog = None
@@ -69,7 +92,8 @@ class Map(object):
         self.load_company_sprites(hero_position, direction, followers)
         self.map_menu = None
         self.random_encounter = False
-        self.lava_sound = pygame.mixer.Sound('data/audio/lava.wav')
+        self.lava_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'lava.wav'))
+        self.explosion_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'explosion.wav'))
 
     def set_game_state_condition(self, condition):
         return self.game.set_game_state_condition(condition)
@@ -493,7 +517,12 @@ class Map(object):
         return company_sprites
 
     def draw(self):
-        self.group.center(self.hero.rect.center)
+        center = self.hero.rect.center
+        if self.exploding:
+            shake_idx = int(10 * self.exploding_time)
+            shake = SHAKE[shake_idx]
+            center = [center[0] + shake[0], center[1] + shake[1]]
+        self.group.center(center)
         self.group.draw(self.screen)
         if self.no_food_left:
             red_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
@@ -507,6 +536,13 @@ class Map(object):
             self.screen.blit(self.company_report.surface, (0, 0))
 
     def update(self, dt):
+        if self.exploding:
+            self.exploding_time += dt
+            if self.exploding_time >= MAX_EXPLODING_TIME:
+                dialog = "We are now able to pass by the wall."
+                self.game.set_current_map(
+                    self.name, self.hero.position, "s", dialog=dialog, continue_current_music=True, play_walk_sound=False,
+                )
         self.group.update(dt)
         if self.map_menu:
             self.map_menu.update(dt)
@@ -527,6 +563,10 @@ class Map(object):
             if self.no_food_delta > MAX_NO_FOOD_DELTA:
                 self.no_food_delta = 0.0
                 self.no_food_left = False
+        if not self.map_menu and self.ready_explosion:
+            self.explosion_sound.play()
+            self.exploding = True
+            self.ready_explosion = False
 
     def is_near_water(self):
         x = int(self.hero.position[0])
@@ -652,6 +692,8 @@ class Map(object):
         return enemies
 
     def handle_input(self, pressed):
+        if self.exploding:
+            return
         if self.opening_dialog:
             self.opening_dialog.handle_input(pressed)
             if pressed[K_x] and not self.opening_dialog.has_more_stuff_to_show():
@@ -733,3 +775,11 @@ class Map(object):
             'continue_music': continue_music,
             'offguard': offguard,
         }
+
+    def attempt_explosive(self):
+        cell = self.cells.get(tuple(self.hero.position), {})
+        explosive_status = cell.get('explosive')
+        if explosive_status == 'success':
+            self.ready_explosion = True
+            self.game.set_game_state_condition('exploded_wall')
+        return explosive_status

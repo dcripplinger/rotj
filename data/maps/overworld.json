@@ -506,6 +506,44 @@
     ]
   },
   {
+    "x": 173,
+    "y": 144,
+    "explosive": "success"
+  },
+  {
+    "x": 174,
+    "y": 144,
+    "explosive": "success"
+  },
+  {
+    "x": 175,
+    "y": 144,
+    "explosive": "success"
+  },
+  {
+    "x": 176,
+    "y": 144,
+    "explosive": "success"
+  },
+  {
+    "x": 177,
+    "y": 144,
+    "explosive": "success"
+  },
+  {
+    "x": 176,
+    "y": 145,
+    "ai_sprite": {
+      "name": "fence",
+      "conditions": {
+        "exploded_wall": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "There's no one there."
+    }
+  },
+  {
     "x": 180,
     "y": 174,
     "teleport": {

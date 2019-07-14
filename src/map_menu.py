@@ -380,6 +380,18 @@ class MapMenu(object):
             text = "{} used {}. {}".format(self.map.hero.name.title(), item_name.title(), result_text)
             self.prompt = create_prompt(text)
             self.state = 'item_prompt'
+            self.map.remove_item(user, self.items_menu.current_choice)
+        elif map_usage == 'explosive':
+            status = self.map.attempt_explosive()
+            if status == 'success':
+                text = "{} used Explosive.".format(self.map.hero.name.title())
+                self.map.remove_item(user, self.items_menu.current_choice)
+            elif status == 'watch_it':
+                text = "Hey, watch it! You want us to all go up in flames?"
+            else:
+                text = "We shouldn't use that here."
+            self.prompt = create_prompt(text)
+            self.state = 'item_prompt'
         else:
             self.state = 'item_prompt'
             self.prompt = create_prompt("That can't be used here.")

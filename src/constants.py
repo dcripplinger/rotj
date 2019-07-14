@@ -1258,6 +1258,12 @@ ITEMS = {
         'rare': True,
     },
 
+    # explosive items
+    'explosive': {
+        'map_usage': 'explosive', # interacts with the wall north of gideon to blow it up
+        'rare': True,
+    },
+
     # unusable items (just carrying it has an effect, or it gets used indirectly)
     'liahona': { # lets the user be his own tactician
         'rare': True,
