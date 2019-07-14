@@ -2,22 +2,46 @@
   {
     "x": 34,
     "y": 38,
-    "teleport": {
-      "map": "overworld",
-      "x": 180,
-      "y": 174,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "cumeni_hq": true,
+          "pahoran_joins": false
+        },
+        "map": "overworld",
+        "x": 180,
+        "y": 173,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 180,
+        "y": 174,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 35,
     "y": 38,
-    "teleport": {
-      "map": "overworld",
-      "x": 180,
-      "y": 174,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "cumeni_hq": true,
+          "pahoran_joins": false
+        },
+        "map": "overworld",
+        "x": 180,
+        "y": 173,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 180,
+        "y": 174,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 18,

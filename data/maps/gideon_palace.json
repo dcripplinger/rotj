@@ -90,19 +90,19 @@
         "cumeni_hq": true,
         "battle48": false,
         "pahoran_joins": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": {
+        "text": "I know it looked to you like I had betrayed our people by not sending food and men to the outer armies, but I assure you I am on your side. The King Men have risen up again and driven me out of Zarahemla. They have placed a king over them named Pachus, and he has made an agreement with the Lamanites to maintain this part of the land while the Lamanites conquer everything else. If we join forces, we can stop Pachus at Zarahemla and unite our people against the Lamanites.",
+        "prompt": [
+          {
+            "choice": "OK",
+            "game_state_action": "pahoran_joins",
+            "next_dialog": "Let us leave at once! Pahoran has joined your army."
+          }
+        ]
       }
-    },
-    "direction": "s",
-    "wander": false,
-    "dialog": {
-      "text": "I know it looked to you like I had betrayed our people by not sending food and men to the outer armies, but I assure you I am on your side. The King Men have risen up again and driven me out of Zarahemla. They have placed a king over them named Pachus, and he has made an agreement with the Lamanites to maintain this part of the land while the Lamanites conquer everything else. If we join forces, we can stop Pachus at Zarahemla and unite our people against the Lamanites.",
-      "prompt": [
-        {
-          "choice": "OK",
-          "game_state_action": "pahoran_joins",
-          "next_dialog": "Let us leave at once! --- Pahoran has joined your army."
-        }
-      ]
     }
   },
   {

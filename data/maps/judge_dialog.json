@@ -1,5 +1,13 @@
 [
   {
+    "condition": "pahoran_joins",
+    "text": "We need to stop Pachus and the King Men in Zarahemla."
+  },
+  {
+    "condition": "battle47",
+    "text": "Please come see me in the palace at Gideon. There is much we need to discuss."
+  },
+  {
     "condition": "talked_with_gidgiddoni",
     "text": "It sounds like Gidgiddoni in Manti had a good idea how we can get into Zarahmela and confront Pahoran.",
     "no_epistle": true

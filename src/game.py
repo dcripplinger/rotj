@@ -137,6 +137,7 @@ class Game(object):
             'state:two_yuppies': self.handle_two_yuppies,
             'state:one_yuppie': self.handle_one_yuppie,
             'got_explosive': self.handle_got_explosive,
+            'pahoran_joins': self.handle_pahoran_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -1872,3 +1873,6 @@ class Game(object):
 
     def handle_got_explosive(self):
         self.add_to_inventory('explosive')
+
+    def handle_pahoran_joins(self):
+        self.add_to_company(['pahoran'])
