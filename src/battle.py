@@ -1779,7 +1779,7 @@ class Battle(object):
             return None
         elif random_number < 0.5:
             return self.get_required_money_for_recruiting(self.captured_enemies[0].max_soldiers)
-        elif random_number < 0.75 or enemy.name == 'laman':
+        elif random_number < 0.75:
             return 'refuse'
         else:
             return 'horse'
