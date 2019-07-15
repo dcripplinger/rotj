@@ -1773,7 +1773,6 @@ class Battle(object):
             self.bargain = None
 
     def get_bargain(self):
-        return 'horse' # TEMP. For testing.
         enemy = self.captured_enemies[0]
         random_number = random.random()
         if random_number < 0.25 or enemy.name == 'samuel':
