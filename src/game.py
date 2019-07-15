@@ -138,6 +138,8 @@ class Game(object):
             'state:one_yuppie': self.handle_one_yuppie,
             'got_explosive': self.handle_got_explosive,
             'pahoran_joins': self.handle_pahoran_joins,
+            'battle48': self.handle_battle48,
+            'battle49': self.handle_battle49,
         }
 
     def conditions_are_met(self, conditions):
@@ -190,7 +192,12 @@ class Game(object):
             if 'prompt' in dialog['chief_judge']:
                 dialog['prompt'] = dialog['chief_judge']['prompt']
         if is_judge and not is_chief_judge and not dialog.get('no_epistle'):
-            dialog['text'] = "An epistle arrived from our chief judge. It reads: {}".format(dialog['text'])
+            current_chief_judge = dialog.get('current_chief_judge')
+            if self.is_in_company(current_chief_judge) or self.is_in_reserve(current_chief_judge):
+                prepend = "Yessir, we'll maintain this city for you."
+            else:
+                prepent = "An epistle arrived from our chief judge. It reads:"
+            dialog['text'] = "{} {}".format(prepend, dialog['text'])
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
         return dialog
@@ -697,14 +704,14 @@ class Game(object):
                     return warlord['name'], index
         return None, None
 
-    def is_in_company(self, enemy_name):
+    def is_in_company(self, name):
         for warlord in self.game_state['company']:
-            if warlord['name'] == enemy_name:
+            if warlord['name'] == name:
                 return True
         return False
 
-    def is_in_reserve(self, enemy_name):
-        return enemy_name in self.game_state['reserve']
+    def is_in_reserve(self, name):
+        return name in self.game_state['reserve']
 
     def try_set_hq(self):
             city = self.current_map.name.split('_')[0]
@@ -1876,3 +1883,71 @@ class Game(object):
 
     def handle_pahoran_joins(self):
         self.add_to_company(['pahoran'])
+
+    def handle_battle48(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': False,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+            ]
+        })
+
+    def handle_battle49(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+            ]
+        })

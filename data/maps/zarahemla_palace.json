@@ -12,16 +12,28 @@
   {
     "x": 18,
     "y": 14,
-    "ai_sprite": {
-      "name": "alma",
-      "direction": "s",
-      "wander": false,
-      "conditions": {
-        "battle08": true,
-        "talked_with_lamoni_after_sebus": false
+    "ai_sprite": [
+      {
+        "name": "kingmen",
+        "conditions": {
+          "pahoran_joins": true,
+          "battle55": false
+        },
+        "wander": false,
+        "direction": "s",
+        "dialog": "Hello, Pahoran sir. We will maintain order in the capital while you retake our cities, as you have commanded. The cities east of the desert are accessible by way of Nephihah."
       },
-      "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. Nephihah has been chosen by the people as the new chief judge. I'm sorry I can't accompany you into battle anymore. Please see what Nephihah has to say."
-    }
+      {
+        "name": "alma",
+        "direction": "s",
+        "wander": false,
+        "conditions": {
+          "battle08": true,
+          "talked_with_lamoni_after_sebus": false
+        },
+        "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. Nephihah has been chosen by the people as the new chief judge. I'm sorry I can't accompany you into battle anymore. Please see what Nephihah has to say."
+      }
+    ]
   },
   {
     "x": 17,
@@ -32,7 +44,8 @@
         "direction": "s",
         "wander": false,
         "conditions": {
-          "battle22": true
+          "battle22": true,
+          "cumeni_hq": false
         },
         "dialog": "judge_dialog"
       },

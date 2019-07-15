@@ -1,5 +1,10 @@
 [
   {
+    "condition": "battle48",
+    "text": "The cities east of the desert are accessible by way of Nephihah. You'll need to retake them from Ammoron and the Lamanites.",
+    "current_chief_judge": "pahoran"
+  },
+  {
     "condition": "pahoran_joins",
     "text": "We need to stop Pachus and the King Men in Zarahemla."
   },

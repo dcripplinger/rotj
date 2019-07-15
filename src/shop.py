@@ -21,6 +21,8 @@ WARLORDS_EXEMPT_FROM_FIRING = {
     'lehi',
     'helaman',
     'moronihah',
+    'pahoran',
+    'corianton',
 }
 
 
