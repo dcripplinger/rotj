@@ -32,6 +32,16 @@
           "talked_with_lamoni_after_sebus": false
         },
         "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. Nephihah has been chosen by the people as the new chief judge. I'm sorry I can't accompany you into battle anymore. Please see what Nephihah has to say."
+      },
+      {
+        "name": "kingmen",
+        "conditions": {
+          "alma_joins": true,
+          "battle08": false
+        },
+        "wander": false,
+        "direction": "s",
+        "dialog": "Hello, Alma sir. We will maintain order in the capital while you head off Amlici's army. His fortifications are at Minon, on the other side of the mountains to the west."
       }
     ]
   },
