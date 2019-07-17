@@ -963,10 +963,11 @@ class Battle(object):
 
     def collect_spoils(self, plunder=0):
         story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
-        story_battle_gain = 3 if story_battle else 1
+        story_battle_gain = 2 if story_battle else 1
         base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
+        new_base = 0.006 * sum([e.max_soldiers for e in self.enemies])
         trained = 3 if 'train' in self.good_ally_statuses else 1
-        experience = int(0.0015 * base_num) * story_battle_gain * trained
+        experience = int(new_base) * story_battle_gain * trained
         money = int(0.003 * base_num) * story_battle_gain
         food = int(0.009 * base_num) if story_battle else 0
         if plunder:

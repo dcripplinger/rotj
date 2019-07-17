@@ -1818,7 +1818,7 @@ class Game(object):
 
     def handle_recruited_prisoners(self):
         level = self.game_state['level'] + 1
-        experience = EXP_REQUIRED_BY_LEVEL.get(level, 9999999)
+        experience = EXP_REQUIRED_BY_LEVEL.get(level, MAX_NUM)
         self.update_game_state({
             'level': level,
             'experience': experience,
