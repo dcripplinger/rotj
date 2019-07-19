@@ -239,11 +239,8 @@ class TextBox(object):
                         and (numbers_left-1) % 6 >= 3
                     ):
                         char_image = pygame.Surface((8, 8))
-                        fade_box = pygame.Surface((8, 8))
-                        fade_box.set_alpha(48)
-                        fade_box.fill(BLACK)
                         char_image.blit(CHARS[char], (0, 0))
-                        char_image.blit(fade_box, (0, 0))
+                        pygame.draw.rect(char_image, WHITE, (7, 7, 1, 1), 1)
                         numbers_left -= 1
                     else:
                         char_image = CHARS[char]
