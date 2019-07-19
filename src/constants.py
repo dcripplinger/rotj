@@ -1205,7 +1205,7 @@ ITEMS = {
     },
     'resurrect': {
         'map_usage': 'company',
-        'cost': 100,
+        'cost': 50,
     },
 
     # battle items
@@ -1225,7 +1225,7 @@ ITEMS = {
         'map_usage': 'battle',
         'battle_usage': 'ally',
         'effect': 'remedy',
-        'cost': 200,
+        'cost': 100,
     },
     't~of~liberty': { # cancels all enemy reinforcements, meant to be used in battle21
         'map_usage': 'battle',
