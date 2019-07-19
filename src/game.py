@@ -196,7 +196,7 @@ class Game(object):
             if self.is_in_company(current_chief_judge) or self.is_in_reserve(current_chief_judge):
                 prepend = "Yessir, we'll maintain this city for you."
             else:
-                prepent = "An epistle arrived from our chief judge. It reads:"
+                prepend = "An epistle arrived from our chief judge. It reads:"
             dialog['text'] = "{} {}".format(prepend, dialog['text'])
         if dialog.get('game_state_action'):
             self.set_game_state_condition(dialog['game_state_action'])
