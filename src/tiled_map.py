@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import math
 import os
 import random
 
@@ -747,7 +748,7 @@ class Map(object):
             elif pressed[K_RSHIFT] and self.hero.velocity == [0,0]:
                 company = self.game.game_state['company']
                 money = self.game.game_state['money']
-                food = self.game.game_state['food']
+                food = int(math.ceil(self.game.game_state['food']))
                 experience = self.game.game_state['experience']
                 level = self.game.game_state['level']
                 self.company_report = CompanyReport(company, money, food, experience, level)

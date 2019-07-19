@@ -235,7 +235,7 @@ class Game(object):
             return False
         food = copy.deepcopy(self.game_state['food'])
         soldiers = sum(warlord['soldiers'] for warlord in self.game_state['company'])
-        eaten = int(math.ceil(soldiers/1000.0))
+        eaten = soldiers / 100000.0 # 100,000 steps per food unit per soldier
         new_food = max(0, food - eaten)
         self.update_game_state({'food': new_food})
         if new_food == 0:
@@ -1183,7 +1183,7 @@ class Game(object):
     def handle_talked_with_melek_merchant(self):
         self.update_game_state({
             'money': self.game_state['money'] + 200,
-            'food': self.game_state['food'] + 1000,
+            'food': self.game_state['food'] + 20,
         })
 
     def handle_ammah_and_manti_join(self):

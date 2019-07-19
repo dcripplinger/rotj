@@ -104,7 +104,7 @@ class Shop(object):
 
     def create_spoils_box(self):
         money = self.game.game_state['money']
-        food = self.game.game_state['food']
+        food = int(math.ceil(self.game.game_state['food']))
         text = u"MONEY\n{:~>9}\nFOOD\n{:~>9}".format(money, food)
         self.spoils_box = TextBox(text, border=True, indent=1)
 
@@ -269,11 +269,13 @@ class FoodShop(Shop):
         level = self.game.game_state['level']
         company = self.game.game_state['company']
         sum_soldiers = sum(get_max_soldiers(warlord['name'], level) for warlord in company)
-        base = int(math.pow(10, len(str(sum_soldiers))-2))
+        exponent = len(str(sum_soldiers)) - 3
+        exponent = min(5, max(0, exponent))
+        base = int(math.pow(10, exponent))
         self.shop_menu = ShopMenu([
-            {'name': str(3*base), 'cost': base},
-            {'name': str(30*base), 'cost': 10*base},
-            {'name': str(300*base), 'cost': 100*base},
+            {'name': str(base), 'cost': base},
+            {'name': str(10*base), 'cost': 10*base},
+            {'name': str(100*base), 'cost': 100*base},
         ])
 
     def handle_shop_menu_selection(self):

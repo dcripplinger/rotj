@@ -949,7 +949,7 @@ ITEMS = {
     'club': {
         'attack_points': 30,
         'equip_type': 'weapon',
-        'cost': 500,
+        'cost': 400,
     },
     'spear': {
         'attack_points': 50,
@@ -1031,22 +1031,22 @@ ITEMS = {
     'robe': {
         'armor_class': 20,
         'equip_type': 'armor',
-        'cost': 100,
+        'cost': 50,
     },
     'leather': {
         'armor_class': 35,
         'equip_type': 'armor',
-        'cost': 300,
+        'cost': 150,
     },
     'padded': {
         'armor_class': 45,
         'equip_type': 'armor',
-        'cost': 800,
+        'cost': 400,
     },
     'ring~m': {
         'armor_class': 55,
         'equip_type': 'armor',
-        'cost': 2000,
+        'cost': 1000,
     },
     'chain~m': {
         'armor_class': 70,
@@ -1056,12 +1056,12 @@ ITEMS = {
     'splint~m': {
         'armor_class': 85,
         'equip_type': 'armor',
-        'cost': 10000,
+        'cost': 20000,
     },
     'plate~m': {
         'armor_class': 100,
         'equip_type': 'armor',
-        'cost': 30000,
+        'cost': 40000,
     },
     'iron~m': {
         'armor_class': 115,
@@ -1088,42 +1088,42 @@ ITEMS = {
     'bandana': {
         'armor_class': 10,
         'equip_type': 'helmet',
-        'cost': 50,
+        'cost': 20,
     },
     'cap': {
         'armor_class': 20,
         'equip_type': 'helmet',
-        'cost': 150,
+        'cost': 100,
     },
     'hood': {
         'armor_class': 40,
         'equip_type': 'helmet',
-        'cost': 500,
+        'cost': 300,
     },
     'wood~h': {
         'armor_class': 50,
         'equip_type': 'helmet',
-        'cost': 1000,
+        'cost': 800,
     },
     'copper~h': {
         'armor_class': 60,
         'equip_type': 'helmet',
-        'cost': 3000,
+        'cost': 2000,
     },
     'bronze~h': {
         'armor_class': 70,
         'equip_type': 'helmet',
-        'cost': 10000,
+        'cost': 4000,
     },
     'iron~h': {
         'armor_class': 80,
         'equip_type': 'helmet',
-        'cost': 40000,
+        'cost': 15000,
     },
     'steel~h': {
         'armor_class': 90,
         'equip_type': 'helmet',
-        'cost': 110000,
+        'cost': 150000,
     },
     'tungsten~h': {
         'armor_class': 100,
@@ -1140,68 +1140,68 @@ ITEMS = {
     'elixir~a': {
         'map_usage': 'company', # means you can use the item on a member of the company (aka traveling party)
         'battle_usage': 'ally',
-        'healing_points': 200, # exactly 100 soldiers recover strength
-        'cost': 20,
+        'healing_points': 200, # exactly 200 soldiers recover strength
+        'cost': 10,
     },
     'elixir~b': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 600,
-        'cost': 60,
+        'cost': 30,
     },
     'elixir~c': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 2000,
-        'cost': 200,
+        'cost': 100,
     },
     'elixir~d': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 6000,
-        'cost': 600,
+        'cost': 300,
     },
     'elixir~e': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 20000,
-        'cost': 2000,
+        'cost': 1000,
     },
     'elixir~f': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 60000,
-        'cost': 6000,
+        'cost': 3000,
     },
     'elixir~h': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 200000,
-        'cost': 20000,
+        'cost': 10000,
     },
     'elixir~i': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 600000,
-        'cost': 60000,
+        'cost': 30000,
     },
     'elixir~j': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 2000000,
-        'cost': 200000,
+        'cost': 100000,
     },
     'elixir~k': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 6000000,
-        'cost': 600000,
+        'cost': 300000,
     },
     'elixir~l': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 20000000,
-        'cost': 2000000,
+        'cost': 1000000,
     },
     'resurrect': {
         'map_usage': 'company',

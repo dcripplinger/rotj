@@ -63,7 +63,7 @@ class Beginning(object):
                 self.game.set_screen_state('game')
                 self.game.update_game_state({
                     'money': 0,
-                    'food': 500,
+                    'food': 20,
                     'experience': 0,
                     'company': [
                         {

@@ -964,12 +964,11 @@ class Battle(object):
     def collect_spoils(self, plunder=0):
         story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
         story_battle_gain = 2 if story_battle else 1
-        base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
         new_base = 0.006 * sum([e.max_soldiers for e in self.enemies])
         trained = 3 if 'train' in self.good_ally_statuses else 1
         experience = int(new_base) * story_battle_gain * trained
-        money = int(0.003 * base_num) * story_battle_gain
-        food = int(0.009 * base_num) if story_battle else 0
+        money = int((4.5 + (.5 if plunder else random.random())) * new_base) * story_battle_gain # averages 5x experience
+        food = int((3.5 + random.random()) * new_base) if story_battle else 0 # averages 4x regular experience
         if plunder:
             experience = 0
             money = 2 * money # plunder is twice as much as regular spoils
@@ -2347,7 +2346,7 @@ class Battle(object):
         spoils_text = u"~MONEY\n"
         spoils_text += u"~{:~>8}~\n".format(self.game.game_state['money'])
         spoils_text += u"~FOOD\n"
-        spoils_text += u"~{:~>8}~\n".format(self.game.game_state['food'])
+        spoils_text += u"~{:~>8}~\n".format(int(math.ceil(self.game.game_state['food'])))
         spoils_text += u"~EXP\n"
         spoils_text += u"~{:~>8}~".format(self.game.game_state['experience'])
         self.spoils_box = TextBox(spoils_text, border=True)
