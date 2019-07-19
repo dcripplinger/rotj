@@ -86,6 +86,7 @@ class Beginning(object):
                             'soldiers': get_max_soldiers('amalickiah', 1),
                             'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
                             'tactical_points': get_max_tactical_points('amalickiah', 1),
+                            'tactician': True,
                         },
                     ],
                     'level': 1,
