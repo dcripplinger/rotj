@@ -234,9 +234,9 @@ class TextBox(object):
                         raise Exception(u'char not in CHARS. char={}, text="{}"'.format(char, self.text))
                     if (
                         is_number
-                        and numbers_left > 0
+                        and numbers_left > 3
                         and char in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-                        and (numbers_left-1) % 6 >= 3
+                        and (numbers_left-1) % 3 == 0
                     ):
                         char_image = pygame.Surface((8, 8))
                         char_image.blit(CHARS[char], (0, 0))
