@@ -1097,7 +1097,7 @@ class Battle(object):
             if item['name'] == move['item']:
                 self.warlord.items.remove(item)
                 break
-        if 'target' in move and move['target'].get_future_soldiers() == 0:
+        if 'target' in move and move['target'].get_future_soldiers() == 0 and move['item'] != 'power~pill':
             return move, {'wasted': True}
         move_type = ITEMS[move['item']]['battle_usage']
         # go through items by type
