@@ -92,6 +92,21 @@
       "dialog": [
         {
           "text": "I am not much of a fighter, but I am skilled as a strategist. Please let me join you.",
+          "condition": "entered_destroyed_ammonihah",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "anti_nephi_lehi_joins",
+              "next_dialog": "I will serve you faithfully."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I'll be here when you're ready for my help."
+            }
+          ]
+        },
+        {
+          "text": "I am not much of a fighter, but I am skilled as a strategist. Please let me join you.",
           "condition": "talked_with_helaman",
           "prompt": [
             {
