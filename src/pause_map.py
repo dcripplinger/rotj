@@ -13,7 +13,7 @@ XMIN = 7
 XMAX = 292
 YMIN = 7
 YMAX = 392
-SPEED = 50 # tiles per second when moving
+SPEED = 100 # tiles per second when moving
 MAP_WIDTH = 300
 MAP_HEIGHT = 400
 
