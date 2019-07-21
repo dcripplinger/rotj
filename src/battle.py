@@ -345,6 +345,7 @@ class Battle(object):
 
     def init_exit(self, dialog_struct):
         self.win_state = 'exit_dialog'
+        self.right_dialog = None
         self.current_exit_dialog = self.game.get_dialog_for_condition(dialog_struct)
         if isinstance(self.current_exit_dialog, basestring):
             self.exit_dialog = create_prompt(self.current_exit_dialog)
