@@ -171,7 +171,7 @@ class Shop(object):
         self.shop_menu = ShopMenu(self.shop['items'])
 
     def create_company_menu(self):
-        self.company_menu = MenuBox(self.game.get_company_names())
+        self.company_menu = MenuBox(self.game.get_company_names(with_empty_item_slots=True))
 
 
 class RecordOffice(Shop):
@@ -315,6 +315,9 @@ class Armory(Shop):
         if item['cost'] > self.game.game_state['money']:
             self.dialog = create_prompt("I'm sorry. You don't have enough money for that. Anything else?")
             self.next = 'shop_menu'
+        elif len(self.game.get_company_names(with_empty_item_slots=True)) == 0:
+            self.dialog = create_prompt("I'm sorry. You don't have any room to carry more items. Anything else?")
+            self.next = 'shop_menu'
         else:
             self.dialog = create_prompt("And who will be carrying that?")
             self.next = 'company_menu'
@@ -330,8 +333,11 @@ class Armory(Shop):
     def handle_company_menu_selection(self):
         self.company_menu.unfocus()
         self.state = 'dialog'
-        warlord_index = self.company_menu.current_choice
         warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
         current_items = self.game.game_state['company'][warlord_index]['items']
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
@@ -385,6 +391,9 @@ class MerchantShop(Shop):
         if item['cost'] > self.game.game_state['money']:
             self.dialog = create_prompt("I'm sorry. You don't have enough money for that. Anything else?")
             self.next = 'shop_menu'
+        elif len(self.game.get_company_names(with_empty_item_slots=True)) == 0:
+            self.dialog = create_prompt("I'm sorry. You don't have any room to carry more items. Anything else?")
+            self.next = 'shop_menu'
         else:
             self.dialog = create_prompt("And who will be carrying that?")
             self.next = 'company_menu'
@@ -423,8 +432,11 @@ class MerchantShop(Shop):
     def handle_company_menu_buy(self):
         self.company_menu.unfocus()
         self.state = 'dialog'
-        warlord_index = self.company_menu.current_choice
         warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
         current_items = self.game.game_state['company'][warlord_index]['items']
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
@@ -515,6 +527,11 @@ class Reserve(Shop):
                 self.surplus_page = 0
             self.create_shop_menu()
             self.shop_menu.focus()
+        elif len(self.game.get_company_names(with_empty_item_slots=True)) == 0:
+            self.state = 'dialog'
+            self.dialog = create_prompt("You don't have enough room to carry it. Anything else?")
+            self.next = 'shop_menu'
+            self.shop_menu.unfocus()
         else:
             self.state = 'dialog'
             self.dialog = create_prompt("And who will be carrying that?")
@@ -548,8 +565,11 @@ class Reserve(Shop):
                 self.handle_get_surplus_item()
 
     def handle_get_surplus_item(self):
-        warlord_index = self.company_menu.current_choice
         warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
         surplus_index = self.shop_menu.current_choice + self.surplus_page * 8
         items = self.game.game_state['company'][warlord_index]['items']
         if len(items) >= MAX_ITEMS_PER_PERSON:
@@ -673,8 +693,10 @@ class Reserve(Shop):
 
     def create_company_menu(self):
         mode = self.misc_menu.get_choice()
-        if mode in ('DEL~MEM', 'SURPLUS'):
+        if mode == 'DEL~MEM':
             self.company_menu = MenuBox(self.game.get_company_names())
+        elif mode == 'SURPLUS':
+            self.company_menu = MenuBox(self.game.get_company_names(with_empty_item_slots=True))
         elif mode in ('STATS', 'NEW~MEM', 'FIRE'):
             reserve = self.game.game_state['reserve'][self.reserve_page*8:(self.reserve_page+1)*8]
             reserve = [name.title() for name in reserve]
