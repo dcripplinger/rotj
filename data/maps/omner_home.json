@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "omner",
+      "x": 12,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "s",
+      "wander": true,
+      "dialog": "I stepped on something sharp by the well behind my house, and it cut me."
+    }
+  }
+]

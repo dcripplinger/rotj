@@ -3,9 +3,9 @@
     "x": 13,
     "y": 18,
     "teleport": {
-      "map": "antiparah",
-      "x": 32,
-      "y": 22,
+      "map": "omner",
+      "x": 16,
+      "y": 19,
       "direction": "s"
     }
   },
@@ -25,10 +25,11 @@
     "shop": {
       "type": "merchant",
       "items": [
-        "elixir~d",
+        "elixir~f",
         "resurrect",
         "remedy",
-        "power~pill"
+        "power~pill",
+        "cloak"
       ]
     }
   }

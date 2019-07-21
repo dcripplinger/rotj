@@ -3,9 +3,9 @@
     "x": 13,
     "y": 18,
     "teleport": {
-      "map": "antiparah",
-      "x": 32,
-      "y": 22,
+      "map": "omner",
+      "x": 28,
+      "y": 19,
       "direction": "s"
     }
   },
@@ -13,7 +13,7 @@
     "x": 13,
     "y": 10,
     "ai_sprite": {
-      "name": "villager",
+      "name": "merchant",
       "direction": "s",
       "wander": false,
       "dialog": ""
@@ -23,12 +23,10 @@
     "x": 13,
     "y": 11,
     "shop": {
-      "type": "merchant",
+      "type": "armory",
       "items": [
-        "elixir~d",
-        "resurrect",
-        "remedy",
-        "power~pill"
+        "atlatl",
+        "lance"
       ]
     }
   }

@@ -1173,31 +1173,31 @@ ITEMS = {
         'healing_points': 60000,
         'cost': 3000,
     },
-    'elixir~h': {
+    'elixir~g': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 200000,
         'cost': 10000,
     },
-    'elixir~i': {
+    'elixir~h': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 600000,
         'cost': 30000,
     },
-    'elixir~j': {
+    'elixir~i': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 2000000,
         'cost': 100000,
     },
-    'elixir~k': {
+    'elixir~j': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 6000000,
         'cost': 300000,
     },
-    'elixir~l': {
+    'elixir~k': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 20000000,

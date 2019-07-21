@@ -50,12 +50,108 @@
     }
   },
   {
+    "x": 26,
+    "y": 11,
+    "teleport": {
+      "map": "omner_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 19,
+    "teleport": {
+      "map": "omner_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 19,
+    "teleport": {
+      "map": "omner_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
     "x": 11,
     "y": 10,
     "treasure": {
       "name": "omner_treasure",
       "item": "battleax",
       "invisible": true
+    }
+  },
+  {
+    "x": 20,
+    "y": 13,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle52",
+          "text": "Why do they never build any bathrooms in these cities?"
+        },
+        {
+          "text": "There is a reserve army of Lamanites south of here with no captain. We should head them off before they join Ammoron at the city of Moroni."
+        }
+      ]
+    }
+  },
+  {
+    "x": 21,
+    "y": 9,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "This is the city of Omner."
+    }
+  },
+  {
+    "x": 32,
+    "y": 15,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Moroni has inspired me to join the army. I want to help protect our cities just like the men."
+    }
+  },
+  {
+    "x": 20,
+    "y": 17,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle55",
+          "text": "I hope Moronihah can live up to the reputation of his father."
+        },
+        {
+          "text": "The city of Moroni south of here is the only one left for us to reclaim. However, the entire Lamanite army has gathered there with Ammoron himself at the command."
+        }
+      ]
+    }
+  },
+  {
+    "x": 31,
+    "y": 20,
+    "ai_sprite": {
+      "name": "villager",
+      "direction": "w",
+      "wander": true,
+      "dialog": "You have saved us and restored our lands!"
     }
   }
 ]
