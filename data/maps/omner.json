@@ -38,5 +38,24 @@
       "y": 180,
       "direction": "s"
     }
+  },
+  {
+    "x": 12,
+    "y": 13,
+    "teleport": {
+      "map": "omner_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 11,
+    "y": 10,
+    "treasure": {
+      "name": "omner_treasure",
+      "item": "battleax",
+      "invisible": true
+    }
   }
 ]
