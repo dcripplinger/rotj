@@ -93,10 +93,10 @@ class MapMenu(object):
             self.screen.blit(self.prompt.surface, (0, 160))
         if self.formation_menu:
             self.screen.blit(self.formation_menu.surface, (160, 128))
-        if self.new_order:
-            self.screen.blit(self.new_order.surface, (128, 0))
         if self.order_menu:
             self.screen.blit(self.order_menu.surface, (0, 0))
+        if self.new_order:
+            self.screen.blit(self.new_order.surface, (128, 0))
         if self.strat_menu:
             self.screen.blit(self.strat_menu.surface, (0, 0))
         if self.general_menu:
