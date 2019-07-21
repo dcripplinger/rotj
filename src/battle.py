@@ -159,6 +159,8 @@ class Battle(object):
             else:
                 soldiers = enemy['stats']['soldiers']
             capture = self.game.conditions_are_met(enemy['stats']['capture']) if 'capture' in enemy['stats'] else False
+            if 'tactics' in enemy['stats'] and enemy['stats']['tactics'][4] == 'train':
+                enemy['stats']['tactics'][4] = 'disable'
             self.enemies.append(Enemy({
                 'index': i,
                 'name': enemy['name'],
@@ -1400,6 +1402,21 @@ class Battle(object):
             sample -= prob
 
     def generate_enemy_move(self, enemy, ally_target_index, sum_dangers):
+        if (
+            self.battle_name == 'battle55'
+            and enemy.name == 'ammoron'
+            and self.offguard == -1
+        ):
+            teancum = None
+            for ally in self.get_live_allies():
+                if ally.name == 'teancum':
+                    teancum = ally
+                    break
+            if teancum:
+                # ammoron uses disable on teancum the first time
+                action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': enemy.tactics[4], 'target': teancum}
+                enemy.consume_tactical_points(TACTICS[enemy.tactics[4]]['tactical_points'])
+                return action
         ally_target = self.allies[ally_target_index]
         random_enemy = random.choice(self.get_live_enemies())
 
