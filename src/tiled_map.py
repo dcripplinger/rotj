@@ -319,6 +319,8 @@ class Map(object):
 
     def heal(self, warlord, amount):
         self.game.heal(warlord, amount)
+        # Reload sprites because sometimes heal() is called for resurrecting
+        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
     def remove_item(self, warlord, index):
         self.game.remove_item(warlord, index)
