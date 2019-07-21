@@ -118,7 +118,15 @@
       "name": "woman3",
       "wander": true,
       "direction": "w",
-      "dialog": "I am Isabel. If you meet a young man named Corianton, can you tell him to meet me back here?",
+      "dialog": [
+        {
+          "text": "Oh, Corianton! You're the only one I will ever love! ...if you pay up of course.",
+          "condition": "state:corianton_in_company"
+        },
+        {
+          "text": "Hey there, I'm Isabel. If you meet a young man named Corianton, can you tell him to meet me back here?"
+        }
+      ],
       "conditions": {
         "corianton_runs_away": false
       }

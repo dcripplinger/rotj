@@ -1171,6 +1171,12 @@ class Game(object):
     def two_yuppies(self):
         return self.two_yuppies_state
 
+    def corianton_in_company(self):
+        for warlord in self.game_state['company']:
+            if warlord['name'] == 'corianton':
+                return True
+        return False
+
     ###########################################################
     # Condition side effect handlers get defined here         #
     ###########################################################
