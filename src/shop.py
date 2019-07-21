@@ -109,7 +109,11 @@ class Shop(object):
         self.spoils_box = TextBox(text, border=True, indent=1)
 
     def handle_input(self, pressed):
-        if self.state == 'dialog':
+        if self.report:
+            if pressed[K_x] or pressed[K_z]:
+                self.report = None
+                self.company_menu.focus()
+        elif self.state == 'dialog':
             self.dialog.handle_input(pressed)
         elif self.state == 'shop_menu':
             self.shop_menu.handle_input(pressed)
@@ -589,8 +593,9 @@ class Reserve(Shop):
     def handle_stats(self):
         warlord_name = self.company_menu.get_choice().lower()
         level = self.game.game_state['level']
-        self.state = 'exit'
         self.report = Report(warlord_name, level, [])
+        self.company_menu.unfocus()
+        self.state = 'company_menu'
 
     def handle_recruit(self):
         reserve_index = self.company_menu.current_choice + self.reserve_page * 8
