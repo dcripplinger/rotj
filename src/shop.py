@@ -606,10 +606,14 @@ class Reserve(Shop):
 
     def handle_delete(self):
         warlord_index = self.company_menu.current_choice
+        if len(self.game.game_state['company'][warlord_index]['items']) > 0:
+            surplus_text = " His items are in surplus."
+        else:
+            surplus_text = ""
         self.game.delete_member(warlord_index)
         self.next = 'exit'
         warlord_name = self.company_menu.get_choice() # leave capitalized
-        self.dialog = create_prompt(u"OK. {} went to the reserve. His items are in surplus.".format(warlord_name))
+        self.dialog = create_prompt(u"OK. {} went to the reserve.{}".format(warlord_name, surplus_text))
 
     def handle_fire(self):
         warlord_name = self.company_menu.get_choice()
