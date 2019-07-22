@@ -104,6 +104,10 @@ class Battle(object):
         # The amount plundered is equal to the spoils if you win, but the change to your money is immediate.
         self.plundered = 0
         
+        self.is_last_battle = (
+            battle_name in ['battle69', 'battle80', 'battle90']
+            and len([True for b in ['battle69', 'battle80', 'battle90'] if self.game.conditions_are_met(b)])
+        )
         self.prev_experience = prev_experience
         self.prev_money = prev_money
         self.prev_food = prev_food
@@ -396,8 +400,11 @@ class Battle(object):
                 )
             self.right_dialog = create_prompt(victory_script)
             self.captured_enemies = self.get_captured_enemies()
-            pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'victory.wav'))
-            pygame.mixer.music.play()
+            if self.battle_name == 'battle55' or self.is_last_battle:
+                pygame.mixer.music.fadeout(3000)
+            else:
+                pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'victory.wav'))
+                pygame.mixer.music.play()
             self.win_state = 'main'
         elif self.win_state == 'exit_dialog':
             self.exit_dialog.update(dt)
@@ -528,7 +535,10 @@ class Battle(object):
                     )
         elif self.execute_state == 'move_forward':
             if self.warlord.state == 'wait':
-                if self.warlord.get_future_soldiers() == 0:
+                if (
+                    self.warlord.get_future_soldiers() == 0
+                    and self.move['action'] not in [self.execute_move_kill_teancum, self.execute_move_ammoron_dies]
+                ):
                     self.execute_state = 'move_back'
                 else:
                     self.execute_move()
@@ -759,7 +769,7 @@ class Battle(object):
                 dialog += "confused. "
         return dialog
 
-    def get_move_dialog(self, mini_move, mini_result):
+    def get_move_dialog(self, mini_move, mini_result, silent=True):
         dialog = u""
         if self.battle_name == 'battle89' and mini_move['agent'].name in ['zedekiah', 'gadiomnah']:
             dialog += self.get_random_taunt()
@@ -773,13 +783,18 @@ class Battle(object):
             dialog += self.get_item_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_disable:
             dialog += u"{} is disabled.".format(mini_move['agent'].name.title())
+        elif mini_move['action'] == self.execute_move_ammoron_dies:
+            dialog += u"I... I cannot... how did you... avenge me!"
+            silent = False
+        elif mini_move['action'] == self.execute_move_kill_teancum:
+            dialog += u"With Ammoron's dying breath, he commands his men to blitz Teancum. And it came to pass that they did pursue Teancum, and slew him."
         worn_off_dialog = self.get_status_worn_off_dialog(mini_move, mini_result)
         if worn_off_dialog and mini_move['action'] == self.execute_move_disable:
             dialog = worn_off_dialog
         else:
             dialog += u" {}".format(worn_off_dialog)
         if dialog:
-            return create_prompt(dialog, silent=True)
+            return create_prompt(dialog, silent=silent)
         else:
             return None
 
@@ -795,13 +810,31 @@ class Battle(object):
                 if sound:
                     sound.play()
                 self.animate_move_hit(self.mini_move, self.mini_result)
-            if 'target' in self.mini_move:
+            if self.mini_move.get('target'): # if target is in there and is not None
                 self.mini_move['target'].dequeue_soldiers_change()
             if self.mini_result.get('killed'):
-                if all(enemy.get_future_soldiers() == 0 for enemy in self.enemies):
-                    self.handle_win()
+                if self.mini_move.get('target') and self.mini_move['target'].name == 'ammoron':
+                    teancum = None
+                    for ally in self.get_live_allies():
+                        if ally.name == 'teancum':
+                            teancum = ally
+                            break
+                    self.ordered_moves.insert(0, {
+                        'agent': self.mini_move['target'], # ammoron
+                        'target': teancum,
+                        'action': self.execute_move_kill_teancum,
+                    })
+                    self.ordered_moves.insert(0, {
+                        'agent': self.mini_move['target'], # ammoron
+                        'action': self.execute_move_ammoron_dies,
+                    })
+                    # Also, don't end the game on the move where Ammoron dies.
+                elif self.mini_move['action'] == self.execute_move_kill_teancum:
+                    pass # Also don't end battle on this move. If the battle is over, the end will get triggered after dialog.
                 elif all(ally.get_future_soldiers() == 0 for ally in self.allies):
                     self.handle_lose()
+                elif all(enemy.get_future_soldiers() == 0 for enemy in self.enemies):
+                    self.handle_win()
         else:
             self.mini_move = None
             self.mini_result = None
@@ -1014,6 +1047,8 @@ class Battle(object):
             or results.get('wasted') or results.get('status') == 'disable'
         ):
             return self.fail_sound
+        elif move.get('action') == self.execute_move_kill_teancum:
+            return self.heavy_damage_sound
         elif (
             move.get('action') in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]
             or move.get('item') == 'power~pill'
@@ -1086,6 +1121,15 @@ class Battle(object):
         move, result = self.execute_move_battle(move, confused=True)
         result.update({'status': 'confuse'})
         return move, result
+
+    def execute_move_ammoron_dies(self, move):
+        return move, {}
+
+    def execute_move_kill_teancum(self, move):
+        if move['target']:
+            inflicted_damage = move['target'].get_future_soldiers()
+            move['target'].get_damaged(inflicted_damage)
+        return move, {'killed': True}
 
     def execute_move_disable(self, move):
         return move, {'status': 'disable'}
@@ -1358,6 +1402,8 @@ class Battle(object):
         return move, {'defend': True}
 
     def change_move_if_dead_or_cursed(self):
+        if self.move['action'] in [self.execute_move_kill_teancum, self.execute_move_ammoron_dies]:
+            return
         if self.move['agent'].get_future_soldiers() == 0:
             self.move = None
             return
@@ -1817,14 +1863,15 @@ class Battle(object):
         if len(self.levels) == 0:
             return False
         level = self.levels.pop(0)
-        pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'level.wav'))
-        pygame.mixer.music.play()
+        if self.battle_name != 'battle55' and not self.is_last_battle:
+            pygame.mixer.music.load(os.path.join('data', 'audio', 'music', 'level.wav'))
+            pygame.mixer.music.play()
         self.right_dialog.shutdown()
         dialog = u"{}'s army has advanced one skill level. ".format(self.get_leader().name.title())
         tactic_guys = []
         tactic = get_tactic_for_level(level)
         for warlord in self.game.game_state['company']:
-            if can_level_up(warlord['name']):
+            if can_level_up(warlord['name']) and not (self.battle_name == 'battle55' and warlord['name'] == 'teancum'):
                 dialog += u"{} now has {} soldiers. ".format(
                     warlord['name'].title(), get_max_soldiers(warlord['name'], level),
                 )
@@ -1922,17 +1969,27 @@ class Battle(object):
         self.menu.unfocus()
 
     def handle_all_out(self):
-        self.warlord.move_back()
-        self.state = 'all_out'
-        self.menu.unfocus()
-        self.portrait = None
-        self.all_out_state = 'move_back_leader'
+        if self.battle_name != 'battle55':
+            self.warlord.move_back()
+            self.state = 'all_out'
+            self.menu.unfocus()
+            self.portrait = None
+            self.all_out_state = 'move_back_leader'
+        else: # battle55
+            self.state = 'error'
+            self.menu.unfocus()
+            self.right_dialog = create_prompt("This option is not available right now.")
 
     def handle_risk_it(self):
-        self.warlord.move_back()
-        self.state = 'risk_it'
-        self.menu.unfocus()
-        time.sleep(1)
+        if self.battle_name != 'battle55':
+            self.warlord.move_back()
+            self.state = 'risk_it'
+            self.menu.unfocus()
+            time.sleep(1)
+        else: # battle55
+            self.state = 'error'
+            self.menu.unfocus()
+            self.right_dialog = create_prompt("This option is not available right now.")
 
     def handle_input_report(self, pressed):
         if pressed[K_UP]:
@@ -2065,6 +2122,15 @@ class Battle(object):
                 dialog.shutdown()
                 self.left_dialog = None
                 self.right_dialog = None
+                if (
+                    self.battle_name == 'battle55'
+                    and self.move
+                    and self.move['action'] == self.execute_move_kill_teancum
+                ):
+                    if all(ally.get_future_soldiers() == 0 for ally in self.allies):
+                        self.handle_lose()
+                    elif all(enemy.get_future_soldiers() == 0 for enemy in self.enemies):
+                        self.handle_win()
 
     def handle_input_battle(self, pressed):
         if pressed[K_UP]:
