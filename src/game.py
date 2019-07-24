@@ -294,11 +294,12 @@ class Game(object):
             'items': [],
         })
         self.update_game_state({'company': company, 'reserve': reserve})
-        self.current_map.load_company_sprites(
-            self.current_map.hero.position,
-            self.current_map.hero.direction,
-            'inplace',
-        )
+        if self.current_map:
+            self.current_map.load_company_sprites(
+                self.current_map.hero.position,
+                self.current_map.hero.direction,
+                'inplace',
+            )
 
     def get_reserve_index(self, warlord_name):
         for i, name in enumerate(self.game_state['reserve']):
@@ -2075,7 +2076,10 @@ class Game(object):
         })
 
         # Just in case lehi never joined before
-        self.set_game_state_condition('lehi_and_aha_join')
+        if not self.conditions_are_met('lehi_and_aha_join'):
+            self.set_game_state_condition('lehi_and_aha_join')
+            self.delete_member(-1)
+            self.delete_member(-1)
 
         # if there is nobody alive left in the company, resurrect lehi or recruit him
         need_lehi = True
