@@ -54,6 +54,16 @@
         "direction": "s",
         "wander": false,
         "conditions": {
+          "battle55": true,
+          "nephi_joins": false
+        },
+        "dialog": "judge_dialog"
+      },
+      {
+        "name": "pahoran",
+        "direction": "s",
+        "wander": false,
+        "conditions": {
           "battle22": true,
           "cumeni_hq": false
         },

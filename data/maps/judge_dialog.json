@@ -1,5 +1,13 @@
 [
   {
+    "condition": "moronihah_joins",
+    "text": "Good work. You have played all the content in the game available for this version. Stay tuned for later releases."
+  },
+  {
+    "condition": "battle55",
+    "text": "Moroni has requested to speak with you. He is at his house in Melek."
+  },
+  {
     "condition": "battle48",
     "text": "The cities east of the desert are accessible by way of Nephihah. You'll need to retake them from Ammoron and the Lamanites.",
     "current_chief_judge": "pahoran"
