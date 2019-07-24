@@ -17,8 +17,9 @@ from battle_intro import BattleIntro
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS,
+    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC,
 )
+from cutscene import Cutscene
 from helpers import (
     can_level_up,
     get_armor_class_by_level,
@@ -54,6 +55,8 @@ class Game(object):
             ('Infinity gauntlet', False), # When on, makes player very powerful/successful and enemies very weak/unsuccessful
             ('Fasting', False), # When on, food is not consumed while traveling
         ))
+        self.current_cutscene = None
+        self.next_cutscene = None
         self.cloak_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None
@@ -140,6 +143,7 @@ class Game(object):
             'pahoran_joins': self.handle_pahoran_joins,
             'battle48': self.handle_battle48,
             'battle49': self.handle_battle49,
+            'battle55': self.handle_battle55,
         }
 
     def conditions_are_met(self, conditions):
@@ -270,11 +274,13 @@ class Game(object):
         warlord = company.pop(warlord_index)
         reserve.insert(0, warlord['name'])
         self.update_game_state({'company': company, 'surplus': surplus, 'reserve': reserve})
-        self.current_map.load_company_sprites(
-            self.current_map.hero.position,
-            self.current_map.hero.direction,
-            'inplace',
-        )
+        map_to_update = self.current_map or self.next_map
+        if map_to_update:
+            map_to_update.load_company_sprites(
+                map_to_update.hero.position,
+                map_to_update.hero.direction,
+                'inplace',
+            )
 
     def recruit(self, reserve_index):
         company = copy.deepcopy(self.game_state['company'])
@@ -459,7 +465,7 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map', 'fade_cutscene', 'cutscene'
         '''
         self._screen_state = state
         if state in ['title', 'menu', 'battle', 'pause_menu']:
@@ -467,8 +473,9 @@ class Game(object):
         else:
             pygame.key.set_repeat(50, 50)
 
-        if state in ['change_map', 'sleep']:
+        if state in ['change_map', 'sleep', 'fade_cutscene']:
             self.fade_out = True
+            self.fade_alpha = 0
         elif state == 'battle' and not self.continue_current_music:
             battle_music_files = BATTLE_MUSIC[self.battle.battle_type]
             if battle_music_files.get('intro'):
@@ -621,6 +628,9 @@ class Game(object):
             self.next_map.load_ai_sprites()
             # This needs to happen after load_ai_sprites so that Alma appears in the overworld only once.
             self.set_game_state_condition('talked_with_alma_after_battle08')
+        if battle_name == 'battle55':
+            self.set_screen_state('fade_cutscene')
+            self.next_cutscene = Cutscene(self, self.virtual_screen, 0)
         if not next_battle:
             self.next_map.opening_dialog = opening_dialog
         if next_battle:
@@ -800,6 +810,8 @@ class Game(object):
             self.pause_menu.draw()
         elif self._screen_state == 'pause_map':
             self.pause_map.draw()
+        elif self._screen_state == 'cutscene':
+            self.current_cutscene.draw()
         self.scale()
 
     def update(self, dt):
@@ -825,6 +837,8 @@ class Game(object):
             self.update_change_map(dt)
         elif self._screen_state == 'sleep':
             self.update_sleep(dt)
+        elif self._screen_state == 'fade_cutscene':
+            self.update_fade_cutscene(dt)
         elif self._screen_state == 'start_battle':
             self.update_battle_fade(dt)
         elif self._screen_state == 'battle':
@@ -843,6 +857,8 @@ class Game(object):
             self.pause_menu.update(dt)
         elif self._screen_state == 'pause_map':
             self.pause_map.update(dt)
+        elif self._screen_state == 'cutscene':
+            self.current_cutscene.update(dt)
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -1028,6 +1044,66 @@ class Game(object):
             self.battle.draw()
         self.virtual_screen.blit(fade_box, (0,0))
 
+    def update_fade_cutscene(self, dt):
+        if self.change_map_time_elapsed is None:
+            self.change_map_time_elapsed = 0
+            self.fade_out = True
+            if not self.continue_current_music:
+                self.continue_current_music = True
+        self.change_map_time_elapsed += dt
+        update_interval = .1
+        alpha_step = 50 # increments within the range of 0 to 255 for transparency (255 is black)
+        if self.change_map_time_elapsed >= update_interval:
+            self.change_map_time_elapsed -= update_interval
+            if self.fade_out:
+                self.fade_alpha = min(255, self.fade_alpha + alpha_step)
+                if self.fade_alpha == 255:
+                    self.fade_out = False # next we need to fade in
+                    if self.next_cutscene:
+                        self.current_cutscene = self.next_cutscene
+                        if self.current_cutscene.scene == 2:
+                            self.next_cutscene = None
+                            self.current_map = self.next_map
+                            self.next_map = None
+                        else:
+                            self.next_cutscene = Cutscene(self, self.virtual_screen, self.current_cutscene.scene + 1)
+                    else:
+                        self.current_cutscene = None
+            else:
+                if self.fade_alpha == 255:
+                    self.fade_alpha = 254
+                else:
+                    self.fade_alpha = max(0, self.fade_alpha - alpha_step)
+                if self.fade_alpha == 0:
+                    if self.current_cutscene:
+                        self.set_screen_state('cutscene')
+                        if self.current_cutscene.scene == 0:
+                            pygame.mixer.music.load(CAMP_MUSIC['repeat'])
+                            pygame.mixer.music.play(-1)
+                            self.current_music = 'repeat'
+                    else:
+                        self.set_screen_state('game')
+                        music = self.get_music(self.current_map.name)
+                        if music['intro']:
+                            pygame.mixer.music.load(music['intro'])
+                            pygame.mixer.music.play()
+                            self.current_music = 'intro'
+                        else:
+                            pygame.mixer.music.load(music['repeat'])
+                            pygame.mixer.music.play(-1)
+                            self.current_music = 'repeat'
+                    self.change_map_time_elapsed = None
+                    self.fade_alpha = None
+                    return
+        fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
+        fade_box.set_alpha(self.fade_alpha)
+        fade_box.fill(BLACK)
+        if self.current_map:
+            self.current_map.draw()
+        if self.current_cutscene:
+            self.current_cutscene.draw()
+        self.virtual_screen.blit(fade_box, (0,0))
+
     def try_retreat(self, agility_score, is_warlord_battle, is_story_battle):
         prev_retreat_multiplier = 0.8
         multiplier = 1.0
@@ -1094,6 +1170,8 @@ class Game(object):
                     self.pause_menu.handle_input(pressed)
                 elif self._screen_state == 'pause_map':
                     self.pause_map.handle_input(pressed)
+                elif self._screen_state == 'cutscene':
+                    self.current_cutscene.handle_input(pressed)
 
     def run(self):
         self.running = True
@@ -1955,5 +2033,64 @@ class Game(object):
                     'name': 'cumeni',
                     'teleport': True,
                 },
-            ]
+            ],
         })
+
+    def handle_battle55(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'moroni',
+                    'teleport': True,
+                },
+            ],
+        })
+
+        # Just in case lehi never joined before
+        self.set_game_state_condition('lehi_and_aha_join')
+
+        # if there is nobody alive left in the company, resurrect lehi or recruit him
+        need_lehi = True
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0 and warlord['name'] not in ['moroni', 'pahoran', 'teancum']:
+                need_lehi = False
+                break
+        if need_lehi:
+            if 'lehi' in [warlord['name'] for warlord in self.game_state['company']]:
+                self.heal('lehi', 100)
+            else:
+                reserve_index = self.get_reserve_index('lehi')
+                self.recruit(reserve_index)
+
+        # get rid of moroni, pahoran, and teancum
+        self.remove_from_company_and_reserve('moroni')
+        self.remove_from_company_and_reserve('pahoran')
+        self.remove_from_company_and_reserve('teancum')
