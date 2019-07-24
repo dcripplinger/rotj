@@ -144,6 +144,7 @@ class Game(object):
             'battle48': self.handle_battle48,
             'battle49': self.handle_battle49,
             'battle55': self.handle_battle55,
+            'got_gold_key': self.handle_got_gold_key,
         }
 
     def conditions_are_met(self, conditions):
@@ -2098,3 +2099,6 @@ class Game(object):
         self.remove_from_company_and_reserve('moroni')
         self.remove_from_company_and_reserve('pahoran')
         self.remove_from_company_and_reserve('teancum')
+
+    def handle_got_gold_key(self):
+        self.add_to_inventory('gold~key')

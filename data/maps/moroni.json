@@ -668,5 +668,125 @@
       "y": 278,
       "direction": "s"
     }
+  },
+  {
+    "x": 42,
+    "y": 32,
+    "teleport": {
+      "map": "moroni_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 32,
+    "teleport": {
+      "map": "moroni_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 23,
+    "teleport": {
+      "map": "moroni_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 19,
+    "teleport": {
+      "map": "moroni_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 16,
+    "teleport": {
+      "map": "moroni_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 16,
+    "teleport": {
+      "map": "moroni_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 15,
+    "teleport": {
+      "map": "moroni_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": false,
+      "dialog": "Welcome to the city of Moroni."
+    }
+  },
+  {
+    "x": 41,
+    "y": 30,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "n",
+      "wander": true,
+      "dialog": "What was I thinking, moving to a city so close to the Lamanite border?"
+    }
+  },
+  {
+    "x": 31,
+    "y": 21,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "The terror of Ammoron is finally ended."
+    }
+  },
+  {
+    "x": 42,
+    "y": 13,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": true,
+      "dialog": "There is a vast network of desert caves northwest of here."
+    }
+  },
+  {
+    "x": 26,
+    "y": 16,
+    "ai_sprite": {
+      "name": "horse",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Neigh..."
+    }
   }
 ]

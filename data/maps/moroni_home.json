@@ -1,0 +1,31 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "moroni",
+      "x": 12,
+      "y": 15,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "e",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "got_gold_key",
+          "text": "Thank you for making it possible for me to return home. I hope the Gold Key I gave you will prove useful someday."
+        },
+        {
+          "text": "I want to thank you for making it possible for me to return home. My family has had this heirloom for generations. I hope it will prove useful to you someday. Obtained Gold Key.",
+          "game_state_action": "got_gold_key"
+        }
+      ]
+    }
+  }
+]

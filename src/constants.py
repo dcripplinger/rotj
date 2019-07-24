@@ -1261,6 +1261,10 @@ ITEMS = {
         'cost': 10000,
         'rare': True,
     },
+    'gold~key': {
+        'map_usage': 'unlock',
+        'rare': True,
+    },
 
     # save items
     'g.~plates': { # short for gold plates
@@ -1320,7 +1324,8 @@ NAMED_TELEPORTS = {
     'cumeni': [116, 318],
     'moroni': [247, 278],
     'jerusalem': [255, 327],
-    'joshua': [57, 90],
+    'kishkumen': [17, 125],
+    'jashon': [102, 43],
     'teancum': [45, 34],
 }
 
