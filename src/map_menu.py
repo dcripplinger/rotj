@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 
 import copy
+import os
+import time
 
 import pygame
 from pygame.locals import *
@@ -20,8 +22,9 @@ class MapMenu(object):
         self.screen = screen
         self.main_menu = MenuBox(['TALK', 'CHECK', 'FORMATION', 'GENERAL', 'ITEM'], title='Command')
         self.main_menu.focus()
-        self.select_sound = pygame.mixer.Sound('data/audio/select.wav')
+        self.select_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'select.wav'))
         self.select_sound.play()
+        self.resurrect_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'resurrect.wav'))
         self.state = 'main'
         self.prompt = None
         self.map = tiled_map
@@ -167,7 +170,7 @@ class MapMenu(object):
                 self.save_menu.handle_input(pressed)
                 if pressed[K_x] and self.save_menu.get_choice() == 'YES':
                     self.game.save()
-                    self.game.start_sleep('data/audio/save.wav', "Your game is saved.")
+                    self.game.start_sleep(os.path.join('data', 'audio', 'save.wav'), "Your game is saved.")
                 if pressed[K_x] or pressed[K_z]:
                     return self.exit()
             else:
@@ -274,6 +277,8 @@ class MapMenu(object):
                     else:
                         self.map.remove_item(user, self.items_menu.current_choice)
                         self.map.heal(recipient, 1)
+                        self.resurrect_sound.play()
+                        time.sleep(1.5)
                         text = "{} used {}. {} has recovered from his wounds.".format(
                             user.title(), item_name.title(), recipient.title(),
                         )
