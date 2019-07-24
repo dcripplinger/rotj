@@ -27,16 +27,16 @@ class Cutscene(object):
         if scene == 1:
             self.sprite = Sprite(self.tmx_data, self.game, 'moroni', [19, 13], direction='w')
             self.group.add(self.sprite)
-            dialog_text = "Moroni retired and went to his house to spend the remainder of his days."
+            dialog_text = "And Moroni retired to his own house that he might spend the remainder of his days in peace."
             self.timer = 2
         elif scene == 2:
             self.sprite = Sprite(self.tmx_data, self.game, 'pahoran', [17, 14], direction='s')
             self.group.add(self.sprite)
-            dialog_text = "Pahoran returned to the judgment seat to regulate the laws of the land."
+            dialog_text = "And Pahoran did return to his judgment seat to regulate the laws and establish order in the land."
             self.timer = 2
         else:
             self.sprite = None
-            dialog_text = "When Moroni saw that Teancum had died, he was exceedingly sorrowful. For Teancum had been a true friend of liberty. But now Teancum was dead, and had gone the way of the whole earth."
+            dialog_text = "When Moroni saw that Teancum was dead he was exceedingly sorrowful. He had been a man who had fought valiantly for his country, a true friend to liberty. But he was dead, and had gone the way of all the earth."
             self.timer = 2
         self.dialog = create_prompt(dialog_text)
         self.state = 'wait'
