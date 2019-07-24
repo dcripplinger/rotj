@@ -1,0 +1,12 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "east_lamanite_camp",
+      "x": 17,
+      "y": 22,
+      "direction": "s"
+    }
+  }
+]

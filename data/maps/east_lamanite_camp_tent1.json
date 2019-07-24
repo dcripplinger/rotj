@@ -1,0 +1,30 @@
+[
+  {
+    "x": 17,
+    "y": 22,
+    "teleport": {
+      "map": "east_lamanite_camp",
+      "x": 16,
+      "y": 14,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 15,
+    "ai_sprite": {
+      "name": "lamanites",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Look, if you spare me, I'll let you have my treasure."
+    }
+  },
+  {
+    "x": 13,
+    "y": 15,
+    "treasure": {
+      "name": "east_lamanite_camp_treasure1",
+      "item": "battleax"
+    }
+  }
+]
