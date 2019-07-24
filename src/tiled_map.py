@@ -310,6 +310,7 @@ class Map(object):
                 if not hasattr(sprite, 'name') or sprite.name != 'pahoran'
             }
             self.ai_sprites = ai_sprites
+        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
