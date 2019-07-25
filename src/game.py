@@ -604,11 +604,7 @@ class Game(object):
                 new_warlord = {
                     'name': warlord['name'],
                     'soldiers': battle_guy['soldiers'],
-                    'tactical_points': (
-                        battle_guy['tactical_points']
-                        if 'liahona' in (item['name'] for item in battle_guy['items'])
-                        else warlord['tactical_points']
-                    ),
+                    'tactical_points': battle_guy['tactical_points'],
                     'items': battle_guy['items'],
                     'tactician': False if battle_guy['soldiers'] == 0 else warlord.get('tactician', False),
                 }

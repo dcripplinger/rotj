@@ -54,6 +54,7 @@ class BattleWarlordRectBase(object):
         self._tactics = warlord['tactics']
         self.intelligence = warlord['intelligence']
         self.tactic_danger = self.compute_tactic_danger()
+        self.max_tactical_points = warlord['max_tactical_points']
         self.tactical_points = warlord['tactical_points']
         self.bad_status = None
         self.good_statuses = {}

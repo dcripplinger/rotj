@@ -233,6 +233,11 @@ class Battle(object):
         self.fail_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'fail.wav'))
         self.tactic_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'tactic.wav'))
         self.ally_tactical_points = ally_tactical_points
+        tactician = self.game.get_tactician()
+        if tactician:
+            self.max_ally_tactical_points = get_max_tactical_points(tactician['name'], level)
+        else:
+            self.max_ally_tactical_points = ally_tactical_points # Which I believe would be zero
         self.cancel_all_out = False
         self.exit = exit
         current_narration = None
@@ -740,6 +745,8 @@ class Battle(object):
             dialog += u"They feel so dumb for wasting their move on a dead guy."
         elif 'healing' in mini_result:
             dialog += self.get_healing_dialog(mini_move, mini_result)
+        elif mini_move['item'] == 'ether':
+            dialog += u"Tactical points have been restored."
         elif mini_move['item'] == 'remedy':
             dialog += u"{} is no longer affected by individual status ailments.".format(
                 mini_move['target'].name.title(),
@@ -1150,6 +1157,8 @@ class Battle(object):
         # go through items by type
         if move_type == 'ally':
             return self.execute_item_type_ally(move)
+        elif move_type == 'allies':
+            return self.execute_item_type_allies(move)
         elif move_type == 'enemy':
             return self.execute_item_type_enemy(move)
         elif move_type == 'enemies':
@@ -1176,6 +1185,17 @@ class Battle(object):
             target_warlords = self.enemies if is_ally_move else self.allies
             for warlord in target_warlords:
                 warlord.reinforcements = False
+        return move, {}
+
+    def execute_item_type_allies(self, move):
+        into = ITEMS[move['item']]
+        if info['effect'] == 'ether':
+            is_ally_move = move['agent'] in self.allies
+            target_warlords = self.allies if is_ally_move else self.enemies
+            for warlord in target_warlords:
+                warlord.tactical_points = warlord.max_tactical_points
+            if is_ally_move:
+                self.ally_tactical_points = self.max_ally_tactical_points
         return move, {}
 
     def execute_item_type_ally(self, move):
