@@ -1318,7 +1318,7 @@ class Battle(object):
         elif info.get('duration') == 'permanent':
             move['target'].bad_status = {'name': move['tactic'], 'agent': move['agent']}
             if is_ally_move:
-                move['target'].bad_status['count'] = 4
+                move['target'].bad_status['count'] = 5
             return move, {}
 
     def execute_tactic_type_enemies(self, move, good_target_team_statuses, is_ally_move):
