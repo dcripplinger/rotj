@@ -172,5 +172,29 @@
       "x": 12,
       "y": 64
     }
+  },
+  {
+    "x": 43,
+    "y": 101,
+    "treasure": {
+      "name": "east_desert_cave_treasure1",
+      "item": "cimeter"
+    }
+  },
+  {
+    "x": 55,
+    "y": 124,
+    "treasure": {
+      "name": "east_desert_cave_treasure2",
+      "item": "steel~h"
+    }
+  },
+  {
+    "x": 56,
+    "y": 61,
+    "treasure": {
+      "name": "east_desert_cave_treasure3",
+      "item": "plate~m"
+    }
   }
 ]

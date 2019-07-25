@@ -8,5 +8,13 @@
       "y": 188,
       "direction": "e"
     }
+  },
+  {
+    "x": 16,
+    "y": 14,
+    "treasure": {
+      "name": "west_grotto_treasure1",
+      "item": "iron~m"
+    }
   }
 ]
