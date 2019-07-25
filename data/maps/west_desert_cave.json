@@ -86,5 +86,13 @@
       "x": 33,
       "y": 30
     }
+  },
+  {
+    "x": 27,
+    "y": 102,
+    "treasure": {
+      "name": "west_desert_cave_treasure1",
+      "item": "ether"
+    }
   }
 ]

@@ -8,5 +8,37 @@
       "y": 21,
       "direction": "s"
     }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "conditions": {
+        "returned_liahona": true
+      },
+      "name": "old_man",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "Thank you for helping me find my way out of the caves. The Liahona I gave you can help you in battle. Did you know that the bearer will be able to use his own tactics and tactical points instead of the team's?",
+          "condition": "got_liahona"
+        },
+        {
+          "text": "Thank you for helping me find my Liahona. It's an ancient compass, and I have a hard time finding my way around caves without it. You look like you do fine in caves, but the Liahona could help you in battle. Did you know that the bearer will be able to use his own tactics and tactical points instead of the team's? I want you to have it.",
+          "prompt": [
+            {
+              "choice": "OK",
+              "game_state_action": "got_liahona",
+              "next_dialog": "Obtained Liahona."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Seriously?"
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

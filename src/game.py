@@ -145,6 +145,8 @@ class Game(object):
             'battle49': self.handle_battle49,
             'battle55': self.handle_battle55,
             'got_gold_key': self.handle_got_gold_key,
+            'returned_liahona': self.handle_returned_liahona,
+            'got_liahona': self.handle_got_liahona,
         }
 
     def conditions_are_met(self, conditions):
@@ -1207,6 +1209,11 @@ class Game(object):
         got_spear = warlord is not None
         return got_robe and got_spear
 
+    def liahona(self):
+        warlord, _index = self._find_first_item_in_inventory('liahona')
+        got_liahona = warlord is not None
+        return got_liahona
+
     def lost_title_of_liberty(self):
         return 't~of~liberty' in self.game_state.get('lost_and_found', [])
 
@@ -1490,9 +1497,16 @@ class Game(object):
         self.remove_item(warlord, item_index)
         self.add_to_inventory('t~of~liberty')
 
+    def handle_returned_liahona(self):
+        warlord, item_index = self._find_first_item_in_inventory('liahona')
+        self.remove_item(warlord, item_index)
+
     def handle_got_javelin(self):
         self.add_to_inventory('javelin')
         self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
+
+    def handle_got_liahona(self):
+        self.add_to_inventory('liahona')
 
     def handle_battle27(self):
         self.update_game_state({

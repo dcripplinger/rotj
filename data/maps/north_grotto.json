@@ -18,5 +18,50 @@
       "y": 182,
       "direction": "s"
     }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "ai_sprite": {
+      "name": "old_man",
+      "conditions": {
+        "returned_liahona": false
+      },
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "returned_liahona",
+          "text": "Thank you. Now I can find my way back to my home in Bountiful. You should stop by and visit if you get a chance."
+        },
+        {
+          "condition": "state:liahona",
+          "text": "You found it! My Liahona! Can I have it back please?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "returned_liahona",
+              "next_dialog": "Oh, thank you. Now I can find my way back to my home in Bountiful. You should stop by and visit if you get a chance."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Seriously?"
+            }
+          ]
+        },
+        {
+          "text": "I lost my compass somewhere around here, and now I can't find my way out."
+        }
+      ]
+    }
+  },
+  {
+    "x": 14,
+    "y": 14,
+    "treasure": {
+      "name": "north_grotto_treasure1",
+      "item": "liahona",
+      "invisible": true
+    }
   }
 ]
