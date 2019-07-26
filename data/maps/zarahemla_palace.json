@@ -50,12 +50,26 @@
     "y": 14,
     "ai_sprite": [
       {
+        "name": "pahoran_dead",
+        "conditions": {
+          "talked_with_nephi": true,
+          "pahoran_dead": false
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": [
+          {
+            "text": "Oh no... he's gone."
+          }
+        ]
+      },
+      {
         "name": "pahoran",
         "direction": "s",
         "wander": false,
         "conditions": {
           "battle55": true,
-          "nephi_joins": false
+          "talked_with_nephi": false
         },
         "dialog": "judge_dialog"
       },

@@ -147,6 +147,8 @@ class Game(object):
             'got_gold_key': self.handle_got_gold_key,
             'returned_liahona': self.handle_returned_liahona,
             'got_liahona': self.handle_got_liahona,
+            'corianton_joins_again': self.handle_corianton_joins_again,
+            'corianton_leaves': self.handle_corianton_leaves,
         }
 
     def conditions_are_met(self, conditions):
@@ -1200,7 +1202,16 @@ class Game(object):
     # If it's true, that "state" condition passes.
 
     def lamoni_leader(self):
-        return self.game_state['company'][0]['name'] == 'lamoni'
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0:
+                return warlord['name'] == 'lamoni'
+        return False
+
+    def corianton_leader(self):
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0:
+                return warlord['name'] == 'corianton'
+        return False
 
     def robe_and_spear(self):
         warlord, _index = self._find_first_item_in_inventory('robe')
@@ -1635,7 +1646,13 @@ class Game(object):
     def handle_corianton_joins(self):
         self.add_to_company(['corianton'])
 
+    def handle_corianton_joins_again(self):
+        self.add_to_company(['corianton'])
+
     def handle_corianton_runs_away(self):
+        self.remove_from_company_and_reserve('corianton')
+
+    def handle_corianton_leaves(self):
         self.remove_from_company_and_reserve('corianton')
 
     def handle_battle37(self):

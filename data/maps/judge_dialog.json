@@ -1,7 +1,8 @@
 [
   {
     "condition": "moronihah_joins",
-    "text": "Good work. You have played all the content in the game available for this version. Stay tuned for later releases."
+    "text": "Moronihah, Nephi told me he had an important message he needed to deliver to you and you alone. He requests that you come see him at his home just east of Nephihah.",
+    "game_state_action": "message_from_nephi"
   },
   {
     "condition": "battle55",

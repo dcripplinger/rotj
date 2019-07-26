@@ -16,5 +16,55 @@
       "name": "west_grotto_treasure1",
       "item": "iron~m"
     }
+  },
+  {
+    "x": 13,
+    "y": 37,
+    "ai_sprite": [
+      {
+        "name": "nephi",
+        "conditions": {
+          "wake_nephi": true,
+          "pahoran_dead": false
+        },
+        "direction": "e",
+        "wander": true,
+        "dialog": [
+          {
+            "text": "The secret society I was spying on is going to murder the chief judge! We must get to Zarahemla and intercept them!",
+            "condition": "talked_with_nephi"
+          },
+          {
+            "text": "Ugh, my head... ~~~~~~~~ ~~~~~~~~ I was meeting with an evil secret society, pretending to be one of them, but they found me out and attacked me. I fear that because of me they have moved up the timetable for their plans. They are going to murder the chief judge! We must get to Zarahemla and intercept them!",
+            "game_state_action": "talked_with_nephi"
+          }
+        ]
+      },
+      {
+        "name": "nephi_unconscious",
+        "conditions": {
+          "corianton_leaves": true,
+          "nephi_wakes_up": false
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": [
+          {
+            "text": "It's Nephi! He appears to be unconscious. Should we try to wake him up?",
+            "prompt": [
+              {
+                "choice": "YES",
+                "game_state_action": "wake_nephi",
+                "next_dialog": "OK."
+              },
+              {
+                "choice": "NO",
+                "next_dialog": "OK."
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

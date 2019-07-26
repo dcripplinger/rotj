@@ -100,6 +100,21 @@
       "wander": false,
       "dialog": [
         {
+          "condition": "talked_with_alma_about_corianton",
+          "text": "Yes, I'm Corianton. You say my father wishes to see me?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "corianton_joins",
+              "next_dialog": "Very well. I will travel with you back to see him. Corianton has joined the party."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Well, good. The women here are delightful."
+            }
+          ]
+        },
+        {
           "text": "I am Corianton. My father Alma has sent me to help you however I can.",
           "prompt": [
             {

@@ -139,9 +139,29 @@
       "name": "corianton",
       "wander": true,
       "direction": "s",
-      "dialog": "I am sorry I deserted you on the battlefield. My pride and the lure of Isabel have left me without integrity. It is all I can do now to repent and commit my life to teaching others to not make the same mistakes I did.",
+      "dialog": [
+        {
+          "text": "I am sorry I deserted you on the battlefield. My pride and the lure of Isabel have left me without integrity. ~~~~~~~~ ~~~~~~~~ You say my father wishes to see me?",
+          "condition": "talked_with_alma_about_corianton",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "corianton_joins_again",
+              "next_dialog": "Very well. I will travel with you back to see him. Corianton has joined the party."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "I see."
+            }
+          ]
+        },
+        {
+          "text": "I am sorry I deserted you on the battlefield. My pride and the lure of Isabel have left me without integrity. It is all I can do now to repent and commit my life to teaching others to not make the same mistakes I did."
+        }
+      ],
       "conditions": {
-        "corianton_runs_away": true
+        "corianton_runs_away": true,
+        "corianton_joins_again": false
       }
     }
   }

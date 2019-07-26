@@ -42,7 +42,16 @@
       "conditions": {
         "battle49": true
       },
-      "dialog": "Master Nephi isn't home right now. When he returns, I will let him know you were looking for him."
+      "dialog": [
+        {
+          "condition": "message_from_nephi",
+          "text": "Master Nephi is missing! It has been 3 days now since he was last home. I fear something terrible has befallen him. I think your best chance of tracking him down is talking with Alma. He was the most recent visitor, and they were speaking privately about very important matters. Alma lives in Zarahemla.",
+          "game_state_action": "talked_with_servant_of_nephi"
+        },
+        {
+          "text": "Master Nephi isn't home right now. When he returns, I will let him know you were looking for him."
+        }
+      ]
     }
   }
 ]

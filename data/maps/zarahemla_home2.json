@@ -18,6 +18,19 @@
     }
   },
   {
+    "x": 14,
+    "y": 11,
+    "ai_sprite": {
+      "name": "corianton",
+      "direction": "s",
+      "wander": false,
+      "conditions": {
+        "corianton_leaves": true
+      },
+      "dialog": "My father is right. I have much to repent of. I hope to become a great teacher like him one day."
+    }
+  },
+  {
     "x": 13,
     "y": 11,
     "ai_sprite": {
@@ -27,7 +40,35 @@
       "conditions": {
         "talked_with_lamoni_after_sebus": true
       },
-      "dialog": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. If you have questions, please go see the current chief judge in the palace."
+      "dialog": [
+        {
+          "condition": "talked_with_nephi",
+          "text": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. If you have questions, please go see the current chief judge in the palace."
+        },
+        {
+          "condition": "corianton_leaves",
+          "text": "Thank you for returning Corianton to me. Nephi has been infiltrating an emerging secret society so that he can discover their evil plans and put a stop to them. They invited him recently to a meeting in the West Grotto in the desert. If he has not already returned, he may be in danger. Go to him quickly. The desert caves have an entrance near the city of Moroni."
+        },
+        {
+          "condition": "state:corianton_leader",
+          "text": "Corianton, I'm glad to see you are safe! But we should talk about your transgressions. Please remain at home with me.",
+          "prompt": [
+            {
+              "choice": "OK",
+              "game_state_action": "corianton_leaves",
+              "next_dialog": "Thank you for returning Corianton to me. Nephi has been infiltrating an emerging secret society so that he can discover their evil plans and put a stop to them. They invited him recently to a meeting in the West Grotto in the desert. If he has not already returned, he may be in danger. Go to him quickly. The desert caves have an entrance near the city of Moroni."
+            }
+          ]
+        },
+        {
+          "condition": "talked_with_servant_of_nephi",
+          "text": "Yes, I spoke with Nephi recently. I can help you find him, but first I need to ask a favor. Please bring my son Corianton home. I'm not sure where he is, and I'm worried he has gotten himself into trouble. After the war ended, he could have gone a number of places... the city of Lehi, in the army reserve, or even chasing after harlots somewhere.",
+          "game_state_action": "talked_with_alma_about_corianton"
+        },
+        {
+          "text": "I gave up the judgment seat so that I can focus my efforts to teaching this people and bringing them to repentance. If you have questions, please go see the current chief judge in the palace."
+        }
+      ]
     }
   }
 ]

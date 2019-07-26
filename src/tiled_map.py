@@ -300,6 +300,14 @@ class Map(object):
                 key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'corianton'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'corianton_joins_again':
+            for sprite in self.group.sprites():
+                if sprite.name == 'corianton':
+                    self.group.remove(sprite)
+            ai_sprites = {
+                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'corianton'
+            }
+            self.ai_sprites = ai_sprites
         elif condition == 'pahoran_joins':
             for sprite in self.group.sprites():
                 if hasattr(sprite, 'name') and sprite.name == 'pahoran':
@@ -310,6 +318,14 @@ class Map(object):
                 if not hasattr(sprite, 'name') or sprite.name != 'pahoran'
             }
             self.ai_sprites = ai_sprites
+        elif condition == 'corianton_leaves':
+            for sprite in self.group.sprites():
+                self.group.remove(sprite)
+            self.load_ai_sprites()
+        elif condition == 'wake_nephi':
+            for sprite in self.group.sprites():
+                self.group.remove(sprite)
+            self.load_ai_sprites()
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
     def try_toggle_equip_on_item(self, user, item_index):
