@@ -150,6 +150,33 @@ class Battle(object):
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
             }, self))
+        if self.corianton_runs_away and len(self.allies) == 0:
+            ally = {
+                'name': 'moroni',
+                'soldiers': 100,
+                'items': [],
+                'tactical_points': 0,
+            }
+            json_stats = load_stats(ally['name'])
+            equips = self.game.get_equips(ally['name'])
+            self.allies.append(Ally({
+                'index': i,
+                'name': ally['name'],
+                'strength': json_stats['strength'],
+                'intelligence': json_stats['intelligence'],
+                'defense': json_stats['defense'],
+                'agility': json_stats['agility'],
+                'evasion': json_stats['evasion'],
+                'attack_points': get_equip_based_stat_value('attack_points', equips),
+                'armor_class': get_equip_based_stat_value('armor_class', equips),
+                'tactical_points': ally['tactical_points'],
+                'max_tactical_points': get_max_tactical_points(ally['name'], level),
+                'soldiers': ally['soldiers'],
+                'max_soldiers': get_max_soldiers(ally['name'], level),
+                'tactics': get_tactics(json_stats, level, pretty=False),
+                'items': ally['items'],
+            }, self))
+
         
         # short circuit this battle if there are no enemies
         if len(enemies) == 0:
@@ -1804,6 +1831,18 @@ class Battle(object):
                     u"when you get a chance."
                 ),
             })
+            # if there is nobody alive left in the company, resurrect moroni or recruit him
+            need_moroni = True
+            for warlord in self.game_state['company']:
+                if warlord['soldiers'] > 0 and warlord['name'] != 'alma':
+                    need_moroni = False
+                    break
+            if need_moroni:
+                if 'moroni' in [warlord['name'] for warlord in self.game_state['company']]:
+                    self.heal('moroni', 100)
+                else:
+                    reserve_index = self.get_reserve_index('moroni')
+                    self.recruit(reserve_index)
             self.game.remove_from_company_and_reserve('alma')
         elif kwargs.get('battle_name') == 'battle70':
             kwargs.update({

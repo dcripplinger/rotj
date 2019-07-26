@@ -1650,9 +1650,35 @@ class Game(object):
         self.add_to_company(['corianton'])
 
     def handle_corianton_runs_away(self):
+        # if there is nobody alive left in the company, resurrect moroni or recruit him
+        need_moroni = True
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0 and warlord['name'] != 'corianton':
+                need_moroni = False
+                break
+        if need_moroni:
+            if 'moroni' in [warlord['name'] for warlord in self.game_state['company']]:
+                self.heal('moroni', 100)
+            else:
+                reserve_index = self.get_reserve_index('moroni')
+                self.recruit(reserve_index)
+
         self.remove_from_company_and_reserve('corianton')
 
     def handle_corianton_leaves(self):
+        # if there is nobody alive left in the company, resurrect moronihah or recruit him
+        need_moronihah = True
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0 and warlord['name'] != 'corianton':
+                need_moronihah = False
+                break
+        if need_moronihah:
+            if 'moronihah' in [warlord['name'] for warlord in self.game_state['company']]:
+                self.heal('moronihah', 100)
+            else:
+                reserve_index = self.get_reserve_index('moronihah')
+                self.recruit(reserve_index)
+
         self.remove_from_company_and_reserve('corianton')
 
     def handle_battle37(self):
