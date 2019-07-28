@@ -86,7 +86,7 @@ class MapMenu(object):
 
     def handle_dialog_choice(self):
         self.state = 'choice'
-        self.dialog_choice_menu = MenuBox([choice['choice'] for choice in self.dialog_choice])
+        self.dialog_choice_menu = MenuBox([choice['choice'] for choice in self.dialog_choice], width=96)
         self.dialog_choice_menu.focus()
 
     def draw(self):

@@ -363,8 +363,14 @@ class MenuBox(object):
         self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
 
     def create_text_box(self, title, width, height):
+        double_space = True
+        choices = self.choices
+        if len(self.choices) and self.choices[0] == 'Share password':
+            choices = ['Share ~password', 'Never ~mind']
+            double_space = False
         self.text_box = TextBox(
-            u'\n'.join(self.choices), double_space=True, border=self.border, indent=1, title=title, width=width, height=height,
+            u'\n'.join(choices), double_space=double_space, border=self.border, indent=1, title=title, width=width,
+            height=height, adjust='left',
         )
         self.surface = self.text_box.surface
 

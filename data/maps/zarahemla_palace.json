@@ -50,16 +50,26 @@
     "y": 14,
     "ai_sprite": [
       {
+        "name": "pacumeni",
+        "conditions": {
+          "nephi_leaves": true
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": "judge_dialog"
+      },
+      {
         "name": "pahoran_dead",
         "conditions": {
           "talked_with_nephi": true,
-          "pahoran_dead": false
+          "nephi_leaves": false
         },
         "direction": "s",
         "wander": false,
         "dialog": [
           {
-            "text": "Oh no... he's gone."
+            "text": "Oh no... he's gone.",
+            "game_state_action": "talk_to_dead_pahoran"
           }
         ]
       },
@@ -119,6 +129,64 @@
         {
           "text": "Don't think that the execution of Nehor will go unnoticed. His followers have already assembled under the leadership of Amlici. We will gain the voice of the people to anoint him as king and do away with the judges. But Moroni, I am not as patient as Amlici. I will avenge Nehor here and now!",
           "game_state_action": "talked_with_antionum"
+        }
+      ]
+    }
+  },
+  {
+    "x": 34,
+    "y": 14,
+    "ai_sprite": {
+      "name": "nephi",
+      "conditions": {
+        "talked_with_nephi": true,
+        "pahoran_dead": false
+      },
+      "direction": "w",
+      "wander": false,
+      "walk": {
+        "to": {
+          "x": 20,
+          "y": 14
+        },
+        "conditions": {
+          "talk_to_dead_pahoran": true
+        },
+        "game_state_action": "pahoran_dead"
+      },
+      "dialog": "..."
+    }
+  },
+  {
+    "x": 20,
+    "y": 14,
+    "ai_sprite": {
+      "name": "nephi",
+      "conditions": {
+        "pahoran_dead": true,
+        "nephi_leaves": false
+      },
+      "direction": "w",
+      "wander": false,
+      "walk": {
+        "to": {
+          "x": 34,
+          "y": 14
+        },
+        "conditions": {
+          "talk_to_nephi_in_palace": true
+        },
+        "game_state_action": "nephi_leaves"
+      },
+      "dialog": [
+        {
+          "text": "So passes Pahoran, son of Nephihah. This treachery must be stopped or it will only get worse. I need to gather some supplies at my house. Meet me there, and I will join you so that we can root out this secret band together.",
+          "prompt": [
+            {
+              "choice": "OK",
+              "game_state_action": "talk_to_nephi_in_palace"
+            }
+          ]
         }
       ]
     }

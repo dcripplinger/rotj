@@ -1,7 +1,29 @@
 [
   {
+    "condition": "nephi_joins",
+    "text": "Hello, Moronihah. Is there something I can help you with?",
+    "no_epistle": true,
+    "prompt": [
+      {
+        "choice": "Share password",
+        "next_dialog": "I'm not sure what you are talking about. Anyway, you can always talk to our chief judge in Zarahemla if you're not sure what to do."
+      },
+      {
+        "choice": "Never mind",
+        "next_dialog": "Very well. You can always talk to our chief judge in Zarahemla if you're not sure what to do."
+      }
+    ],
+    "chief_judge": {
+      "text": "You'll have to go palace by palace to the other judges to find one that is a member of the Gadianton Robbers. Perhaps then we can track down who Gadianton is and where he is hiding."
+    }
+  },
+  {
+    "condition": "nephi_leaves",
+    "text": "Nephi said he needs to gather some things at his house east of Nephihah. He will join up with you there."
+  },
+  {
     "condition": "moronihah_joins",
-    "text": "Moronihah, Nephi told me he had an important message he needed to deliver to you and you alone. He requests that you come see him at his home just east of Nephihah.",
+    "text": "Moronihah, Nephi had an important message he needed to deliver to you and you alone. He requests that you come see him at his home just east of Nephihah.",
     "game_state_action": "message_from_nephi"
   },
   {

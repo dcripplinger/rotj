@@ -326,6 +326,14 @@ class Map(object):
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
             self.load_ai_sprites()
+        elif condition == 'pahoran_dead':
+            for sprite in self.group.sprites():
+                self.group.remove(sprite)
+            self.load_ai_sprites()
+        elif condition == 'nephi_joins':
+            for sprite in self.group.sprites():
+                self.group.remove(sprite)
+            self.load_ai_sprites()
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
     def try_toggle_equip_on_item(self, user, item_index):

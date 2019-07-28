@@ -44,12 +44,45 @@
       },
       "dialog": [
         {
+          "condition": "talked_with_nephi",
+          "text": "Thank you for rescuing my master!"
+        },
+        {
           "condition": "message_from_nephi",
           "text": "Master Nephi is missing! It has been 3 days now since he was last home. I fear something terrible has befallen him. I think your best chance of tracking him down is talking with Alma. He was the most recent visitor, and they were speaking privately about very important matters. Alma lives in Zarahemla.",
           "game_state_action": "talked_with_servant_of_nephi"
         },
         {
           "text": "Master Nephi isn't home right now. When he returns, I will let him know you were looking for him."
+        }
+      ]
+    }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "ai_sprite": {
+      "name": "nephi",
+      "conditions": {
+        "nephi_leaves": true,
+        "nephi_joins": false
+      },
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "Here is what I know about the secret band. Their goals are to rob and murder to obtain riches and positions of power, while helping their brothers get away with the same. Some of the lower judges have already been compromised. The society was founded by a man named Gadianton, and they call themselves the Gadianton Robbers. While I was undercover, I learned a password they use to detect other members of the band. I think we can use this password to trick a lower judge into revealing himself as a member, and then we can force him to lead us to where Gadianton himself is hiding. Pacumeni is one of the brothers of Pahoran, and has taken his place as chief judge. We can trust him. But we'll have to go palace by palace to the other judges to find one that is a member of the Gadianton Robbers. Have you prepared everything you need?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "nephi_joins",
+              "next_dialog": "Excellent. Then let's go save our country. Nephi has joined our army!"
+            },
+            {
+              "choice": "Not yet",
+              "next_dialog": "Let me know once you are ready."
+            }
+          ]
         }
       ]
     }

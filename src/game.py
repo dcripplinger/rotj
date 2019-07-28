@@ -149,6 +149,7 @@ class Game(object):
             'got_liahona': self.handle_got_liahona,
             'corianton_joins_again': self.handle_corianton_joins_again,
             'corianton_leaves': self.handle_corianton_leaves,
+            'nephi_joins': self.handle_nephi_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -196,10 +197,8 @@ class Game(object):
         # Now dialog is a dict with the correct dialog for the game state.
         if is_chief_judge and 'chief_judge' in dialog:
             dialog['text'] = dialog['chief_judge']['text']
-            if 'game_state_action' in dialog['chief_judge']:
-                dialog['game_state_action'] = dialog['chief_judge']['game_state_action']
-            if 'prompt' in dialog['chief_judge']:
-                dialog['prompt'] = dialog['chief_judge']['prompt']
+            dialog['game_state_action'] = dialog['chief_judge'].get('game_state_action')
+            dialog['prompt'] = dialog['chief_judge'].get('prompt')
         if is_judge and not is_chief_judge and not dialog.get('no_epistle'):
             current_chief_judge = dialog.get('current_chief_judge')
             if self.is_in_company(current_chief_judge) or self.is_in_reserve(current_chief_judge):
@@ -2155,3 +2154,6 @@ class Game(object):
 
     def handle_got_gold_key(self):
         self.add_to_inventory('gold~key')
+
+    def handle_nephi_joins(self):
+        self.add_to_company(['nephi'])
