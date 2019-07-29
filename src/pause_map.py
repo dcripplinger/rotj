@@ -35,12 +35,15 @@ class PauseMap(object):
         for tile in self.game.game_state['beaten_path'].keys():
             X, Y = [int(i) for i in tile.split()]
             for x in range(X-8, X+9):
-                if x < 0 or x >= MAP_WIDTH:
+                if x <= 0 or x >= MAP_WIDTH:
                     continue
                 for y in range(Y-7, Y+8):
-                    if y < 0 or y >= MAP_HEIGHT:
+                    if y <= 0 or y >= MAP_HEIGHT:
                         continue
                     mini_x, mini_y = self.mini_coordinates((x, y))
+                    # Here, mini coordinates are 0-indexed.
+                    mini_x -= 1
+                    mini_y -= 1
                     visible_minitiles[mini_y][mini_x] += 1
                     # This is a hack that only works if we leave the file overworld_map.tmx alone.
                     # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
@@ -78,6 +81,14 @@ class PauseMap(object):
     def mini_coordinates(self, coordinates):
         mini_x = int(round(coordinates[0] * 1.0 / MAP_WIDTH * 60))
         mini_y = int(round(coordinates[1] * 1.0 / MAP_HEIGHT * 80))
+        if mini_x < 1:
+            mini_x = 1
+        if mini_y < 1:
+            mini_y = 1
+        if mini_x > 60:
+            mini_x = 60
+        if mini_y > 80:
+            mini_y = 80
         return mini_x, mini_y
     
     def draw(self):
