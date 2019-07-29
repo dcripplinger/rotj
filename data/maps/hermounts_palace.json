@@ -27,7 +27,7 @@
             {
               "choice": "Share password",
               "game_state_action": "showed_sign_to_seezoram",
-              "next_dialog": "Ah, I see that Gadianton has let you into our secret band. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Wait, why are you drawing your weapon on me? Guards!"
+              "next_dialog": "Ah, I see that Gadianton has let you into our secret band. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Wait, why are you drawing your weapon on me? Guards!"
             },
             {
               "choice": "Never mind",

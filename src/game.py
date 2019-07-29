@@ -552,7 +552,11 @@ class Game(object):
                 else:
                     intro_type = 'zemnarihah1'
             self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro, intro_type=intro_type)
-        if not continue_music:
+        if prev_experience: # don't do encounter sound for double battles
+            pygame.mixer.music.fadeout(2000)
+            self.continue_current_music = False
+            time.sleep(.1)
+        elif not continue_music:
             pygame.mixer.music.stop()
             self.continue_current_music = False
             self.current_music = None
@@ -618,7 +622,14 @@ class Game(object):
             company.append(new_warlord)
         self.update_game_state({'company': company})
         followers = 'under' if battle_name == 'battle08' else 'inplace'
-        direction = 'w' if battle_name == 'battle08' else self.next_map.hero.direction
+        if battle_name == 'battle08':
+            direction = 'w'
+        elif self.next_map:
+            direction = self.next_map.hero.direction
+        elif self.current_map:
+            direction = self.current_map.hero.direction
+        else:
+            direction = 's'
         if not next_battle:
             self.next_map.load_company_sprites(self.next_map.hero.position, direction, followers)
         if battle_name:
@@ -801,6 +812,7 @@ class Game(object):
         elif self._screen_state == 'battle':
             self.battle.draw()
         elif self._screen_state == 'battle_intro' and self.battle_intro:
+            self.virtual_screen.fill(BLACK)
             self.battle_intro.draw()
         elif self._screen_state == 'narration' and self.narration:
             if self.current_map.map_menu:
@@ -1771,7 +1783,7 @@ class Game(object):
                 robbers,
             ],
             'battle_type': 'story',
-            'exit': "Please spare me! ~~~~~~~~ ~~~~~~~~ Seantum? What are you doing here?",
+            'exit': "Please spare me! ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Seantum? What are you doing here?",
             'narration': 'Seantum suddenly appears and murders Seezoram!',
             'next_battle': {
                 "name": "battle57",
@@ -1858,6 +1870,7 @@ class Game(object):
             })
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle56",
+            narration=battle_data['narration'], next_battle=battle_data['next_battle'],
         )
 
     def handle_talked_with_gadianton_in_bountiful(self):
