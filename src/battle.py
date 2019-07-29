@@ -1043,7 +1043,7 @@ class Battle(object):
         trained = 3 if 'train' in self.good_ally_statuses else 1
         experience = int(new_base) * story_battle_gain * trained
         money = int((4.5 + (.5 if plunder else random.random())) * new_base) * story_battle_gain # averages 5x experience
-        food = int((3.5 + random.random()) * new_base) if story_battle else 0 # averages 4x regular experience
+        food = int((9.0 + 2.0 * random.random()) * new_base) if story_battle else 0 # averages 10x regular experience
         if plunder:
             experience = 0
             money = 2 * money # plunder is twice as much as regular spoils
