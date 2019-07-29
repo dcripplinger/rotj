@@ -50,9 +50,20 @@
     "y": 28,
     "ai_sprite": {
       "name": "guard",
+      "conditions": {
+        "battle56": false
+      },
       "direction": "e",
       "wander": true,
-      "dialog": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
+      "dialog": [
+        {
+          "condition": "battle05",
+          "text": "Seezoram is our lower judge, who rules over the city of Hermounts."
+        },
+        {
+          "text": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
+        }
+      ]
     }
   },
   {
@@ -60,9 +71,20 @@
     "y": 28,
     "ai_sprite": {
       "name": "guard",
+      "conditions": {
+        "battle56": false
+      },
       "direction": "w",
       "wander": true,
-      "dialog": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
+      "dialog": [
+        {
+          "condition": "battle05",
+          "text": "Seezoram is our lower judge, who rules over the city of Hermounts."
+        },
+        {
+          "text": "Seezoram is our lower judge, who rules over the city of Hermounts. He wishes to thank you for your aid."
+        }
+      ]
     }
   }
 ]
