@@ -241,6 +241,11 @@ class Battle(object):
         # * -1 means the enemy gets an extra volley at the beginning.
         self.offguard = self.get_offguard() if offguard is None else offguard
 
+        # Adjust offguard if story battle and we got back 1 and offguard wasn't specified in the input
+        if battle_type in ['story', 'giddianhi', 'zemnarihah']:
+            if offguard is None and self.offguard == 1:
+                self.offguard = 0
+
         self.set_start_dialog()
         self.select_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'select.wav'))
         self.selected_enemy_index = None
