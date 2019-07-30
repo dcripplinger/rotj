@@ -2460,6 +2460,7 @@ class Battle(object):
             prompt_text = u"{}'s army retreated. ".format(self.get_leader().name.title())
             ally_agility = sum(ally.agility for ally in self.allies if ally.soldiers > 0)/255.0/5.0
             enemy_agility = sum(enemy.agility for enemy in self.enemies if enemy.soldiers > 0)/255.0/5.0
+            enemy_agility = enemy_agility * enemy_agility # hacky way of making retreat somewhat easier
             agility_score = (1 + ally_agility - enemy_agility) / 2.0
             is_warlord_battle = self.battle_type=='warlord'
             is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']

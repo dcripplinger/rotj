@@ -1127,7 +1127,7 @@ class Game(object):
         if self.retreat_counter > 2:
             multiplier *= prev_retreat_multiplier
         if is_warlord_battle:
-            multiplier *= 0.8
+            multiplier *= 0.9 # Changed from 0.8 to 0.9 cuz warlords often have more agility anyway - DCR 2019-07-29
         elif is_story_battle:
             multiplier *= 0.2
         success = random.random() < max(0.15, agility_score*multiplier)
