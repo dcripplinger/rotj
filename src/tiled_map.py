@@ -28,6 +28,7 @@ from helpers import (
 from hero import Hero
 from map_menu import MapMenu
 from report import CompanyReport, Report
+from shop_mat import ShopMat
 from sprite import AiSprite, Sprite
 from text import create_prompt, MenuBox
 from treasure import Treasure
@@ -85,6 +86,7 @@ class Map(object):
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
         self.load_treasures()
+        self.load_shop_mats()
         self.load_ai_sprites()
         self.hero = None
         self.follower_one = None
@@ -307,6 +309,8 @@ class Map(object):
                 self.group.remove(sprite)
             self.load_ai_sprites()
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
+        self.load_treasures()
+        self.load_shop_mats()
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
@@ -416,6 +420,17 @@ class Map(object):
                 treasure = Treasure(opened=opened, invisible=treasure_data.get('invisible'), position=pos)
                 self.group.add(treasure)
                 self.treasures[tuple(pos)] = treasure
+
+    def load_shop_mats(self):
+        for cell in self.cells.values():
+            if 'teleport' in cell and type(cell['teleport']) == dict and 'map' in cell['teleport']:
+                current_shop = None
+                for shop in ['inn', 'armory', 'merchant_shop', 'food_shop', 'record_office', 'reserve']:
+                    if cell['teleport']['map'].endswith('_{}'.format(shop)):
+                        current_shop = shop
+                        break
+                if current_shop:
+                    self.group.add(ShopMat(typ=current_shop, position=(cell['x'], cell['y']+1)))
 
     def get_pos_behind(self, pos, direction):
         if direction == 'n':
