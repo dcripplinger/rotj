@@ -938,96 +938,115 @@ ITEMS = {
         'attack_points': 10,
         'equip_type': 'weapon',
         'cost': 50,
+        'type': 'weapon',
     },
     'mace': {
         'attack_points': 15,
         'equip_type': 'weapon',
         'cost': 100,
+        'type': 'weapon',
     },
     'ax': {
         'attack_points': 20,
         'equip_type': 'weapon',
         'cost': 200,
+        'type': 'weapon',
     },
     'club': {
         'attack_points': 30,
         'equip_type': 'weapon',
         'cost': 400,
+        'type': 'weapon',
     },
     'spear': {
         'attack_points': 50,
         'equip_type': 'weapon',
         'cost': 1000,
+        'type': 'weapon',
     },
     'wood~sword': {
         'attack_points': 60,
         'equip_type': 'weapon',
         'cost': 2000,
+        'type': 'weapon',
     },
     'macana': {
         'attack_points': 70,
         'equip_type': 'weapon',
         'cost': 4000,
+        'type': 'weapon',
     },
     'sling': {
         'attack_points': 80,
         'equip_type': 'weapon',
         'cost': 6000,
+        'type': 'weapon',
     },
     'atlatl': {
         'attack_points': 100,
         'equip_type': 'weapon',
         'cost': 10000,
+        'type': 'weapon',
     },
     'lance': {
         'attack_points': 120,
         'equip_type': 'weapon',
         'cost': 20000,
+        'type': 'weapon',
     },
     'battleax': {
         'attack_points': 140,
         'equip_type': 'weapon',
         'cost': 50000,
+        'type': 'weapon',
     },
     'cimeter': {
         'attack_points': 160,
         'equip_type': 'weapon',
         'cost': 100000,
+        'type': 'weapon',
     },
     'bow': {
         'attack_points': 180,
         'equip_type': 'weapon',
         'cost': 200000,
+        'type': 'weapon',
     },
     'sword': {
         'attack_points': 200,
         'equip_type': 'weapon',
         'cost': 650000,
+        'type': 'weapon',
     },
     'cherev': {
         'attack_points': 230,
         'equip_type': 'weapon',
         'rare': True,
+        'type': 'weapon',
     },
     'samson': {
         'attack_points': 235,
         'equip_type': 'weapon',
         'rare': True,
+        'type': 'weapon',
     },
     'hamashchit': {
         'attack_points': 240,
         'equip_type': 'weapon',
         'rare': True,
+        'type': 'weapon',
     },
     u'shamshirŕe': { # the ŕ is a hack to show a hyphen without capitalizing the next letter when calling title()
         'attack_points': 245,
         'equip_type': 'weapon',
         'rare': True,
+        'type': 'weapon',
     },
     'sd~of~laban': {
         'attack_points': 255,
         'equip_type': 'weapon',
         'rare': True,
+        'type': 'weapon',
     },
 
     # armor
@@ -1035,56 +1054,67 @@ ITEMS = {
         'armor_class': 20,
         'equip_type': 'armor',
         'cost': 50,
+        'type': 'armor',
     },
     'leather': {
         'armor_class': 35,
         'equip_type': 'armor',
         'cost': 150,
+        'type': 'armor',
     },
     'padded': {
         'armor_class': 45,
         'equip_type': 'armor',
         'cost': 400,
+        'type': 'armor',
     },
     'ring~m': {
         'armor_class': 55,
         'equip_type': 'armor',
         'cost': 1000,
+        'type': 'armor',
     },
     'chain~m': {
         'armor_class': 70,
         'equip_type': 'armor',
         'cost': 4000,
+        'type': 'armor',
     },
     'splint~m': {
         'armor_class': 85,
         'equip_type': 'armor',
         'cost': 20000,
+        'type': 'armor',
     },
     'plate~m': {
         'armor_class': 100,
         'equip_type': 'armor',
         'cost': 40000,
+        'type': 'armor',
     },
     'iron~m': {
         'armor_class': 115,
         'equip_type': 'armor',
         'cost': 100000,
+        'type': 'armor',
     },
     'steel~m': {
         'armor_class': 125,
         'equip_type': 'armor',
         'cost': 300000,
+        'type': 'armor',
     },
     'tungsten~m': {
         'armor_class': 135,
         'equip_type': 'armor',
         'cost': 1200000,
+        'type': 'armor',
     },
     'osmium~m': {
         'armor_class': 145,
         'equip_type': 'armor',
         'cost': 3500000,
+        'type': 'armor',
     },
 
     # helmets
@@ -1092,51 +1122,61 @@ ITEMS = {
         'armor_class': 10,
         'equip_type': 'helmet',
         'cost': 20,
+        'type': 'helmet',
     },
     'cap': {
         'armor_class': 20,
         'equip_type': 'helmet',
         'cost': 100,
+        'type': 'helmet',
     },
     'hood': {
         'armor_class': 40,
         'equip_type': 'helmet',
         'cost': 300,
+        'type': 'helmet',
     },
     'wood~h': {
         'armor_class': 50,
         'equip_type': 'helmet',
         'cost': 800,
+        'type': 'helmet',
     },
     'copper~h': {
         'armor_class': 60,
         'equip_type': 'helmet',
         'cost': 2000,
+        'type': 'helmet',
     },
     'bronze~h': {
         'armor_class': 70,
         'equip_type': 'helmet',
         'cost': 4000,
+        'type': 'helmet',
     },
     'iron~h': {
         'armor_class': 80,
         'equip_type': 'helmet',
         'cost': 15000,
+        'type': 'helmet',
     },
     'steel~h': {
         'armor_class': 90,
         'equip_type': 'helmet',
         'cost': 150000,
+        'type': 'helmet',
     },
     'tungsten~h': {
         'armor_class': 100,
         'equip_type': 'helmet',
         'cost': 325000,
+        'type': 'helmet',
     },
     'osmium~h': {
         'armor_class': 110,
         'equip_type': 'helmet',
         'cost': 1100000,
+        'type': 'helmet',
     },
 
     # company items (elixirs, resurrect, etc)
@@ -1145,70 +1185,82 @@ ITEMS = {
         'battle_usage': 'ally',
         'healing_points': 200, # exactly 200 soldiers recover strength
         'cost': 10,
+        'type': 'heal',
     },
     'elixir~b': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 600,
         'cost': 30,
+        'type': 'heal',
     },
     'elixir~c': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 2000,
         'cost': 100,
+        'type': 'heal',
     },
     'elixir~d': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 6000,
         'cost': 300,
+        'type': 'heal',
     },
     'elixir~e': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 20000,
         'cost': 1000,
+        'type': 'heal',
     },
     'elixir~f': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 60000,
         'cost': 3000,
+        'type': 'heal',
     },
     'elixir~g': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 200000,
         'cost': 10000,
+        'type': 'heal',
     },
     'elixir~h': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 600000,
         'cost': 30000,
+        'type': 'heal',
     },
     'elixir~i': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 2000000,
         'cost': 100000,
+        'type': 'heal',
     },
     'elixir~j': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 6000000,
         'cost': 300000,
+        'type': 'heal',
     },
     'elixir~k': {
         'map_usage': 'company',
         'battle_usage': 'ally',
         'healing_points': 20000000,
         'cost': 1000000,
+        'type': 'heal',
     },
     'resurrect': {
         'map_usage': 'company',
         'cost': 50,
+        'type': 'heal',
     },
 
     # battle items
@@ -1217,42 +1269,49 @@ ITEMS = {
         'battle_usage': 'enemy',
         'effect': 'excellent',
         'cost': 50,
+        'type': 'attack',
     },
     'javelin': { # instantly kills enemy if user is teancum, 100% success
         'map_usage': 'battle',
         'battle_usage': 'enemy',
         'effect': 'assassin',
         'cost': 2000,
+        'type': 'attack',
     },
     'remedy': { # cures any negative status ailments on a single ally
         'map_usage': 'battle',
         'battle_usage': 'ally',
         'effect': 'remedy',
         'cost': 100,
+        'type': 'heal',
     },
     't~of~liberty': { # cancels all enemy reinforcements, meant to be used in battle21
         'map_usage': 'battle',
         'battle_usage': 'enemies',
         'effect': 'cancel_reinforcements',
         'rare': True,
+        'type': 'attack',
     },
     'ether': { # replenishes tactical points
         'map_usage': 'battle',
         'battle_usage': 'allies',
         'effect': 'ether',
         'rare': True,
+        'type': 'heal',
     },
 
     # kolob (city map usage)
     'kolob': {
         'map_usage': 'city', # means it brings up a menu of main visited cities to teleport to
         'cost': 200,
+        'type': 'map',
     },
 
     # cloak (cloak map usage)
     'cloak': {
         'map_usage': 'cloak', # means it prevents random encounters for a finite number of steps
         'cost': 200,
+        'type': 'map',
     },
 
     # unlock items
@@ -1260,36 +1319,44 @@ ITEMS = {
         'map_usage': 'unlock', # means it attempts to unlock a locked treasure on the cell/tile you're on
         'cost': 10000,
         'rare': True,
+        'type': 'map',
     },
     'gold~key': {
         'map_usage': 'unlock',
         'rare': True,
+        'type': 'map',
     },
 
     # save items
     'g.~plates': { # short for gold plates
         'map_usage': 'save', # means you can use it to save your game anywhere except in battle
         'rare': True,
+        'type': 'save',
     },
 
     # explosive items
     'explosive': {
         'map_usage': 'explosive', # interacts with the wall north of gideon to blow it up
         'rare': True,
+        'type': 'map',
     },
 
     # unusable items (just carrying it has an effect, or it gets used indirectly)
     'liahona': { # lets the user be his own tactician
         'rare': True,
+        'type': 'passive',
     },
     'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
         'cost': 400,
+        'type': 'passive',
     },
     'iron~ore': { # Swordsmith asks for it
         'rare': True,
+        'type': 'passive',
     },
     'diamond': { # Swordsmith asks for it
         'rare': True,
+        'type': 'passive',
     },
 }
 

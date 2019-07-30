@@ -222,3 +222,57 @@ def load_json_file_if_exists(filename):
     else:
         json_data = {}
     return json_data
+
+
+def sort_items(old_list):
+    if len(old_list) == 0:
+        return []
+    return sorted(old_list, key=_item_sort_key)
+
+def _item_sort_key(item):
+    if isinstance(item, basestring):
+        return _item_sort_key_by_name(item)
+    return _item_sort_key_by_name(item['name'])
+
+
+def _item_sort_key_by_name(item):
+    by_type = _item_sort_key_by_type(item)
+    by_rank = _item_sort_key_by_rank(item)
+    return (by_type, by_rank, item)
+    
+
+ITEM_TYPES = {
+    'save': 0,
+    'weapon': 1,
+    'armor': 2,
+    'helmet': 3,
+    'heal': 4,
+    'attack': 5,
+    'map': 6,
+    'passive': 7,
+}
+
+
+def _item_sort_key_by_type(item):
+    return ITEM_TYPES[ITEMS[item]['type']]
+    
+
+def _item_sort_key_by_rank(item):
+    typ = ITEMS[item]['type']
+    if typ == 'save':
+        return 0
+    if typ == 'weapon':
+        return -ITEMS[item]['attack_points']
+    if typ == 'armor':
+        return -ITEMS[item]['armor_class']
+    if typ == 'helmet':
+        return -ITEMS[item]['armor_class']
+    if typ == 'heal':
+        return -ITEMS[item].get('healing_points', 0)
+    if typ == 'attack':
+        return 0
+    if typ == 'map':
+        return 0
+    if typ == 'passive':
+        return 0
+    return 0

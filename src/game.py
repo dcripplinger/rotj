@@ -32,6 +32,7 @@ from helpers import (
     load_json_file_if_exists,
     load_stats,
     save_game_state,
+    sort_items,
 )
 from menu_screen import MenuScreen
 from narration import Narration
@@ -275,6 +276,7 @@ class Game(object):
         reserve = copy.deepcopy(self.game_state['reserve'])
         for item in company[warlord_index]['items']:
             surplus.insert(0, item['name'])
+        surplus = sort_items(surplus)
         warlord = company.pop(warlord_index)
         reserve.insert(0, warlord['name'])
         self.update_game_state({'company': company, 'surplus': surplus, 'reserve': reserve})
@@ -321,6 +323,7 @@ class Game(object):
         surplus = copy.deepcopy(self.game_state['surplus'])
         item_name = surplus.pop(surplus_index)
         company[warlord_index]['items'].append({'name': item_name})
+        company[warlord_index]['items'] = sort_items(company[warlord_index]['items'])
         self.update_game_state({'company': company, 'surplus': surplus})
 
     def try_toggle_equip_on_item(self, user, item_index):
@@ -360,6 +363,7 @@ class Game(object):
         if 'equipped' in item:
             item['equipped'] = False
         recipient_dict['items'].append(item)
+        recipient_dict['items'] = sort_items(recipient_dict['items'])
         self.update_game_state({'company': company})        
 
     def get_items(self, warlord):
@@ -698,6 +702,7 @@ class Game(object):
         if warlord_index is not None:
             assert len(company[warlord_index]['items']) < MAX_ITEMS_PER_PERSON
             company[warlord_index]['items'].append({'name': item_name})
+            company[warlord_index]['items'] = sort_items(company[warlord_index]['items'])
             placed = True
         else:
             for warlord in company:
@@ -705,10 +710,12 @@ class Game(object):
                     continue
                 placed = True
                 warlord['items'].append({'name': item_name})
+                warlord['items'] = sort_items(warlord['items'])
                 break
         surplus = list(self.game_state['surplus'])
         if not placed:
             surplus.insert(0, item_name)
+            surplus = sort_items(surplus)
         self.update_game_state({'company': company, 'surplus': surplus})
 
     def sell_item(self, warlord_index, item_index):
