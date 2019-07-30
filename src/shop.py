@@ -28,6 +28,7 @@ WARLORDS_EXEMPT_FROM_FIRING = {
 
 class Shop(object):
     def __init__(self, shop, game):
+        self.company_menu_type = None
         self.shop = shop
         self.game = game
         self.surface = None
@@ -175,7 +176,13 @@ class Shop(object):
         self.shop_menu = ShopMenu(self.shop['items'])
 
     def create_company_menu(self):
-        self.company_menu = MenuBox(self.game.get_company_names(with_empty_item_slots=True))
+        if self.company_menu_type == 'buying':
+            self.company_menu = MenuBox(self.game.get_company_names(with_empty_item_slots=True))
+        elif self.company_menu_type == 'selling':
+            # I might be able to optimize this eventually to only show people who have items.
+            self.company_menu = MenuBox(self.game.get_company_names())
+        else:
+            self.company_menu = MenuBox(self.game.get_company_names())
 
 
 class RecordOffice(Shop):
@@ -324,6 +331,7 @@ class Armory(Shop):
             self.next = 'shop_menu'
         else:
             self.dialog = create_prompt("And who will be carrying that?")
+            self.company_menu_type = 'buying'
             self.next = 'company_menu'
             self.create_spoils_box()
         self.shop_menu.unfocus()
@@ -346,6 +354,7 @@ class Armory(Shop):
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} can't carry any more. Who will be carrying that?".format(warlord_name))
+            self.company_menu_type = 'buying'
         else:
             self.next = 'shop_menu'
             self.dialog = create_prompt("Thank you. Anything else?")
@@ -381,6 +390,7 @@ class MerchantShop(Shop):
             self.next = 'shop_menu'
         elif choice == 'SELL':
             self.dialog = create_prompt("Who is carrying the merchandise?")
+            self.company_menu_type = 'selling'
             self.next = 'company_menu'
 
     def handle_shop_menu_selection(self):
@@ -400,6 +410,7 @@ class MerchantShop(Shop):
             self.next = 'shop_menu'
         else:
             self.dialog = create_prompt("And who will be carrying that?")
+            self.company_menu_type = 'buying'
             self.next = 'company_menu'
             self.create_spoils_box()
         self.shop_menu.unfocus()
@@ -425,6 +436,7 @@ class MerchantShop(Shop):
             self.next = 'misc_menu'
         else:
             self.dialog = create_prompt("Who is carrying the merchandise?")
+            self.company_menu_type = 'selling'
             self.next = 'company_menu'
 
     def handle_company_menu_selection(self):
@@ -445,6 +457,7 @@ class MerchantShop(Shop):
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} can't carry any more. Who will be carrying that?".format(warlord_name))
+            self.company_menu_type = 'buying'
         else:
             self.next = 'shop_menu'
             self.dialog = create_prompt("Thank you. Anything else?")
@@ -461,6 +474,7 @@ class MerchantShop(Shop):
         if len(items) == 0:
             warlord_name = self.company_menu.get_choice() # leave it capitalized
             self.dialog = create_prompt(u"{} has nothing to sell. Who is carrying the merchandise?".format(warlord_name))
+            self.company_menu_type = 'selling'
             self.next = 'company_menu'
         else:
             self.dialog = create_prompt("Which item?")
@@ -497,6 +511,7 @@ class MerchantShop(Shop):
         self.state = 'dialog'
         self.dialog = create_prompt("Thank you. Would you like to sell anything else?")
         self.next = 'company_menu'
+        self.company_menu_type = 'selling'
         warlord_index = self.company_menu.current_choice
         item_index = self.shop_menu.current_choice
         self.game.sell_item(warlord_index, item_index)
@@ -507,6 +522,7 @@ class MerchantShop(Shop):
     def handle_confirm_no(self):
         self.state = 'dialog'
         self.dialog = create_prompt("Would you like to sell anything else?")
+        self.company_menu_type = 'selling'
         self.next = 'company_menu'
         self.confirm_menu = None
         self.shop_menu = None
@@ -539,6 +555,7 @@ class Reserve(Shop):
         else:
             self.state = 'dialog'
             self.dialog = create_prompt("And who will be carrying that?")
+            self.company_menu_type = 'buying'
             self.next = 'company_menu'
             self.shop_menu.unfocus()
 
@@ -579,6 +596,7 @@ class Reserve(Shop):
         if len(items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} cannot carry any more. Who will be carrying that?".format(warlord_name))
+            self.company_menu_type = 'buying'
         else:
             self.game.get_surplus_item(surplus_index, warlord_index)
             if len(self.game.game_state['surplus']) > 0:
@@ -658,6 +676,7 @@ class Reserve(Shop):
             if len(self.game.game_state['reserve']) > 0:
                 self.next = 'company_menu'
                 self.dialog = create_prompt("Whose profile would you like to see?")
+                self.company_menu_type = None
             else:
                 self.next = 'exit'
                 self.dialog = self.create_no_warlords_dialog()
@@ -671,6 +690,7 @@ class Reserve(Shop):
             else:
                 self.dialog = create_prompt("Who would you like to add?")
                 self.next = 'company_menu'
+                self.company_menu_type = None
         elif choice == 'DEL~MEM':
             if len(self.game.game_state['company']) <= 1:
                 self.dialog = create_prompt("You only have one member in your traveling party right now.")
@@ -678,10 +698,12 @@ class Reserve(Shop):
             else:
                 self.dialog = create_prompt("Who would you like to leave behind?")
                 self.next = 'company_menu'
+                self.company_menu_type = None
         elif choice == 'FIRE':
             if len(self.game.game_state['reserve']) > 0:
                 self.next = 'company_menu'
                 self.dialog = create_prompt("Whom would you like to fire?")
+                self.company_menu_type = None
             else:
                 self.next = 'exit'
                 self.dialog = self.create_no_warlords_dialog()
