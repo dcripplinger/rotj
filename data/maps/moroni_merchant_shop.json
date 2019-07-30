@@ -27,7 +27,9 @@
       "items": [
         "elixir~g",
         "resurrect",
-        "kolob"
+        "remedy",
+        "kolob",
+        "cloak"
       ]
     }
   }

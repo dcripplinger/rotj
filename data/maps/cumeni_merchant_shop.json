@@ -27,8 +27,10 @@
       "items": [
         "elixir~e",
         "resurrect",
-        "horse",
-        "kolob"
+        "remedy",
+        "power~pill",
+        "kolob",
+        "cloak"
       ]
     }
   }

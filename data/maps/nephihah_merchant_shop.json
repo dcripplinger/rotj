@@ -28,8 +28,9 @@
         "elixir~e",
         "resurrect",
         "remedy",
+        "kolob",
         "horse",
-        "kolob"
+        "cloak"
       ]
     }
   }

@@ -1315,7 +1315,7 @@ CHAPTER11_CITIES = {
 }
 
 NAMED_TELEPORTS = {
-    'zarahemla': [152,187],
+    'zarahemla': [152, 187],
     'manti': [207, 256],
     'bountiful': [116, 138],
     'gid': [164, 114],

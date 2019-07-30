@@ -26,8 +26,9 @@
       "type": "merchant",
       "items": [
         "elixir~b",
-        "power~pill",
         "resurrect",
+        "power~pill",
+        "kolob",
         "horse"
       ]
     }

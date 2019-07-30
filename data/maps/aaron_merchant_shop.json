@@ -27,7 +27,8 @@
       "items": [
         "elixir~d",
         "kolob",
-        "horse"
+        "horse",
+        "cloak"
       ]
     }
   }
