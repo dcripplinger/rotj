@@ -413,13 +413,15 @@ class Game(object):
                 break
         self.update_game_state({'company': company})
 
-    def get_company_names(self, omit=None, with_empty_item_slots=False):
+    def get_company_names(self, omit=None, with_empty_item_slots=False, with_items=False):
         return [
             (u'★' if warlord.get('tactician') else '')
             + ('*' if warlord['soldiers'] == 0 else '')
             + warlord['name'].title()
             for warlord in self.game_state['company']
-            if warlord['name'] != omit and (not with_empty_item_slots or len(warlord['items']) < 8)
+            if warlord['name'] != omit
+            and (not with_empty_item_slots or len(warlord['items']) < 8)
+            and (not with_items or len(warlord['items']) > 0)
         ]
 
     def heal(self, warlord, amount):

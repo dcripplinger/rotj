@@ -179,8 +179,7 @@ class Shop(object):
         if self.company_menu_type == 'buying':
             self.company_menu = MenuBox(self.game.get_company_names(with_empty_item_slots=True))
         elif self.company_menu_type == 'selling':
-            # I might be able to optimize this eventually to only show people who have items.
-            self.company_menu = MenuBox(self.game.get_company_names())
+            self.company_menu = MenuBox(self.game.get_company_names(with_items=True))
         else:
             self.company_menu = MenuBox(self.game.get_company_names())
 
@@ -350,7 +349,7 @@ class Armory(Shop):
         for warlord_index, warlord in enumerate(self.game.game_state['company']):
             if warlord['name'] == warlord_name_lower:
                 break
-        current_items = self.game.game_state['company'][warlord_index]['items']
+        current_items = warlord['items']
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} can't carry any more. Who will be carrying that?".format(warlord_name))
@@ -389,9 +388,13 @@ class MerchantShop(Shop):
             self.dialog = create_prompt("What can I get you?")
             self.next = 'shop_menu'
         elif choice == 'SELL':
-            self.dialog = create_prompt("Who is carrying the merchandise?")
-            self.company_menu_type = 'selling'
-            self.next = 'company_menu'
+            if len(self.game.get_company_names(with_items=True)) == 0:
+                self.dialog = create_prompt("I'm sorry. You don't have anything to sell. Are you buying or selling?")
+                self.next = 'misc_menu'
+            else:
+                self.dialog = create_prompt("Who is carrying the merchandise?")
+                self.company_menu_type = 'selling'
+                self.next = 'company_menu'
 
     def handle_shop_menu_selection(self):
         if self.misc_menu.get_choice() == 'BUY':
@@ -453,7 +456,7 @@ class MerchantShop(Shop):
         for warlord_index, warlord in enumerate(self.game.game_state['company']):
             if warlord['name'] == warlord_name_lower:
                 break
-        current_items = self.game.game_state['company'][warlord_index]['items']
+        current_items = warlord['items']
         if len(current_items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} can't carry any more. Who will be carrying that?".format(warlord_name))
@@ -469,10 +472,13 @@ class MerchantShop(Shop):
     def handle_company_menu_sell(self):
         self.company_menu.unfocus()
         self.state = 'dialog'
-        warlord_index = self.company_menu.current_choice
-        items = self.game.game_state['company'][warlord_index]['items']
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
+        items = warlord['items']
         if len(items) == 0:
-            warlord_name = self.company_menu.get_choice() # leave it capitalized
             self.dialog = create_prompt(u"{} has nothing to sell. Who is carrying the merchandise?".format(warlord_name))
             self.company_menu_type = 'selling'
             self.next = 'company_menu'
@@ -494,8 +500,12 @@ class MerchantShop(Shop):
         if self.misc_menu.get_choice() == 'BUY':
             self.shop_menu = ShopMenu(self.shop['items'])
         else:
-            warlord_index = self.company_menu.current_choice
-            items = self.game.game_state['company'][warlord_index]['items']
+            warlord_name = self.company_menu.get_choice() # leave it capitalized
+            warlord_name_lower = warlord_name.lower()
+            for warlord_index, warlord in enumerate(self.game.game_state['company']):
+                if warlord['name'] == warlord_name_lower:
+                    break
+            items = warlord['items']
             self.shop_menu = ShopMenu([
                 {
                     'name': u"{}{}".format(
@@ -508,16 +518,25 @@ class MerchantShop(Shop):
             ])
 
     def handle_confirm_yes(self):
-        self.state = 'dialog'
-        self.dialog = create_prompt("Thank you. Would you like to sell anything else?")
-        self.next = 'company_menu'
-        self.company_menu_type = 'selling'
-        warlord_index = self.company_menu.current_choice
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
         item_index = self.shop_menu.current_choice
         self.game.sell_item(warlord_index, item_index)
         self.confirm_menu = None
         self.shop_menu = None
         self.create_spoils_box()
+        self.state = 'dialog'
+        if len(self.game.get_company_names(with_items=True)) == 0:
+            self.dialog = create_prompt("Thank you. It looks like that was your last item. Is there anything else you would like to do?")
+            self.next = 'misc_menu'
+            self.company_menu = None
+        else:
+            self.next = 'company_menu'
+            self.company_menu_type = 'selling'
+            self.dialog = create_prompt("Thank you. Would you like to sell anything else?")
 
     def handle_confirm_no(self):
         self.state = 'dialog'
@@ -592,7 +611,7 @@ class Reserve(Shop):
             if warlord['name'] == warlord_name_lower:
                 break
         surplus_index = self.shop_menu.current_choice + self.surplus_page * 8
-        items = self.game.game_state['company'][warlord_index]['items']
+        items = warlord['items']
         if len(items) >= MAX_ITEMS_PER_PERSON:
             self.next = 'company_menu'
             self.dialog = create_prompt(u"{} cannot carry any more. Who will be carrying that?".format(warlord_name))
@@ -623,14 +642,17 @@ class Reserve(Shop):
         self.dialog = create_prompt(u"OK. {} has joined the traveling party.".format(warlord_name))
 
     def handle_delete(self):
-        warlord_index = self.company_menu.current_choice
-        if len(self.game.game_state['company'][warlord_index]['items']) > 0:
+        warlord_name = self.company_menu.get_choice() # leave it capitalized
+        warlord_name_lower = warlord_name.lower()
+        for warlord_index, warlord in enumerate(self.game.game_state['company']):
+            if warlord['name'] == warlord_name_lower:
+                break
+        if len(warlord['items']) > 0:
             surplus_text = " His items are in surplus."
         else:
             surplus_text = ""
         self.game.delete_member(warlord_index)
         self.next = 'exit'
-        warlord_name = self.company_menu.get_choice() # leave capitalized
         self.dialog = create_prompt(u"OK. {} went to the reserve.{}".format(warlord_name, surplus_text))
 
     def handle_fire(self):
