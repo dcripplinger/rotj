@@ -2058,18 +2058,39 @@ class Battle(object):
     def handle_input_report(self, pressed):
         if pressed[K_UP]:
             self.switch_sound.play()
-            self.selected_enemy_index = self.get_previous_live_enemy_index()
+            if self.selected_enemy_index is not None:
+                self.selected_enemy_index = self.get_previous_live_enemy_index()
+            else: # self.selected_ally_index exists instead
+                self.selected_ally_index = self.get_previous_live_ally_index()
         elif pressed[K_DOWN]:
             self.switch_sound.play()
-            self.selected_enemy_index = self.get_next_live_enemy_index()
+            if self.selected_enemy_index is not None:
+                self.selected_enemy_index = self.get_next_live_enemy_index()
+            else: # self.selected_ally_index exists instead
+                self.selected_ally_index = self.get_next_live_ally_index()
+        elif pressed[K_LEFT] or pressed[K_RIGHT]:
+            self.switch_sound.play()
+            if self.selected_enemy_index is not None:
+                self.selected_ally_index = self.selected_enemy_index
+                self.selected_ally_index = self.get_next_live_ally_index(include_current=True)
+                self.selected_enemy_index = None
+            else: # self.selected_ally_index exists instead
+                self.selected_enemy_index = self.selected_ally_index
+                self.selected_enemy_index = self.get_next_live_enemy_index(include_current=True)
+                self.selected_ally_index = None
         elif pressed[K_z]:
             self.state = 'menu'
             self.menu.focus()
             self.selected_enemy_index = None
+            self.selected_ally_index = None
         elif pressed[K_x]:
             self.state = 'report_selected'
-            self.report = Report(stats=self.enemies[self.selected_enemy_index].stats)
+            if self.selected_enemy_index is not None:
+                self.report = Report(stats=self.enemies[self.selected_enemy_index].stats)
+            else: # self.selected_ally_index exists instead
+                self.report = Report(stats=self.allies[self.selected_ally_index].stats)
             self.selected_enemy_index = None
+            self.selected_ally_index = None
 
     def handle_input(self, pressed):
         if pressed[K_d]:
@@ -2371,11 +2392,11 @@ class Battle(object):
             found = True
         return ally
 
-    def get_next_live_enemy_index(self):
+    def get_next_live_enemy_index(self, include_current=False):
         if self.selected_enemy_index is None:
             return self.get_first_live_enemy_index()
         found = False
-        index = self.selected_enemy_index
+        index = self.selected_enemy_index - 1 if include_current else self.selected_enemy_index
         while not found:
             index += 1
             if index >= len(self.enemies):
@@ -2401,11 +2422,11 @@ class Battle(object):
             found = True
         return index
 
-    def get_next_live_ally_index(self):
+    def get_next_live_ally_index(self, include_current=False):
         if self.selected_ally_index is None:
             return self.get_first_live_ally_index()
         found = False
-        index = self.selected_ally_index
+        index = self.selected_ally_index - 1 if include_current else self.selected_ally_index
         while not found:
             index += 1
             if index >= len(self.allies):
