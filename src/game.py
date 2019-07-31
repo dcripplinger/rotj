@@ -151,6 +151,9 @@ class Game(object):
             'corianton_joins_again': self.handle_corianton_joins_again,
             'corianton_leaves': self.handle_corianton_leaves,
             'nephi_joins': self.handle_nephi_joins,
+            'start_battle59': self.handle_start_battle59,
+            'start_battle60': self.handle_start_battle60,
+            'start_battle61': self.handle_start_battle61,
         }
 
     def conditions_are_met(self, conditions):
@@ -2179,3 +2182,164 @@ class Game(object):
 
     def handle_nephi_joins(self):
         self.add_to_company(['nephi'])
+
+    def handle_start_battle59(self):
+        robbers = {
+            'name': 'robbers',
+            'stats': {
+                "soldiers": 42000,
+                "strength": 185,
+                "defense": 210,
+                "intelligence": 60,
+                "agility": 101,
+                "evasion": 135,
+                "tactical_points": 0,
+                "attack_points": 100,
+                "armor_class": 80,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {
+                    "name": "gadianton",
+                    "level": 60,
+                },
+                {
+                    "name": "moriantum",
+                    "level": 60,
+                },
+                {
+                    "name": "zeezra",
+                    "level": 60,
+                },
+                robbers,
+                robbers,
+            ],
+            'battle_type': 'story',
+            "intro": "You will never take me alive!",
+            "narration": "Gadianton was slain in battle.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], intro=battle_data['intro'], narration=battle_data['narration'], 
+            battle_name="battle59",
+        )
+
+    def handle_start_battle60(self):
+        robbers = {
+            'name': 'robbers',
+            'stats': {
+                "soldiers": 42000,
+                "strength": 185,
+                "defense": 210,
+                "intelligence": 60,
+                "agility": 101,
+                "evasion": 135,
+                "tactical_points": 0,
+                "attack_points": 100,
+                "armor_class": 80,
+            },
+        }
+        battle_data = {
+            'enemies': [
+                {
+                    "name": "kishkumen",
+                    "level": 60,
+                },
+                {
+                    "name": "moses",
+                    "level": 60,
+                },
+                {
+                    "name": "ramah",
+                    "level": 60,
+                },
+                robbers,
+                robbers,
+            ],
+            'battle_type': 'story',
+            "intro": "Ha! You think just because you have found two of our hideouts that you have won against the band of Gadianton? We are in your cities, your wilderness, your government, your homes. We are everywhere!",
+            "exit": "Until we meet again, Moronihah.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], intro=battle_data['intro'], exit=battle_data['exit'], 
+            battle_name="battle60",
+        )
+
+    def handle_start_battle61(self):
+        battle_data = {
+            'enemies': [
+                {
+                    "name": "paanchi",
+                    "level": 62,
+                },
+                {
+                    "name": "sherem",
+                    "level": 60,
+                },
+                {
+                    "name": "zenehor",
+                    "level": 60,
+                },
+                {
+                    "name": "mulek",
+                    "level": 60,
+                },
+                {
+                    "name": "cumenihah",
+                    "level": 60,
+                },
+            ],
+            'battle_type': 'story',
+            "intro": "I am the one who sent Kishkumen to murder my brother Pahoran. And once I have murdered Pacumeni too, the judgment seat will be mine. Too bad you won't be around to warn anyone.",
+            "exit": "My life is forfeit! I spent my years plotting in the shadows, deceiving, and murdering. My punishment is just.",
+            "narration": "The last known leaders of the Gadianton Robbers have been driven out of the land and gone into hiding. Hopefully the chief judge and the people are safe now from their secret combinations.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], intro=battle_data['intro'], exit=battle_data['exit'], 
+            battle_name="battle61", narration=battle_data['narration'],
+        )

@@ -233,30 +233,37 @@ class Map(object):
         elif condition == 'battle56':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'battle58':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'battle59':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'battle60':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'battle61':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'gidgiddoni_joins':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'battle72':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'moronihah_joins':
             for sprite in self.group.sprites():
@@ -295,18 +302,22 @@ class Map(object):
         elif condition == 'corianton_leaves':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'wake_nephi':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'pahoran_dead':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         elif condition == 'nephi_joins':
             for sprite in self.group.sprites():
                 self.group.remove(sprite)
+            self.ai_sprites = {}
             self.load_ai_sprites()
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
         self.load_treasures()

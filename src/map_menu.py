@@ -360,9 +360,17 @@ class MapMenu(object):
             self.recipient_menu = MenuBox(self.map.get_company_names())
             self.recipient_menu.focus()
         elif map_usage == 'city':
-            self.state = 'city'
-            self.city_menu = MenuBox(self.map.get_teleport_cities())
-            self.city_menu.focus()
+            if self.map.game.conditions_are_met({
+                'battle59': True,
+                'battle60': True,
+                'battle61': False,
+            }):
+                self.state = 'item_prompt'
+                self.prompt = create_prompt("Strange. It's not working right now.")
+            else:
+                self.state = 'city'
+                self.city_menu = MenuBox(self.map.get_teleport_cities())
+                self.city_menu.focus()
         elif map_usage == 'map':
             self.state = 'item_prompt'
             self.prompt = create_prompt("{} used {}. But nothing happened.".format(user, item_name.title()))

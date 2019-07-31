@@ -127,7 +127,12 @@
       },
       "direction": "n",
       "wander": false,
-      "dialog": ""
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "start_battle59"
+        }
+      ]
     },
     "battles": [
       {
@@ -152,27 +157,31 @@
           },
           {
             "name": "robbers",
-            "soldiers": 42000,
-            "strength": 151,
-            "defense": 88,
-            "intelligence": 69,
-            "agility": 128,
-            "evasion": 31,
-            "tactical_points": 0,
-            "attack_points": 110,
-            "armor_class": 90
+            "stats": {
+              "soldiers": 42000,
+              "strength": 185,
+              "defense": 210,
+              "intelligence": 60,
+              "agility": 101,
+              "evasion": 135,
+              "tactical_points": 0,
+              "attack_points": 100,
+              "armor_class": 80
+            }
           },
           {
             "name": "robbers",
-            "soldiers": 42000,
-            "strength": 151,
-            "defense": 88,
-            "intelligence": 69,
-            "agility": 128,
-            "evasion": 31,
-            "tactical_points": 0,
-            "attack_points": 110,
-            "armor_class": 90
+            "stats": {
+              "soldiers": 42000,
+              "strength": 185,
+              "defense": 210,
+              "intelligence": 60,
+              "agility": 101,
+              "evasion": 135,
+              "tactical_points": 0,
+              "attack_points": 100,
+              "armor_class": 80
+            }
           }
         ]
       }
@@ -189,7 +198,12 @@
       },
       "direction": "s",
       "wander": false,
-      "dialog": ""
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "start_battle60"
+        }
+      ]
     },
     "battles": [
       {
@@ -214,27 +228,31 @@
           },
           {
             "name": "robbers",
-            "soldiers": 42000,
-            "strength": 151,
-            "defense": 88,
-            "intelligence": 69,
-            "agility": 128,
-            "evasion": 31,
-            "tactical_points": 0,
-            "attack_points": 110,
-            "armor_class": 90
+            "stats": {
+              "soldiers": 42000,
+              "strength": 185,
+              "defense": 210,
+              "intelligence": 60,
+              "agility": 101,
+              "evasion": 135,
+              "tactical_points": 0,
+              "attack_points": 100,
+              "armor_class": 80
+            }
           },
           {
             "name": "robbers",
-            "soldiers": 42000,
-            "strength": 151,
-            "defense": 88,
-            "intelligence": 69,
-            "agility": 128,
-            "evasion": 31,
-            "tactical_points": 0,
-            "attack_points": 110,
-            "armor_class": 90
+            "stats": {
+              "soldiers": 42000,
+              "strength": 185,
+              "defense": 210,
+              "intelligence": 60,
+              "agility": 101,
+              "evasion": 135,
+              "tactical_points": 0,
+              "attack_points": 100,
+              "armor_class": 80
+            }
           }
         ]
       }
@@ -252,7 +270,12 @@
       },
       "direction": "n",
       "wander": false,
-      "dialog": ""
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "start_battle61"
+        }
+      ]
     },
     "battles": [
       {
@@ -301,7 +324,12 @@
       },
       "direction": "n",
       "wander": false,
-      "dialog": ""
+      "dialog": [
+        {
+          "text": "...",
+          "game_state_action": "start_battle61"
+        }
+      ]
     },
     "battles": [
       {

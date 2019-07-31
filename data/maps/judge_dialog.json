@@ -1,5 +1,34 @@
 [
   {
+    "condition": "talked_to_lachoneus",
+    "text": "Congratulations. You have completed all the content in this version of the game. Stay tuned for later releases."
+  },
+  {
+    "condition": "battle62",
+    "text": "We have a new chief judge, Lachoneus, that the people have chosen to rule in the place of Pacumeni. You should go see him at Zarahemla.",
+    "no_epistle": true,
+    "chief_judge": {
+      "text": "I am Lachoneus, the newly elected chief judge. Losing Pacumeni so shortly after losing his brother Pahoran has been a tragedy for our people. With the Gadianton Robbers scattered, we must now turn our attention to the threat of the rising generation of Lamanites. Tubaloth, the son of Ammoron, has continued to stir his people to anger against us. We see from his sudden attack on our very own capital, we will always be vulnerable. King Tubaloth will never stop until he has conquered us. Our only choice is to launch a precision strike against the Lamanites to locate and slay the king. We can invade by way of Cumeni.",
+      "game_state_action": "talked_to_lachoneus"
+    }
+  },
+  {
+    "condition": "battle61",
+    "text": "Our fortifications are fine here. But why haven't we heard anything from Zarahemla?",
+    "no_epistle": true,
+    "chief_judge": {
+      "text": "With the Gadianton Robbers scattered, we must now turn our attention to the threat of the rising generation of Lamanites. Tubaloth, the son of Ammoron, has continued to stir his people to anger against us. Report to the judge at Cumeni for further instructions."
+    }
+  },
+  {
+    "condition": "battle58",
+    "text": "Gadianton and his followers have been uprooted, but we must still catch them. They were last seen fleeing into a cave to the south of Zarahemla."
+  },
+  {
+    "condition": "battle57",
+    "text": "We learned from Seantum that Gadianton is hiding somewhere in Bountiful."
+  },
+  {
     "condition": "nephi_joins",
     "text": "Hello, Moronihah. Is there something I can help you with?",
     "no_epistle": true,

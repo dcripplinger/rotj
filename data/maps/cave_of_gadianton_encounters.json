@@ -1,0 +1,60 @@
+[
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "robbers": {
+        "soldiers": [
+          22000,
+          32000,
+          42000
+        ],
+        "strength": 185,
+        "defense": 210,
+        "intelligence": 60,
+        "agility": 101,
+        "evasion": 135,
+        "tactical_points": 0,
+        "attack_points": 100,
+        "armor_class": 80
+      }
+    }
+  }
+]
