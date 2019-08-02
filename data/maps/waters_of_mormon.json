@@ -38,5 +38,15 @@
       "y": 333,
       "direction": "s"
     }
+  },
+  {
+    "x": 17,
+    "y": 21,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Long ago, some Nephites lived in this land under the rule of a wicked king. Alma's father taught many people the ways of righteousness, but they had to meet secretly here at the Waters of Mormon so that the king would not detect them. Little did he know he would leave such a great legacy. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Oh, me? I like to tend the gardens here. It gives me hope that perhaps one day we can escape the oppression of Lamanite kings."
+    }
   }
 ]
