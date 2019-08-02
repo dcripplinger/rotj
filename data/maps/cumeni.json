@@ -2,12 +2,23 @@
   {
     "x": 17,
     "y": 40,
-    "teleport": {
-      "map": "overworld",
-      "x": 117,
-      "y": 317,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "talked_to_lachoneus": true
+        },
+        "map": "overworld",
+        "x": 117,
+        "y": 318,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 117,
+        "y": 317,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 15,
