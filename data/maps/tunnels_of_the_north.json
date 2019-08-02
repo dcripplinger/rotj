@@ -148,13 +148,17 @@
       "name": "gidgiddoni",
       "conditions": {
         "gidgiddoni_joins": false,
-        "battle62": true
+        "battle69": true
       },
       "direction": "n",
       "wander": false,
       "dialog": [
         {
-          "text": "The Gadianton Robbers have grown too strong in the land northward. Perhaps if we join forces, we may yet be victorious?",
+          "text": "...",
+          "game_state_action": "start_battle70"
+        },
+        {
+          "text": "I am sorry for attacking you, sir. Being alone in the cave with robbers around every corner has put me on edge. My men were slaughtered in the land northward by the Gadianton Robbers. They have grown too strong. Perhaps if we join forces, we may yet be victorious?",
           "prompt": [
             {
               "choice": "YES",
@@ -173,7 +177,7 @@
       {
         "name": "battle70",
         "conditions": {
-          "battle62": true
+          "battle69": true
         },
         "intro": "Whoever you are, you do not want to mess with me right now.",
         "enemies": [

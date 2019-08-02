@@ -2343,3 +2343,33 @@ class Game(object):
             enemies, battle_data['battle_type'], intro=battle_data['intro'], exit=battle_data['exit'], 
             battle_name="battle61", narration=battle_data['narration'],
         )
+
+    def handle_start_battle70(self):
+        battle_data = {
+            'enemies': [
+                {
+                    "name": "gidgiddoni",
+                    "level": 70,
+                },
+            ],
+            'battle_type': 'story',
+            "intro": "Whoever you are, you do not want to mess with me right now.",
+        }
+        enemies = []
+        for enemy in battle_data['enemies']:
+            if 'stats' in enemy:
+                stats = enemy['stats']
+            else:
+                stats = load_stats(enemy['name'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
+                stats['attack_points'] = get_attack_points_by_level(enemy['level'])
+                stats['armor_class'] = get_armor_class_by_level(enemy['level'])
+                stats['tactics'] = get_tactics(enemy['name'], enemy['level'], pretty=False)
+            enemies.append({
+                'name': enemy['name'],
+                'stats': stats,
+            })
+        self.current_map.start_battle_after_dialog(
+            enemies, battle_data['battle_type'], intro=battle_data['intro'], battle_name="battle70",
+        )
