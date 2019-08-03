@@ -624,7 +624,7 @@ class Map(object):
                 if self.game.conditions_are_met('battle_at_{}'.format(chapter11_city)):
                     battles = []
                 else:
-                    battles = load_json_file_if_exists(os.path.join('data', 'maps', 'chapter11_battles'))
+                    battles = load_json_file_if_exists(os.path.join('data', 'maps', 'chapter11_battles.json'))
             for battle_data in battles:
                 if 'conditions' in battle_data and not self.game.conditions_are_met(battle_data['conditions']):
                     continue

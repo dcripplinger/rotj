@@ -106,7 +106,7 @@ class Battle(object):
         
         self.is_last_battle = (
             battle_name in ['battle69', 'battle80', 'battle90']
-            and len([True for b in ['battle69', 'battle80', 'battle90'] if self.game.conditions_are_met(b)])
+            and len([True for b in ['battle69', 'battle80', 'battle90'] if game.conditions_are_met(b)])
         )
         self.prev_experience = prev_experience
         self.prev_money = prev_money
