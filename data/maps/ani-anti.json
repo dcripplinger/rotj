@@ -38,5 +38,35 @@
       "y": 356,
       "direction": "s"
     }
+  },
+  {
+    "x": 17,
+    "y": 15,
+    "teleport": {
+      "map": "ani-anti_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 19,
+    "teleport": {
+      "map": "ani-anti_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 13,
+    "teleport": {
+      "map": "ani-anti_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]
