@@ -18,5 +18,45 @@
       "y": 311,
       "direction": "s"
     }
+  },
+  {
+    "x": 18,
+    "y": 21,
+    "teleport": {
+      "map": "helam_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 13,
+    "teleport": {
+      "map": "helam_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 17,
+    "teleport": {
+      "map": "helam_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 13,
+    "teleport": {
+      "map": "helam_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]

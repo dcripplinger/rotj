@@ -1,0 +1,33 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "helam",
+      "x": 18,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant2",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "cimeter",
+        "plate~m"
+      ]
+    }
+  }
+]
