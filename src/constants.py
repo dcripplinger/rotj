@@ -1003,19 +1003,25 @@ ITEMS = {
     'cimeter': {
         'attack_points': 160,
         'equip_type': 'weapon',
-        'cost': 100000,
+        'cost': 120000,
         'type': 'weapon',
     },
     'bow': {
+        'attack_points': 170,
+        'equip_type': 'weapon',
+        'cost': 270000,
+        'type': 'weapon',
+    },
+    'crossbow': {
         'attack_points': 180,
         'equip_type': 'weapon',
-        'cost': 200000,
+        'cost': 750000,
         'type': 'weapon',
     },
     'sword': {
         'attack_points': 200,
         'equip_type': 'weapon',
-        'cost': 650000,
+        'cost': 1950000,
         'type': 'weapon',
     },
     'cherev': {

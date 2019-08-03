@@ -38,5 +38,115 @@
       "y": 336,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "teleport": {
+      "map": "shemlon_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 16,
+    "teleport": {
+      "map": "shemlon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 20,
+    "teleport": {
+      "map": "shemlon_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 20,
+    "teleport": {
+      "map": "shemlon_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 33,
+    "teleport": {
+      "map": "shemlon_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 37,
+    "teleport": {
+      "map": "shemlon_big_house",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 37,
+    "teleport": {
+      "map": "shemlon_big_house",
+      "x": 25,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 37,
+    "teleport": {
+      "map": "shemlon_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 14,
+    "ai_sprite": {
+      "name": "yuppie2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "..."
+    }
+  },
+  {
+    "x": 22,
+    "y": 25,
+    "ai_sprite": {
+      "name": "old_woman2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "..."
+    }
+  },
+  {
+    "x": 18,
+    "y": 35,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "..."
+    }
   }
 ]

@@ -28,5 +28,83 @@
       "y": 377,
       "direction": "s"
     }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "teleport": {
+      "map": "midian_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 13,
+    "teleport": {
+      "map": "midian_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "teleport": {
+      "map": "midian_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 38,
+    "y": 21,
+    "teleport": {
+      "map": "midian_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 39,
+    "y": 23,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "n",
+      "wander": false,
+      "dialog": "This city is named Midian."
+    }
+  },
+  {
+    "x": 15,
+    "y": 22,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "..."
+        }
+      ]
+    }
+  },
+  {
+    "x": 21,
+    "y": 16,
+    "ai_sprite": {
+      "name": "woman6",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "text": "..."
+        }
+      ]
+    }
   }
 ]

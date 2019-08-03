@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "shemlon",
+      "x": 13,
+      "y": 37,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 25,
+    "y": 19,
+    "teleport": {
+      "map": "shemlon",
+      "x": 15,
+      "y": 37,
+      "direction": "s"
+    }
+  }
+]

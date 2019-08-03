@@ -1,0 +1,35 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "shemlon",
+      "x": 22,
+      "y": 37,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~h",
+        "resurrect",
+        "kolob",
+        "cloak"
+      ]
+    }
+  }
+]

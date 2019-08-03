@@ -1,0 +1,35 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "amulon",
+      "x": 32,
+      "y": 24,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~g",
+        "resurrect",
+        "kolob",
+        "power~pill"
+      ]
+    }
+  }
+]

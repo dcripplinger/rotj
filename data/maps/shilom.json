@@ -16,5 +16,45 @@
       "x": 206,
       "y": 346
     }
+  },
+  {
+    "x": 32,
+    "y": 27,
+    "teleport": {
+      "map": "shilom_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 14,
+    "teleport": {
+      "map": "shilom_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 14,
+    "teleport": {
+      "map": "shilom_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 27,
+    "teleport": {
+      "map": "shilom_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]

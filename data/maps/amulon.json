@@ -38,5 +38,45 @@
       "y": 350,
       "direction": "s"
     }
+  },
+  {
+    "x": 21,
+    "y": 28,
+    "teleport": {
+      "map": "amulon_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 20,
+    "teleport": {
+      "map": "amulon_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 32,
+    "y": 24,
+    "teleport": {
+      "map": "amulon_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 28,
+    "teleport": {
+      "map": "amulon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]

@@ -1,0 +1,12 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "midian",
+      "x": 17,
+      "y": 13,
+      "direction": "s"
+    }
+  }
+]
