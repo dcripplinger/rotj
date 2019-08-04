@@ -613,7 +613,7 @@ TACTICS = {
         'min_level': 65,
         'success_probability_type': 'one',
         'slot': 6,
-        'tactical_points': 10,
+        'tactical_points': 6,
         'duration': 'permanent',
     },
 }
@@ -1003,16 +1003,10 @@ ITEMS = {
     'cimeter': {
         'attack_points': 160,
         'equip_type': 'weapon',
-        'cost': 120000,
+        'cost': 230000,
         'type': 'weapon',
     },
     'bow': {
-        'attack_points': 170,
-        'equip_type': 'weapon',
-        'cost': 270000,
-        'type': 'weapon',
-    },
-    'crossbow': {
         'attack_points': 180,
         'equip_type': 'weapon',
         'cost': 750000,

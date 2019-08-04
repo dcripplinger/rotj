@@ -8,5 +8,75 @@
       "y": 327,
       "direction": "s"
     }
+  },
+  {
+    "x": 29,
+    "y": 30,
+    "teleport": {
+      "map": "jerusalem_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 29,
+    "y": 26,
+    "teleport": {
+      "map": "jerusalem_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 26,
+    "teleport": {
+      "map": "jerusalem_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 32,
+    "teleport": {
+      "map": "jerusalem_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 24,
+    "teleport": {
+      "map": "jerusalem_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 15,
+    "teleport": {
+      "map": "jerusalem_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 37,
+    "y": 24,
+    "teleport": {
+      "map": "jerusalem_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
   }
 ]

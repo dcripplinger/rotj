@@ -134,13 +134,6 @@
         }
       ]
     },
-    "treasure": {
-      "conditions": {
-        "battle58": true
-      },
-      "name": "cave_of_gadianton_treasure1",
-      "item": "cimeter"
-    },
     "battles": [
       {
         "name": "battle59",
@@ -211,13 +204,6 @@
           "game_state_action": "start_battle60"
         }
       ]
-    },
-    "treasure": {
-      "conditions": {
-        "battle58": true
-      },
-      "name": "cave_of_gadianton_treasure2",
-      "item": "cimeter"
     },
     "battles": [
       {
