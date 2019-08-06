@@ -1,5 +1,9 @@
 [
   {
+    "condition": "battle69",
+    "text": "Congratulations. You have completed all content for this version of the game. Stay tuned for upcoming versions."
+  },
+  {
     "condition": "talked_to_lachoneus",
     "text": "King Tubaloth will never stop until he has conquered us. Our only choice is to launch a precision strike against the Lamanites to locate and slay the king. We can invade by way of Cumeni."
   },

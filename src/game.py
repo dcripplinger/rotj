@@ -154,6 +154,7 @@ class Game(object):
             'start_battle59': self.handle_start_battle59,
             'start_battle60': self.handle_start_battle60,
             'start_battle61': self.handle_start_battle61,
+            'gidgiddoni_joins': self.handle_gidgiddoni_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -2380,3 +2381,6 @@ class Game(object):
         self.current_map.start_battle_after_dialog(
             enemies, battle_data['battle_type'], intro=battle_data['intro'], battle_name="battle70",
         )
+
+    def handle_gidgiddoni_joins(self):
+        self.add_to_company(['gidgiddoni'])

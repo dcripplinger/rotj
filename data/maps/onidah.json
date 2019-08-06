@@ -168,6 +168,9 @@
     "y": 86,
     "treasure": {
       "name": "onidah_treasure1",
+      "conditions": {
+        "lost_swords": true
+      },
       "item": "cherev",
       "dialog": "Something is glowing. There is a sudden chill, as if from an unseen presence. Looking closer, you find a sword of curious workmanship."
     }
