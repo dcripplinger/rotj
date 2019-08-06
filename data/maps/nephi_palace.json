@@ -13,6 +13,9 @@
     "x": 17,
     "y": 14,
     "ai_sprite": {
+      "conditions": {
+        "battle69": false
+      },
       "name": "lamanite_king",
       "direction": "s",
       "wander": false,
@@ -23,6 +26,9 @@
     "x": 16,
     "y": 28,
     "ai_sprite": {
+      "conditions": {
+        "battle69": false
+      },
       "name": "guard2",
       "direction": "e",
       "wander": false,
@@ -33,6 +39,9 @@
     "x": 18,
     "y": 28,
     "ai_sprite": {
+      "conditions": {
+        "battle69": false
+      },
       "name": "guard2",
       "direction": "w",
       "wander": false,

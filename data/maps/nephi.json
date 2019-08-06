@@ -2,42 +2,86 @@
   {
     "x": 9,
     "y": 30,
-    "teleport": {
-      "map": "overworld",
-      "x": 190,
-      "y": 291,
-      "direction": "w"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "battle69": true
+        },
+        "map": "overworld",
+        "x": 190,
+        "y": 290,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 190,
+        "y": 291,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 9,
     "y": 31,
-    "teleport": {
-      "map": "overworld",
-      "x": 190,
-      "y": 291,
-      "direction": "w"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "battle69": true
+        },
+        "map": "overworld",
+        "x": 190,
+        "y": 290,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 190,
+        "y": 291,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 25,
     "y": 49,
-    "teleport": {
-      "map": "overworld",
-      "x": 190,
-      "y": 291,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "battle69": true
+        },
+        "map": "overworld",
+        "x": 190,
+        "y": 290,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 190,
+        "y": 291,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 26,
     "y": 49,
-    "teleport": {
-      "map": "overworld",
-      "x": 190,
-      "y": 291,
-      "direction": "s"
-    }
+    "teleport": [
+      {
+        "conditions": {
+          "battle69": true
+        },
+        "map": "overworld",
+        "x": 190,
+        "y": 290,
+        "direction": "s"
+      },
+      {
+        "map": "overworld",
+        "x": 190,
+        "y": 291,
+        "direction": "s"
+      }
+    ]
   },
   {
     "x": 29,
@@ -144,7 +188,8 @@
     "y": 44,
     "ai_sprite": {
       "conditions": {
-        "exited_nephi": true
+        "exited_nephi": true,
+        "battle69": false
       },
       "name": "guard2",
       "wander": false,
@@ -157,7 +202,8 @@
     "y": 44,
     "ai_sprite": {
       "conditions": {
-        "exited_nephi": true
+        "exited_nephi": true,
+        "battle69": false
       },
       "name": "guard2",
       "wander": false,
@@ -172,7 +218,15 @@
       "name": "old_man2",
       "wander": true,
       "direction": "w",
-      "dialog": "Hit the shops now while you can. The people here don't like you and they probably won't let you back into the city again."
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "We have opened a friendly correspondence with the Nephites."
+        },
+        {
+          "text": "Hit the shops now while you can. The people here don't like you and they probably won't let you back into the city again."
+        }
+      ]
     }
   },
   {
@@ -182,7 +236,15 @@
       "name": "gentleman2",
       "wander": true,
       "direction": "e",
-      "dialog": "You have corrupted many of our people. Don't think that this will go unanswered."
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "This city was once the capital of the Lamanite nation, but we moved our capital to Jerusalem in the south."
+        },
+        {
+          "text": "You have corrupted many of our people. Don't think that this will go unanswered."
+        }
+      ]
     }
   },
   {
@@ -192,7 +254,15 @@
       "name": "woman4",
       "wander": true,
       "direction": "n",
-      "dialog": "A new king has taken Mathoni's place. He is already stirring up our people to anger against the Nephites. Please be careful."
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "A new king has taken Tubaloth's place. He has promised to introduce an era of peace with the Nephites."
+        },
+        {
+          "text": "A new king has taken Mathoni's place. He is already stirring up our people to anger against the Nephites. Please be careful."
+        }
+      ]
     }
   },
   {
