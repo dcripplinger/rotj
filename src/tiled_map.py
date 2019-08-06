@@ -379,6 +379,7 @@ class Map(object):
             or not self.game.conditions_are_met(treasure.get('conditions'))
         ):
             return "But nothing happened." if unlocker else "But found nothing."
+        dialog = ''
         if 'locked' in treasure:
             if unlocker and treasure['locked'] != unlocker:
                 return "But nothing happened."
@@ -386,17 +387,20 @@ class Map(object):
                 return "The treasure is locked."
         if unlocker and 'locked' not in treasure:
             return "But nothing happened."
+        if 'dialog' in treasure:
+            dialog = "{} ".format(treasure['dialog'])
         self.treasures[tuple(self.hero.position)].open()
         self.game.set_game_state_condition(treasure['name'])
         if 'item' in treasure:
             self.game.add_to_inventory(treasure['item'])
-            return "{} found.".format(treasure['item'].title())
+            dialog += "{} found.".format(treasure['item'].title())
         elif 'money' in treasure:
             money = self.game.game_state['money'] + treasure['money']
             self.game.update_game_state({'money': min(MAX_NUM, money)})
-            return '{} senines found.'.format(treasure['money'])
+            dialog += '{} senines found.'.format(treasure['money'])
         else:
-            return "Something is wrong."
+            dialog += "Something is wrong."
+        return dialog
 
     def load_ai_sprites(self):
         for cell in self.cells.values():

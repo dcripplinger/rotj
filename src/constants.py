@@ -1314,6 +1314,11 @@ ITEMS = {
         'cost': 200,
         'type': 'map',
     },
+    's.~cloak': {
+        'map_usage': 'cloak',
+        'type': 'map',
+        'rare': True,
+    },
 
     # unlock items
     'silver~key': {

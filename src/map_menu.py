@@ -382,7 +382,7 @@ class MapMenu(object):
                 self.prompt = create_prompt("{} used {}. Our movements are hidden from the enemy.".format(
                     user, item_name.title(),
                 ))
-                self.map.game.cloak_steps_remaining = 100
+                self.map.game.cloak_steps_remaining = 1000 if item_name == 's.~cloak' else 100
                 self.map.remove_item(user, self.items_menu.current_choice)
         elif map_usage == 'save':
             if self.map.name in CAVE_NAMES:

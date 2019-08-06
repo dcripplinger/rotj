@@ -162,5 +162,22 @@
       "x": 100,
       "y": 53
     }
+  },
+  {
+    "x": 39,
+    "y": 86,
+    "treasure": {
+      "name": "onidah_treasure1",
+      "item": "cherev",
+      "dialog": "Something is glowing. There is a sudden chill, as if from an unseen presence. Looking closer, you find a sword of curious workmanship."
+    }
+  },
+  {
+    "x": 14,
+    "y": 53,
+    "treasure": {
+      "name": "onidah_treasure2",
+      "item": "s.~cloak"
+    }
   }
 ]
