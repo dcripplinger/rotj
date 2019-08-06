@@ -376,11 +376,14 @@ class MapMenu(object):
             self.prompt = create_prompt("{} used {}. But nothing happened.".format(user, item_name.title()))
         elif map_usage == 'cloak':
             self.state = 'item_prompt'
-            self.prompt = create_prompt("{} used {}. Our movements are hidden from the enemy.".format(
-                user, item_name.title(),
-            ))
-            self.map.game.cloak_steps_remaining = 100
-            self.map.remove_item(user, self.items_menu.current_choice)
+            if self.map.name in ['onidah', 'tunnels_of_the_north']:
+                self.prompt = create_prompt("That doesn't seem to work in here.")
+            else:
+                self.prompt = create_prompt("{} used {}. Our movements are hidden from the enemy.".format(
+                    user, item_name.title(),
+                ))
+                self.map.game.cloak_steps_remaining = 100
+                self.map.remove_item(user, self.items_menu.current_choice)
         elif map_usage == 'save':
             if self.map.name in CAVE_NAMES:
                 self.state = 'item_prompt'

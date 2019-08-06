@@ -137,6 +137,11 @@
    <property name="water" value="true"/>
   </properties>
  </tile>
+ <tile id="24">
+  <properties>
+   <property name="encounter" type="float" value="0"/>
+  </properties>
+ </tile>
  <tile id="25">
   <properties>
    <property name="wall" value="true"/>
