@@ -641,7 +641,8 @@ class Map(object):
                 self.steps_for_tactical_points -= 5
                 self.game.increment_tactical_points()
             self.no_food_left = self.game.decrement_food()
-            lava = self.cells.get(tuple(next_pos), {}).get('lava') == 'true'
+            props = self.tmx_data.get_tile_properties(next_pos[0], next_pos[1], 0) or {}
+            lava = props.get('lava') == 'true'
             if lava:
                 # piggy back on no_food_left for drawing red blinking screen
                 self.no_food_left = True
