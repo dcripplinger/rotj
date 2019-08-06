@@ -5,7 +5,7 @@
     "teleport": {
       "map": "shilom",
       "x": 18,
-      "y": 14,
+      "y": 27,
       "direction": "s"
     }
   },
@@ -13,7 +13,7 @@
     "x": 13,
     "y": 10,
     "ai_sprite": {
-      "name": "villager3",
+      "name": "merchant2",
       "direction": "s",
       "wander": false,
       "dialog": ""
@@ -23,13 +23,7 @@
     "x": 13,
     "y": 11,
     "shop": {
-      "type": "merchant",
-      "items": [
-        "elixir~g",
-        "resurrect",
-        "remedy",
-        "cloak"
-      ]
+      "type": "food"
     }
   }
 ]

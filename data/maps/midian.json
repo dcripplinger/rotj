@@ -88,7 +88,11 @@
       "wander": true,
       "dialog": [
         {
-          "text": "..."
+          "condition": "battle69",
+          "text": "Is the war over?"
+        },
+        {
+          "text": "Most Lamanites are sufficiently hardened against the Nephites, but the wrath of Tubaloth is a whole new level. He learned his hatred from Amalickiah and Ammoron, who had both felt singularly betrayed by Moroni and the Nephites."
         }
       ]
     }
@@ -97,14 +101,24 @@
     "x": 21,
     "y": 16,
     "ai_sprite": {
-      "name": "woman6",
+      "name": "lamanites",
       "direction": "n",
       "wander": true,
       "dialog": [
         {
-          "text": "..."
+          "text": "Look, I was just following orders, okay?"
         }
       ]
+    }
+  },
+  {
+    "x": 33,
+    "y": 18,
+    "ai_sprite": {
+      "name": "sheep",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Baaa..."
     }
   }
 ]

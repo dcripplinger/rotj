@@ -1,0 +1,45 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 29,
+      "y": 26,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "ai_sprite": {
+      "name": "merchant2",
+      "conditions": {
+        "battle69": true
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 12,
+    "y": 12,
+    "shop": {
+      "type": "reserve"
+    }
+  },
+  {
+    "x": 12,
+    "y": 13,
+    "ai_sprite": {
+      "name": "merchant2",
+      "conditions": {
+        "battle69": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "Just because you beat our armies doesn't mean I have to help you."
+    }
+  }
+]

@@ -18,5 +18,29 @@
       "y": 37,
       "direction": "s"
     }
+  },
+  {
+    "x": 26,
+    "y": 13,
+    "ai_sprite": {
+      "name": "lemuel",
+      "direction": "n",
+      "wander": false,
+      "dialog": [
+        {
+          "text": "I wish to defect to the Nephites. Will you let me join you?",
+          "prompt": [
+            {
+              "choice": "YES",
+              "next_dialog": "Aha ha ha ha ha! What a fool! Did you really think I would join the likes of you?"
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "You are going to regret that..."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

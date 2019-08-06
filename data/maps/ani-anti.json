@@ -68,5 +68,51 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 13,
+    "y": 18,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "n",
+      "wander": false,
+      "dialog": "This is the city of Ani-Anti."
+    }
+  },
+  {
+    "x": 19,
+    "y": 13,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "Oh King Tubaloth! How can we continue on without you?"
+        },
+        {
+          "text": "Back away, Nephite, else you will feel my wrath!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 33,
+    "y": 21,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "Thank you for defeating the robbers."
+        },
+        {
+          "text": "I know your cause is just. But I fear the real threat is that many of our rising generation are joining themselves to some secret band of robbers."
+        }
+      ]
+    }
   }
 ]

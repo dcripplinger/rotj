@@ -78,5 +78,73 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 26,
+    "y": 31,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "w",
+      "wander": false,
+      "dialog": "This is the city of Amulon."
+    }
+  },
+  {
+    "x": 16,
+    "y": 30,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "Thank you for defeating the robbers."
+        },
+        {
+          "text": "I know your cause is just. But I fear the real threat is that many of our rising generation are joining themselves to some secret band of robbers."
+        }
+      ]
+    }
+  },
+  {
+    "x": 24,
+    "y": 25,
+    "ai_sprite": {
+      "name": "woman4",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "We promise we won't go to war with the Nephites anymore."
+        },
+        {
+          "text": "You'll never defeat our king!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 32,
+    "y": 20,
+    "ai_sprite": {
+      "name": "woman5",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "Our only hope now is to let go of the hate our parents taught us."
+        },
+        {
+          "condition": "battle68",
+          "text": "Perhaps you routed our queen, but you are no match for the great Tubaloth!"
+        },
+        {
+          "text": "Our queen is a formidable warrior. You don't stand a chance!"
+        }
+      ]
+    }
   }
 ]

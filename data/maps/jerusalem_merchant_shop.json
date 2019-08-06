@@ -1,0 +1,52 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 13,
+      "y": 24,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "conditions": {
+        "battle69": true
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~h",
+        "resurrect",
+        "kolob",
+        "power~pill",
+        "horse"
+      ]
+    }
+  },
+  {
+    "x": 13,
+    "y": 12,
+    "ai_sprite": {
+      "name": "villager3",
+      "conditions": {
+        "battle69": false
+      },
+      "direction": "s",
+      "wander": false,
+      "dialog": "Get out of my shop."
+    }
+  }
+]

@@ -23,7 +23,7 @@
     "x": 13,
     "y": 11,
     "shop": {
-      "type": "merchant2",
+      "type": "merchant",
       "items": [
         "elixir~g",
         "resurrect",

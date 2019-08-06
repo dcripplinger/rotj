@@ -1,0 +1,22 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 12,
+      "y": 11,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "woman6",
+      "direction": "s",
+      "wander": false,
+      "dialog": "I went cave exploring at the hill Onidah, and I saw a strange, faint glow coming from somewhere. I never figured out exactly where it was coming from."
+    }
+  }
+]

@@ -78,5 +78,161 @@
       "y": 18,
       "direction": "n"
     }
+  },
+  {
+    "x": 12,
+    "y": 11,
+    "teleport": {
+      "map": "jerusalem_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 24,
+    "y": 18,
+    "teleport": {
+      "map": "jerusalem_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 18,
+    "teleport": {
+      "map": "jerusalem_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 34,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "w",
+      "wander": false,
+      "dialog": "This is the city of Jerusalem, the new Lamanite capital."
+    }
+  },
+  {
+    "x": 17,
+    "y": 30,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "You're not taking control of our kingdom? Everything I knew about Nephites was wrong."
+        },
+        {
+          "text": "Please don't hurt me!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 12,
+    "y": 25,
+    "ai_sprite": {
+      "name": "old_woman2",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "Oh King Tubaloth! How can we continue on without you?"
+        },
+        {
+          "text": "Back away, Nephite, else you will feel my wrath!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "I am so sorry that I plundered and murdered so many people. I will be spending the rest of my life making restitution as best I can."
+        },
+        {
+          "condition": "battle69",
+          "text": "That settles it. I'm going to join that secret band of robbers."
+        },
+        {
+          "text": "I've heard there is a secret band of robbers accepting recruits. Maybe that's my ticket out of this dump and my path to riches."
+        }
+      ]
+    }
+  },
+  {
+    "x": 33,
+    "y": 17,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "Thank you for defeating the robbers."
+        },
+        {
+          "text": "I know your cause is just. But I fear the real threat is that many of our rising generation are joining themselves to some secret band of robbers."
+        }
+      ]
+    }
+  },
+  {
+    "x": 29,
+    "y": 28,
+    "ai_sprite": {
+      "name": "woman4",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "We promise we won't go to war with the Nephites anymore."
+        },
+        {
+          "text": "You'll never defeat our king!"
+        }
+      ]
+    }
+  },
+  {
+    "x": 35,
+    "y": 33,
+    "ai_sprite": {
+      "name": "woman5",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "Our only hope now is to let go of the hate our parents taught us."
+        },
+        {
+          "condition": "battle68",
+          "text": "Perhaps you routed our queen, but you are no match for the great Tubaloth!"
+        },
+        {
+          "text": "Our queen is a formidable warrior. You don't stand a chance!"
+        }
+      ]
+    }
   }
 ]

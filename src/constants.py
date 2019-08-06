@@ -836,6 +836,7 @@ MAP_MUSIC = {
     'west_lamanite_camp_tent2': CAMP_MUSIC,
     'west_lamanite_camp_tent3': CAMP_MUSIC,
     'zeezrom': CITY_MUSIC,
+    'waters_of_mormon': VILLAGE_MUSIC,
 }
 
 CAVE_NAMES = [

@@ -50,6 +50,8 @@
     }
   },
   {
+    "x": 30,
+    "y": 33,
     "treasure": {
       "name": "waters_of_mormon_treasure1",
       "item": "cimeter"

@@ -1,0 +1,22 @@
+[
+  {
+    "x": 15,
+    "y": 19,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 37,
+      "y": 24,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "ai_sprite": {
+      "name": "jaguar",
+      "direction": "e",
+      "wander": false,
+      "dialog": "Grrr..."
+    }
+  }
+]

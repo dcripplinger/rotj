@@ -1224,6 +1224,13 @@ class Game(object):
     # after the colon. For example, "state:lamoni_leader" will call lamoni_leader().
     # If it's true, that "state" condition passes.
 
+    def game_complete(self):
+        return self.conditions_are_met([
+            'battle69',
+            'battle80',
+            'battle90',
+        ])
+
     def lamoni_leader(self):
         for warlord in self.game_state['company']:
             if warlord['soldiers'] > 0:

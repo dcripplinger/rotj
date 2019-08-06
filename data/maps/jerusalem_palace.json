@@ -1,0 +1,52 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "jerusalem",
+      "x": 24,
+      "y": 18,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "lamanite_king",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "battle69",
+          "text": "We no longer consider the Nephites our enemies. All you ever wanted was to protect your own lands and freedoms. I hope our peoples can put the bloodshed behind us and begin to build a fruitful relationship."
+        },
+        {
+          "text": "You won't find Tubaloth here. He has fled with his armies to another city."
+        }
+      ]
+    }
+  },
+  {
+    "x": 20,
+    "y": 23,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "Why, oh why did I join the Gadianton Robbers?"
+        },
+        {
+          "condition": "battle69",
+          "text": "Our king was weak. But I've joined the Gadianton Robbers, and we will end you!"
+        },
+        {
+          "text": "Ha! Good luck figuring out which city our king is at."
+        }
+      ]
+    }
+  }
+]
