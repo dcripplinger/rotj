@@ -88,6 +88,7 @@ TAUNTS = [
 
 RETREAT_TIME_PER_PERSON = 0.2
 REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of a volley
+REMOVE_ADVANCED_STATUS_PROB = 0.3 # Chance that an ally's temporary advanced status expires at the end of a volley
 
 
 class Battle(object):
@@ -534,6 +535,14 @@ class Battle(object):
         elif self.state == 'enemy_retreat':
             self.update_enemy_retreat(dt)
 
+    def status_expired(self, status, duration, is_ally):
+        if duration != 'temporary':
+            return False
+        if is_ally and status in ['deflect', 'repel']:
+            return random.random() < REMOVE_ADVANCED_STATUS_PROB
+        else:
+            return random.random() < REMOVE_STATUS_PROB
+
     def update_execute(self, dt):
         if self.execute_state == 'move_back':
             if self.warlord is None or self.warlord.state == 'wait':
@@ -550,11 +559,11 @@ class Battle(object):
                     ally_status_updates = []
                     enemy_status_updates = []
                     for (status, duration) in list(self.good_ally_statuses.items()):
-                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                        if self.status_expired(status, duration, True):
                             del self.good_ally_statuses[status]
                             ally_status_updates.append(status)
                     for (status, duration) in list(self.good_enemy_statuses.items()):
-                        if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                        if self.status_expired(status, duration, False):
                             del self.good_enemy_statuses[status]
                             enemy_status_updates.append(status)
                     got_reinforcements = False
@@ -897,10 +906,10 @@ class Battle(object):
                         self.submitted_moves = []
                         self.enemy_moves = []
                         for (status, duration) in list(self.good_ally_statuses.items()):
-                            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            if self.status_expired(status, duration, True):
                                 del self.good_ally_statuses[status]
                         for (status, duration) in list(self.good_enemy_statuses.items()):
-                            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+                            if self.status_expired(status, duration, False):
                                 del self.good_enemy_statuses[status]
                         for enemy in self.enemies:
                             if enemy.reinforcements and enemy.get_future_soldiers() == 0:
@@ -979,10 +988,10 @@ class Battle(object):
         self.submit_ai_moves()
         self.execute_moves()
         for (status, duration) in list(self.good_ally_statuses.items()):
-            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+            if self.status_expired(status, duration, True):
                 del self.good_ally_statuses[status]
         for (status, duration) in list(self.good_enemy_statuses.items()):
-            if duration == 'temporary' and random.random() < REMOVE_STATUS_PROB:
+            if self.status_expired(status, duration, False):
                 del self.good_enemy_statuses[status]
         for enemy in self.enemies:
             if enemy.reinforcements and enemy.get_future_soldiers() == 0:
@@ -1249,16 +1258,18 @@ class Battle(object):
         good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
         good_acting_team_statuses = self.good_ally_statuses if is_ally_move else self.good_enemy_statuses
         tactic_type = TACTICS[move['tactic']]['type']
-        if 'deflect' in good_target_team_statuses:
-            return move, {'deflect': True}
         # go through tactics by type
         if tactic_type == 'enemy':
+            if 'deflect' in good_target_team_statuses:
+                return move, {'deflect': True}
             return self.execute_tactic_type_enemy(move, good_target_team_statuses, is_ally_move)
         elif tactic_type == 'ally':
             return self.execute_tactic_type_ally(move)
         elif tactic_type == 'defense':
             return self.execute_tactic_type_defense(move, good_acting_team_statuses)
         elif tactic_type == 'enemies':
+            if 'deflect' in good_target_team_statuses:
+                return move, {'deflect': True}
             return self.execute_tactic_type_enemies(move, good_target_team_statuses, is_ally_move)
         elif tactic_type == 'allies':
             return self.execute_tactic_type_allies(move, good_target_team_statuses, is_ally_move)
