@@ -1838,16 +1838,16 @@ class Battle(object):
             })
             # if there is nobody alive left in the company, resurrect moroni or recruit him
             need_moroni = True
-            for warlord in self.game_state['company']:
+            for warlord in self.game.game_state['company']:
                 if warlord['soldiers'] > 0 and warlord['name'] != 'alma':
                     need_moroni = False
                     break
             if need_moroni:
-                if 'moroni' in [warlord['name'] for warlord in self.game_state['company']]:
-                    self.heal('moroni', 100)
+                if 'moroni' in [warlord['name'] for warlord in self.game.game_state['company']]:
+                    self.game.heal('moroni', 100)
                 else:
-                    reserve_index = self.get_reserve_index('moroni')
-                    self.recruit(reserve_index)
+                    reserve_index = self.game.get_reserve_index('moroni')
+                    self.game.recruit(reserve_index)
             self.game.remove_from_company_and_reserve('alma')
         elif kwargs.get('battle_name') == 'battle70':
             kwargs.update({
