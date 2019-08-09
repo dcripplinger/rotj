@@ -86,7 +86,11 @@ class MapMenu(object):
 
     def handle_dialog_choice(self):
         self.state = 'choice'
-        self.dialog_choice_menu = MenuBox([choice['choice'] for choice in self.dialog_choice], width=96)
+        if self.dialog_choice and len(self.dialog_choice) and self.dialog_choice[0]['choice'] == 'Share password':
+            width = 96
+        else:
+            width = None
+        self.dialog_choice_menu = MenuBox([choice['choice'] for choice in self.dialog_choice], width=width)
         self.dialog_choice_menu.focus()
 
     def draw(self):
