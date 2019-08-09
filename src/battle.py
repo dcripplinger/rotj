@@ -1069,6 +1069,15 @@ class Battle(object):
             self.experience = experience
             self.money = money
             self.food = food
+        if not plunder and self.battle_name == 'battle58':
+            self.food = 0
+            food = 0
+            self.money = 0
+            money = 0
+            self.game.update_game_state({
+                'money': 0,
+                'food': 0,
+            })
         levels = self.game.collect_spoils(experience, money, food)
         if not plunder:
             self.levels = levels

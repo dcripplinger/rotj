@@ -1918,7 +1918,7 @@ class Game(object):
             ],
             'battle_type': 'story',
             'exit': "You'll never be able to stop me! My secret band has infiltrated every level of government!",
-            'narration': "Gadianton fled to the caves south of Zarahemla.",
+            'narration': "Gadianton fled to the caves south of Zarahemla. ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ ~~~~~~~~ Hey! He stole all our money and food!",
         }
         enemies = []
         for enemy in battle_data['enemies']:
