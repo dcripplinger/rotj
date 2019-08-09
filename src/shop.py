@@ -280,7 +280,7 @@ class FoodShop(Shop):
         company = self.game.game_state['company']
         money = self.game.game_state['money']
         sum_soldiers = sum(get_max_soldiers(warlord['name'], level) for warlord in company)
-        exponent = max(0, len(str(sum_soldiers)) - 4)
+        exponent = max(0, len(str(sum_soldiers)) - 3)
         affordable_exponent = max(0, len(str(money)) - 3)
         exponent = min(affordable_exponent, min(5, exponent))
         base = int(math.pow(10, exponent))
