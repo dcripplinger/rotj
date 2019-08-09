@@ -676,7 +676,7 @@ class Game(object):
                     'tactical_points': get_max_tactical_points(name, level),
                 })
             else:
-                reserve.append(name)
+                reserve.insert(0, name)
         self.update_game_state({
             'company': company,
             'reserve': reserve,
