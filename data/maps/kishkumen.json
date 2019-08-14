@@ -38,5 +38,15 @@
       "y": 125,
       "direction": "s"
     }
+  },
+  {
+    "x": 22,
+    "y": 43,
+    "teleport": {
+      "map": "kishkumen_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
   }
 ]

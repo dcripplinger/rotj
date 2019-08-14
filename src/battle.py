@@ -797,6 +797,9 @@ class Battle(object):
         elif mini_move['item'] == 't~of~liberty':
             dialog = u"{} uses the Title of Liberty. ".format(mini_move['agent'].name.title())
             dialog += u"Enemies are no longer receiving reinforcements."
+        elif mini_move['item'] == 'nightshade':
+            if mini_result.get('fail'):
+                dialog += u"There is no effect."
         elif mini_move['item'] == 'javelin':
             if mini_result.get('fail'):
                 dialog += u"He doesn't have very good aim."
@@ -1235,6 +1238,20 @@ class Battle(object):
             target_warlords = self.enemies if is_ally_move else self.allies
             for warlord in target_warlords:
                 warlord.reinforcements = False
+        elif info['effect'] == 'dispel': # nightshade
+            if random.random() < 0.5:
+                is_ally_move = move['agent'] in self.allies
+                acting_team = self.allies if is_ally_move else self.enemies
+                for warlord in acting_team:
+                    warlord.bad_status = None
+                target_team = self.enemies if is_ally_move else self.allies
+                for warlord in target_team:
+                    warlord.good_statuses = {}
+                good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+                good_target_team_statuses.clear() # set dictionary to empty
+                return move, {}
+            else:
+                return move, {'fail': True}
         return move, {}
 
     def execute_item_type_allies(self, move):
@@ -1319,10 +1336,10 @@ class Battle(object):
             return move, {}
         elif move['tactic'] == 'hulk~out':
             if 'hulk~out' in move['target'].good_statuses:
-                if move['target'].good_statuses['hulk~out'] < 4:
-                    move['target'].good_statuses['hulk~out'] += 1
+                if move['target'].good_statuses['hulk~out'] < 2:
+                    move['target'].good_statuses['hulk~out'] += 0.5
             else:
-                move['target'].good_statuses['hulk~out'] = 2
+                move['target'].good_statuses['hulk~out'] = 1.5
             return move, {}
 
     def execute_tactic_type_allies(self, move, good_target_team_statuses, is_ally_move):
