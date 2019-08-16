@@ -17,7 +17,7 @@ from battle_intro import BattleIntro
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC,
+    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC, MAP_WIDTH, MAP_HEIGHT,
 )
 from cutscene import Cutscene
 from helpers import (
@@ -77,7 +77,7 @@ class Game(object):
         pygame.event.set_blocked(KEYUP)
         self.menu_screen = MenuScreen(self.virtual_screen, self)
         self.beginning_screen = Beginning(self, self.virtual_screen)
-        self.game_state = {}
+        self.game_state = {} # This will get initialized by menu_screen when a save slot is loaded
         self.fitted_screen = None # gets initialized in resize_window()
         self.window_size = screen.get_size()
         self.resize_window(self.window_size)
@@ -94,6 +94,7 @@ class Game(object):
         self.pause_map = None
         self._screen_state_after_pause = None
         self.last_overworld_position = [169, 190] # default to melek
+        self.unprocessed_beaten_path = [] # This will get initialized by menu_screen when game_state is loaded
         self.play_walk_sound = True
         self.two_yuppies_state = False
 
@@ -787,14 +788,43 @@ class Game(object):
         self.retreat_counter = 0
         if map_name == 'overworld':
             self.mark_beaten_path(position)
+            
+    def _position_to_string(self, pos):
+        pos = [int(x) for x in pos]
+        return '{} {}'.format(*pos)
 
     # This should only be called for marking the latest position the player has walked in the overworld.
     # Loading the game in a palace counts, and menu_screen.py makes sure to call this for the HQ's location
     # on the overworld map when the game starts.
     def mark_beaten_path(self, position):
-        position = [int(x) for x in position]
         self.last_overworld_position = position
-        self.game_state['beaten_path']['{} {}'.format(*position)] = True
+        path_entry = self._position_to_string(position)
+        if path_entry not in self.game_state['beaten_path']:
+            self.game_state['beaten_path'][path_entry] = False
+            self.unprocessed_beaten_path.append(path_entry)
+
+    # This can be called by various screens whenever the game is fairly idle, to take advantage of the time
+    # to pre-calculate the visible tiles for the pause map. Doing this during idle times minimizes how much
+    # time it takes to actually load the map. This is also called repeatedly by the pause map when loading
+    # until all beaten_path entries are True, in case they haven't been calculated yet by idle time or
+    # previous map loads.
+    def process_next_beaten_path_entry(self):
+        more_to_process = False
+        if len(self.unprocessed_beaten_path) == 0:
+            return more_to_process
+        entry = self.unprocessed_beaten_path.pop()
+        X, Y = [int(i) for i in entry.split()]
+        for x in range(X-8, X+9):
+            if x <= 0 or x >= MAP_WIDTH:
+                continue
+            for y in range(Y-7, Y+8):
+                if y <= 0 or y >= MAP_HEIGHT:
+                    continue
+                visible_tile = self._position_to_string((x, y))
+                self.game_state['visible_tiles'][visible_tile] = True
+        self.game_state['beaten_path'][entry] = True
+        more_to_process = len(self.unprocessed_beaten_path) > 0
+        return more_to_process
 
     def resize_window(self, size):
         self.real_screen = pygame.display.set_mode(size)

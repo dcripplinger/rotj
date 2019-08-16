@@ -287,6 +287,12 @@ class MenuScreen(object):
             self.game.game_state = self.state[slot-1]
             if 'beaten_path' not in self.game.game_state:
                 self.game.game_state['beaten_path'] = {}
+            if 'visible_tiles' not in self.game.game_state:
+                self.game.game_state['visible_tiles'] = {}
+                self.game.update_game_state({
+                    'beaten_path': {k: False for k in self.game.game_state['beaten_path'].keys()},
+                })
+            self.game.unprocessed_beaten_path = [k for k, v in self.game.game_state['beaten_path'].items() if not v]
             self.game.slot = slot
             if self.game.game_state['level'] == 0:
                 self.game.game_state['level'] = 1

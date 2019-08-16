@@ -16,6 +16,8 @@ BLUE = (15, 125, 255)
 TILE_SIZE = 16 # pixels
 GAME_WIDTH = 256 # pixels (before scaling)
 GAME_HEIGHT = 240 # pixels (before scaling)
+MAP_WIDTH = 300 # overworld map width in tiles
+MAP_HEIGHT = 400 # overworld map height in tiles
 
 DEFAULT_ENCOUNTER_CHANCE = 0.03
 

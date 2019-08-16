@@ -5,7 +5,7 @@ from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
 
-from constants import BLACK, BLUE, ORANGE, RED, TILE_SIZE, WHITE
+from constants import MAP_WIDTH, MAP_HEIGHT, BLACK, BLUE, ORANGE, RED, TILE_SIZE, WHITE
 from helpers import get_map_filename, is_quarter_second, load_image
 from sprite import AiSprite
 
@@ -14,8 +14,6 @@ XMAX = 292
 YMIN = 7
 YMAX = 392
 SPEED = 100 # tiles per second when moving
-MAP_WIDTH = 300
-MAP_HEIGHT = 400
 
 class PauseMap(object):
     def __init__(self, screen, game, position):
@@ -27,31 +25,30 @@ class PauseMap(object):
         self.direction = [0, 0]
         map_filename = get_map_filename('overworld_map.tmx')
         self.tmx_data = load_pygame(map_filename)
+        
+        # process any unprocessed beaten_path entries
+        more_to_process = True
+        while more_to_process:
+            more_to_process = self.game.process_next_beaten_path_entry()
 
         # set all visible tiles to transparent
         visible_minitiles = [[0] * 60 for i in range(80)]
         layer = self.tmx_data.get_layer_by_name('blackout')
         tileset = self.tmx_data.tilesets[2]
-        for tile in self.game.game_state['beaten_path'].keys():
-            X, Y = [int(i) for i in tile.split()]
-            for x in range(X-8, X+9):
-                if x <= 0 or x >= MAP_WIDTH:
-                    continue
-                for y in range(Y-7, Y+8):
-                    if y <= 0 or y >= MAP_HEIGHT:
-                        continue
-                    mini_x, mini_y = self.mini_coordinates((x, y))
-                    # Here, mini coordinates are 0-indexed.
-                    mini_x -= 1
-                    mini_y -= 1
-                    visible_minitiles[mini_y][mini_x] += 1
-                    # This is a hack that only works if we leave the file overworld_map.tmx alone.
-                    # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
-                    # If overworld_map.tmx does not have the single transparent tile in the "blackout" layer,
-                    # that type of tile never gets assigned the gid of 344.
-                    # Here is an explanation of what exactly pytmx is doing and why:
-                    # https://github.com/bitcraft/PyTMX/blob/3fb9788dd66ecfd0c8fa0e9f38c582337d89e1d9/pytmx/pytmx.py#L330
-                    layer.data[y][x] = 344
+        for tile in self.game.game_state['visible_tiles'].keys():
+            x, y = [int(i) for i in tile.split()]
+            mini_x, mini_y = self.mini_coordinates((x, y))
+            # Here, mini coordinates are 0-indexed.
+            mini_x -= 1
+            mini_y -= 1
+            visible_minitiles[mini_y][mini_x] += 1
+            # This is a hack that only works if we leave the file overworld_map.tmx alone.
+            # Pytmx will come up with its own gids for tiles and not use the ones in the tmx file.
+            # If overworld_map.tmx does not have the single transparent tile in the "blackout" layer,
+            # that type of tile never gets assigned the gid of 344.
+            # Here is an explanation of what exactly pytmx is doing and why:
+            # https://github.com/bitcraft/PyTMX/blob/3fb9788dd66ecfd0c8fa0e9f38c582337d89e1d9/pytmx/pytmx.py#L330
+            layer.data[y][x] = 344
 
         # init pyscroll regular map
         map_data = pyscroll.data.TiledMapData(self.tmx_data)
