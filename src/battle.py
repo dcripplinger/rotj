@@ -1142,7 +1142,7 @@ class Battle(object):
                 power_pill = power_pill,
             )
         good_target_team_statuses = self.good_ally_statuses if is_ally_target else self.good_enemy_statuses
-        if not power_pill and 'repel' in good_target_team_statuses:
+        if 'repel' in good_target_team_statuses:
             return move, {'repel': True}
         evade_prob = ((move['target'].evasion - move['agent'].agility) / 255.0 + 1) / 8.0
         if not power_pill and random.random() < evade_prob:
