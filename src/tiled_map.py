@@ -53,6 +53,38 @@ SHAKE = [
     [0, -8],
     [0, 0],
 ]
+RELOAD_CONDITIONS = [
+    'nephi_joins',
+    'pahoran_dead',
+    'wake_nephi',
+    'corianton_leaves',
+    'pahoran_joins',
+    'corianton_joins_again',
+    'corianton_joins',
+    'moronihah_joins',
+    'battle72',
+    'gidgiddoni_joins',
+    'battle61',
+    'battle60',
+    'battle59',
+    'battle58',
+    'battle56',
+    'helaman_joins',
+    'battle34',
+    'battle21',
+    'battle20',
+    'lehi_and_aha_join',
+    'muloki_joins',
+    'lamoni_joins',
+    'anti_nephi_lehi_joins',
+    'ammon_joins',
+    'alma_joins',
+    'battle06',
+    'talked_with_alma_after_nehor',
+    'battle05',
+    'battle04',
+    'ammah_and_manti_join',
+]
 
 
 class Map(object):
@@ -85,8 +117,8 @@ class Map(object):
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
         self.opening_dialog = create_prompt(opening_dialog) if opening_dialog is not None else None
-        self.load_treasures()
         self.load_shop_mats()
+        self.load_treasures()
         self.load_ai_sprites()
         self.hero = None
         self.follower_one = None
@@ -113,215 +145,15 @@ class Map(object):
         self.encounter_regions = {(region['x'], region['y']): region for region in encounter_data}
 
     def handle_game_state_condition(self, condition):
-        if condition == 'ammah_and_manti_join':
-            for sprite in self.group.sprites():
-                if sprite.name in ['ammah', 'manti']:
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['ammah', 'manti']
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle04':
-            for sprite in self.group.sprites():
-                if sprite.name == 'jeneum_sleeping':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'jeneum_sleeping'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle05':
-            for sprite in self.group.sprites():
-                if sprite.name == 'nehor':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'nehor'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'talked_with_alma_after_nehor':
-            for sprite in self.ai_sprites:
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle06':
-            for sprite in self.group.sprites():
-                if sprite.name in ['antionum', 'alma']:
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['antionum', 'alma']
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'alma_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'alma':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'alma'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'ammon_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'ammon':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'ammon'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'anti_nephi_lehi_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'anti-nephi-lehi':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'anti-nephi-lehi'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'lamoni_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'lamoni':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'lamoni'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'muloki_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'muloki':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'muloki'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'lehi_and_aha_join':
-            for sprite in self.group.sprites():
-                if sprite.name in ['lehi', 'aha']:
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name not in ['lehi', 'aha']
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle20':
-            for sprite in self.group.sprites():
-                if getattr(sprite, 'name', '') == 'amalickiah':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'amalickiah'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle21':
-            for sprite in self.group.sprites():
-                if getattr(sprite, 'name', '') == 'kingmen':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'kingmen'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle34':
-            for sprite in self.group.sprites():
-                if getattr(sprite, 'name', '') == 'leantum':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'leantum'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'helaman_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'helaman':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'helaman'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'battle56':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle58':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle59':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle60':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle61':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'gidgiddoni_joins':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'battle72':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'moronihah_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'moronihah':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'moronihah'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'corianton_joins':
-            for sprite in self.group.sprites():
-                if sprite.name == 'corianton':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'corianton'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'corianton_joins_again':
-            for sprite in self.group.sprites():
-                if sprite.name == 'corianton':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite for key, sprite in self.ai_sprites.items() if sprite.name != 'corianton'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'pahoran_joins':
-            for sprite in self.group.sprites():
-                if hasattr(sprite, 'name') and sprite.name == 'pahoran':
-                    self.group.remove(sprite)
-            ai_sprites = {
-                key: sprite
-                for key, sprite in self.ai_sprites.items()
-                if not hasattr(sprite, 'name') or sprite.name != 'pahoran'
-            }
-            self.ai_sprites = ai_sprites
-        elif condition == 'corianton_leaves':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'wake_nephi':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'pahoran_dead':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        elif condition == 'nephi_joins':
-            for sprite in self.group.sprites():
-                self.group.remove(sprite)
-            self.ai_sprites = {}
-            self.load_ai_sprites()
-        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
-        self.load_treasures()
+        if condition not in RELOAD_CONDITIONS:
+            return
+        for sprite in self.group.sprites():
+            self.group.remove(sprite)
+        self.ai_sprites = {}
         self.load_shop_mats()
+        self.load_treasures()
+        self.load_ai_sprites()
+        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
     def try_toggle_equip_on_item(self, user, item_index):
         self.game.try_toggle_equip_on_item(user, item_index)
