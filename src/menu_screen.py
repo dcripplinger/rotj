@@ -293,6 +293,8 @@ class MenuScreen(object):
                     'beaten_path': {k: False for k in self.game.game_state['beaten_path'].keys()},
                 })
             self.game.unprocessed_beaten_path = [k for k, v in self.game.game_state['beaten_path'].items() if not v]
+            if self.game.conditions_are_met('battle71'):
+                self.game.handle_battle71()
             self.game.slot = slot
             if self.game.game_state['level'] == 0:
                 self.game.game_state['level'] = 1

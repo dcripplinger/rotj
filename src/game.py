@@ -156,6 +156,10 @@ class Game(object):
             'start_battle60': self.handle_start_battle60,
             'start_battle61': self.handle_start_battle61,
             'gidgiddoni_joins': self.handle_gidgiddoni_joins,
+            'battle71': self.handle_battle71,
+            'entered_jerusalem': self.handle_entered_jerusalem,
+            'battle79': self.handle_battle79,
+            'battle84': self.handle_battle84,
         }
 
     def conditions_are_met(self, conditions):
@@ -772,6 +776,8 @@ class Game(object):
                 self.set_game_state_condition('entered_destroyed_ammonihah')
             elif map_name == 'manti':
                 self.set_game_state_condition('entered_manti')
+            elif map_name == 'jerusalem':
+                self.set_game_state_condition('entered_jerusalem')
 
         assert followers in [
             'trail', # position the followers trailing behind the hero
@@ -1597,6 +1603,222 @@ class Game(object):
                     'teleport': True,
                 },
             ]
+        })
+
+    def handle_battle71(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'moroni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jerusalem',
+                    'teleport': self.conditions_are_met('entered_jerusalem'),
+                },
+                {
+                    'name': 'kishkumen',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jashon',
+                    'teleport': self.conditions_are_met('battle79'),
+                },
+                {
+                    'name': 'teancum',
+                    'teleport': self.conditions_are_met('battle84'),
+                },
+            ],
+        })
+
+    def handle_battle79(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'moroni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jerusalem',
+                    'teleport': self.conditions_are_met('entered_jerusalem'),
+                },
+                {
+                    'name': 'kishkumen',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jashon',
+                    'teleport': True,
+                },
+                {
+                    'name': 'teancum',
+                    'teleport': self.conditions_are_met('battle84'),
+                },
+            ],
+        })
+
+    def handle_battle84(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'moroni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jerusalem',
+                    'teleport': self.conditions_are_met('entered_jerusalem'),
+                },
+                {
+                    'name': 'kishkumen',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jashon',
+                    'teleport': self.conditions_are_met('battle79'),
+                },
+                {
+                    'name': 'teancum',
+                    'teleport': True,
+                },
+            ],
+        })
+
+    def handle_entered_jerusalem(self):
+        self.update_game_state({
+            'cities': [
+                {
+                    'name': 'zarahemla',
+                    'teleport': True,
+                },
+                {
+                    'name': 'manti',
+                    'teleport': True,
+                },
+                {
+                    'name': 'bountiful',
+                    'teleport': True,
+                },
+                {
+                    'name': 'gid',
+                    'teleport': True,
+                },
+                {
+                    'name': 'nephihah',
+                    'teleport': True,
+                },
+                {
+                    'name': 'judea',
+                    'teleport': True,
+                },
+                {
+                    'name': 'cumeni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'moroni',
+                    'teleport': True,
+                },
+                {
+                    'name': 'jerusalem',
+                    'teleport': True,
+                },
+                {
+                    'name': 'kishkumen',
+                    'teleport': self.conditions_are_met('battle71'),
+                },
+                {
+                    'name': 'jashon',
+                    'teleport': self.conditions_are_met('battle79'),
+                },
+                {
+                    'name': 'teancum',
+                    'teleport': self.conditions_are_met('battle84'),
+                },
+            ],
         })
 
     def handle_bought_key(self):
