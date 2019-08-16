@@ -16,7 +16,7 @@
       "name": "robbers",
       "conditions": {
         "battle72": false,
-        "lost_swords": true
+        "swordsmith_finished": true
       },
       "wander": false,
       "direction": "s",
@@ -29,8 +29,7 @@
     },
     "treasure": {
       "conditions": {
-        "battle72": false,
-        "lost_swords": true
+        "swordsmith_finished": true
       },
       "name": "raiders_treasure",
       "item": "samson"

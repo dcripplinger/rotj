@@ -1981,7 +1981,7 @@ class Game(object):
                 'stats': stats,
             })
         self.current_map.start_battle_after_dialog(
-            enemies, battle_data['battle_type'], exit=battle_data['exit'], narration=battle_data['narration'], battle_name="battle72",
+            enemies, battle_data['battle_type'], exit=battle_data['exit'], battle_name="battle72",
         )
 
     def handle_moronihah_joins(self):

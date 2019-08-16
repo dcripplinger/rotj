@@ -213,7 +213,7 @@
       "item": "hamashchit",
       "conditions": {
         "battle81": true,
-        "lost_swords": true
+        "swordsmith_finished": true
       }
     }
   },
