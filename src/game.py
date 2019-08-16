@@ -501,6 +501,7 @@ class Game(object):
                 music_file = battle_music_files['repeat']
             pygame.mixer.music.load(music_file)
             pygame.mixer.music.play()
+            self.continue_current_music = True
         elif state == 'title':
             self.battle = None
             self.current_map = None
@@ -843,7 +844,7 @@ class Game(object):
     def update(self, dt):
         # handle music
         if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
-            if self._screen_state == 'battle':
+            if self._screen_state == 'battle' or self._screen_state_after_pause == 'battle':
                 repeat_music = BATTLE_MUSIC[self.battle.battle_type]['repeat']
             else:
                 repeat_music = self.get_music(self.current_map.name)['repeat']

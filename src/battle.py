@@ -2132,7 +2132,9 @@ class Battle(object):
     def handle_input(self, pressed):
         if pressed[K_d]:
             self.debug = not self.debug
-        if self.state == 'start':
+        elif pressed[K_RETURN]:
+            self.game.open_pause_menu()
+        elif self.state == 'start':
             self.handle_input_start(pressed)
         elif self.state == 'menu':
             self.handle_input_menu(pressed)

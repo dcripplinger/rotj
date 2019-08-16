@@ -163,7 +163,9 @@ class MapMenu(object):
         return 'exit'
 
     def handle_input(self, pressed):
-        if self.state == 'main':
+        if pressed[K_RETURN] and (not self.prompt or not self.prompt.has_more_stuff_to_show()):
+            self.game.open_pause_menu()
+        elif self.state == 'main':
             return self.handle_input_main(pressed)
         elif self.state in ['talk', 'check', 'confirm_strat', 'item_prompt']:
             self.prompt.handle_input(pressed)
