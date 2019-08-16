@@ -2524,13 +2524,14 @@ class Battle(object):
             agility_score = (1 + ally_agility - enemy_agility) / 2.0
             is_warlord_battle = self.battle_type=='warlord'
             is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
-            successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
-            # no retreating allowed if this is a 2nd battle in a row
-            if self.prev_experience:
-                successful = False
             # always allow retreat from samuel or when enemy is unaware of approach
             if self.enemies[0].name == 'samuel' or self.offguard > 0:
                 successful = True
+            # no retreating allowed if this is a 2nd battle in a row
+            elif self.prev_experience:
+                successful = False
+            else:
+                successful = self.game.try_retreat(agility_score, is_warlord_battle, is_story_battle)
         if successful:
             self.state = 'retreat'
             self.warlord = None
