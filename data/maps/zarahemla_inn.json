@@ -33,7 +33,8 @@
     "ai_sprite": {
       "name": "kingmen",
       "conditions": {
-        "got_thundered": true
+        "got_thundered": true,
+        "battle81": false
       },
       "wander": true,
       "direction": "w",

@@ -1,7 +1,37 @@
 [
   {
+    "condition": "state:game_complete",
+    "text": "Thank you for restoring peace to the whole land. Lachoneus wishes to speak with you in Zarahemla.",
+    "no_epistle": true
+  },
+  {
+    "condition": "battle81",
+    "text": "If we do not stop Zemnarihah and the Gadianton Robbers, it may prove to be the entire extinction of both the Nephite and Lamanite nations.",
+    "no_epistle": true
+  },
+  {
+    "condition": "learned_thunder_counter",
+    "text": "Now that you have learned the counter to Zemnarihah's thunder attack, you may stand a chance."
+  },
+  {
+    "condition": "got_thundered",
+    "text": "Your father wishes to speak to you in Melek. I think he has information about Zemnarihah's thunder attack."
+  },
+  {
+    "condition": "battle80",
+    "text": "Zemnarihah has succeeded Giddianhi and has built the largest army we have ever seen. There are still more strongholds in the land northward where Zemnarihah and the Gadianton Robbers are receiving strength daily."
+  },
+  {
+    "condition": "battle71",
+    "text": "Giddianhi and the Gadianton Robbers have grown far more numerous than we had thought possible. They continue to murder and plunder throughout the land and then retreat to their strongholds in the mountains of the land northward. Please stop them before it's too late."
+  },
+  {
+    "condition": "battle70",
+    "text": "Giddianhi and the Gadianton Robbers have grown far more numerous than we had thought possible. They continue to murder and plunder throughout the land and then retreat to their strongholds in the mountains of the land northward. Please stop them before it's too late. The tunnels of the north are located to the northwest of Judea. You can access the land northward from there."
+  },
+  {
     "condition": "battle69",
-    "text": "Congratulations. You have completed all content for this version of the game. Stay tuned for upcoming versions."
+    "text": "I sent Gidgiddoni to hunt down the remaining Gadianton Robbers in the land northward, but he hasn't returned. You must go investigate. The tunnels of the north are located to the northwest of Judea. You can access the land northward from there."
   },
   {
     "condition": "talked_to_lachoneus",

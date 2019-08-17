@@ -14,6 +14,40 @@
     "y": 14,
     "ai_sprite": [
       {
+        "name": "shiz",
+        "conditions": {
+          "state:game_complete": true
+        },
+        "wander": false,
+        "direction": "s",
+        "dialog": [
+          {
+            "text": "You fought well on the battlefield. I would be honored to fight by your side. Let me know once you are ready, and I will reset this save file to the beginning of the game, but with me in your party. Be warned, though, the enemies will be more difficult.",
+            "prompt": [
+              {
+                "choice": "Ready",
+                "game_state_action": "reset_game_with_shiz",
+                "next_dialog": "OK."
+              },
+              {
+                "choice": "Not yet",
+                "next_dialog": "Very well."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "kingmen",
+        "conditions": {
+          "state:game_complete": false,
+          "lachoneus_joins": true
+        },
+        "wander": false,
+        "direction": "s",
+        "dialog": "Hello, Lachoneus sir. We will maintain order in the capital while you help defeat Zemnarihah."
+      },
+      {
         "name": "kingmen",
         "conditions": {
           "pahoran_joins": true,
@@ -52,7 +86,49 @@
       {
         "name": "lachoneus",
         "conditions": {
-          "battle62": true
+          "state:game_complete": true
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": [
+          {
+            "text": "Your journey has finally come to an end. These people owe you a great debt of gratitude for what you have done, Moronihah. You have defended the cause of freedom with a zeal that would do honor to your father and his legacy. The robbers have been defeated, and the Lamanites have entered into a covenant of peace with us. May God bless this people so long as they live in righteousness, and may the voice of the people be upheld and the judges rule with equity for generations.",
+            "game_state_action": "roll_credits"
+          }
+        ]
+      },
+      {
+        "name": "lachoneus",
+        "conditions": {
+          "battle69": true,
+          "battle80": true,
+          "battle81": true,
+          "lachoneus_joins": false
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": [
+          {
+            "text": "I grow weary of leading from the confines of this palace. May I join you in the fight against Zemnarihah?",
+            "prompt": [
+              {
+                "choice": "YES",
+                "game_state_action": "lachoneus_joins",
+                "next_dialog": "Thank you."
+              },
+              {
+                "choice": "NO",
+                "next_dialog": "Please let me know if you need my assistance later."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "lachoneus",
+        "conditions": {
+          "battle62": true,
+          "lachoneus_joins": false
         },
         "direction": "s",
         "wander": false,
@@ -61,7 +137,8 @@
       {
         "name": "pacumeni",
         "conditions": {
-          "nephi_leaves": true
+          "nephi_leaves": true,
+          "battle62": false
         },
         "direction": "s",
         "wander": false,
@@ -87,18 +164,8 @@
         "direction": "s",
         "wander": false,
         "conditions": {
-          "battle55": true,
-          "talked_with_nephi": false
-        },
-        "dialog": "judge_dialog"
-      },
-      {
-        "name": "pahoran",
-        "direction": "s",
-        "wander": false,
-        "conditions": {
           "battle22": true,
-          "cumeni_hq": false
+          "talke_with_nephi": false
         },
         "dialog": "judge_dialog"
       },
