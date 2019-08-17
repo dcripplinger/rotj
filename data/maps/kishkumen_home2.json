@@ -1,0 +1,22 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "kishkumen",
+      "x": 22,
+      "y": 17,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 10,
+    "y": 15,
+    "ai_sprite": {
+      "name": "woman5",
+      "direction": "e",
+      "wander": true,
+      "dialog": "The shop sells Nightshades. They can dispel all the tactical effects of the enemy, but they only work half the time."
+    }
+  }
+]

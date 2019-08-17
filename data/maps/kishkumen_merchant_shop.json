@@ -25,7 +25,7 @@
     "shop": {
       "type": "merchant",
       "items": [
-        "elixir~i",
+        "elixir~h",
         "resurrect",
         "kolob",
         "power~pill",

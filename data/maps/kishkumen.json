@@ -48,5 +48,97 @@
       "y": 17,
       "direction": "n"
     }
+  },
+  {
+    "x": 22,
+    "y": 51,
+    "teleport": {
+      "map": "kishkumen_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 30,
+    "teleport": {
+      "map": "kishkumen_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 17,
+    "teleport": {
+      "map": "kishkumen_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 51,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is the city of Kishkumen."
+    }
+  },
+  {
+    "x": 15,
+    "y": 45,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Thank you for driving the robbers out of our land."
+    }
+  },
+  {
+    "x": 19,
+    "y": 35,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle90",
+          "text": "All the robbers have been destroyed or given an oath to live peacefully."
+        },
+        {
+          "condition": "battle80",
+          "text": "Zemnarihah has prepared unprecedented fortifications to the north."
+        },
+        {
+          "text": "Giddianhi is commanding his armies from the great fortress Boaz to the east."
+        }
+      ]
+    }
+  },
+  {
+    "x": 16,
+    "y": 18,
+    "ai_sprite": {
+      "name": "horse",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Neigh..."
+    }
+  },
+  {
+    "x": 21,
+    "y": 11,
+    "ai_sprite": {
+      "name": "woman6",
+      "direction": "w",
+      "wander": false,
+      "dialog": "We don't really make the distinction between Nephite and Lamanite in the land northward."
+    }
   }
 ]

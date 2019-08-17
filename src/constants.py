@@ -1406,7 +1406,7 @@ NAMED_TELEPORTS = {
     'cumeni': [116, 318],
     'moroni': [247, 278],
     'jerusalem': [255, 327],
-    'kishkumen': [17, 125],
+    'kishkumen': [16, 125],
     'jashon': [102, 43],
     'teancum': [45, 34],
 }
