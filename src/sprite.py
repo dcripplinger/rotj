@@ -45,7 +45,7 @@ class Sprite(pygame.sprite.Sprite):
         super(Sprite, self).__init__()
         self.tiled_map = tiled_map
         self.name = character
-        self.position = position
+        self.position = list(position)
         self.old_position = self.position
         self.tmx_data = tmx_data
         self.velocity = self.velocity_from_speed_direction_walking(speed, direction, walking)

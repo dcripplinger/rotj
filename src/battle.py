@@ -279,7 +279,7 @@ class Battle(object):
                 current_narration = narration
             else:
                 for n in narration:
-                    if self.conditions_are_met(n.get('conditions')):
+                    if self.game.conditions_are_met(n.get('conditions')):
                         current_narration = n.get('text')
                         break
         self.narration = create_prompt(current_narration) if current_narration else None
