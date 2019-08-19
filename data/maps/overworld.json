@@ -3867,7 +3867,7 @@
         "enemies": [
           {
             "name": "cohor",
-            "level": 83
+            "level": 88
           },
           {
             "name": "mahonri",
@@ -3906,7 +3906,7 @@
         "enemies": [
           {
             "name": "shiz",
-            "level": 84
+            "level": 88
           },
           {
             "name": "shared",
@@ -4174,15 +4174,15 @@
             },
             {
               "name": "zedekiah",
-              "level": 90
+              "level": 92
             },
             {
               "name": "gadiomnah",
-              "level": 90
+              "level": 92
             },
             {
               "name": "cohor",
-              "level": 90
+              "level": 92
             }
           ]
         }

@@ -13,8 +13,9 @@ COUNTER_SEQUENCE = [K_UP, K_UP, K_DOWN, K_DOWN, K_LEFT, K_RIGHT, K_UP, K_DOWN]
 
 
 class BattleIntro(object):
-    def __init__(self, screen, warlord, text, intro_type='regular'):
+    def __init__(self, screen, game, warlord, text, intro_type='regular'):
         self.screen = screen
+        self.game = game
         self.portrait = pygame.transform.flip(load_image(os.path.join('portraits', '{}.png'.format(warlord))), True, False)
         self.dialog = create_prompt(text)
         self.intro_type = intro_type
@@ -61,6 +62,7 @@ class BattleIntro(object):
                 self.flashing_timer = 0
         else:
             self._is_finished = True
+            self.flashing = False
 
     def handle_input(self, pressed):
         if self.dialog.has_more_stuff_to_show():

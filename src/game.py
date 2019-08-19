@@ -488,7 +488,7 @@ class Game(object):
         Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map', 'fade_cutscene', 'cutscene'
         '''
         self._screen_state = state
-        if state in ['title', 'menu', 'battle', 'pause_menu']:
+        if state in ['title', 'menu', 'battle', 'pause_menu', 'battle_intro']:
             pygame.key.set_repeat(300, 300)
         else:
             pygame.key.set_repeat(50, 50)
@@ -567,7 +567,7 @@ class Game(object):
                     intro_type = 'zemnarihah2'
                 else:
                     intro_type = 'zemnarihah1'
-            self.battle_intro = BattleIntro(self.virtual_screen, enemies[0]['name'], intro, intro_type=intro_type)
+            self.battle_intro = BattleIntro(self.virtual_screen, self, enemies[0]['name'], intro, intro_type=intro_type)
         if prev_experience: # don't do encounter sound for double battles
             pygame.mixer.music.fadeout(2000)
             self.continue_current_music = False
@@ -897,6 +897,8 @@ class Game(object):
         elif self._screen_state == 'beginning':
             self.beginning_screen.update(dt)
         elif self._screen_state == 'change_map':
+            if self.battle and self.battle_intro:
+                self.battle_intro = None
             self.update_change_map(dt)
         elif self._screen_state == 'sleep':
             self.update_sleep(dt)
@@ -911,6 +913,7 @@ class Game(object):
                 self.battle_intro.update(dt)
             else:
                 self.set_screen_state('battle')
+                self.battle_intro = None
         elif self._screen_state == 'narration':
             if self.current_map.map_menu:
                 self.current_map.update(dt)
@@ -1081,6 +1084,7 @@ class Game(object):
                     self.fade_alpha = 254
                     self.current_map = self.next_map
                     self.next_map = None
+                    self.battle_intro = None
                 else:
                     self.fade_alpha = max(0, self.fade_alpha - alpha_step)
                 if self.fade_alpha == 0:
@@ -1101,7 +1105,9 @@ class Game(object):
         fade_box = pygame.Surface((GAME_WIDTH, GAME_HEIGHT))
         fade_box.set_alpha(self.fade_alpha)
         fade_box.fill(BLACK)
-        if self.current_map:
+        if self.battle_intro:
+            self.battle_intro.draw()
+        elif self.current_map:
             self.current_map.draw()
         elif self.battle:
             self.battle.draw()
@@ -1213,7 +1219,6 @@ class Game(object):
                         else:
                             self.set_screen_state('battle')
                             self.battle_intro.dialog.shutdown()
-                        self.battle_intro = None
                 elif self._screen_state == 'narration' and self.narration:
                     if self.current_map.map_menu:
                         self.current_map.handle_input(pressed)

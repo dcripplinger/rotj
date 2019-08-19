@@ -162,6 +162,7 @@ class TitlePage(object):
         self.time_elapsed = 0.0
         self.current_page = 0
         self.to_update = set()
+        pygame.mixer.music.set_volume(1.0)
 
     def update(self, dt):
         for update_obj in self.to_update:
