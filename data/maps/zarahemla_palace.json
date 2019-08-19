@@ -165,7 +165,7 @@
         "wander": false,
         "conditions": {
           "battle22": true,
-          "talke_with_nephi": false
+          "talked_with_nephi": false
         },
         "dialog": "judge_dialog"
       },

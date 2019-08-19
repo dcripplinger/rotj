@@ -84,6 +84,7 @@ RELOAD_CONDITIONS = [
     'battle05',
     'battle04',
     'ammah_and_manti_join',
+    'lachoneus_joins',
 ]
 
 

@@ -160,6 +160,7 @@ class Game(object):
             'entered_jerusalem': self.handle_entered_jerusalem,
             'battle79': self.handle_battle79,
             'battle84': self.handle_battle84,
+            'lachoneus_joins': self.handle_lachoneus_joins,
         }
 
     def conditions_are_met(self, conditions):
@@ -2642,3 +2643,6 @@ class Game(object):
 
     def handle_gidgiddoni_joins(self):
         self.add_to_company(['gidgiddoni'])
+
+    def handle_lachoneus_joins(self):
+        self.add_to_company(['lachoneus'])
