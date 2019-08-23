@@ -671,6 +671,9 @@ class Battle(object):
             # or anything else we might have missed
             mini_moves.append(move)
             mini_results.append(results)
+        if self.battle_name == 'battle89' and move['agent'].name in ['zedekiah', 'gadiomnah']:
+            mini_moves.insert(0, {'action': self.execute_move_taunt, 'agent': move['agent']})
+            mini_results.insert(0, {})
         return mini_moves, mini_results
 
     def get_damage_dialog(self, mini_move, mini_result):
@@ -828,9 +831,10 @@ class Battle(object):
 
     def get_move_dialog(self, mini_move, mini_result, silent=True):
         dialog = u""
-        if self.battle_name == 'battle89' and mini_move['agent'].name in ['zedekiah', 'gadiomnah']:
+        if mini_move['action'] == self.execute_move_taunt:
             dialog += self.get_random_taunt()
-        if mini_move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
+            silent = False
+        elif mini_move['action'] in [self.execute_move_battle, self.execute_move_confuse, self.execute_move_provoke]:
             dialog += self.get_attack_dialog(mini_move, mini_result)
         elif mini_move['action'] == self.execute_move_defend:
             dialog += self.get_defend_dialog(mini_move, mini_result)
@@ -1454,6 +1458,9 @@ class Battle(object):
             self.handle_retreat(surrender=True)
             return move, {}
         return move, {'fail': True} # This is a placeholder til we get all single tactics
+
+    def execute_move_taunt(self, move):
+        return move, {}
 
     def get_tactic_success(self, move, target=None):
         if self.game.devtools['Infinity gauntlet']:
