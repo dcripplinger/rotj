@@ -506,7 +506,8 @@ class Game(object):
                 self.current_music = 'repeat'
                 music_file = battle_music_files['repeat']
             pygame.mixer.music.load(music_file)
-            pygame.mixer.music.play()
+            if not self.battle or self.battle.battle_name != 'nonbattle':
+                pygame.mixer.music.play()
             self.continue_current_music = True
         elif state == 'title':
             self.battle = None
@@ -886,7 +887,8 @@ class Game(object):
             else:
                 repeat_music = self.get_music(self.current_map.name)['repeat']
             pygame.mixer.music.load(repeat_music)
-            pygame.mixer.music.play(-1)
+            if not self.battle or self.battle.battle_name != 'nonbattle':
+                pygame.mixer.music.play(-1)
             self.current_music = 'repeat'
 
         if self._screen_state == 'game':

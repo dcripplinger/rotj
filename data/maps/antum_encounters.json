@@ -1,97 +1,99 @@
 [
-  "x": -1,
-  "y": -1,
-  "encounters": [
-    [
-      "com",
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "comnor",
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "kish",
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "omner",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "enos",
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ],
-    [
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers",
-      "robbers"
-    ]
-  ],
-  "stats": {
-    "com": {
-      "level": 79,
-      "capture": "battle79"
-    },
-    "comnor": {
-      "level": 79,
-      "capture": "battle79"
-    },
-    "kish": {
-      "level": 78
-    },
-    "omner": {
-      "level": 78
-    },
-    "enos": {
-      "level": 77
-    },
-    "gilead": {
-      "level": 77,
-      "capture": "battle79"
-    },
-    "robbers": {
-      "soldiers": [
-        220000,
-        320000,
-        420000
+  {
+    "x": -1,
+    "y": -1,
+    "encounters": [
+      [
+        "com",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
       ],
-      "strength": 151,
-      "defense": 88,
-      "intelligence": 69,
-      "agility": 128,
-      "evasion": 31,
-      "tactical_points": 0,
-      "attack_points": 110,
-      "armor_class": 90
+      [
+        "comnor",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "kish",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "omner",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "enos",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ],
+      [
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers",
+        "robbers"
+      ]
+    ],
+    "stats": {
+      "com": {
+        "level": 79,
+        "capture": "battle79"
+      },
+      "comnor": {
+        "level": 79,
+        "capture": "battle79"
+      },
+      "kish": {
+        "level": 78
+      },
+      "omner": {
+        "level": 78
+      },
+      "enos": {
+        "level": 77
+      },
+      "gilead": {
+        "level": 77,
+        "capture": "battle79"
+      },
+      "robbers": {
+        "soldiers": [
+          220000,
+          320000,
+          420000
+        ],
+        "strength": 151,
+        "defense": 88,
+        "intelligence": 69,
+        "agility": 128,
+        "evasion": 31,
+        "tactical_points": 0,
+        "attack_points": 110,
+        "armor_class": 90
+      }
     }
   }
 ]

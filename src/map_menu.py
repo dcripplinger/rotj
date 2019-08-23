@@ -28,6 +28,7 @@ class MapMenu(object):
         self.state = 'main'
         self.prompt = None
         self.map = tiled_map
+        self.game = self.map.game
         self.formation_menu = None
         self.order_menu = None
         self.new_order = None
@@ -402,7 +403,8 @@ class MapMenu(object):
             text = "{} used {}. {}".format(self.map.hero.name.title(), item_name.title(), result_text)
             self.prompt = create_prompt(text)
             self.state = 'item_prompt'
-            self.map.remove_item(user, self.items_menu.current_choice)
+            warlord, item_index = self.game._find_first_item_in_inventory(item_name)
+            self.game.remove_item(warlord, item_index)
         elif map_usage == 'explosive':
             status = self.map.attempt_explosive()
             if status == 'success':

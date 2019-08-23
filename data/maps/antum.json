@@ -158,7 +158,7 @@
     "y": 127,
     "treasure": {
       "name": "antum_treasure1",
-      "item": "ether"
+      "item": "osmium~m"
     }
   },
   {
@@ -166,7 +166,7 @@
     "y": 110,
     "treasure": {
       "name": "antum_treasure2",
-      "money": 3
+      "item": "nightshade"
     }
   },
   {
@@ -174,7 +174,8 @@
     "y": 149,
     "treasure": {
       "name": "antum_treasure3",
-      "item": "sd~of~laban"
+      "item": "sd~of~laban",
+      "locked": "gold~key"
     }
   }
 ]

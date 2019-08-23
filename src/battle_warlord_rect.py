@@ -21,6 +21,8 @@ TURN_SPEED = 100 # how fast they walk (pixels/second) forward or backward when t
 
 class BattleWarlordRectBase(object):
     def __init__(self, warlord, battle, is_enemy=False):
+        self.soldiers_bar = pygame.Surface((1, 8))
+        self.soldiers_bar_position = (0,0)
         self.soldiers_change_queue = []
         self.is_enemy = is_enemy
         self.items = warlord['items']

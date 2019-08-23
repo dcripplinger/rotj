@@ -113,8 +113,12 @@ class Battle(object):
         self.prev_money = prev_money
         self.prev_food = prev_food
         self.next_battle = next_battle
+        self.enemies = None
+        self.screen = screen
+        self.ally_tactical_points = ally_tactical_points or 0
         self.chapter11_city = chapter11_city
         self.spoils_box = None
+        self.report = None
         self.mini_moves = []
         self.confirm_box = None
         self.battle_name = battle_name
@@ -178,12 +182,6 @@ class Battle(object):
                 'items': ally['items'],
             }, self))
 
-        
-        # short circuit this battle if there are no enemies
-        if len(enemies) == 0:
-            self.end_battle(self.get_company(), ally_tactical_points, battle_name=battle_name)
-            return
-
         self.enemies = []
         for i, enemy in enumerate(enemies):
             if isinstance(enemy['stats']['soldiers'], list):
@@ -215,7 +213,7 @@ class Battle(object):
         self.state = 'start'
             # potential states: start, menu, action, report, report_selected, retreat, all_out, battle, tactic,
             # tactic_ally, tactic_enemy, item, item_ally, item_enemy, win, lose, execute, risk_it,
-            # cancel_all_out, error, enemy_retreat
+            # cancel_all_out, error, enemy_retreat, no_one_here
         self.warlord = None # the warlord whose turn it is (to make a choice or execute, depending on self.state)
         self.menu = None
         self.portraits = {}
@@ -230,7 +228,6 @@ class Battle(object):
         self.portrait = None
         self.pointer_right = load_image('pointer.png')
         self.pointer_left = pygame.transform.flip(self.pointer_right, True, False)
-        self.screen = screen
         self.right_dialog = None
         self.set_bar_color()
         
@@ -247,12 +244,10 @@ class Battle(object):
             if offguard is None and self.offguard == 1:
                 self.offguard = 0
 
-        self.set_start_dialog()
         self.select_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'select.wav'))
         self.selected_enemy_index = None
         self.selected_ally_index = None
         self.switch_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'switch.wav'))
-        self.report = None
         self.submitted_moves = []
         self.enemy_moves = []
         self.ordered_moves = []
@@ -265,7 +260,6 @@ class Battle(object):
         self.damage_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'damage.wav'))
         self.fail_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'fail.wav'))
         self.tactic_sound = pygame.mixer.Sound(os.path.join('data', 'audio', 'tactic.wav'))
-        self.ally_tactical_points = ally_tactical_points
         tactician = self.game.get_tactician()
         if tactician:
             self.max_ally_tactical_points = get_max_tactical_points(tactician['name'], level)
@@ -290,6 +284,14 @@ class Battle(object):
         self.win_state = None
         self.enemy_retreat = enemy_retreat
         self.enemy_retreat_state = 'start'
+
+        # short circuit this battle if there are no enemies
+        self.no_one_here_time = 0
+        if len(enemies) == 0:
+            self.state = 'no_one_here'
+            return
+            
+        self.set_start_dialog()
 
     # There is a 1/4 chance that offguard is non-zero. If the player has a lower base_num (a score based on
     # soldiers and attack points) than the enemy and the offguard is non-zero, there's a 50/50 chance of it
@@ -534,6 +536,10 @@ class Battle(object):
             self.menu.update(dt)
         elif self.state == 'enemy_retreat':
             self.update_enemy_retreat(dt)
+        elif self.state == 'no_one_here':
+            self.no_one_here_time += dt
+            if self.no_one_here_time > 0:
+                self.end_battle(self.get_company(), self.ally_tactical_points, battle_name=self.battle_name)
 
     def status_expired(self, status, duration, is_ally):
         if duration != 'temporary':
@@ -2569,6 +2575,10 @@ class Battle(object):
 
     def draw(self):
         self.screen.fill(BLACK)
+
+        # If no enemies, we shouldn't be drawing anything.
+        if len(self.enemies) == 0:
+            return
         
         # If showing a report, we don't need to show anything else.
         if self.report:
