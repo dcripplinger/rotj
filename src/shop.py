@@ -630,7 +630,7 @@ class Reserve(Shop):
     def handle_stats(self):
         warlord_name = self.company_menu.get_choice().lower()
         level = self.game.game_state['level']
-        self.report = Report(warlord_name, level, [])
+        self.report = Report(warlord_name, level, [], headless=self.game.get_headless(warlord_name))
         self.company_menu.unfocus()
         self.state = 'company_menu'
 

@@ -55,7 +55,14 @@ class Sprite(pygame.sprite.Sprite):
         # tiles per second the character moves when moving. Differs from velocity, which is a combination of speed and direction.
         self.speed = speed
         
-        self.images = load_character_images(character)
+        if (
+            character == 'shiz'
+            and self.game.conditions_are_met('start_with_shiz')
+            and self.game.shiz_is_headless()
+        ):
+            self.images = load_character_images('shiz_headless')
+        else:
+            self.images = load_character_images(character)
         self.direction = direction
         self.image = self.images[self.direction]['stand']
         self.rect = self.image.get_rect()

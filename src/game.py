@@ -405,6 +405,13 @@ class Game(object):
                 break
         return [item for item in warlord_info['items'] if item.get('equipped')]
 
+    def get_headless(self, warlord):
+        for info in self.game_state['company']:
+            if info['name'] == warlord:
+                warlord_info = info
+                break
+        return info.get('headless')
+
     def get_tactician(self):
         for warlord in self.game_state['company']:
             if warlord.get('tactician'):
@@ -636,6 +643,8 @@ class Game(object):
                     'items': battle_guy['items'],
                     'tactician': False if battle_guy['soldiers'] == 0 else warlord.get('tactician', False),
                 }
+                if battle_guy.get('headless'):
+                    new_warlord['headless'] = True
             else:
                 new_warlord = warlord
             if warlord.get('tactician'):
@@ -754,6 +763,12 @@ class Game(object):
         for warlord in self.game_state['company']:
             if warlord['name'] == name:
                 return True
+        return False
+
+    def shiz_is_headless(self):
+        for warlord in self.game_state['company']:
+            if warlord['name'] == 'shiz':
+                return warlord.get('headless', False)
         return False
 
     def is_in_reserve(self, name):

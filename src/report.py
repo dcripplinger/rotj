@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import json
+import os
 
 import pygame
 
@@ -56,7 +57,7 @@ class Bars(object):
 
 
 class Report(object):
-    def __init__(self, name=None, level=None, equips=None, stats=None):
+    def __init__(self, name=None, level=None, equips=None, stats=None, headless=False):
         '''
         Either provide (name, level, equips) or provide (stats)
         '''
@@ -78,7 +79,11 @@ class Report(object):
                 self.tp_star = TextBox('*')
             if 'max_soldiers_by_level' in self.stats:
                 self.soldiers_star = TextBox('*')
-        self.portrait = load_image('portraits/{}.png'.format(self.name))
+        if self.name == 'shiz' and headless:
+            portrait_name = 'shiz_headless'
+        else:
+            portrait_name = self.name
+        self.portrait = load_image(os.path.join('portraits', '{}.png'.format(portrait_name)))
         self.blit_stats()
 
     def blit_stats(self):
@@ -133,7 +138,11 @@ class CompanyReport(object):
         soldiers_text = ""
         for index, warlord in enumerate(company):
             if index == 0:
-                portrait = load_image('portraits/{}.png'.format(warlord['name']))
+                if warlord['name'] == 'shiz' and warlord.get('headless'):
+                    portrait_name = 'shiz_headless'
+                else:
+                    portrait_name = warlord['name']
+                portrait = load_image(os.path.join('portraits', '{}.png'.format(portrait_name)))
                 self.surface.blit(portrait, (16, 32))
                 self.surface.blit(TextBox('LEADER').surface, (72, 48))
                 self.surface.blit(TextBox(warlord['name'].title()).surface, (72, 64))

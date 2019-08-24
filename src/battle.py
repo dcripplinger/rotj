@@ -154,6 +154,7 @@ class Battle(object):
                 'max_soldiers': get_max_soldiers(ally['name'], level),
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
+                'headless': ally.get('headless', False),
             }, self))
         if self.corianton_runs_away and len(self.allies) == 0:
             ally = {
@@ -180,6 +181,7 @@ class Battle(object):
                 'max_soldiers': get_max_soldiers(ally['name'], level),
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
+                'headless': ally.get('headless', False),
             }, self))
 
         self.enemies = []
@@ -225,6 +227,7 @@ class Battle(object):
             warlord['name']: pygame.transform.flip(load_image(os.path.join(u'portraits', u'{}.png'.format(warlord['name']))), True, False)
             for warlord in enemies
         })
+        self.portrait_shiz_headless = load_image(os.path.join(u'portraits', u'shiz_headless.png'))
         self.portrait = None
         self.pointer_right = load_image('pointer.png')
         self.pointer_left = pygame.transform.flip(self.pointer_right, True, False)
@@ -601,6 +604,8 @@ class Battle(object):
             if self.mini_move:
                 self.execute_state = 'dialog'
                 self.portrait = self.portraits[self.move['agent'].name]
+                if self.move['agent'].name == 'shiz' and self.move['agent'].headless:
+                    self.portrait = self.portrait_shiz_headless
                 dialog = self.get_move_dialog(self.mini_move, self.mini_result)
                 if self.move['agent'] in self.allies:
                     self.right_dialog = dialog
@@ -1754,6 +1759,8 @@ class Battle(object):
         self.right_dialog = None
         self.warlord = self.warlord or self.get_leader()
         self.portrait = self.portraits[self.warlord.name]
+        if self.warlord.name == 'shiz' and self.warlord.headless:
+            self.portrait = self.portrait_shiz_headless
         self.create_menu()
         self.warlord.move_forward()
 
@@ -2138,7 +2145,10 @@ class Battle(object):
             if self.selected_enemy_index is not None:
                 self.report = Report(stats=self.enemies[self.selected_enemy_index].stats)
             else: # self.selected_ally_index exists instead
-                self.report = Report(stats=self.allies[self.selected_ally_index].stats)
+                self.report = Report(
+                    stats=self.allies[self.selected_ally_index].stats,
+                    headless=self.allies[self.selected_ally_index].headless,
+                )
             self.selected_enemy_index = None
             self.selected_ally_index = None
 

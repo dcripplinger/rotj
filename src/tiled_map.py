@@ -190,6 +190,9 @@ class Map(object):
     def get_equips(self, warlord):
         return self.game.get_equips(warlord)
 
+    def get_headless(self, warlord):
+        return self.game.get_headless(warlord)
+
     def try_set_tactician(self, warlord):
         return self.game.try_set_tactician(warlord)
 

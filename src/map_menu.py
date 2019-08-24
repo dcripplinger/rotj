@@ -478,7 +478,7 @@ class MapMenu(object):
             self.select_sound.play()
             choice = self.general_menu.get_choice().lower()
             self.state = 'report'
-            self.report = Report(choice, self.map.get_level(), self.map.get_equips(choice))
+            self.report = Report(choice, self.map.get_level(), self.map.get_equips(choice), headless=self.map.get_headless(choice))
             self.general_menu = None
             self.main_menu = None
 
