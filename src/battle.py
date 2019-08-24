@@ -10,7 +10,7 @@ import pygame
 from pygame.locals import *
 
 from battle_warlord_rect import Ally, Enemy
-from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, TACTICS
+from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, TACTICS, START_WITH_SHIZ_MULTIPLIER
 from helpers import (
     can_level_up,
     get_equip_based_stat_value,
@@ -107,12 +107,13 @@ class Battle(object):
         
         self.is_last_battle = (
             battle_name in ['battle69', 'battle80', 'battle90']
-            and len([True for b in ['battle69', 'battle80', 'battle90'] if game.conditions_are_met(b)])
+            and len([True for b in ['battle69', 'battle80', 'battle90'] if game.conditions_are_met(b)]) == 2
         )
         self.prev_experience = prev_experience
         self.prev_money = prev_money
         self.prev_food = prev_food
         self.next_battle = next_battle
+        self.start_with_shiz = game.conditions_are_met('start_with_shiz')
         self.enemies = None
         self.screen = screen
         self.ally_tactical_points = ally_tactical_points or 0
@@ -1388,6 +1389,8 @@ class Battle(object):
             cutoff = int(norm_cutoff * prelim_damage_range)
             mod_min_damage = info['min_damage'] + cutoff
             damage = random.randrange(mod_min_damage, info['max_damage'])
+            if self.start_with_shiz and not is_ally_move:
+                damage = int(damage * START_WITH_SHIZ_MULTIPLIER)
             if info['slot'] == 1:
                 if 'firewall' in good_target_team_statuses:
                     damage = int(damage/2)
@@ -1422,6 +1425,8 @@ class Battle(object):
                 cutoff = int(norm_cutoff * prelim_damage_range)
                 mod_min_damage = info['min_damage'] + cutoff
                 damage = random.randrange(mod_min_damage, info['max_damage'])
+                if self.start_with_shiz and not is_ally_move:
+                    damage = int(damage * START_WITH_SHIZ_MULTIPLIER)
                 if info['slot'] == 1:
                     if 'firewall' in good_target_team_statuses:
                         damage = int(damage/2)

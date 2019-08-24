@@ -6,7 +6,7 @@ import random
 
 import pygame
 
-from constants import BLACK, GAME_WIDTH, TACTICS, WEAPON_POWER
+from constants import BLACK, GAME_WIDTH, TACTICS, WEAPON_POWER, START_WITH_SHIZ_MULTIPLIER
 from helpers import hyphenate, load_image
 from text import MenuGrid, TextBox
 
@@ -27,6 +27,7 @@ class BattleWarlordRectBase(object):
         self.is_enemy = is_enemy
         self.items = warlord['items']
         self.battle = battle
+        self.game = self.battle.game
         self.stats = warlord
         self.name = warlord['name']
         self.surface = pygame.Surface((WIDTH, HEIGHT))
@@ -78,6 +79,7 @@ class BattleWarlordRectBase(object):
         self.hit_time = 0
         self.switch_sprite_time = 0
         self.all_out_speed = False
+        self.start_with_shiz_multiplier = 1.0
 
     def consume_tactical_points(self, points):
         raise NotImplementedError
@@ -168,7 +170,7 @@ class BattleWarlordRectBase(object):
         tactic = tactic.strip('~').lower()
         if tactic == '':
             return 0
-        return TACTICS[tactic].get('max_damage', 0)
+        return int(TACTICS[tactic].get('max_damage', 0) * self.start_with_shiz_multiplier)
 
     def get_preliminary_damage(self):
         # including *25 for accurate get_danger() results, simulating a good damage potential
@@ -181,7 +183,11 @@ class BattleWarlordRectBase(object):
                 return 0 # With infinity gauntlet on, bad guys hit with zero (battly.py corrects this to 1 though)
             else:
                 return 1e8 # With infinity gauntlet on, good guys always hit with 100,000,000 damage (before target's attack exposure)
-        return self.get_preliminary_damage() * self.get_damage_potential(excellent=excellent)
+        return int(
+            self.get_preliminary_damage()
+            * self.get_damage_potential(excellent=excellent)
+            * self.start_with_shiz_multiplier
+        )
 
     def get_damage_potential(self, excellent=False):
         # including /25.0 to make up for the *25 in get_preliminary_damage()
@@ -350,6 +356,8 @@ class Ally(BattleWarlordRectBase):
 class Enemy(BattleWarlordRectBase):
     def __init__(self, name, battle):
         super(Enemy, self).__init__(name, battle, is_enemy=True)
+        if self.game.conditions_are_met('start_with_shiz'):
+            self.start_with_shiz_multiplier = START_WITH_SHIZ_MULTIPLIER
         self.name_box_position = (WIDTH - TEXT_AREA_WIDTH, 0)
         self.soldiers_box_position = (WIDTH - TEXT_AREA_WIDTH, 16)
         self.stand = pygame.transform.flip(self.stand, True, False)
