@@ -170,7 +170,7 @@ class BattleWarlordRectBase(object):
         tactic = tactic.strip('~').lower()
         if tactic == '':
             return 0
-        return int(TACTICS[tactic].get('max_damage', 0) * self.start_with_shiz_multiplier)
+        return TACTICS[tactic].get('max_damage', 0)
 
     def get_preliminary_damage(self):
         # including *25 for accurate get_danger() results, simulating a good damage potential

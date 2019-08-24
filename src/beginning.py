@@ -44,6 +44,10 @@ class Beginning(object):
             self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.width)/2, 160))
 
     def update(self, dt):
+        # This is to avoid a large dt from pausing before start_with_shiz
+        if self.game._screen_state != 'beginning':
+            return
+
         if self.paces_left > 0:
             moved = False
             for sprite in [self.moroni, self.teancum, self.amalickiah]:
@@ -61,34 +65,58 @@ class Beginning(object):
             self.prompt.handle_input(pressed)
             if pressed[K_x] and not self.prompt.has_more_stuff_to_show():
                 self.game.set_screen_state('game')
+                starting_company = [
+                    {
+                        'name': 'moroni',
+                        'soldiers': get_max_soldiers('moroni', 1),
+                        'items': [
+                            {'name': 'dagger', 'equipped': True},
+                            {'name': 'robe', 'equipped': True},
+                        ],
+                        'tactical_points': get_max_tactical_points('moroni', 1),
+                    },
+                    {
+                        'name': 'teancum',
+                        'soldiers': get_max_soldiers('teancum', 1),
+                        'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                        'tactical_points': get_max_tactical_points('teancum', 1),
+                    },
+                    {
+                        'name': 'amalickiah',
+                        'soldiers': get_max_soldiers('amalickiah', 1),
+                        'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
+                        'tactical_points': get_max_tactical_points('amalickiah', 1),
+                        'tactician': True,
+                    },
+                ]
+
+                # if this a start_with_shiz scenario, we need to erase previous data except name
+                game_state = {
+                    'name': self.game.game_state['name'],
+                    'conditions': [],
+                }
+                if self.game.conditions_are_met('start_with_shiz'):
+                    self.game.unprocessed_beaten_path = []
+                    game_state.update({
+                        'conditions': [
+                            'start_with_shiz',
+                        ],
+                        'beaten_path': {},
+                        'visible_tiles': {},
+                    })
+                    starting_company.append({
+                        'name': 'shiz',
+                        'soldiers': get_max_soldiers('shiz', 1),
+                        'items': [],
+                        'tactical_points': get_max_tactical_points('shiz', 1),
+                    })
+                self.game.game_state = game_state
+
                 self.game.update_game_state({
                     'money': 0,
                     'food': 20,
                     'experience': 0,
-                    'company': [
-                        {
-                            'name': 'moroni',
-                            'soldiers': get_max_soldiers('moroni', 1),
-                            'items': [
-                                {'name': 'dagger', 'equipped': True},
-                                {'name': 'robe', 'equipped': True},
-                            ],
-                            'tactical_points': get_max_tactical_points('moroni', 1),
-                        },
-                        {
-                            'name': 'teancum',
-                            'soldiers': get_max_soldiers('teancum', 1),
-                            'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
-                            'tactical_points': get_max_tactical_points('teancum', 1),
-                        },
-                        {
-                            'name': 'amalickiah',
-                            'soldiers': get_max_soldiers('amalickiah', 1),
-                            'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
-                            'tactical_points': get_max_tactical_points('amalickiah', 1),
-                            'tactician': True,
-                        },
-                    ],
+                    'company': starting_company,
                     'level': 1,
                     'acquired_items': [],
                     'surplus': [],
@@ -98,10 +126,10 @@ class Beginning(object):
                             'teleport': True,
                         }
                     ],
-                    'conditions': [],
                     'reserve': [],
                     'hq': 'zarahemla',
                 })
+                self.game.mark_beaten_path((169, 190)) # we start the game in melek
                 dialog = (
                     'An epistle arrived while you were away. Alma, the chief judge, is summoning you in the palace at '
                     'Zarahemla. You can find the city of Zarahemla to the west.'

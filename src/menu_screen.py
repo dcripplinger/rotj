@@ -297,8 +297,6 @@ class MenuScreen(object):
                 self.game.handle_battle71()
             self.game.slot = slot
             if self.game.game_state['level'] == 0:
-                self.game.game_state['level'] = 1
-                self.game.mark_beaten_path((169, 190)) # we start the game in melek
                 self.game.set_screen_state('beginning')
             else:
                 if self.game.args.map:

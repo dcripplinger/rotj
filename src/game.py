@@ -17,7 +17,7 @@ from battle_intro import BattleIntro
 from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
-    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC, MAP_WIDTH, MAP_HEIGHT,
+    MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC, MAP_WIDTH, MAP_HEIGHT, VILLAGE_MUSIC,
 )
 from cutscene import Cutscene
 from helpers import (
@@ -164,6 +164,7 @@ class Game(object):
             'battle69': self.handle_battle69,
             'battle80': self.handle_battle80,
             'battle90': self.handle_battle90,
+            'start_with_shiz': self.handle_start_with_shiz,
         }
 
     def conditions_are_met(self, conditions):
@@ -2695,3 +2696,13 @@ class Game(object):
 
         self.remove_from_company_and_reserve('lachoneus')
         self.remove_from_company_and_reserve('shiz')
+
+    def handle_start_with_shiz(self):
+        self.battle = None
+        self.current_map = None
+        self.current_music = 'repeat'
+        self.continue_current_music = True
+        pygame.mixer.music.load(VILLAGE_MUSIC['repeat'])
+        pygame.mixer.music.play(-1)
+        self.beginning_screen = Beginning(self, self.virtual_screen)
+        self.set_screen_state('beginning')
