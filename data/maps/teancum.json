@@ -18,5 +18,15 @@
       "y": 34,
       "direction": "s"
     }
+  },
+  {
+    "x": 16,
+    "y": 13,
+    "ai_sprite": {
+      "name": "kingmen",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Sir, we have checked for spoils the robbers may have left behind. All we found was a note that reads thus - We have buried the package at a safe location. The code is 4w16n23e8s."
+    }
   }
 ]

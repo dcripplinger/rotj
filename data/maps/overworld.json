@@ -4189,5 +4189,14 @@
         }
       }
     ]
+  },
+  {
+    "x": 65,
+    "y": 26,
+    "treasure": {
+      "name": "overworld_treasure1",
+      "item": "shamshir\u0155e",
+      "invisible": true
+    }
   }
 ]

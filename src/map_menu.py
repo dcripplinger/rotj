@@ -587,7 +587,7 @@ class MapMenu(object):
 
     def handle_check(self):
         result_text = self.map.check_for_item()
-        text = "{} searched. {}".format(self.map.hero.name.title(), result_text)
+        text = u"{} searched. {}".format(self.map.hero.name.title(), result_text)
         self.prompt = create_prompt(text)
         self.state = 'check'
         self.main_menu.unfocus()
