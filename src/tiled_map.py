@@ -498,6 +498,11 @@ class Map(object):
         battle_type = battle_data.get('battle_type', 'story')
         enemies = []
         for enemy in battle_data['enemies']:
+            if (
+                enemy['name'] == 'shiz'
+                and (self.game.is_in_company('shiz') or self.game.is_in_reserve('shiz'))
+            ):
+                enemy['name'] = 'whiz'
             if 'stats' in enemy:
                 stats = enemy['stats']
             else:

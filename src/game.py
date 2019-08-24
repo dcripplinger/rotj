@@ -161,6 +161,9 @@ class Game(object):
             'battle79': self.handle_battle79,
             'battle84': self.handle_battle84,
             'lachoneus_joins': self.handle_lachoneus_joins,
+            'battle69': self.handle_battle69,
+            'battle80': self.handle_battle80,
+            'battle90': self.handle_battle90,
         }
 
     def conditions_are_met(self, conditions):
@@ -2648,3 +2651,32 @@ class Game(object):
 
     def handle_lachoneus_joins(self):
         self.add_to_company(['lachoneus'])
+
+    def handle_battle69(self):
+        if self.game_complete():
+            self._handle_game_complete()
+
+    def handle_battle80(self):
+        if self.game_complete():
+            self._handle_game_complete()
+
+    def handle_battle90(self):
+        if self.game_complete():
+            self._handle_game_complete()
+
+    def _handle_game_complete(self):
+        # if there is nobody alive left in the company, resurrect moronihah or recruit him
+        need_moronihah = True
+        for warlord in self.game_state['company']:
+            if warlord['soldiers'] > 0 and warlord['name'] not in ['shiz', 'lachoneus']:
+                need_moronihah = False
+                break
+        if need_moronihah:
+            if 'moronihah' in [warlord['name'] for warlord in self.game_state['company']]:
+                self.heal('moronihah', 100)
+            else:
+                reserve_index = self.get_reserve_index('moronihah')
+                self.recruit(reserve_index)
+
+        self.remove_from_company_and_reserve('lachoneus')
+        self.remove_from_company_and_reserve('shiz')
