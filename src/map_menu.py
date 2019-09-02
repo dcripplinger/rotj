@@ -277,7 +277,17 @@ class MapMenu(object):
                         self.prompt = create_prompt(text)
                         self.state = 'item_prompt'
                 elif item_name == 'resurrect':
-                    if not recipient_is_dead:
+                    if recipient == 'shiz' and self.game.shiz_is_headless() and not recipient_is_dead:
+                        self.state = 'item_prompt'
+                        self.resurrect_sound.play()
+                        time.sleep(1.5)
+                        text = "{} used {}. {} has recovered from his wounds.".format(
+                            user.title(), item_name.title(), recipient.title(),
+                        )
+                        self.prompt = create_prompt(text)
+                        self.map.remove_item(user, self.items_menu.current_choice)
+                        self.map.restore_head_of_shiz()
+                    elif not recipient_is_dead:
                         self.state = 'item_prompt'
                         text = "{} used {}. But nothing happened.".format(user.title(), item_name.title())
                         self.prompt = create_prompt(text)

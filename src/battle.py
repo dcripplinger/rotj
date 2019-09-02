@@ -983,6 +983,7 @@ class Battle(object):
                 'tactical_points': ally.get_tactical_points(),
                 'soldiers': ally.soldiers,
                 'items': ally.items,
+                'headless': ally.headless,
             }
             for ally in self.allies
         }
@@ -1182,13 +1183,15 @@ class Battle(object):
         if move['target'].get_future_soldiers() <= inflicted_damage:
             inflicted_damage = move['target'].get_future_soldiers()
             move['target'].get_damaged(inflicted_damage)
-            return move, {'damage': inflicted_damage, 'killed': True, 'excellent': excellent}
+            killed = move['target'].get_future_soldiers() == 0
+            return move, {'damage': inflicted_damage, 'killed': killed, 'excellent': excellent}
         move['target'].get_damaged(inflicted_damage)
         if double_tap:
             if move['target'].get_future_soldiers() <= double_tap:
                 double_tap = move['target'].get_future_soldiers()
                 move['target'].get_damaged(double_tap)
-                return move, {'damage': inflicted_damage, 'double~tap': double_tap, 'killed': True, 'excellent': excellent}
+                killed = move['target'].get_future_soldiers() == 0
+                return move, {'damage': inflicted_damage, 'double~tap': double_tap, 'killed': killed, 'excellent': excellent}
             move['target'].get_damaged(double_tap)
             return move, {'damage': inflicted_damage, 'double~tap': double_tap, 'excellent': excellent}
         return move, {'damage': inflicted_damage, 'excellent': excellent}
@@ -1399,7 +1402,8 @@ class Battle(object):
             if move['target'].get_future_soldiers() <= damage:
                 damage = move['target'].get_future_soldiers()
                 move['target'].get_damaged(damage)
-                return move, {'damage': damage, 'killed': True}
+                killed = move['target'].get_future_soldiers() == 0
+                return move, {'damage': damage, 'killed': killed}
             move['target'].get_damaged(damage)
             return move, {'damage': damage}
         elif info.get('duration') == 'permanent':
@@ -1435,8 +1439,10 @@ class Battle(object):
                 if target.get_future_soldiers() <= damage:
                     damage = target.get_future_soldiers()
                     target.get_damaged(damage)
-                    results['targets'].append({'target': target, 'damage': damage, 'killed': True})
-                    results['killed'] = True # This is needed in case everyone is killed, to trigger win/lose
+                    killed = target.get_future_soldiers() == 0
+                    results['targets'].append({'target': target, 'damage': damage, 'killed': killed})
+                    if killed:
+                        results['killed'] = True # This is needed in case everyone is killed, to trigger win/lose
                 else:
                     target.get_damaged(damage)
                     results['targets'].append({'target': target, 'damage': damage})

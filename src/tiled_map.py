@@ -167,6 +167,10 @@ class Map(object):
         # Reload sprites because sometimes heal() is called for resurrecting
         self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
 
+    def restore_head_of_shiz(self):
+        self.game.restore_head_of_shiz()
+        self.load_company_sprites(self.hero.position, self.hero.direction, 'inplace')
+
     def remove_item(self, warlord, index):
         self.game.remove_item(warlord, index)
 

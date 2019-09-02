@@ -42,14 +42,11 @@ class BattleWarlordRectBase(object):
         self.walk = load_image(os.path.join('sprites', self.name, 'e', 'walk.png'))
         self.stand_s = load_image(os.path.join('sprites', self.name, 's', 'stand.png'))
         self.walk_s = load_image(os.path.join('sprites', self.name, 's', 'walk.png'))
+        self.sprite = self.stand
         self.headless = warlord.get('headless', False)
         self.queue_headless = self.headless
         if self.name == 'shiz' and self.headless:
-            self.stand = load_image(os.path.join('sprites', 'shiz_headless', 'e', 'stand.png'))
-            self.walk = load_image(os.path.join('sprites', 'shiz_headless', 'e', 'walk.png'))
-            self.stand_s = load_image(os.path.join('sprites', 'shiz_headless', 's', 'stand.png'))
-            self.walk_s = load_image(os.path.join('sprites', 'shiz_headless', 's', 'walk.png'))
-        self.sprite = self.stand
+            self.set_headless_sprites()
         self.state = 'wait'
         self.rel_pos = 0
         self.rel_target_pos = None
@@ -80,6 +77,14 @@ class BattleWarlordRectBase(object):
         self.switch_sprite_time = 0
         self.all_out_speed = False
         self.start_with_shiz_multiplier = 1.0
+
+    def set_headless_sprites(self):
+        standing = self.sprite == self.stand
+        self.stand = load_image(os.path.join('sprites', 'shiz_headless', 'e', 'stand.png'))
+        self.walk = load_image(os.path.join('sprites', 'shiz_headless', 'e', 'walk.png'))
+        self.stand_s = load_image(os.path.join('sprites', 'shiz_headless', 's', 'stand.png'))
+        self.walk_s = load_image(os.path.join('sprites', 'shiz_headless', 's', 'walk.png'))
+        self.sprite = self.stand if standing else self.walk
 
     def consume_tactical_points(self, points):
         raise NotImplementedError
@@ -229,8 +234,8 @@ class BattleWarlordRectBase(object):
 
     def get_damaged(self, soldiers):
         self.soldiers_change_queue.append(-soldiers)
-        if self.name == 'shiz' and not self.queue_headless and self.get_future_soldiers() == 0:
-            self.soldiers_change_queue.append(self.max_soldiers)
+        if self.name == 'shiz' and not self.is_enemy and not self.queue_headless and self.get_future_soldiers() == 0:
+            self.soldiers_change_queue[-1] = self.max_soldiers - soldiers
             self.queue_headless = True
 
     def dequeue_soldiers_change(self):
@@ -240,8 +245,9 @@ class BattleWarlordRectBase(object):
 
     def update_soldiers_change(self, delta):
         self.soldiers += delta
-        if self.name == 'shiz' and self.soldiers == 0:
+        if self.name == 'shiz' and not self.is_enemy and self.queue_headless:
             self.headless = self.queue_headless
+            self.set_headless_sprites()
         self.build_soldiers_bar()
         self.build_soldiers_box()
 

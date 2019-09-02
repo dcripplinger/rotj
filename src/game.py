@@ -459,6 +459,15 @@ class Game(object):
                 break
         self.update_game_state({'company': company})
 
+    def restore_head_of_shiz(self):
+        company = copy.deepcopy(self.game_state['company'])
+        for warlord in company:
+            if warlord['name'] == 'shiz':
+                warlord['soldiers'] = 1
+                warlord['headless'] = False
+                break
+        self.update_game_state({'company': company})
+
     def remove_item(self, warlord, index):
         warlord_name = warlord.lower()
         company = copy.deepcopy(self.game_state['company'])
