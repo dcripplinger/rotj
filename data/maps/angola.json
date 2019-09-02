@@ -38,5 +38,113 @@
       "y": 92,
       "direction": "s"
     }
+  },
+  {
+    "x": 17,
+    "y": 13,
+    "teleport": {
+      "map": "angola_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 24,
+    "y": 21,
+    "teleport": {
+      "map": "angola_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 31,
+    "y": 17,
+    "teleport": {
+      "map": "angola_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 39,
+    "y": 26,
+    "teleport": {
+      "map": "angola_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 39,
+    "y": 34,
+    "teleport": {
+      "map": "angola_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 31,
+    "y": 34,
+    "teleport": {
+      "map": "angola_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 13,
+    "y": 13,
+    "ai_sprite": {
+      "name": "guard2",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Why does everybody keep assuming I'm the guy to tell them what city this is?"
+    }
+  },
+  {
+    "x": 21,
+    "y": 17,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle79",
+          "text": "Beyond here lies Jashon."
+        },
+        {
+          "text": "Beyond here lies Jashon, which is protected by many outposts and a general by the name of Noah. He may be a bit heavyset, but do not underestimate him."
+        }
+      ]
+    }
+  },
+  {
+    "x": 34,
+    "y": 25,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Yes, this is the fortress of Angola. Only robbers would have thought to build a settlement so high in these inhospitable mountains. But we'll make the best of it."
+    }
+  },
+  {
+    "x": 35,
+    "y": 30,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "n",
+      "wander": true,
+      "dialog": "I wish I could be like Moroni. ... Moronihah? Who's that?"
+    }
   }
 ]

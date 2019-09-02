@@ -1,0 +1,12 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "angola",
+      "x": 31,
+      "y": 34,
+      "direction": "s"
+    }
+  }
+]
