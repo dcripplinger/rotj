@@ -1,0 +1,35 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "joshua",
+      "x": 23,
+      "y": 15,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~i",
+        "resurrect",
+        "kolob",
+        "horse"
+      ]
+    }
+  }
+]

@@ -813,6 +813,7 @@ MAP_MUSIC = {
     'jerusalem_palace': PALACE_MUSIC,
     'jordan': CITY_MUSIC,
     'joshua': CITY_MUSIC,
+    'joshua_palace': PALACE_MUSIC,
     'judea': CITY_MUSIC,
     'judea_palace': PALACE_MUSIC,
     'kishkumen': CITY_MUSIC,

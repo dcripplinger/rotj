@@ -66,5 +66,105 @@
       "direction": "s",
       "dialog": "The Lamanites never make it up this far north. We will be fine on our own."
     }
+  },
+  {
+    "x": 15,
+    "y": 23,
+    "teleport": {
+      "map": "joshua_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 33,
+    "y": 25,
+    "teleport": {
+      "map": "joshua_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 33,
+    "y": 30,
+    "teleport": {
+      "map": "joshua_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 15,
+    "teleport": {
+      "map": "joshua_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 24,
+    "y": 30,
+    "teleport": {
+      "map": "joshua_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 30,
+    "y": 16,
+    "teleport": {
+      "map": "joshua_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 31,
+    "y": 16,
+    "teleport": {
+      "map": "joshua_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 22,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Welcome to Joshua."
+    }
+  },
+  {
+    "x": 15,
+    "y": 17,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "You have saved our lives. We are eternally grateful."
+    }
+  },
+  {
+    "x": 28,
+    "y": 22,
+    "ai_sprite": {
+      "name": "old_woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "The mountainous fortress Angola lies to the east."
+    }
   }
 ]
