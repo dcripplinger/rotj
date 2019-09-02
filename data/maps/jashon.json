@@ -38,5 +38,165 @@
       "y": 43,
       "direction": "s"
     }
+  },
+  {
+    "x": 29,
+    "y": 40,
+    "teleport": {
+      "map": "jashon_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 40,
+    "teleport": {
+      "map": "jashon_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 40,
+    "teleport": {
+      "map": "jashon_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 36,
+    "teleport": {
+      "map": "jashon_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 36,
+    "teleport": {
+      "map": "jashon_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 29,
+    "teleport": {
+      "map": "jashon_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 17,
+    "y": 21,
+    "teleport": {
+      "map": "jashon_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 21,
+    "teleport": {
+      "map": "jashon_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 17,
+    "teleport": {
+      "map": "jashon_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 27,
+    "y": 17,
+    "teleport": {
+      "map": "jashon_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 42,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "n",
+      "wander": true,
+      "dialog": "This is the city Jashon."
+    }
+  },
+  {
+    "x": 30,
+    "y": 33,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Noah ruled his regimen of Gadianton Robbers with cruelty and duplicity. He would promise many that they could rise quickly in rank and then secretly help them plot to murder each other. I'm glad I was finally able to get out."
+    }
+  },
+  {
+    "x": 19,
+    "y": 31,
+    "ai_sprite": {
+      "name": "woman4",
+      "direction": "e",
+      "wander": true,
+      "dialog": "I still have hope that we can once again become a delightsome people after all this bloodshed."
+    }
+  },
+  {
+    "x": 19,
+    "y": 17,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "I noticed the armory has steel armor. It would be a wonderful upgrade, but it's just so expensive."
+    }
+  },
+  {
+    "x": 36,
+    "y": 26,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "e",
+      "wander": false,
+      "dialog": "I honestly don't know how he got stuck in there."
+    }
+  },
+  {
+    "x": 39,
+    "y": 26,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": "..."
+    }
   }
 ]

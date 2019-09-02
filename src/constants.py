@@ -809,6 +809,7 @@ MAP_MUSIC = {
     'gid': CITY_MUSIC,
     'helam': CITY_MUSIC,
     'jashon': CITY_MUSIC,
+    'jashon_palace': PALACE_MUSIC,
     'jerusalem': CITY_MUSIC,
     'jerusalem_palace': PALACE_MUSIC,
     'jordan': CITY_MUSIC,
@@ -1105,19 +1106,19 @@ ITEMS = {
     'steel~m': {
         'armor_class': 125,
         'equip_type': 'armor',
-        'cost': 300000,
+        'cost': 900000,
         'type': 'armor',
     },
     'tungsten~m': {
         'armor_class': 135,
         'equip_type': 'armor',
-        'cost': 1200000,
+        'cost': 2300000,
         'type': 'armor',
     },
     'osmium~m': {
         'armor_class': 145,
         'equip_type': 'armor',
-        'cost': 3500000,
+        'cost': 9999999,
         'type': 'armor',
     },
 
@@ -1173,13 +1174,13 @@ ITEMS = {
     'tungsten~h': {
         'armor_class': 100,
         'equip_type': 'helmet',
-        'cost': 325000,
+        'cost': 625000,
         'type': 'helmet',
     },
     'osmium~h': {
         'armor_class': 110,
         'equip_type': 'helmet',
-        'cost': 1100000,
+        'cost': 2100000,
         'type': 'helmet',
     },
 
