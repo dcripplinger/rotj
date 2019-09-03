@@ -38,5 +38,173 @@
       "y": 63,
       "direction": "s"
     }
+  },
+  {
+    "x": 20,
+    "y": 21,
+    "teleport": {
+      "map": "boaz_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 21,
+    "y": 21,
+    "teleport": {
+      "map": "boaz_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 14,
+    "teleport": {
+      "map": "boaz_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 20,
+    "y": 14,
+    "teleport": {
+      "map": "boaz_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 11,
+    "y": 18,
+    "teleport": {
+      "map": "boaz_home2",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 30,
+    "y": 25,
+    "teleport": {
+      "map": "boaz_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 34,
+    "y": 29,
+    "teleport": {
+      "map": "boaz_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 29,
+    "teleport": {
+      "map": "boaz_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 10,
+    "y": 29,
+    "teleport": {
+      "map": "boaz_home",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 32,
+    "teleport": {
+      "map": "boaz_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 22,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "You have arrived at Boaz."
+    }
+  },
+  {
+    "x": 13,
+    "y": 34,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "w",
+      "wander": true,
+      "dialog": "I cannot believe that, after joining the Gadianton Robbers, I have been shown such mercy as to start my life over. I promise to be an upstanding citizen."
+    }
+  },
+  {
+    "x": 17,
+    "y": 33,
+    "ai_sprite": {
+      "name": "yuppie",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle90",
+          "text": "Long live Lachoneus!"
+        },
+        {
+          "text": "Giddianhi is defeated, but Zemnarihah has taken his place as leader of the Gadianton Robbers. I hear he is planning a siege on the land of Zarahemla to starve them out."
+        }
+      ]
+    }
+  },
+  {
+    "x": 32,
+    "y": 34,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Don't forget to try various items in battle. Things such as nightshades and power pills could be the deciding factor between victory and defeat."
+    }
+  },
+  {
+    "x": 23,
+    "y": 26,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": true,
+      "dialog": "You have saved us all! Thank you for your bravery!"
+    }
+  },
+  {
+    "x": 33,
+    "y": 19,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "Tonight may be the first night for me to be able to sleep peacefully in my bed."
+    }
   }
 ]

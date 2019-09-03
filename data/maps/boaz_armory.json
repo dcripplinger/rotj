@@ -1,0 +1,36 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "boaz",
+      "x": 35,
+      "y": 14,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "bow",
+        "sword",
+        "iron~m",
+        "steel~m",
+        "tungsten~h"
+      ]
+    }
+  }
+]

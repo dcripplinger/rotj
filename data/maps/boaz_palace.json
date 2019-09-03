@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "boaz",
+      "x": 20,
+      "y": 21,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "s",
+      "wander": false,
+      "dialog": "judge_dialog"
+    }
+  }
+]
