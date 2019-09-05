@@ -1,0 +1,38 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "teancum",
+      "x": 12,
+      "y": 34,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~k",
+        "resurrect",
+        "nightshade",
+        "power~pill",
+        "remedy",
+        "horse",
+        "kolob"
+      ]
+    }
+  }
+]

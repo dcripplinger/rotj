@@ -1,0 +1,51 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "teancum",
+      "x": 15,
+      "y": 18,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 23,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle90",
+          "text": "Thank you for protecting us."
+        },
+        {
+          "text": "Zemnarihah has trained his sons Zedekiah and Gadiomnah well in advanced tactics. No one has faced them and lived."
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": [
+      {
+        "name": "horse",
+        "conditions": {
+          "start_with_shiz": true
+        },
+        "direction": "s",
+        "wander": false,
+        "dialog": "judge_dialog"
+      },
+      {
+        "name": "muloki",
+        "direction": "s",
+        "wander": false,
+        "dialog": "judge_dialog"
+      }
+    ]
+  }
+]

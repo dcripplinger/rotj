@@ -1,0 +1,36 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "teancum",
+      "x": 12,
+      "y": 26,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "armory",
+      "items": [
+        "sword",
+        "tungsten~m",
+        "osmium~m",
+        "tungsten~h",
+        "osmium~h"
+      ]
+    }
+  }
+]

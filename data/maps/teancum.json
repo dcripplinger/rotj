@@ -28,5 +28,101 @@
       "wander": true,
       "dialog": "Sir, we have checked for spoils the robbers may have left behind. All we found was a note that reads thus - We have buried the package at a safe location. The code is 4w16n23e8s."
     }
+  },
+  {
+    "x": 19,
+    "y": 34,
+    "teleport": {
+      "map": "teancum_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 34,
+    "teleport": {
+      "map": "teancum_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 12,
+    "y": 26,
+    "teleport": {
+      "map": "teancum_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 14,
+    "y": 36,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "Welcome to the city of Teancum, named after the great fallen hero."
+    } 
+  },
+  {
+    "x": 12,
+    "y": 31,
+    "ai_sprite": {
+      "name": "gentleman",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle90",
+          "text": "Wow, I admit I didn't expect you to make it out of that fight alive. I figured my pep talk was just sending you off to a hero's death."
+        },
+        {
+          "text": "The moment of truth has come. Zemnarihah awaits you to the south in Desolation. He has gathered all the robbers into one place, forming the largest army this land has ever seen. Are you ready to face him?"
+        }
+      ]
+    }
+  },
+  {
+    "x": 16,
+    "y": 25,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "n",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "start_with_shiz",
+          "text": "Whiz left no one alive here. What did our people do to deserve this cruelty?"
+        },
+        {
+          "text": "Shiz left no one alive here. What did our people do to deserve this cruelty?"
+        }
+      ]
+    }
+  },
+  {
+    "x": 15,
+    "y": 18,
+    "teleport": {
+      "map": "teancum_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 18,
+    "teleport": {
+      "map": "teancum_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
   }
 ]
