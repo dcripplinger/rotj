@@ -1,0 +1,36 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "shem",
+      "x": 18,
+      "y": 14,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~j",
+        "resurrect",
+        "nightshade",
+        "cloak",
+        "power~pill"
+      ]
+    }
+  }
+]

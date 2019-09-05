@@ -66,5 +66,103 @@
       "direction": "s",
       "dialog": "The Lamanites never make it up this far north. We will be fine on our own."
     }
+  },
+  {
+    "x": 32,
+    "y": 27,
+    "teleport": {
+      "map": "shem_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 27,
+    "teleport": {
+      "map": "shem_food_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 18,
+    "y": 14,
+    "teleport": {
+      "map": "shem_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 36,
+    "y": 14,
+    "teleport": {
+      "map": "shem_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 33,
+    "y": 31,
+    "ai_sprite": {
+      "name": "guard",
+      "direction": "s",
+      "wander": false,
+      "dialog": "This is the village of Shem."
+    }
+  },
+  {
+    "x": 31,
+    "y": 25,
+    "ai_sprite": {
+      "name": "woman2",
+      "direction": "n",
+      "wander": true,
+      "dialog": "This village floods all the time and we can't get it under control. It's so frustrating."
+    }
+  },
+  {
+    "x": 18,
+    "y": 29,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "battle83",
+          "text": "You have performed admirably to have persevered against the forces of evil. May God protect you in your defense of freedom."
+        },
+        {
+          "text": "Cohor is making preparations to attack from the next city inhabited by robbers, to the east. To save lives, it is best we attack first. But do not underestimate him."
+        }
+      ]
+    }
+  },
+  {
+    "x": 13,
+    "y": 17,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Thank you for rescuing us from the clutches of Zemnarihah! That man scared me so much."
+    }
+  },
+  {
+    "x": 27,
+    "y": 18,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": true,
+      "dialog": "Maybe now I can get back to farming."
+    }
   }
 ]
