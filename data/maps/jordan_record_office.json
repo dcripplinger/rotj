@@ -1,0 +1,29 @@
+[
+  {
+    "x": 16,
+    "y": 18,
+    "teleport": {
+      "map": "jordan",
+      "x": 29,
+      "y": 22,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 14,
+    "y": 11,
+    "ai_sprite": {
+      "name": "villager3",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 14,
+    "y": 12,
+    "shop": {
+      "type": "record_office"
+    }
+  }
+]

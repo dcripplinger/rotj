@@ -18,5 +18,87 @@
       "y": 64,
       "direction": "s"
     }
+  },
+  {
+    "x": 20,
+    "y": 16,
+    "teleport": {
+      "map": "jordan_reserve",
+      "x": 15,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 16,
+    "teleport": {
+      "map": "jordan_home",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 29,
+    "y": 22,
+    "teleport": {
+      "map": "jordan_record_office",
+      "x": 16,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 35,
+    "y": 28,
+    "teleport": {
+      "map": "jordan_armory",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 28,
+    "y": 39,
+    "teleport": {
+      "map": "jordan_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 16,
+    "y": 18,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": true,
+      "dialog": "This is the fortress Jordan. Robbers did not steal this land from Nephite settlers. This is one of the few places they built themselves. Now that you have cleared out the robbers, farmers and merchants are beginning to move in. But not many have arrived yet."
+    }
+  },
+  {
+    "x": 29,
+    "y": 33,
+    "ai_sprite": {
+      "name": "woman",
+      "direction": "s",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "I suppose I will have to make this my new home."
+        },
+        {
+          "condition": "start_with_shiz",
+          "text": "When my city to the north was attacked, it was so swift that no one survived but me! Who can stand before the army of Whiz? Behold, he sweepeth the earth before him!"
+        },
+        {
+          "text": "When my city to the north was attacked, it was so swift that no one survived but me! Who can stand before the army of Shiz? Behold, he sweepeth the earth before him!"
+        }
+      ]
+    }
   }
 ]
