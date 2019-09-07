@@ -1,0 +1,39 @@
+[
+  {
+    "x": 13,
+    "y": 18,
+    "teleport": {
+      "map": "desolation",
+      "x": 15,
+      "y": 13,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 13,
+    "y": 10,
+    "ai_sprite": {
+      "name": "merchant",
+      "direction": "s",
+      "wander": false,
+      "dialog": ""
+    }
+  },
+  {
+    "x": 13,
+    "y": 11,
+    "shop": {
+      "type": "merchant",
+      "items": [
+        "elixir~k",
+        "resurrect",
+        "nightshade",
+        "power~pill",
+        "remedy",
+        "horse",
+        "kolob",
+        "cloak"
+      ]
+    }
+  }
+]

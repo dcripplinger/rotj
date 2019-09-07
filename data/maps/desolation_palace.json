@@ -1,0 +1,22 @@
+[
+  {
+    "x": 17,
+    "y": 34,
+    "teleport": {
+      "map": "desolation",
+      "x": 25,
+      "y": 24,
+      "direction": "s"
+    }
+  },
+  {
+    "x": 17,
+    "y": 14,
+    "ai_sprite": {
+      "name": "zoramites",
+      "direction": "s",
+      "wander": false,
+      "dialog": "judge_dialog"
+    }
+  }
+]

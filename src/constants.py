@@ -833,6 +833,7 @@ MAP_MUSIC = {
     'shilom': CITY_MUSIC,
     'south_desert_cave': CAVE_MUSIC,
     'teancum': CITY_MUSIC,
+    'teancum_palace': PALACE_MUSIC,
     'west_desert_cave': CAVE_MUSIC,
     'west_grotto': CAVE_MUSIC,
     'west_lamanite_camp': CAMP_MUSIC,

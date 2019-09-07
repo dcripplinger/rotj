@@ -78,5 +78,113 @@
       "y": 87,
       "direction": "s"
     }
+  },
+  {
+    "x": 31,
+    "y": 34,
+    "teleport": {
+      "map": "desolation_inn",
+      "x": 18,
+      "y": 18,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 15,
+    "y": 13,
+    "teleport": {
+      "map": "desolation_merchant_shop",
+      "x": 13,
+      "y": 17,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 25,
+    "y": 24,
+    "teleport": {
+      "map": "desolation_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 26,
+    "y": 24,
+    "teleport": {
+      "map": "desolation_palace",
+      "x": 17,
+      "y": 33,
+      "direction": "n"
+    }
+  },
+  {
+    "x": 23,
+    "y": 34,
+    "ai_sprite": {
+      "name": "villager2",
+      "direction": "s",
+      "wander": true,
+      "dialog": "These are the ruins of the ancient city of Desolation. People say that a long time ago, there was a great civilization who lived here and throughout many lands northward but is now extinct."
+    }
+  },
+  {
+    "x": 15,
+    "y": 28,
+    "ai_sprite": {
+      "name": "old_man2",
+      "direction": "w",
+      "wander": true,
+      "dialog": [
+        {
+          "condition": "state:game_complete",
+          "text": "A new star rises. Perhaps it is a sign of something wonderful about to happen."
+        },
+        {
+          "text": "Giddianhi still plunders the lands to the east. Will you help us?"
+        }
+      ]
+    }
+  },
+  {
+    "x": 26,
+    "y": 28,
+    "ai_sprite": {
+      "name": "woman4",
+      "direction": "n",
+      "wander": true,
+      "dialog": "I truly regret joining with the secret band of Gadianton. All it ever gave me was empty promises and guilt for the crimes I have committed against poor, innocent people."
+    }
+  },
+  {
+    "x": 25,
+    "y": 15,
+    "ai_sprite": {
+      "name": "woman3",
+      "direction": "w",
+      "wander": true,
+      "dialog": "Because of you, I have been reunited with my family."
+    }
+  },
+  {
+    "x": 31,
+    "y": 24,
+    "ai_sprite": {
+      "name": "gentleman2",
+      "direction": "e",
+      "wander": true,
+      "dialog": "If only the great warrior Teancum could have been here to see our historic victory."
+    }
+  },
+  {
+    "x": 34,
+    "y": 36,
+    "ai_sprite": {
+      "name": "amlicites",
+      "direction": "n",
+      "wander": true,
+      "dialog": "Sir, we will remain here and prevent further uprisings and secret combinations."
+    }
   }
 ]
