@@ -684,6 +684,11 @@ MARCH_MUSIC = {
     'repeat': 'data/audio/music/march.wav',
 }
 
+CREDITS_MUSIC = {
+    'intro': os.path.join('data', 'audio', 'music', 'credits_intro.wav'),
+    'repeat': os.path.join('data', 'audio', 'music', 'credits_repeat.wav'),
+}
+
 PEACE_MUSIC = {
     'intro': None,
     'repeat': os.path.join('data', 'audio', 'music', 'peace.wav'),

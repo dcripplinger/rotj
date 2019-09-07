@@ -18,6 +18,7 @@ from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
     MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC, MAP_WIDTH, MAP_HEIGHT, VILLAGE_MUSIC,
+    CREDITS_MUSIC,
 )
 from cutscene import Cutscene
 from helpers import (
@@ -40,6 +41,7 @@ from pause_map import PauseMap
 from pause_menu import PauseMenu
 from tiled_map import Map
 from title_page import TitlePage
+from game_credits import Credits
 
 REPEAT_CONDITIONS = [
     'got_javelin',
@@ -50,6 +52,8 @@ REPEAT_CONDITIONS = [
 
 class Game(object):
     def __init__(self, screen, args):
+        self.credits = None
+        self.start_credits = False
         self.args = args # Parsed args from the command line
         self.devtools = OrderedDict((
             ('No encounters', False), # When on, disables all random encounters
@@ -165,6 +169,7 @@ class Game(object):
             'battle80': self.handle_battle80,
             'battle90': self.handle_battle90,
             'start_with_shiz': self.handle_start_with_shiz,
+            'roll_credits': self.handle_roll_credits,
         }
 
     def conditions_are_met(self, conditions):
@@ -506,7 +511,7 @@ class Game(object):
 
     def set_screen_state(self, state):
         '''
-        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map', 'fade_cutscene', 'cutscene'
+        Valid screen states are 'title', 'game', 'menu', 'beginning', 'change_map', 'battle', 'start_battle', 'sleep', 'pause_menu', 'pause_map', 'fade_cutscene', 'cutscene', 'credits'
         '''
         self._screen_state = state
         if state in ['title', 'menu', 'battle', 'pause_menu', 'battle_intro']:
@@ -535,6 +540,12 @@ class Game(object):
             self.title_page.reset()
             self.menu_screen = MenuScreen(self.virtual_screen, self)
             self.beginning_screen = Beginning(self, self.virtual_screen)
+        elif state == 'credits':
+            self.current_map = None
+            self.credits = Credits(self.virtual_screen, self)
+            pygame.mixer.music.load(CREDITS_MUSIC['intro'])
+            pygame.mixer.music.play()
+            self.current_music = 'intro'
 
     def open_pause_menu(self):
         self._screen_state_after_pause = self._screen_state
@@ -905,6 +916,8 @@ class Game(object):
             self.pause_map.draw()
         elif self._screen_state == 'cutscene':
             self.current_cutscene.draw()
+        elif self._screen_state == 'credits':
+            self.credits.draw()
         self.scale()
 
     def update(self, dt):
@@ -912,6 +925,8 @@ class Game(object):
         if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
             if self._screen_state == 'battle' or self._screen_state_after_pause == 'battle':
                 repeat_music = BATTLE_MUSIC[self.battle.battle_type]['repeat']
+            elif self._screen_state == 'credits':
+                repeat_music = CREDITS_MUSIC['repeat']
             else:
                 repeat_music = self.get_music(self.current_map.name)['repeat']
             pygame.mixer.music.load(repeat_music)
@@ -956,6 +971,8 @@ class Game(object):
             self.pause_map.update(dt)
         elif self._screen_state == 'cutscene':
             self.current_cutscene.update(dt)
+        elif self._screen_state == 'credits':
+            self.credits.update(dt)
 
     def update_battle_fade(self, dt):
         if self.change_map_time_elapsed is None:
@@ -1230,6 +1247,15 @@ class Game(object):
                 return
             if event.type == KEYDOWN:
                 pressed = pygame.key.get_pressed()
+                if self.start_credits:
+                    if (
+                        (pressed[K_x] or pressed[K_z])
+                        and self.current_map
+                        and self.current_map.map_menu
+                        and self.current_map.map_menu.prompt
+                        and not self.current_map.map_menu.prompt.has_more_stuff_to_show()
+                    ):
+                        self.set_screen_state('credits')
                 if self._screen_state == "game":
                     self.current_map.handle_input(pressed)
                 elif self._screen_state == 'title':
@@ -1271,6 +1297,8 @@ class Game(object):
                     self.pause_map.handle_input(pressed)
                 elif self._screen_state == 'cutscene':
                     self.current_cutscene.handle_input(pressed)
+                elif self._screen_state == 'credits':
+                    self.credits.handle_input(pressed)
 
     def run(self):
         self.running = True
@@ -2715,3 +2743,6 @@ class Game(object):
         pygame.mixer.music.play(-1)
         self.beginning_screen = Beginning(self, self.virtual_screen)
         self.set_screen_state('beginning')
+
+    def handle_roll_credits(self):
+        self.start_credits = True

@@ -54,7 +54,7 @@ class TitlePage(object):
         }
         self.title_image = load_image('title.png').convert_alpha()
         copyright_text = (
-            u'© DAVID RIPPLINGER,~2017\n'
+            u'© DAVID RIPPLINGER,~2019\n'
             u'FREE UNDER THE MIT LICENSE\n'
             u'BASED ON "DESTINY OF AN EMPEROR"\n'
             u'© HIROSHI MOTOMIYA,~1989'
