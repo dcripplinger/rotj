@@ -16,7 +16,7 @@
       "name": "woman5",
       "direction": "e",
       "wander": true,
-      "dialog": "The shop sells Nightshades. They can dispel all the tactical effects of the enemy, but they only work half the time."
+      "dialog": "The shop sells Nightshades. They can dispel all the tactical effects of the enemy, but they only work most of the time."
     }
   }
 ]

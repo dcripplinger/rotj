@@ -1258,7 +1258,7 @@ class Battle(object):
             for warlord in target_warlords:
                 warlord.reinforcements = False
         elif info['effect'] == 'dispel': # nightshade
-            if random.random() < 0.5:
+            if random.random() < 0.75:
                 is_ally_move = move['agent'] in self.allies
                 acting_team = self.allies if is_ally_move else self.enemies
                 for warlord in acting_team:
