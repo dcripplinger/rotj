@@ -192,7 +192,9 @@ class MapMenu(object):
             return self.handle_input_general(pressed)
         elif self.state == 'report':
             if pressed[K_x] or pressed[K_z]:
-                return self.exit()
+                self.state = 'general'
+                self.report = None
+                return
         elif self.state == 'item':
             return self.handle_input_item(pressed)
         elif self.state == 'empty':
@@ -489,8 +491,6 @@ class MapMenu(object):
             choice = self.general_menu.get_choice().lower()
             self.state = 'report'
             self.report = Report(choice, self.map.get_level(), self.map.get_equips(choice), headless=self.map.get_headless(choice))
-            self.general_menu = None
-            self.main_menu = None
 
     def handle_input_strat(self, pressed):
         self.strat_menu.handle_input(pressed)
