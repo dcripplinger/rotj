@@ -88,7 +88,7 @@ TAUNTS = [
 
 RETREAT_TIME_PER_PERSON = 0.2
 REMOVE_STATUS_PROB = 0.2 # Chance that a temporary status expires at the end of a volley
-REMOVE_ADVANCED_STATUS_PROB = 0.3 # Chance that an ally's temporary advanced status expires at the end of a volley
+REMOVE_ADVANCED_STATUS_PROB = 0.27 # Chance that an ally's temporary advanced status expires at the end of a volley
 
 
 class Battle(object):
