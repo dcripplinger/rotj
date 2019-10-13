@@ -10,14 +10,6 @@
     "no_epistle": true
   },
   {
-    "condition": "learned_thunder_counter",
-    "text": "Now that you have learned the counter to Zemnarihah's thunder attack, you may stand a chance."
-  },
-  {
-    "condition": "got_thundered",
-    "text": "Your father wishes to speak to you in Melek. I think he has information about Zemnarihah's thunder attack."
-  },
-  {
     "condition": "battle80",
     "text": "Zemnarihah has succeeded Giddianhi and has built the largest army we have ever seen. There are still more strongholds in the land northward where Zemnarihah and the Gadianton Robbers are receiving strength daily."
   },
