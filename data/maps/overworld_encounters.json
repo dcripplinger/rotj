@@ -1848,7 +1848,7 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 10
       },
       "amlicites": {
@@ -1863,7 +1863,7 @@
         "agility": 44,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 15
       },
       "seanti": {
@@ -1950,7 +1950,7 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 10
       },
       "amlicites": {
@@ -1965,7 +1965,7 @@
         "agility": 44,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 15
       },
       "seanti": {
@@ -2501,7 +2501,7 @@
         "agility": 44,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 30,
+        "attack_points": 25,
         "armor_class": 20
       },
       "lamanites": {
@@ -2516,7 +2516,7 @@
         "agility": 51,
         "evasion": 20,
         "tactical_points": 0,
-        "attack_points": 30,
+        "attack_points": 25,
         "armor_class": 20
       },
       "isaac": {
@@ -2626,7 +2626,7 @@
         "agility": 25,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 10
       },
       "amlicites": {
@@ -2641,7 +2641,7 @@
         "agility": 44,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 25,
+        "attack_points": 15,
         "armor_class": 15
       },
       "antionah": {
@@ -3126,7 +3126,7 @@
         "agility": 51,
         "evasion": 20,
         "tactical_points": 0,
-        "attack_points": 30,
+        "attack_points": 25,
         "armor_class": 20
       },
       "lemuel": {

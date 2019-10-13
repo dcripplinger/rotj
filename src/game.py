@@ -1510,7 +1510,7 @@ class Game(object):
                 "agility": 44,
                 "evasion": 0,
                 "tactical_points": 0,
-                "attack_points": 30,
+                "attack_points": 25,
                 "armor_class": 20,
             },
         }

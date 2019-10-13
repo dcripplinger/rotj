@@ -63,7 +63,7 @@
         "agility": 44,
         "evasion": 0,
         "tactical_points": 0,
-        "attack_points": 30,
+        "attack_points": 25,
         "armor_class": 20
       },
       "lamanites": {
@@ -78,7 +78,7 @@
         "agility": 51,
         "evasion": 20,
         "tactical_points": 0,
-        "attack_points": 30,
+        "attack_points": 25,
         "armor_class": 20
       },
       "isaac": {
