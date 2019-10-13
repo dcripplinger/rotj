@@ -81,18 +81,18 @@
       },
       "robbers": {
         "soldiers": [
-          220000,
-          320000,
-          420000
+          1000000,
+          1300000,
+          1600000
         ],
-        "strength": 151,
-        "defense": 88,
-        "intelligence": 69,
+        "strength": 162,
+        "defense": 94,
+        "intelligence": 79,
         "agility": 128,
-        "evasion": 31,
+        "evasion": 35,
         "tactical_points": 0,
-        "attack_points": 110,
-        "armor_class": 90
+        "attack_points": 120,
+        "armor_class": 100
       }
     }
   }
