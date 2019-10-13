@@ -815,6 +815,8 @@ class Battle(object):
         elif mini_move['item'] == 'nightshade':
             if mini_result.get('fail'):
                 dialog += u"There is no effect."
+            else:
+                dialog += u"All your status ailments and the enemy's tactics are nullified."
         elif mini_move['item'] == 'javelin':
             if mini_result.get('fail'):
                 dialog += u"He doesn't have very good aim."
