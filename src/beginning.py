@@ -94,15 +94,15 @@ class Beginning(object):
                 game_state = {
                     'name': self.game.game_state['name'],
                     'conditions': [],
+                    'beaten_path': {},
+                    'visible_tiles': {},
                 }
+                self.game.unprocessed_beaten_path = []
                 if self.game.conditions_are_met('start_with_shiz'):
-                    self.game.unprocessed_beaten_path = []
                     game_state.update({
                         'conditions': [
                             'start_with_shiz',
                         ],
-                        'beaten_path': {},
-                        'visible_tiles': {},
                     })
                     starting_company.append({
                         'name': 'shiz',
