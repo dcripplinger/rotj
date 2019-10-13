@@ -740,9 +740,9 @@ class Battle(object):
             dialog += u"{} uses {}. ".format(mini_move['agent'].name.title(), mini_move['tactic'].title())
         if mini_result.get('deflect'):
             if is_ally_move:
-                dialog += u"The enemy is deflecting all tactics."
+                dialog += u"The enemy is deflecting all offensive tactics."
             else:
-                dialog += u"{}'s army is deflecting all tactics.".format(self.get_leader().name.title())
+                dialog += u"{}'s army is deflecting all offensive tactics.".format(self.get_leader().name.title())
         elif mini_result.get('wasted'):
             dialog += u"They feel so dumb for wasting their move on a dead guy."
         elif mini_result.get('fail'):
