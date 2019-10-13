@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import copy
+
 from pygame.locals import *
 import pyscroll
 from pytmx.util_pygame import load_pygame
@@ -91,12 +93,7 @@ class Beginning(object):
                 ]
 
                 # if this a start_with_shiz scenario, we need to erase previous data except name
-                game_state = {
-                    'name': self.game.game_state['name'],
-                    'conditions': [],
-                    'beaten_path': {},
-                    'visible_tiles': {},
-                }
+                game_state = copy.deepcopy(self.game.game_state)
                 self.game.unprocessed_beaten_path = []
                 if self.game.conditions_are_met('start_with_shiz'):
                     game_state.update({

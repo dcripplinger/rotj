@@ -208,7 +208,13 @@ def erase_save_state(slot):
 
 def create_save_state(slot, name):
     with open('data/state/{}.json'.format(slot), 'w') as f:
-        f.write(json.dumps({'name': name, 'level': 0}))
+        f.write(json.dumps({
+            'name': name,
+            'level': 0,
+            'conditions': [],
+            'beaten_path': {},
+            'visible_tiles': {},
+        }))
 
 
 def copy_save_state(from_slot, to_slot):

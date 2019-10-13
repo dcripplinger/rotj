@@ -285,16 +285,7 @@ class MenuScreen(object):
             time.sleep(.5)
             slot = int(self.start_menu.get_choice()[0])
             self.game.game_state = self.state[slot-1]
-            if 'beaten_path' not in self.game.game_state:
-                self.game.game_state['beaten_path'] = {}
-            if 'visible_tiles' not in self.game.game_state:
-                self.game.game_state['visible_tiles'] = {}
-                self.game.update_game_state({
-                    'beaten_path': {k: False for k in self.game.game_state['beaten_path'].keys()},
-                })
             self.game.unprocessed_beaten_path = [k for k, v in self.game.game_state['beaten_path'].items() if not v]
-            if self.game.conditions_are_met('battle71'):
-                self.game.handle_battle71()
             self.game.slot = slot
             if self.game.game_state['level'] == 0:
                 self.game.set_screen_state('beginning')
