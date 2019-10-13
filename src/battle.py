@@ -191,7 +191,11 @@ class Battle(object):
                 soldiers = random.choice(enemy['stats']['soldiers'])
             else:
                 soldiers = enemy['stats']['soldiers']
-            capture = self.game.conditions_are_met(enemy['stats']['capture']) if 'capture' in enemy['stats'] else False
+            capture = (
+                self.game.conditions_are_met(enemy['stats']['capture'])
+                if enemy['stats'].get('capture') is not None
+                else False
+            )
             if 'tactics' in enemy['stats'] and enemy['stats']['tactics'][4] == 'train':
                 enemy['stats']['tactics'][4] = 'disable'
             self.enemies.append(Enemy({
