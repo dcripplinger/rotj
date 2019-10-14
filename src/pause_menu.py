@@ -133,4 +133,5 @@ class PauseMenu(object):
             self.screen_state = 'menu'
             self.help_menu = None
             self.menu.focus()
-        self.help_menu.handle_input(pressed)
+        if self.help_menu:
+            self.help_menu.handle_input(pressed)

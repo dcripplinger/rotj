@@ -235,6 +235,7 @@ TACTICS = {
             # assassin = enemy_prob/3
         'slot': 1,
         'tactical_points': 2,
+        'description': "Fire: Inflicts 40 to 60 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 2. TP cost: 2.",
     },
     'bomb': {
         'min_damage': 70,
@@ -245,6 +246,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 4,
+        'description': "Bomb: Inflicts 70 to 150 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 110. Level required to learn: 9. TP cost: 4.",
     },
     'lava': {
         'min_damage': 100,
@@ -255,6 +257,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 6,
+        'description': "Lava: Inflicts 100 to 200 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 16. TP cost: 6.",
     },
     'brimstone': {
         'min_damage': 700,
@@ -265,6 +268,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 8,
+        'description': "Brimstone: Inflicts 700 to 1100 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 140. Level required to learn: 23. TP cost: 8.",
     },
     'backdraft': {
         'min_damage': 1500,
@@ -275,6 +279,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 12,
+        'description': "Backdraft: Inflicts 1500 to 2500 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 150. Level required to learn: 30. TP cost: 12.",
     },
     'blue~flame': {
         'min_damage': 4000,
@@ -285,6 +290,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 16,
+        'description': "Blue Flame: Inflicts 4000 to 6000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 160. Level required to learn: 35. TP cost: 16.",
     },
     'volcano': {
         'min_damage': 10000,
@@ -295,6 +301,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 20,
+        'description': "Volcano: Inflicts 10000 to 20000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 170. Level required to learn: 41. TP cost: 20.",
     },
     'napalm': {
         'min_damage': 50000,
@@ -305,6 +312,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 24,
+        'description': "Napalm: Inflicts 50000 to 100000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 52. TP cost: 24.",
     },
     'baby~nuke': {
         'min_damage': 1000000,
@@ -315,6 +323,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 32,
+        'description': "Baby Nuke: Inflicts 1000000 to 2000000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 76. TP cost: 32.",
     },
     'flood': {
         'min_damage': 60,
@@ -325,6 +334,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 2,
         'tactical_points': 3,
+        'description': "Flood: Inflicts 60 to 80 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 3. TP cost: 3.",
     },
     'geyser': {
         'min_damage': 90,
@@ -335,6 +345,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 2,
         'tactical_points': 6,
+        'description': "Geyser: Inflicts 90 to 200 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 115. Level required to learn: 10. TP cost: 6.",
     },
     'hailstorm': {
         'min_damage': 130,
@@ -345,6 +356,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 9,
+        'description': "Hailstorm: Inflicts 130 to 250 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 17. TP cost: 9.",
     },
     'monsoon': {
         'min_damage': 600,
@@ -355,6 +367,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 12,
+        'description': "Monsoon: Inflicts 600 to 1000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 145. Level required to learn: 22. TP cost: 12.",
     },
     'tsunami': {
         'min_damage': 1800,
@@ -365,6 +378,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 15,
+        'description': "Monsoon: Inflicts 1800 to 3000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 160. Level required to learn: 29. TP cost: 15.",
     },
     'blizzard': {
         'min_damage': 8000,
@@ -375,6 +389,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 21,
+        'description': "Monsoon: Inflicts 8000 to 15000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 175. Level required to learn: 40. TP cost: 21.",
     },
     'sharknado': {
         'min_damage': 100000,
@@ -385,6 +400,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 27,
+        'description': "Sharknado: Inflicts 100000 to 300000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 59. TP cost: 27.",
     },
     'hurricane': {
         'min_damage': 1000000,
@@ -395,6 +411,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 36,
+        'description': "Hurricane: Inflicts 1000000 to 4000000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 220. Level required to learn: 78. TP cost: 36.",
     },
     'salve': {
         'min_damage': 100,
@@ -405,6 +422,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 3,
+        'description': "Salve: Heals 100 to 150 soldiers of one ally. Always successful. INT required to learn: 100. Level required to learn: 4. TP cost: 3.",
     },
     'cure': {
         'min_damage': 400,
@@ -415,6 +433,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 6,
+        'description': "Cure: Heals 400 to 700 soldiers of one ally. Always successful. INT required to learn: 110. Level required to learn: 11. TP cost: 6.",
     },
     'rejuvenate': {
         'min_damage': 900,
@@ -425,16 +444,18 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 9,
+        'description': "Rejuvenate: Heals 900 to 1500 soldiers of all allies. Always successful. INT required to learn: 120. Level required to learn: 18. TP cost: 9.",
     },
     'restore': {
         'min_damage': 1000000000,
         'max_damage': 1000000001,
         'type': 'ally',
-        'min_intelligence': 200,
+        'min_intelligence': 180,
         'min_level': 24,
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 12,
+        'description': "Restore: Heals one ally completely. Always successful. INT required to learn: 180. Level required to learn: 24. TP cost: 12.",
     },
     'heal': {
         'min_damage': 4000,
@@ -445,6 +466,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 4,
+        'description': "Heal: Heals 4000 to 6000 soldiers of all allies. Always successful. INT required to learn: 140. Level required to learn: 28. TP cost: 4.",
     },
     'healmore': {
         'min_damage': 40000,
@@ -455,6 +477,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 8,
+        'description': "Healmore: Heals 40000 to 60000 soldiers of all allies. Always successful. INT required to learn: 150. Level required to learn: 45. TP cost: 8.",
     },
     'arise': {
         'min_damage': 400000,
@@ -465,6 +488,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 12,
+        'description': "Arise: Heals 400000 to 600000 soldiers of all allies. Always successful. INT required to learn: 170. Level required to learn: 61. TP cost: 12.",
     },
     'revive': {
         'min_damage': 1000000000,
@@ -474,7 +498,8 @@ TACTICS = {
         'min_level': 80,
         'success_probability_type': 'one',
         'slot': 3,
-        'tactical_points': 48,
+        'tactical_points': 24,
+        'description': "Revive: Heals all allies completely. Always successful. INT required to learn: 190. Level required to learn: 80. TP cost: 24.",
     },
     'firewall': {
         'type': 'defense',
@@ -484,6 +509,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 4,
         'duration': 'temporary', # can be temporary or permanent. This is for status effects.
+        'description': "Firewall: Reduces fire damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 100. Level required to learn: 5. TP cost: 4.",
     },
     'extinguish': {
         'type': 'defense',
@@ -493,6 +519,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 8,
         'duration': 'temporary',
+        'description': "Extinguish: Reduces fire damage inflicted on all allies down to one. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 120. Level required to learn: 15. TP cost: 8.",
     },
     'shield': {
         'type': 'defense',
@@ -502,6 +529,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 12,
         'duration': 'temporary',
+        'description': "Shield: Reduces physical damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 170. Level required to learn: 26. TP cost: 12.",
     },
     'repel': {
         'type': 'defense',
@@ -511,6 +539,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 16,
         'duration': 'temporary',
+        'description': "Repel: Repels all physical attacks from the enemy. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 200. Level required to learn: 37. TP cost: 16.",
     },
     'deflect': {
         'type': 'defense',
@@ -520,6 +549,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 20,
         'duration': 'temporary',
+        'description': "Deflect: Deflects all tactics from the enemy that target any allies. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 240. Level required to learn: 50. TP cost: 20.",
     },
     'provoke': {
         'type': 'enemy',
@@ -529,6 +559,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 5,
         'duration': 'permanent',
+        'description': "Provoke: Force the target enemy to only do physical attacks on the user. High success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 130. Level required to learn: 6. TP cost: 5.",
     },
     'disable': {
         'type': 'enemy',
@@ -538,6 +569,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 10,
         'duration': 'permanent',
+        'description': "Disable: Force the target enemy to do nothing. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 160. Level required to learn: 20. TP cost: 10.",
     },
     'dispel': {
         'type': 'single',
@@ -546,14 +578,16 @@ TACTICS = {
         'success_probability_type': 'intel_prob',
         'slot': 5,
         'tactical_points': 15,
+        'description': "Dispel: Remove all bad status effects on allies and all good status effects on enemies. Medium success probability, based on INT of user. INT required to learn: 160. Level required to learn: 33. TP cost: 15.",
     },
     'plunder': {
         'type': 'single',
-        'min_intelligence': 190,
+        'min_intelligence': 200,
         'min_level': 43,
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 20,
+        'description': "Plunder: Steal money from the enemy. You can plunder a net number of one time. So, if the enemy plunders first, you can plunder twice. If you have already plundered more than the enemy, each time the enemy plunders, you can plunder back. Whatever you gain or lose is still in effect if you retreat early. Always successful. INT required to learn: 200. Level required to learn: 43. TP cost: 20.",
     },
     'train': {
         'type': 'defense',
@@ -563,6 +597,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 25,
         'duration': 'permanent',
+        'description': "Train: Earn three times the experience points if you complete the battle. Always successful. INT required to learn: 245. Level required to learn: 55. TP cost: 25.",
     },
     'surrender': {
         'type': 'single',
@@ -571,6 +606,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 30,
+        'description': "Surrender: Immediately retreat from battle. Always successful and you never get overtaken by the enemy, but you lose half your soldiers. INT required to learn: 255. Level required to learn: 69. TP cost: 30.",
     },
     'ninja': {
         'type': 'ally',
@@ -580,6 +616,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 4,
         'duration': 'permanent',
+        'description': "Ninja: Increase AGI of target ally to 255 for duration of battle. Always successful. The effect lasts for the whole battle. INT required to learn: 140. Level required to learn: 7. TP cost: 4.",
     },
     'double~tap': {
         'type': 'ally',
@@ -589,6 +626,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
+        'description': "Double Tap: Target ally has a 75 percent chance of hitting a second time when doing a physical attack. Always successful. The effect lasts for the whole battle. INT required to learn: 220. Level required to learn: 13. TP cost: 6.",
     },
     'confuse': {
         'type': 'enemy',
@@ -598,6 +636,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
+        'description': "Confuse: Cause an enemy to only do physical attacks on his own allies. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 150. Level required to learn: 32. TP cost: 6.",
     },
     'assassin': {
         'type': 'enemy',
@@ -608,6 +647,7 @@ TACTICS = {
         'success_probability_type': 'assassin',
         'slot': 6,
         'tactical_points': 10,
+        'description': "Assassin: Instantly defeat a single enemy. Low success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 48. TP cost: 10.",
     },
     'hulk~out': {
         'type': 'ally',
@@ -617,6 +657,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
+        'description': "Hulk Out: Target ally's physical attack damage increases by 50 percent. It can be used twice on an ally to increase the damage by a maximum of 100 percent. Always successful. The effect lasts for the whole battle. INT required to learn: 240. Level required to learn: 73. TP cost: 6.",
     },
 }
 
@@ -1085,66 +1126,77 @@ ITEMS = {
         'equip_type': 'armor',
         'cost': 50,
         'type': 'armor',
+        'description': "Robe: It doesn't really protect you, but it at least keeps you warm. 20 armor class.",
     },
     'leather': {
         'armor_class': 35,
         'equip_type': 'armor',
         'cost': 150,
         'type': 'armor',
+        'description': "Leather: Softens the blow of some fairly blunt weapons. 35 armor class.",
     },
     'padded': {
         'armor_class': 45,
         'equip_type': 'armor',
         'cost': 400,
         'type': 'armor',
+        'description': "Padded Armor: It gets hot and stuffy in this, but it has several layers of protection against various weapons. 45 armor class.",
     },
     'ring~m': {
         'armor_class': 55,
         'equip_type': 'armor',
         'cost': 1000,
         'type': 'armor',
+        'description': "Ring Mail: An interlinked mesh of metal rings sewn into a leather fabric. This can stop some direct thrusts of a sharp weapon. 55 armor class.",
     },
     'chain~m': {
         'armor_class': 70,
         'equip_type': 'armor',
         'cost': 4000,
         'type': 'armor',
+        'description': "Chain Mail: A mesh of heavy-duty metal rings. Though heavier than ring mail, this breathes better and offers significantly greater protection. 70 armor class.",
     },
     'splint~m': {
         'armor_class': 85,
         'equip_type': 'armor',
         'cost': 20000,
         'type': 'armor',
+        'description': "Splint Mail: This armor consists of long strips of metal attached to a leather backing. These solid splints will stop many blades that less advanced armor will not. 85 armor class.",
     },
     'plate~m': {
         'armor_class': 100,
         'equip_type': 'armor',
         'cost': 40000,
         'type': 'armor',
+        'description': "Plate Mail: The first in the series of plate armors, this is made of copper plates. It provides solid coverage of almost the entire body, including the hands and feet. 100 armor class.",
     },
     'iron~m': {
         'armor_class': 115,
         'equip_type': 'armor',
         'cost': 100000,
         'type': 'armor',
+        'description': "Iron Mail: A step up from the copper of plate mail, this armor can take a harder beating. 115 armor class.",
     },
     'steel~m': {
         'armor_class': 125,
         'equip_type': 'armor',
         'cost': 900000,
         'type': 'armor',
+        'description': "Steel Mail: This mail is made of an alloy of iron and carbon materials, somehow making it both stronger and lighter than iron itself. 125 armor class.",
     },
     'tungsten~m': {
         'armor_class': 135,
         'equip_type': 'armor',
         'cost': 2300000,
         'type': 'armor',
+        'description': "Tungsten Mail: Tungsten enables this armor to deflect most arrows and blades and even withstand intense heat. 135 armor class.",
     },
     'osmium~m': {
         'armor_class': 145,
         'equip_type': 'armor',
         'cost': 9999999,
         'type': 'armor',
+        'description': "Osmium Mail: With the rarest metal known to man, this is the strongest armor available. But it doesn't come cheap. 145 armor class.",
     },
 
     # helmets
@@ -1153,60 +1205,70 @@ ITEMS = {
         'equip_type': 'helmet',
         'cost': 20,
         'type': 'helmet',
+        'description': "Bandana: This does nothing more than keep the sweat out of your eyes. 10 armor class.",
     },
     'cap': {
         'armor_class': 20,
         'equip_type': 'helmet',
         'cost': 100,
         'type': 'helmet',
+        'description': "Cap: It doesn't offer much protection, but it can keep you warm during the winter battles. 20 armor class.",
     },
     'hood': {
         'armor_class': 40,
         'equip_type': 'helmet',
         'cost': 300,
         'type': 'helmet',
+        'description': "Hood: Made from leather, this is the first headwear that will actually protect you fairly well from some weapons. 40 armor class.",
     },
     'wood~h': {
         'armor_class': 50,
         'equip_type': 'helmet',
         'cost': 800,
         'type': 'helmet',
+        'description': "Wood Helmet: Made of a considerable thickness of wood, which is good at stopping light blades quite a few times before it is rendered useless. 50 armor class.",
     },
     'copper~h': {
         'armor_class': 60,
         'equip_type': 'helmet',
         'cost': 2000,
         'type': 'helmet',
+        'description': "Copper Helmet: The first helmet made of a metal substance. This is lighter than a wood helmet and offers just as much protection. 60 armor class.",
     },
     'bronze~h': {
         'armor_class': 70,
         'equip_type': 'helmet',
         'cost': 4000,
         'type': 'helmet',
+        'description': "Bronze Helmet: Bronze offers a bit more durability to this helmet as compared to copper. 70 armor class."
     },
     'iron~h': {
         'armor_class': 80,
         'equip_type': 'helmet',
         'cost': 15000,
         'type': 'helmet',
+        'description': "Iron Helmet: A step up from the bronze helmet, this armor can take a much harder beating. It is quite heavy though. 80 armor class.",
     },
     'steel~h': {
         'armor_class': 90,
         'equip_type': 'helmet',
         'cost': 150000,
         'type': 'helmet',
+        'description': "Steel Helmet: Made of an alloy of iron and carbon materials, somehow making it both stronger and lighter than iron itself. 90 armor class.",
     },
     'tungsten~h': {
         'armor_class': 100,
         'equip_type': 'helmet',
         'cost': 625000,
         'type': 'helmet',
+        'description': "Tungsten Helmet: Tungsten enables this helmet to deflect most arrows and blades and even withstand intense heat. 100 armor class.",
     },
     'osmium~h': {
         'armor_class': 110,
         'equip_type': 'helmet',
         'cost': 2100000,
         'type': 'helmet',
+        'description': "Osmium Helmet: With the rarest metal known to man, this is the strongest helmet available. But it doesn't come cheap. 110 armor class.",
     },
 
     # company items (elixirs, resurrect, etc)
@@ -1216,6 +1278,7 @@ ITEMS = {
         'healing_points': 200, # exactly 200 soldiers recover strength
         'cost': 10,
         'type': 'heal',
+        'description': "Elixir A: Heals 200 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~b': {
         'map_usage': 'company',
@@ -1223,6 +1286,7 @@ ITEMS = {
         'healing_points': 600,
         'cost': 30,
         'type': 'heal',
+        'description': "Elixir B: Heals 600 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~c': {
         'map_usage': 'company',
@@ -1230,6 +1294,7 @@ ITEMS = {
         'healing_points': 2000,
         'cost': 100,
         'type': 'heal',
+        'description': "Elixir C: Heals 2000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~d': {
         'map_usage': 'company',
@@ -1237,6 +1302,7 @@ ITEMS = {
         'healing_points': 6000,
         'cost': 300,
         'type': 'heal',
+        'description': "Elixir D: Heals 6000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~e': {
         'map_usage': 'company',
@@ -1244,6 +1310,7 @@ ITEMS = {
         'healing_points': 20000,
         'cost': 1000,
         'type': 'heal',
+        'description': "Elixir E: Heals 20000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~f': {
         'map_usage': 'company',
@@ -1251,6 +1318,7 @@ ITEMS = {
         'healing_points': 60000,
         'cost': 3000,
         'type': 'heal',
+        'description': "Elixir F: Heals 60000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~g': {
         'map_usage': 'company',
@@ -1258,6 +1326,7 @@ ITEMS = {
         'healing_points': 200000,
         'cost': 10000,
         'type': 'heal',
+        'description': "Elixir G: Heals 200000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~h': {
         'map_usage': 'company',
@@ -1265,6 +1334,7 @@ ITEMS = {
         'healing_points': 600000,
         'cost': 30000,
         'type': 'heal',
+        'description': "Elixir H: Heals 600000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~i': {
         'map_usage': 'company',
@@ -1272,6 +1342,7 @@ ITEMS = {
         'healing_points': 2000000,
         'cost': 100000,
         'type': 'heal',
+        'description': "Elixir I: Heals 2000000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~j': {
         'map_usage': 'company',
@@ -1279,6 +1350,7 @@ ITEMS = {
         'healing_points': 6000000,
         'cost': 300000,
         'type': 'heal',
+        'description': "Elixir J: Heals 6000000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'elixir~k': {
         'map_usage': 'company',
@@ -1286,11 +1358,13 @@ ITEMS = {
         'healing_points': 20000000,
         'cost': 1000000,
         'type': 'heal',
+        'description': "Elixir K: Heals 20000000 soldiers of one ally. Can be used in battle or while traveling.",
     },
     'resurrect': {
         'map_usage': 'company',
         'cost': 50,
         'type': 'heal',
+        'description': "Resurrect: Restores one soldier to a fallen warlord. Can only be used while traveling.",
     },
 
     # battle items
@@ -1300,13 +1374,15 @@ ITEMS = {
         'effect': 'excellent',
         'cost': 50,
         'type': 'attack',
+        'description': "Power Pill: Ensures an excellent physical attack on the target enemy. Can only be used in battle.",
     },
-    'nightshade': { # item equivalent to dispel, 50% success
+    'nightshade': { # item equivalent to dispel, 75% success
         'map_usage': 'battle',
         'battle_usage': 'enemies',
         'effect': 'dispel',
         'cost': 100000,
         'type': 'attack',
+        'description': "Nightshade: Remove all bad status effects on allies and all good status effects on enemies. 75 percent success probability.",
     },
     'javelin': { # instantly kills enemy if user is teancum, 100% success
         'map_usage': 'battle',
@@ -1314,6 +1390,7 @@ ITEMS = {
         'effect': 'assassin',
         'cost': 2000,
         'type': 'attack',
+        'description': "Javelin: A throwing spear specially crafted for Teancum. This is a single-use item. In battle, have Teancum target an enemy with it, and the enemy will be instantly defeated. Always successful with Teancum, always fails with anyone else. You can buy a replacement javelin from the swordsmith's apprentice.",
     },
     'remedy': { # cures any negative status ailments on a single ally
         'map_usage': 'battle',
@@ -1321,6 +1398,7 @@ ITEMS = {
         'effect': 'remedy',
         'cost': 100,
         'type': 'heal',
+        'description': "Remedy: Use this on an ally to remove all bad status effects. Always successful. Can only be used in battle.",
     },
     't~of~liberty': { # cancels all enemy reinforcements, meant to be used in battle21
         'map_usage': 'battle',
@@ -1328,6 +1406,7 @@ ITEMS = {
         'effect': 'cancel_reinforcements',
         'rare': True,
         'type': 'attack',
+        'description': "Title Of Liberty: Moroni fashioned this banner out of a robe and spear to inspire the Nephites to fight for their freedom. Use it in the battle against Amalickiah at Zarahemla to stop him from receiving reinforcements.",
     },
     'ether': { # replenishes tactical points
         'map_usage': 'battle',
@@ -1335,6 +1414,7 @@ ITEMS = {
         'effect': 'ether',
         'rare': True,
         'type': 'heal',
+        'description': "Ether: This rare item replenishes all tactical points. Can only be used in battle.",
     },
 
     # kolob (city map usage)
@@ -1342,6 +1422,7 @@ ITEMS = {
         'map_usage': 'city', # means it brings up a menu of main visited cities to teleport to
         'cost': 200,
         'type': 'map',
+        'description': "Kolob: Use this to instantly transport to certain major cities. Can only be used while traveling.",
     },
 
     # cloak (cloak map usage)
@@ -1349,11 +1430,13 @@ ITEMS = {
         'map_usage': 'cloak', # means it prevents random encounters for a finite number of steps
         'cost': 200,
         'type': 'map',
+        'description': "Cloak: Use this to avoid random encounters with enemies for some time. Can only be used while traveling.",
     },
     's.~cloak': {
         'map_usage': 'cloak',
         'type': 'map',
         'rare': True,
+        'description': "Super Cloak: This rare item lasts ten times as long as a cloak. Use it to avoid random encounters with enemies. Can only be used while traveling.",
     },
 
     # unlock items
@@ -1362,11 +1445,13 @@ ITEMS = {
         'cost': 10000,
         'rare': True,
         'type': 'map',
+        'description': "Silver Key: You bought this rare key from a shady guy in Bountiful. What does it unlock?",
     },
     'gold~key': {
         'map_usage': 'unlock',
         'rare': True,
         'type': 'map',
+        'description': "Gold Key: An old hermit in the city of Moroni wanted you to have this rare key. But what does it unlock?",
     },
 
     # save items
@@ -1374,6 +1459,7 @@ ITEMS = {
         'map_usage': 'save', # means you can use it to save your game anywhere except in battle
         'rare': True,
         'type': 'save',
+        'description': "Gold Plates: A former resident of Ammonihah directed you to find these plates in his old home. Use them to save your game almost anywhere. Can only be used while traveling.",
     },
 
     # explosive items
@@ -1381,24 +1467,29 @@ ITEMS = {
         'map_usage': 'explosive', # interacts with the wall north of gideon to blow it up
         'rare': True,
         'type': 'map',
+        'description': "Explosive: Hagoth gave you this mysterious substance so that you could blow a hole in the wall north of the city of Gideon.",
     },
 
     # unusable items (just carrying it has an effect, or it gets used indirectly)
     'liahona': { # lets the user be his own tactician
         'rare': True,
         'type': 'passive',
+        'description': "Liahona: An ancient compass that allows the carrier to use his own tactics and tactical points in battle, instead of those of the designated tactician.",
     },
     'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
         'cost': 400,
         'type': 'passive',
+        'description': "Horse: Sometimes a captured warlord is willing to join your side if you offer him a horse. It could be handy to always keep one or two with you.",
     },
     'iron~ore': { # Swordsmith asks for it
         'rare': True,
         'type': 'passive',
+        'description': "Iron Ore: A deposit of raw iron you found in a cave. Was somebody looking for this?",
     },
     'diamond': { # Swordsmith asks for it
         'rare': True,
         'type': 'passive',
+        'description': "Diamond: This nugget of sparkling rock was formed from carbon pressurized under the earth for thousands of years. It can cut through even the strongest of metals. Was somebody looking for this?",
     },
 }
 
