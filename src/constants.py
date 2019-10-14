@@ -1493,6 +1493,45 @@ ITEMS = {
     },
 }
 
+STATS = {
+    'SOLDIERS': {
+        'sort_order': -1,
+        'description': "Soldiers: The maximum soldiers of this warlord. If it has a * next to it, the warlord's maximum soldiers will increase as you level up. Note that physical damage inflicted is influenced by how many current soldiers the warlord has. The damage doubles each time the current soldiers reaches a power of ten. 1, 10, 100, 1000, and so on. For example, a warlord with 1000 soldiers will hit twice as hard as when he has 999 soldiers.",
+    },
+    'STR': {
+        'sort_order': 0,
+        'description': "Strength: The warlord's inherent physical strength, ranging from 0 to 255. This helps determine damage from physical attacks.",
+    },
+    'DEF': {
+        'sort_order': 1,
+        'description': "Defense: The warlord's ability to resist physical attacks, ranging from 0 to 255. A higher defense means that the warlord will take less physical damage.",
+    },
+    'INT': {
+        'sort_order': 2,
+        'description': "Intelligence: Ranging from 0 to 255, this is used to determine the effectiveness of tactics.",
+    },
+    'AGI': {
+        'sort_order': 3,
+        'description': "Agility: The warlord's ability to take a turn sooner, ranging from 0 to 255. For each volley, warlords take turns in order of their agility, from highest to lowest. Agility also influences the chance of catching the enemy off guard.",
+    },
+    'EVA': {
+        'sort_order': 4,
+        'description': "Evasion: The warlord's ability to dodge a physical attack, ranging from 0 to 255.",
+    },
+    'T.P': {
+        'sort_order': 5,
+        'description': "Tactical Points: The maximum tactical points for this warlord. If it has a * next to it, the warlord's maximum tactical points will increase as you level up. Each tactic costs a number of tactical points. Your team's current tactical points and available tactics are based on who is chosen as your acting tactician, by choosing FORMATION and STRAT in the command menu. Enemies do not have a team tactician. Instead, each enemy uses his own tactics and tactical points.",
+    },
+    'A.P': {
+        'sort_order': 6,
+        'description': "Attack Points: The attack points of the warlord's equipped weapon, ranging from 0 to 255. This greatly influences how much damage is inflicted in physical attacks.",
+    },
+    'A.C': {
+        'sort_order': 7,
+        'description': "Armor Class: The combined armor class of the warlord's equipped body armor and helmet, ranging from 0 to 255. This reduces how much damage is received from physical attacks.",
+    },
+}
+
 MAX_ITEMS_PER_PERSON = 8
 
 FACELESS_ENEMIES = [

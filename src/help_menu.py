@@ -5,7 +5,7 @@ import os
 import pygame
 from pygame.locals import *
 
-from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, TACTICS
+from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, STATS, TACTICS
 from text import create_prompt, MenuBox, MenuGrid
 
 
@@ -21,10 +21,12 @@ class HelpMenu(object):
             'HELMETS',
             'TACTICS',
             'ITEMS',
+            'STATS',
         ]
         self.menu = MenuBox(items, current_choice=0, border=True, title='Help')
         self.menu.focus()
         self.weapons_menu = None
+        self.stats_menu = None
         self.body_armor_menu = None
         self.helmets_menu = None
         self.tactics_menu = None
@@ -38,6 +40,8 @@ class HelpMenu(object):
         self.screen.blit(self.menu.surface, (0, 0))
         if self.weapons_menu:
             self.screen.blit(self.weapons_menu.surface, (48, 0))
+        if self.stats_menu:
+            self.screen.blit(self.stats_menu.surface, (48, 0))
         if self.body_armor_menu:
             self.screen.blit(self.body_armor_menu.surface, (48, 0))
         if self.helmets_menu:
@@ -60,6 +64,8 @@ class HelpMenu(object):
             self.menu.update(dt)
         elif self.state == 'weapons':
             self.weapons_menu.update(dt)
+        elif self.state == 'stats':
+            self.stats_menu.update(dt)
         elif self.state == 'body_armor':
             self.body_armor_menu.update(dt)
         elif self.state == 'helmets':
@@ -83,6 +89,8 @@ class HelpMenu(object):
                 choice = self.menu.get_choice()
                 if choice == 'WEAPONS':
                     self.create_weapons_menu()
+                if choice == 'STATS':
+                    self.create_stats_menu()
                 elif choice == 'BODY ARMOR':
                     self.create_body_armor_menu()
                 elif choice == 'HELMETS':
@@ -107,6 +115,24 @@ class HelpMenu(object):
                 self.weapons_menu.unfocus()
             elif pressed[K_z]:
                 self.weapons_menu = None
+                self.menu.focus()
+                self.state = 'main'
+        elif self.state == 'stats':
+            if self.description:
+                self.description.handle_input(pressed)
+                if (pressed[K_x] or pressed[K_z]) and not self.description.has_more_stuff_to_show():
+                    self.description.shutdown()
+                    self.description = None
+                    self.stats_menu.focus()
+                return
+            self.stats_menu.handle_input(pressed)
+            if pressed[K_x]:
+                self.select_sound.play()
+                choice = self.stats_menu.get_choice()
+                self.description = create_prompt(STATS[choice]['description'])
+                self.stats_menu.unfocus()
+            elif pressed[K_z]:
+                self.stats_menu = None
                 self.menu.focus()
                 self.state = 'main'
         elif self.state == 'body_armor':
@@ -222,6 +248,14 @@ class HelpMenu(object):
         self.weapons_menu = MenuGrid(gridded_weapons, border=True)
         self.menu.unfocus()
         self.weapons_menu.focus()
+
+    def create_stats_menu(self):
+        self.state = 'stats'
+        stats = [{'name': name, 'sort_order': info['sort_order']} for name, info in STATS.items()]
+        sorted_stats = sorted(stats, key=lambda k: k['sort_order'])
+        self.stats_menu = MenuBox([s['name'] for s in sorted_stats], border=True)
+        self.menu.unfocus()
+        self.stats_menu.focus()
 
     def create_body_armor_menu(self):
         self.state = 'body_armor'
