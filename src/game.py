@@ -1326,6 +1326,9 @@ class Game(object):
     # after the colon. For example, "state:lamoni_leader" will call lamoni_leader().
     # If it's true, that "state" condition passes.
 
+    def got_cloak(self):
+        return self.conditions_are_met('onidah_treasure2') or self.conditions_are_met('tunnels_of_the_north_treasure1')
+
     def game_complete(self):
         return self.conditions_are_met([
             'battle69',

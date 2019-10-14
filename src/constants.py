@@ -1186,6 +1186,9 @@ ITEMS = {
         'cost': 400,
         'type': 'armor',
         'description': "Padded Armor: It gets hot and stuffy in this, but it has several layers of protection against various weapons. 45 armor class.",
+        'conditions': {
+            'battle05': True,
+        },
     },
     'ring~m': {
         'armor_class': 55,
@@ -1193,6 +1196,9 @@ ITEMS = {
         'cost': 1000,
         'type': 'armor',
         'description': "Ring Mail: An interlinked mesh of metal rings sewn into a leather fabric. This can stop some direct thrusts of a sharp weapon. 55 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'chain~m': {
         'armor_class': 70,
@@ -1200,6 +1206,9 @@ ITEMS = {
         'cost': 4000,
         'type': 'armor',
         'description': "Chain Mail: A mesh of heavy-duty metal rings. Though heavier than ring mail, this breathes better and offers significantly greater protection. 70 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'splint~m': {
         'armor_class': 85,
@@ -1207,6 +1216,9 @@ ITEMS = {
         'cost': 20000,
         'type': 'armor',
         'description': "Splint Mail: This armor consists of long strips of metal attached to a leather backing. These solid splints will stop many blades that less advanced armor will not. 85 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'plate~m': {
         'armor_class': 100,
@@ -1214,6 +1226,9 @@ ITEMS = {
         'cost': 40000,
         'type': 'armor',
         'description': "Plate Mail: The first in the series of plate armors, this is made of copper plates. It provides solid coverage of almost the entire body, including the hands and feet. 100 armor class.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'iron~m': {
         'armor_class': 115,
@@ -1221,6 +1236,9 @@ ITEMS = {
         'cost': 100000,
         'type': 'armor',
         'description': "Iron Mail: A step up from the copper of plate mail, this armor can take a harder beating. 115 armor class.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'steel~m': {
         'armor_class': 125,
@@ -1228,6 +1246,9 @@ ITEMS = {
         'cost': 900000,
         'type': 'armor',
         'description': "Steel Mail: This mail is made of an alloy of iron and carbon materials, somehow making it both stronger and lighter than iron itself. 125 armor class.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'tungsten~m': {
         'armor_class': 135,
@@ -1235,6 +1256,9 @@ ITEMS = {
         'cost': 2300000,
         'type': 'armor',
         'description': "Tungsten Mail: Tungsten enables this armor to deflect most arrows and blades and even withstand intense heat. 135 armor class.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'osmium~m': {
         'armor_class': 145,
@@ -1242,6 +1266,9 @@ ITEMS = {
         'cost': 9999999,
         'type': 'armor',
         'description': "Osmium Mail: With the rarest metal known to man, this is the strongest armor available. But it doesn't come cheap. 145 armor class.",
+        'conditions': {
+            'battle71': True,
+        },
     },
 
     # helmets
@@ -1265,6 +1292,9 @@ ITEMS = {
         'cost': 300,
         'type': 'helmet',
         'description': "Hood: Made from leather, this is the first headwear that will actually protect you fairly well from some weapons. 40 armor class.",
+        'conditions': {
+            'battle05': True,
+        },
     },
     'wood~h': {
         'armor_class': 50,
@@ -1272,6 +1302,9 @@ ITEMS = {
         'cost': 800,
         'type': 'helmet',
         'description': "Wood Helmet: Made of a considerable thickness of wood, which is good at stopping light blades quite a few times before it is rendered useless. 50 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'copper~h': {
         'armor_class': 60,
@@ -1279,13 +1312,19 @@ ITEMS = {
         'cost': 2000,
         'type': 'helmet',
         'description': "Copper Helmet: The first helmet made of a metal substance. This is lighter than a wood helmet and offers just as much protection. 60 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'bronze~h': {
         'armor_class': 70,
         'equip_type': 'helmet',
         'cost': 4000,
         'type': 'helmet',
-        'description': "Bronze Helmet: Bronze offers a bit more durability to this helmet as compared to copper. 70 armor class."
+        'description': "Bronze Helmet: Bronze offers a bit more durability to this helmet as compared to copper. 70 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'iron~h': {
         'armor_class': 80,
@@ -1293,6 +1332,9 @@ ITEMS = {
         'cost': 15000,
         'type': 'helmet',
         'description': "Iron Helmet: A step up from the bronze helmet, this armor can take a much harder beating. It is quite heavy though. 80 armor class.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'steel~h': {
         'armor_class': 90,
@@ -1300,6 +1342,9 @@ ITEMS = {
         'cost': 150000,
         'type': 'helmet',
         'description': "Steel Helmet: Made of an alloy of iron and carbon materials, somehow making it both stronger and lighter than iron itself. 90 armor class.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'tungsten~h': {
         'armor_class': 100,
@@ -1307,6 +1352,9 @@ ITEMS = {
         'cost': 625000,
         'type': 'helmet',
         'description': "Tungsten Helmet: Tungsten enables this helmet to deflect most arrows and blades and even withstand intense heat. 100 armor class.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'osmium~h': {
         'armor_class': 110,
@@ -1314,6 +1362,9 @@ ITEMS = {
         'cost': 2100000,
         'type': 'helmet',
         'description': "Osmium Helmet: With the rarest metal known to man, this is the strongest helmet available. But it doesn't come cheap. 110 armor class.",
+        'conditions': {
+            'battle71': True,
+        },
     },
 
     # company items (elixirs, resurrect, etc)
@@ -1332,6 +1383,9 @@ ITEMS = {
         'cost': 30,
         'type': 'heal',
         'description': "Elixir B: Heals 600 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'elixir~c': {
         'map_usage': 'company',
@@ -1340,6 +1394,9 @@ ITEMS = {
         'cost': 100,
         'type': 'heal',
         'description': "Elixir C: Heals 2000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'elixir~d': {
         'map_usage': 'company',
@@ -1348,6 +1405,9 @@ ITEMS = {
         'cost': 300,
         'type': 'heal',
         'description': "Elixir D: Heals 6000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'elixir~e': {
         'map_usage': 'company',
@@ -1356,6 +1416,9 @@ ITEMS = {
         'cost': 1000,
         'type': 'heal',
         'description': "Elixir E: Heals 20000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'elixir~f': {
         'map_usage': 'company',
@@ -1364,6 +1427,9 @@ ITEMS = {
         'cost': 3000,
         'type': 'heal',
         'description': "Elixir F: Heals 60000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'elixir~g': {
         'map_usage': 'company',
@@ -1372,6 +1438,9 @@ ITEMS = {
         'cost': 10000,
         'type': 'heal',
         'description': "Elixir G: Heals 200000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'elixir~h': {
         'map_usage': 'company',
@@ -1380,6 +1449,9 @@ ITEMS = {
         'cost': 30000,
         'type': 'heal',
         'description': "Elixir H: Heals 600000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'elixir~i': {
         'map_usage': 'company',
@@ -1388,6 +1460,9 @@ ITEMS = {
         'cost': 100000,
         'type': 'heal',
         'description': "Elixir I: Heals 2000000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'elixir~j': {
         'map_usage': 'company',
@@ -1396,6 +1471,9 @@ ITEMS = {
         'cost': 300000,
         'type': 'heal',
         'description': "Elixir J: Heals 6000000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'elixir~k': {
         'map_usage': 'company',
@@ -1404,6 +1482,9 @@ ITEMS = {
         'cost': 1000000,
         'type': 'heal',
         'description': "Elixir K: Heals 20000000 soldiers of one ally. Can be used in battle or while traveling.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'resurrect': {
         'map_usage': 'company',
@@ -1420,6 +1501,9 @@ ITEMS = {
         'cost': 50,
         'type': 'attack',
         'description': "Power Pill: Ensures an excellent physical attack on the target enemy. Can only be used in battle.",
+        'conditions': {
+            'battle05': True,
+        },
     },
     'nightshade': { # item equivalent to dispel, 75% success
         'map_usage': 'battle',
@@ -1428,6 +1512,9 @@ ITEMS = {
         'cost': 100000,
         'type': 'attack',
         'description': "Nightshade: Remove all bad status effects on allies and all good status effects on enemies. 75 percent success probability.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'javelin': { # instantly kills enemy if user is teancum, 100% success
         'map_usage': 'battle',
@@ -1436,6 +1523,9 @@ ITEMS = {
         'cost': 2000,
         'type': 'attack',
         'description': "Javelin: A throwing spear specially crafted for Teancum. This is a single-use item. In battle, have Teancum target an enemy with it, and the enemy will be instantly defeated. Always successful with Teancum, always fails with anyone else. You can buy a replacement javelin from the swordsmith's apprentice.",
+        'conditions': {
+            'got_javelin': True,
+        },
     },
     'remedy': { # cures any negative status ailments on a single ally
         'map_usage': 'battle',
@@ -1452,6 +1542,9 @@ ITEMS = {
         'rare': True,
         'type': 'attack',
         'description': "Title Of Liberty: Moroni fashioned this banner out of a robe and spear to inspire the Nephites to fight for their freedom. Use it in the battle against Amalickiah at Zarahemla to stop him from receiving reinforcements.",
+        'conditions': {
+            'got_title_of_liberty': True,
+        },
     },
     'ether': { # replenishes tactical points
         'map_usage': 'battle',
@@ -1460,6 +1553,9 @@ ITEMS = {
         'rare': True,
         'type': 'heal',
         'description': "Ether: This rare item replenishes all tactical points. Can only be used in battle.",
+        'conditions': {
+            'west_desert_cave_treasure1': True,
+        },
     },
 
     # kolob (city map usage)
@@ -1476,12 +1572,18 @@ ITEMS = {
         'cost': 200,
         'type': 'map',
         'description': "Cloak: Use this to avoid random encounters with enemies for some time. Can only be used while traveling.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     's.~cloak': {
         'map_usage': 'cloak',
         'type': 'map',
         'rare': True,
         'description': "Super Cloak: This rare item lasts ten times as long as a cloak. Use it to avoid random encounters with enemies. Can only be used while traveling.",
+        'conditions': {
+            'state:got_cloak': True,
+        },
     },
 
     # unlock items
@@ -1491,12 +1593,18 @@ ITEMS = {
         'rare': True,
         'type': 'map',
         'description': "Silver Key: You bought this rare key from a shady guy in Bountiful. What does it unlock?",
+        'conditions': {
+            'bought_key': True,
+        },
     },
     'gold~key': {
         'map_usage': 'unlock',
         'rare': True,
         'type': 'map',
         'description': "Gold Key: An old hermit in the city of Moroni wanted you to have this rare key. But what does it unlock?",
+        'conditions': {
+            'got_gold_key': True,
+        },
     },
 
     # save items
@@ -1505,6 +1613,9 @@ ITEMS = {
         'rare': True,
         'type': 'save',
         'description': "Gold Plates: A former resident of Ammonihah directed you to find these plates in his old home. Use them to save your game almost anywhere. Can only be used while traveling.",
+        'conditions': {
+            'destroyed_ammonihah_treasure': True,
+        },
     },
 
     # explosive items
@@ -1513,6 +1624,9 @@ ITEMS = {
         'rare': True,
         'type': 'map',
         'description': "Explosive: Hagoth gave you this mysterious substance so that you could blow a hole in the wall north of the city of Gideon.",
+        'conditions': {
+            'got_explosive': True,
+        },
     },
 
     # unusable items (just carrying it has an effect, or it gets used indirectly)
@@ -1520,6 +1634,9 @@ ITEMS = {
         'rare': True,
         'type': 'passive',
         'description': "Liahona: An ancient compass that allows the carrier to use his own tactics and tactical points in battle, instead of those of the designated tactician.",
+        'conditions': {
+            'north_grotto_treasure1': True,
+        },
     },
     'horse': { # sometimes a captured general will ask for a horse in exchange for joining you
         'cost': 400,
@@ -1530,11 +1647,17 @@ ITEMS = {
         'rare': True,
         'type': 'passive',
         'description': "Iron Ore: A deposit of raw iron you found in a cave. Was somebody looking for this?",
+        'conditions': {
+            'passage_to_gid_treasure1': True,
+        },
     },
     'diamond': { # Swordsmith asks for it
         'rare': True,
         'type': 'passive',
         'description': "Diamond: This nugget of sparkling rock was formed from carbon pressurized under the earth for thousands of years. It can cut through even the strongest of metals. Was somebody looking for this?",
+        'conditions': {
+            'west_lamanite_camp_treasure1': True,
+        },
     },
 }
 

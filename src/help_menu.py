@@ -9,6 +9,31 @@ from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, STATS, TACTICS
 from text import create_prompt, MenuBox, MenuGrid
 
 
+ITEMS_MENU = {
+    'HEAL ITEMS': {
+        'sort_order': 0,
+    },
+    'ATTACK ITEMS': {
+        'sort_order': 1,
+        'conditions': {
+            'battle05': True,
+        },
+    },
+    'MAP ITEMS': {
+        'sort_order': 2,
+    },
+    'SAVE ITEMS': {
+        'sort_order': 3,
+        'conditions': {
+            'destroyed_ammonihah_treasure': True,
+        },
+    },
+    'PASSIVE ITEMS': {
+        'sort_order': 4,
+    },
+}
+
+
 class HelpMenu(object):
     def __init__(self, screen, game):
         self.screen = screen
@@ -268,7 +293,7 @@ class HelpMenu(object):
                 'armor_class': info['armor_class'],
             }
             for name, info in ITEMS.items()
-            if info['type'] == 'armor'
+            if info['type'] == 'armor' and self.game.conditions_are_met(info.get('conditions'))
         ]
         sorted_body_armor = sorted(body_armor, key=lambda k: k['armor_class'])
         gridded_body_armor = [
@@ -287,7 +312,7 @@ class HelpMenu(object):
                 'armor_class': info['armor_class'],
             }
             for name, info in ITEMS.items()
-            if info['type'] == 'helmet'
+            if info['type'] == 'helmet' and self.game.conditions_are_met(info.get('conditions'))
         ]
         sorted_helmets = [h['name'] for h in sorted(helmets, key=lambda k: k['armor_class'])]
         self.helmets_menu = MenuBox(sorted_helmets, border=True)
@@ -330,18 +355,21 @@ class HelpMenu(object):
     def create_items_menu(self):
         self.state = 'items'
         items = [
-            'HEAL ITEMS',
-            'ATTACK ITEMS',
-            'MAP ITEMS',
-            'SAVE ITEMS',
-            'PASSIVE ITEMS',
+            {'name': name, 'sort_order': info['sort_order']}
+            for name, info in ITEMS_MENU.items()
+            if self.game.conditions_are_met(info.get('conditions'))
         ]
-        self.items_menu = MenuBox(items, border=True)
+        sorted_items = [i['name'] for i in sorted(items, key=lambda k: k['sort_order'])]
+        self.items_menu = MenuBox(sorted_items, border=True)
         self.menu.unfocus()
         self.items_menu.focus()
 
     def create_items_submenu(self, typ):
-        items = [name.title() for name, info in ITEMS.items() if info['type'] == typ]
+        items = [
+            name.title()
+            for name, info in ITEMS.items()
+            if info['type'] == typ and self.game.conditions_are_met(info.get('conditions'))
+        ]
         sorted_items = sorted(items)
         if len(sorted_items) > 10:
             gridded_items = [
