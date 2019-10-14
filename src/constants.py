@@ -1020,6 +1020,9 @@ ITEMS = {
         'cost': 1000,
         'type': 'weapon',
         'description': "Spear: This has a great reach and can pierce through some kinds of armor. 50 attack points.",
+        'conditions': {
+            'battle05': True,
+        },
     },
     'wood~sword': {
         'attack_points': 60,
@@ -1027,6 +1030,9 @@ ITEMS = {
         'cost': 2000,
         'type': 'weapon',
         'description': "Wood Sword: Although it is made of wood, this sword's blade is surprisingly sharp. 60 attack points.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'macana': {
         'attack_points': 70,
@@ -1034,6 +1040,9 @@ ITEMS = {
         'cost': 4000,
         'type': 'weapon',
         'description': "Macana: This wooden bat of sorts has strategically placed shards of rock, making it quite deadly. 70 attack points.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'sling': {
         'attack_points': 80,
@@ -1041,6 +1050,9 @@ ITEMS = {
         'cost': 6000,
         'type': 'weapon',
         'description': "Sling: With this weapon, you can hurl stones at the enemy from afar, felling many of them before they even reach within striking distance of you. 80 attack points.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'atlatl': {
         'attack_points': 100,
@@ -1048,6 +1060,9 @@ ITEMS = {
         'cost': 10000,
         'type': 'weapon',
         'description': "Atlatl: This contraption allows the user to launch spears at the enemy with tremendous speed and accuracy. 100 attack points.",
+        'conditions': {
+            'battle17': True,
+        },
     },
     'lance': {
         'attack_points': 120,
@@ -1055,6 +1070,9 @@ ITEMS = {
         'cost': 20000,
         'type': 'weapon',
         'description': "Lance: With a hand guard and twice the reach of a spear, this weapon makes it difficult for the enemy to parry your thrust or counterattack. 120 attack points.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'battleax': {
         'attack_points': 140,
@@ -1062,6 +1080,9 @@ ITEMS = {
         'cost': 50000,
         'type': 'weapon',
         'description': "Battleax: Much bigger than a simple ax. Its wide double blade will slice clean through most armor. 140 attack points.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'cimeter': {
         'attack_points': 160,
@@ -1069,6 +1090,9 @@ ITEMS = {
         'cost': 230000,
         'type': 'weapon',
         'description': "Cimeter: A steel, single edged sword. Its strength, sharpness, and maneuverability give the wielder a distinct advantage. 160 attack points.",
+        'conditions': {
+            'battle49': True,
+        },
     },
     'bow': {
         'attack_points': 180,
@@ -1076,6 +1100,9 @@ ITEMS = {
         'cost': 750000,
         'type': 'weapon',
         'description': "Bow: A bow and arrows will subdue your enemies from a great distance. 180 attack points.",
+        'conditions': {
+            'battle63': True,
+        },
     },
     'sword': {
         'attack_points': 200,
@@ -1083,6 +1110,9 @@ ITEMS = {
         'cost': 1950000,
         'type': 'weapon',
         'description': "Sword: A large, double-edged steel blade. This is the best weapon that can be purchased in shops. 200 attack points.",
+        'conditions': {
+            'battle71': True,
+        },
     },
     'cherev': {
         'attack_points': 230,
@@ -1090,6 +1120,9 @@ ITEMS = {
         'rare': True,
         'type': 'weapon',
         'description': "Cherev: One of four special swords crafted by the swordsmith. Its name is the Hebrew word for sword. 230 attack points.",
+        'conditions': {
+            'swordsmith_finished': True,
+        },
     },
     'samson': {
         'attack_points': 235,
@@ -1097,6 +1130,9 @@ ITEMS = {
         'rare': True,
         'type': 'weapon',
         'description': "Samson: One of four special swords crafted by the swordsmith. Named after the Israelite judge who singlehandedly slew an entire army of Philistines. 235 attack points.",
+        'conditions': {
+            'swordsmith_finished': True,
+        },
     },
     'hamashchit': {
         'attack_points': 240,
@@ -1104,6 +1140,9 @@ ITEMS = {
         'rare': True,
         'type': 'weapon',
         'description': "Hamashchit: One of four special swords crafted by the swordsmith. The name is Hebrew for the destroying angel. 240 attack points.",
+        'conditions': {
+            'swordsmith_finished': True,
+        },
     },
     u'shamshirŕe': { # the ŕ is a hack to show a hyphen without capitalizing the next letter when calling title()
         'attack_points': 245,
@@ -1111,6 +1150,9 @@ ITEMS = {
         'rare': True,
         'type': 'weapon',
         'description': u"Shamshirŕe: One of four special swords crafted by the swordsmith. It is named after the famous sword of King Solomon. 245 attack points.",
+        'conditions': {
+            'swordsmith_finished': True,
+        },
     },
     'sd~of~laban': {
         'attack_points': 255,
@@ -1118,6 +1160,9 @@ ITEMS = {
         'rare': True,
         'type': 'weapon',
         'description': "Sword Of Laban: This legendary sword had been handed down over many generations of kings and was thought to now be lost forever. The swordsmith had patterned his four special swords after this one, but imitations are not quite the same as the original. This is the strongest weapon in existence. 255 attack points.",
+        'conditions': {
+            'antum_treasure3': True,
+        },
     },
 
     # armor

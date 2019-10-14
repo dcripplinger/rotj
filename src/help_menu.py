@@ -238,14 +238,17 @@ class HelpMenu(object):
                 'attack_points': info['attack_points'],
             }
             for name, info in ITEMS.items()
-            if info['type'] == 'weapon'
+            if info['type'] == 'weapon' and self.game.conditions_are_met(info.get('conditions'))
         ]
         sorted_weapons = sorted(weapons, key=lambda k: k['attack_points'])
-        gridded_weapons = [
-            [w['name'] for w in sorted_weapons[0:10]],
-            [w['name'] for w in sorted_weapons[10:]],
-        ]
-        self.weapons_menu = MenuGrid(gridded_weapons, border=True)
+        if len(sorted_weapons) > 10:
+            gridded_weapons = [
+                [w['name'] for w in sorted_weapons[0:10]],
+                [w['name'] for w in sorted_weapons[10:]],
+            ]
+            self.weapons_menu = MenuGrid(gridded_weapons, border=True)
+        else:
+            self.weapons_menu = MenuBox([w['name'] for w in sorted_weapons], border=True)
         self.menu.unfocus()
         self.weapons_menu.focus()
 
