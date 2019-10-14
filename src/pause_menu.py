@@ -127,10 +127,10 @@ class PauseMenu(object):
             self.menu.focus()
 
     def handle_input_help_menu(self, pressed):
-        self.help_menu.handle_input(pressed)
         if pressed[K_RETURN]:
             self.game.close_pause_menu()
         elif pressed[K_z] and self.help_menu.state == 'main':
             self.screen_state = 'menu'
             self.help_menu = None
             self.menu.focus()
+        self.help_menu.handle_input(pressed)
