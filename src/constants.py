@@ -235,7 +235,7 @@ TACTICS = {
             # assassin = enemy_prob/3
         'slot': 1,
         'tactical_points': 2,
-        'description': "Fire: Inflicts 40 to 60 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 2. TP cost: 2.",
+        'description': "Fire: Inflicts 40 to 60 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 2. T.P cost: 2.",
     },
     'bomb': {
         'min_damage': 70,
@@ -246,7 +246,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 4,
-        'description': "Bomb: Inflicts 70 to 150 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 110. Level required to learn: 9. TP cost: 4.",
+        'description': "Bomb: Inflicts 70 to 150 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 110. Level required to learn: 9. T.P cost: 4.",
     },
     'lava': {
         'min_damage': 100,
@@ -257,7 +257,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 6,
-        'description': "Lava: Inflicts 100 to 200 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 16. TP cost: 6.",
+        'description': "Lava: Inflicts 100 to 200 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 16. T.P cost: 6.",
     },
     'brimstone': {
         'min_damage': 700,
@@ -268,7 +268,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 8,
-        'description': "Brimstone: Inflicts 700 to 1100 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 140. Level required to learn: 23. TP cost: 8.",
+        'description': "Brimstone: Inflicts 700 to 1100 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 140. Level required to learn: 23. T.P cost: 8.",
     },
     'backdraft': {
         'min_damage': 1500,
@@ -279,7 +279,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 12,
-        'description': "Backdraft: Inflicts 1500 to 2500 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 150. Level required to learn: 30. TP cost: 12.",
+        'description': "Backdraft: Inflicts 1500 to 2500 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 150. Level required to learn: 30. T.P cost: 12.",
     },
     'blue~flame': {
         'min_damage': 4000,
@@ -290,7 +290,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 16,
-        'description': "Blue Flame: Inflicts 4000 to 6000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 160. Level required to learn: 35. TP cost: 16.",
+        'description': "Blue Flame: Inflicts 4000 to 6000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 160. Level required to learn: 35. T.P cost: 16.",
     },
     'volcano': {
         'min_damage': 10000,
@@ -301,7 +301,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 20,
-        'description': "Volcano: Inflicts 10000 to 20000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 170. Level required to learn: 41. TP cost: 20.",
+        'description': "Volcano: Inflicts 10000 to 20000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 170. Level required to learn: 41. T.P cost: 20.",
     },
     'napalm': {
         'min_damage': 50000,
@@ -312,7 +312,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 1,
         'tactical_points': 24,
-        'description': "Napalm: Inflicts 50000 to 100000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 52. TP cost: 24.",
+        'description': "Napalm: Inflicts 50000 to 100000 fire damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 52. T.P cost: 24.",
     },
     'baby~nuke': {
         'min_damage': 1000000,
@@ -323,7 +323,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 1,
         'tactical_points': 32,
-        'description': "Baby Nuke: Inflicts 1000000 to 2000000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 76. TP cost: 32.",
+        'description': "Baby Nuke: Inflicts 1000000 to 2000000 fire damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 76. T.P cost: 32.",
     },
     'flood': {
         'min_damage': 60,
@@ -334,7 +334,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 2,
         'tactical_points': 3,
-        'description': "Flood: Inflicts 60 to 80 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 3. TP cost: 3.",
+        'description': "Flood: Inflicts 60 to 80 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 100. Level required to learn: 3. T.P cost: 3.",
     },
     'geyser': {
         'min_damage': 90,
@@ -345,7 +345,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob2',
         'slot': 2,
         'tactical_points': 6,
-        'description': "Geyser: Inflicts 90 to 200 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 115. Level required to learn: 10. TP cost: 6.",
+        'description': "Geyser: Inflicts 90 to 200 water damage on a single enemy. High success probability, based on INT of user and target. INT required to learn: 115. Level required to learn: 10. T.P cost: 6.",
     },
     'hailstorm': {
         'min_damage': 130,
@@ -356,7 +356,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 9,
-        'description': "Hailstorm: Inflicts 130 to 250 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 17. TP cost: 9.",
+        'description': "Hailstorm: Inflicts 130 to 250 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 130. Level required to learn: 17. T.P cost: 9.",
     },
     'monsoon': {
         'min_damage': 600,
@@ -367,7 +367,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 12,
-        'description': "Monsoon: Inflicts 600 to 1000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 145. Level required to learn: 22. TP cost: 12.",
+        'description': "Monsoon: Inflicts 600 to 1000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 145. Level required to learn: 22. T.P cost: 12.",
     },
     'tsunami': {
         'min_damage': 1800,
@@ -378,7 +378,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 15,
-        'description': "Monsoon: Inflicts 1800 to 3000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 160. Level required to learn: 29. TP cost: 15.",
+        'description': "Monsoon: Inflicts 1800 to 3000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 160. Level required to learn: 29. T.P cost: 15.",
     },
     'blizzard': {
         'min_damage': 8000,
@@ -389,7 +389,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 21,
-        'description': "Monsoon: Inflicts 8000 to 15000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 175. Level required to learn: 40. TP cost: 21.",
+        'description': "Monsoon: Inflicts 8000 to 15000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 175. Level required to learn: 40. T.P cost: 21.",
     },
     'sharknado': {
         'min_damage': 100000,
@@ -400,7 +400,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 27,
-        'description': "Sharknado: Inflicts 100000 to 300000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 59. TP cost: 27.",
+        'description': "Sharknado: Inflicts 100000 to 300000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 190. Level required to learn: 59. T.P cost: 27.",
     },
     'hurricane': {
         'min_damage': 1000000,
@@ -411,7 +411,7 @@ TACTICS = {
         'success_probability_type': 'enemy_prob',
         'slot': 2,
         'tactical_points': 36,
-        'description': "Hurricane: Inflicts 1000000 to 4000000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 220. Level required to learn: 78. TP cost: 36.",
+        'description': "Hurricane: Inflicts 1000000 to 4000000 water damage on all enemies. Medium success probability per target, based on INT of user and target. INT required to learn: 220. Level required to learn: 78. T.P cost: 36.",
     },
     'salve': {
         'min_damage': 100,
@@ -422,7 +422,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 3,
-        'description': "Salve: Heals 100 to 150 soldiers of one ally. Always successful. INT required to learn: 100. Level required to learn: 4. TP cost: 3.",
+        'description': "Salve: Heals 100 to 150 soldiers of one ally. Always successful. INT required to learn: 100. Level required to learn: 4. T.P cost: 3.",
     },
     'cure': {
         'min_damage': 400,
@@ -433,7 +433,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 6,
-        'description': "Cure: Heals 400 to 700 soldiers of one ally. Always successful. INT required to learn: 110. Level required to learn: 11. TP cost: 6.",
+        'description': "Cure: Heals 400 to 700 soldiers of one ally. Always successful. INT required to learn: 110. Level required to learn: 11. T.P cost: 6.",
     },
     'rejuvenate': {
         'min_damage': 900,
@@ -444,7 +444,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 9,
-        'description': "Rejuvenate: Heals 900 to 1500 soldiers of all allies. Always successful. INT required to learn: 120. Level required to learn: 18. TP cost: 9.",
+        'description': "Rejuvenate: Heals 900 to 1500 soldiers of all allies. Always successful. INT required to learn: 120. Level required to learn: 18. T.P cost: 9.",
     },
     'restore': {
         'min_damage': 1000000000,
@@ -455,7 +455,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 12,
-        'description': "Restore: Heals one ally completely. Always successful. INT required to learn: 180. Level required to learn: 24. TP cost: 12.",
+        'description': "Restore: Heals one ally completely. Always successful. INT required to learn: 180. Level required to learn: 24. T.P cost: 12.",
     },
     'heal': {
         'min_damage': 4000,
@@ -466,7 +466,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 4,
-        'description': "Heal: Heals 4000 to 6000 soldiers of all allies. Always successful. INT required to learn: 140. Level required to learn: 28. TP cost: 4.",
+        'description': "Heal: Heals 4000 to 6000 soldiers of all allies. Always successful. INT required to learn: 140. Level required to learn: 28. T.P cost: 4.",
     },
     'healmore': {
         'min_damage': 40000,
@@ -477,7 +477,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 8,
-        'description': "Healmore: Heals 40000 to 60000 soldiers of all allies. Always successful. INT required to learn: 150. Level required to learn: 45. TP cost: 8.",
+        'description': "Healmore: Heals 40000 to 60000 soldiers of all allies. Always successful. INT required to learn: 150. Level required to learn: 45. T.P cost: 8.",
     },
     'arise': {
         'min_damage': 400000,
@@ -488,7 +488,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 12,
-        'description': "Arise: Heals 400000 to 600000 soldiers of all allies. Always successful. INT required to learn: 170. Level required to learn: 61. TP cost: 12.",
+        'description': "Arise: Heals 400000 to 600000 soldiers of all allies. Always successful. INT required to learn: 170. Level required to learn: 61. T.P cost: 12.",
     },
     'revive': {
         'min_damage': 1000000000,
@@ -499,7 +499,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 3,
         'tactical_points': 24,
-        'description': "Revive: Heals all allies completely. Always successful. INT required to learn: 190. Level required to learn: 80. TP cost: 24.",
+        'description': "Revive: Heals all allies completely. Always successful. INT required to learn: 190. Level required to learn: 80. T.P cost: 24.",
     },
     'firewall': {
         'type': 'defense',
@@ -509,7 +509,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 4,
         'duration': 'temporary', # can be temporary or permanent. This is for status effects.
-        'description': "Firewall: Reduces fire damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 100. Level required to learn: 5. TP cost: 4.",
+        'description': "Firewall: Reduces fire damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 100. Level required to learn: 5. T.P cost: 4.",
     },
     'extinguish': {
         'type': 'defense',
@@ -519,7 +519,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 8,
         'duration': 'temporary',
-        'description': "Extinguish: Reduces fire damage inflicted on all allies down to one. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 120. Level required to learn: 15. TP cost: 8.",
+        'description': "Extinguish: Reduces fire damage inflicted on all allies down to one. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 120. Level required to learn: 15. T.P cost: 8.",
     },
     'shield': {
         'type': 'defense',
@@ -529,7 +529,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 12,
         'duration': 'temporary',
-        'description': "Shield: Reduces physical damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 170. Level required to learn: 26. TP cost: 12.",
+        'description': "Shield: Reduces physical damage inflicted on all allies down to half. Always successful. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 170. Level required to learn: 26. T.P cost: 12.",
     },
     'repel': {
         'type': 'defense',
@@ -539,7 +539,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 16,
         'duration': 'temporary',
-        'description': "Repel: Repels all physical attacks from the enemy. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 200. Level required to learn: 37. TP cost: 16.",
+        'description': "Repel: Repels all physical attacks from the enemy. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 200. Level required to learn: 37. T.P cost: 16.",
     },
     'deflect': {
         'type': 'defense',
@@ -549,7 +549,7 @@ TACTICS = {
         'slot': 4,
         'tactical_points': 20,
         'duration': 'temporary',
-        'description': "Deflect: Deflects all tactics from the enemy that target any allies. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 240. Level required to learn: 50. TP cost: 20.",
+        'description': "Deflect: Deflects all tactics from the enemy that target any allies. Medium success probability, based on INT of user. Duration is temporary, with some chance of it expiring at the end of each volley. INT required to learn: 240. Level required to learn: 50. T.P cost: 20.",
     },
     'provoke': {
         'type': 'enemy',
@@ -559,7 +559,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 5,
         'duration': 'permanent',
-        'description': "Provoke: Force the target enemy to only do physical attacks on the user. High success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 130. Level required to learn: 6. TP cost: 5.",
+        'description': "Provoke: Force the target enemy to only do physical attacks on the user. High success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 130. Level required to learn: 6. T.P cost: 5.",
     },
     'disable': {
         'type': 'enemy',
@@ -569,7 +569,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 10,
         'duration': 'permanent',
-        'description': "Disable: Force the target enemy to do nothing. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 160. Level required to learn: 20. TP cost: 10.",
+        'description': "Disable: Force the target enemy to do nothing. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 160. Level required to learn: 20. T.P cost: 10.",
     },
     'dispel': {
         'type': 'single',
@@ -578,7 +578,7 @@ TACTICS = {
         'success_probability_type': 'intel_prob',
         'slot': 5,
         'tactical_points': 15,
-        'description': "Dispel: Remove all bad status effects on allies and all good status effects on enemies. Medium success probability, based on INT of user. INT required to learn: 160. Level required to learn: 33. TP cost: 15.",
+        'description': "Dispel: Remove all bad status effects on allies and all good status effects on enemies. Medium success probability, based on INT of user. INT required to learn: 160. Level required to learn: 33. T.P cost: 15.",
     },
     'plunder': {
         'type': 'single',
@@ -587,7 +587,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 20,
-        'description': "Plunder: Steal money from the enemy. You can plunder a net number of one time. So, if the enemy plunders first, you can plunder twice. If you have already plundered more than the enemy, each time the enemy plunders, you can plunder back. Whatever you gain or lose is still in effect if you retreat early. Always successful. INT required to learn: 200. Level required to learn: 43. TP cost: 20.",
+        'description': "Plunder: Steal money from the enemy. You can plunder a net number of one time. So, if the enemy plunders first, you can plunder twice. If you have already plundered more than the enemy, each time the enemy plunders, you can plunder back. Whatever you gain or lose is still in effect if you retreat early. Always successful. INT required to learn: 200. Level required to learn: 43. T.P cost: 20.",
     },
     'train': {
         'type': 'defense',
@@ -597,7 +597,7 @@ TACTICS = {
         'slot': 5,
         'tactical_points': 25,
         'duration': 'permanent',
-        'description': "Train: Earn three times the experience points if you complete the battle. Always successful. INT required to learn: 245. Level required to learn: 55. TP cost: 25.",
+        'description': "Train: Earn three times the experience points if you complete the battle. Always successful. INT required to learn: 245. Level required to learn: 55. T.P cost: 25.",
     },
     'surrender': {
         'type': 'single',
@@ -606,7 +606,7 @@ TACTICS = {
         'success_probability_type': 'one',
         'slot': 5,
         'tactical_points': 30,
-        'description': "Surrender: Immediately retreat from battle. Always successful and you never get overtaken by the enemy, but you lose half your soldiers. INT required to learn: 255. Level required to learn: 69. TP cost: 30.",
+        'description': "Surrender: Immediately retreat from battle. Always successful and you never get overtaken by the enemy, but you lose half your soldiers. INT required to learn: 255. Level required to learn: 69. T.P cost: 30.",
     },
     'ninja': {
         'type': 'ally',
@@ -616,7 +616,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 4,
         'duration': 'permanent',
-        'description': "Ninja: Increase AGI of target ally to 255 for duration of battle. Always successful. The effect lasts for the whole battle. INT required to learn: 140. Level required to learn: 7. TP cost: 4.",
+        'description': "Ninja: Increase AGI of target ally to 255 for duration of battle. Always successful. The effect lasts for the whole battle. INT required to learn: 140. Level required to learn: 7. T.P cost: 4.",
     },
     'double~tap': {
         'type': 'ally',
@@ -626,7 +626,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
-        'description': "Double Tap: Target ally has a 75 percent chance of hitting a second time when doing a physical attack. Always successful. The effect lasts for the whole battle. INT required to learn: 220. Level required to learn: 13. TP cost: 6.",
+        'description': "Double Tap: Target ally has a 75 percent chance of hitting a second time when doing a physical attack. Always successful. The effect lasts for the whole battle. INT required to learn: 220. Level required to learn: 13. T.P cost: 6.",
     },
     'confuse': {
         'type': 'enemy',
@@ -636,7 +636,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
-        'description': "Confuse: Cause an enemy to only do physical attacks on his own allies. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 150. Level required to learn: 32. TP cost: 6.",
+        'description': "Confuse: Cause an enemy to only do physical attacks on his own allies. Medium success probability, based on INT of user and target. If used by you, duration is five turns. If used by an enemy, duration is permanent until the user is defeated. INT required to learn: 150. Level required to learn: 32. T.P cost: 6.",
     },
     'assassin': {
         'type': 'enemy',
@@ -647,7 +647,7 @@ TACTICS = {
         'success_probability_type': 'assassin',
         'slot': 6,
         'tactical_points': 10,
-        'description': "Assassin: Instantly defeat a single enemy. Low success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 48. TP cost: 10.",
+        'description': "Assassin: Instantly defeat a single enemy. Low success probability, based on INT of user and target. INT required to learn: 180. Level required to learn: 48. T.P cost: 10.",
     },
     'hulk~out': {
         'type': 'ally',
@@ -657,7 +657,7 @@ TACTICS = {
         'slot': 6,
         'tactical_points': 6,
         'duration': 'permanent',
-        'description': "Hulk Out: Target ally's physical attack damage increases by 50 percent. It can be used twice on an ally to increase the damage by a maximum of 100 percent. Always successful. The effect lasts for the whole battle. INT required to learn: 240. Level required to learn: 73. TP cost: 6.",
+        'description': "Hulk Out: Target ally's physical attack damage increases by 50 percent. It can be used twice on an ally to increase the damage by a maximum of 100 percent. Always successful. The effect lasts for the whole battle. INT required to learn: 240. Level required to learn: 73. T.P cost: 6.",
     },
 }
 
