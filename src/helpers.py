@@ -38,7 +38,7 @@ def get_intelligence(warlord):
 
 def can_level_up(warlord):
     stats = load_stats(warlord)
-    return 'max_soldiers_by_level' in stats
+    return 'max_soldiers_by_level' in stats and 'max_soldiers' not in stats
 
 
 def get_tactic_for_level(level):
@@ -104,18 +104,24 @@ def load_stats(name):
     return json_data
 
 
-def get_max_soldiers(warlord=None, level=None, stats=None):
+def get_max_soldiers(warlord=None, level=None, stats=None, is_ally=True):
     if stats is None:
         with open('data/stats/{}.json'.format(warlord)) as f:
             json_data = json.loads(f.read())
     else:
         json_data = stats
-    if 'max_soldiers_by_enemy_level' in json_data:
-        soldiers = json_data['max_soldiers_by_enemy_level'].get(str(level)) or json_data['max_soldiers']
-    elif 'max_soldiers_by_level' in json_data and level is not None:
-        soldiers = json_data['max_soldiers_by_level'][level-1]
+    if is_ally:
+        if 'max_soldiers' in json_data:
+            soldiers = json_data['max_soldiers']
+        else:
+            soldiers = json_data['max_soldiers_by_level'][level-1]
     else:
-        soldiers = json_data['max_soldiers']
+        if 'max_soldiers_by_enemy_level' in json_data:
+            soldiers = json_data['max_soldiers_by_enemy_level'].get(str(level)) or json_data['max_soldiers']
+        elif 'max_soldiers_by_level' in json_data and level is not None:
+            soldiers = json_data['max_soldiers_by_level'][level-1]
+        else:
+            soldiers = json_data['max_soldiers']
     return soldiers
 
 

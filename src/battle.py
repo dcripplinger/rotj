@@ -152,7 +152,7 @@ class Battle(object):
                 'tactical_points': ally['tactical_points'],
                 'max_tactical_points': get_max_tactical_points(ally['name'], level),
                 'soldiers': ally['soldiers'],
-                'max_soldiers': get_max_soldiers(ally['name'], level),
+                'max_soldiers': get_max_soldiers(ally['name'], level, is_ally=True),
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
                 'headless': ally.get('headless', False),
@@ -179,7 +179,7 @@ class Battle(object):
                 'tactical_points': ally['tactical_points'],
                 'max_tactical_points': get_max_tactical_points(ally['name'], level),
                 'soldiers': ally['soldiers'],
-                'max_soldiers': get_max_soldiers(ally['name'], level),
+                'max_soldiers': get_max_soldiers(ally['name'], level, is_ally=True),
                 'tactics': get_tactics(json_stats, level, pretty=False),
                 'items': ally['items'],
                 'headless': ally.get('headless', False),
@@ -2011,7 +2011,7 @@ class Battle(object):
         for warlord in self.game.game_state['company']:
             if can_level_up(warlord['name']) and not (self.battle_name == 'battle55' and warlord['name'] == 'teancum'):
                 dialog += u"{} now has {} soldiers. ".format(
-                    warlord['name'].title(), get_max_soldiers(warlord['name'], level),
+                    warlord['name'].title(), get_max_soldiers(warlord['name'], level, is_ally=True),
                 )
             if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
                 tactic_guys.append(warlord)

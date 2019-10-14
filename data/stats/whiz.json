@@ -5,6 +5,7 @@
   "agility": 100,
   "evasion": 54,
   "tactical_points": 0,
+  "max_soldiers": 29496482,
   "max_soldiers_by_level": [
     100,
     115,

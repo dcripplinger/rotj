@@ -70,7 +70,7 @@ class Beginning(object):
                 starting_company = [
                     {
                         'name': 'moroni',
-                        'soldiers': get_max_soldiers('moroni', 1),
+                        'soldiers': get_max_soldiers('moroni', 1, is_ally=True),
                         'items': [
                             {'name': 'dagger', 'equipped': True},
                             {'name': 'robe', 'equipped': True},
@@ -79,13 +79,13 @@ class Beginning(object):
                     },
                     {
                         'name': 'teancum',
-                        'soldiers': get_max_soldiers('teancum', 1),
+                        'soldiers': get_max_soldiers('teancum', 1, is_ally=True),
                         'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
                         'tactical_points': get_max_tactical_points('teancum', 1),
                     },
                     {
                         'name': 'amalickiah',
-                        'soldiers': get_max_soldiers('amalickiah', 1),
+                        'soldiers': get_max_soldiers('amalickiah', 1, is_ally=True),
                         'items': [{'name': 'dagger', 'equipped': True}, {'name': 'robe', 'equipped': True}],
                         'tactical_points': get_max_tactical_points('amalickiah', 1),
                         'tactician': True,
@@ -103,7 +103,7 @@ class Beginning(object):
                     })
                     starting_company.append({
                         'name': 'shiz',
-                        'soldiers': get_max_soldiers('shiz', 1),
+                        'soldiers': get_max_soldiers('shiz', 1, is_ally=True),
                         'items': [],
                         'tactical_points': get_max_tactical_points('shiz', 1),
                     })

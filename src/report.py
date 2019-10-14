@@ -72,12 +72,14 @@ class Report(object):
             self.stats = stats
             self.name = stats['name']
             self.stats_provided = True
+            self.is_ally = False
         else: # This is an ally report
             self.stats = load_stats(self.name)
             self.stats_provided = False
+            self.is_ally = True
             if 'tactical_points_by_level' in self.stats:
                 self.tp_star = TextBox('*')
-            if 'max_soldiers_by_level' in self.stats:
+            if 'max_soldiers_by_level' in self.stats and 'max_soldiers' not in self.stats:
                 self.soldiers_star = TextBox('*')
         if self.name == 'shiz' and headless:
             portrait_name = 'shiz_headless'
@@ -117,9 +119,16 @@ class Report(object):
             self.surface.blit(self.soldiers_star.surface, (80, 96))
 
     def get_max_soldiers(self):
-        if 'max_soldiers_by_level' in self.stats:
-            return self.stats['max_soldiers_by_level'][self.level-1]
-        return self.stats['max_soldiers']
+        if self.is_ally:
+            if 'max_soldiers' in self.stats:
+                return self.stats['max_soldiers']
+            else:
+                return self.stats['max_soldiers_by_level'][self.level-1]
+        else:
+            if 'max_soldiers_by_level' in self.stats:
+                return self.stats['max_soldiers_by_level'][self.level-1]
+            else:
+                return self.stats['max_soldiers']
 
     def get_tactical_points(self):
         if 'tactical_points_by_level' in self.stats:
@@ -147,7 +156,7 @@ class CompanyReport(object):
                 self.surface.blit(TextBox('LEADER').surface, (72, 48))
                 self.surface.blit(TextBox(warlord['name'].title()).surface, (72, 64))
             soldiers_text += "{}\n".format(warlord['name'].title())
-            soldiers_text += "~{:~>8}/{:~>8}\n".format(warlord['soldiers'], get_max_soldiers(warlord['name'], level))
+            soldiers_text += "~{:~>8}/{:~>8}\n".format(warlord['soldiers'], get_max_soldiers(warlord['name'], level), is_ally=True)
             if warlord.get('tactician'):
                 tactician_found = True
                 self.surface.blit(TextBox('STRAT.').surface, (176, 120))

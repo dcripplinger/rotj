@@ -276,7 +276,7 @@ class Game(object):
     def starve_the_soldiers(self):
         company = copy.deepcopy(self.game_state['company'])
         for warlord in company:
-            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'])
+            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'], is_ally=True)
             if warlord['soldiers'] != 0:
                 warlord['soldiers'] = max(1, warlord['soldiers'] - int(round(0.01*max_soldiers)))
         self.update_game_state({'company': company})
@@ -284,7 +284,7 @@ class Game(object):
     def walk_in_lava(self):
         company = copy.deepcopy(self.game_state['company'])
         for warlord in company:
-            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'])
+            max_soldiers = get_max_soldiers(warlord['name'], self.game_state['level'], is_ally=True)
             if warlord['soldiers'] != 0:
                 warlord['soldiers'] = max(1, warlord['soldiers'] - int(round(0.03*max_soldiers)))
         self.update_game_state({'company': company})
@@ -314,7 +314,7 @@ class Game(object):
         level = self.game_state['level']
         company.append({
             'name': warlord_name,
-            'soldiers': get_max_soldiers(warlord_name, level),
+            'soldiers': get_max_soldiers(warlord_name, level, is_ally=True),
             'tactical_points': get_max_tactical_points(warlord_name, level),
             'items': [],
         })
@@ -459,7 +459,7 @@ class Game(object):
         company = copy.deepcopy(self.game_state['company'])
         for warlord in company:
             if warlord['name'] == warlord_name:
-                max_soldiers = get_max_soldiers(warlord_name, self.game_state['level'])
+                max_soldiers = get_max_soldiers(warlord_name, self.game_state['level'], is_ally=True)
                 warlord['soldiers'] = min(warlord['soldiers']+amount, max_soldiers)
                 break
         self.update_game_state({'company': company})
@@ -501,7 +501,7 @@ class Game(object):
             company = copy.deepcopy(self.game_state['company'])
             for warlord in company:
                 if warlord['soldiers'] > 0:
-                    warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'])
+                    warlord['soldiers'] = get_max_soldiers(warlord['name'], self.game_state['level'], is_ally=True)
                     warlord['tactical_points'] = get_max_tactical_points(warlord['name'], self.game_state['level'])
             self.update_game_state({'company': company})
         self.sleep_music = sleep_music
@@ -712,7 +712,7 @@ class Game(object):
             if len(company) < MAX_COMPANY_SIZE:
                 company.append({
                     'name': name,
-                    'soldiers': get_max_soldiers(name, level),
+                    'soldiers': get_max_soldiers(name, level, is_ally=True),
                     'items': [],
                     'tactical_points': get_max_tactical_points(name, level),
                 })
@@ -2320,7 +2320,7 @@ class Game(object):
         for warlord in company:
             if can_level_up(warlord['name']):
                 dialog += u"{} now has {} soldiers. ".format(
-                    warlord['name'].title(), get_max_soldiers(warlord['name'], level),
+                    warlord['name'].title(), get_max_soldiers(warlord['name'], level, is_ally=True),
                 )
             if tactic and get_intelligence(warlord['name']) >= TACTICS[tactic]['min_intelligence']:
                 tactic_guys.append(warlord)
