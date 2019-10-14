@@ -7,6 +7,7 @@ from pygame.locals import *
 
 from constants import BLACK, GAME_WIDTH
 from devtools import Devtools
+from help_menu import HelpMenu
 from text import MenuBox, TextBox, create_prompt
 
 
@@ -18,6 +19,7 @@ class PauseMenu(object):
         self.title = TextBox('PAUSE MENU', GAME_WIDTH, 16, adjust='center')
         menu_items = []
         menu_items.append('MAP')
+        menu_items.append('HELP')
         if self.game.args.devtools:
             menu_items.append('DEV TOOLS')
         menu_items.append('QUIT TO TITLE SCREEN')
@@ -25,6 +27,7 @@ class PauseMenu(object):
         self.menu = MenuBox(menu_items, border=False)
         self.menu.focus()
         self.screen_state = 'menu'
+        self.help_menu = None
         self.devtools_menu = None
         self.choice_box = None
         self.prompt = None
@@ -34,7 +37,9 @@ class PauseMenu(object):
         self.screen.blit(self.title.surface, (0, 8))
         self.screen.blit(self.menu.surface, (32, 24))
         if self.screen_state == 'devtools':
-            self.screen.blit(self.devtools_menu.get_surface(), (32, 56))
+            self.screen.blit(self.devtools_menu.get_surface(), (32, 72))
+        elif self.screen_state == 'help':
+            self.screen.blit(self.help_menu.get_surface(), (32, 56))
         elif self.screen_state in ['quit', 'quit_choice']:
             if self.choice_box:
                 self.screen.blit(self.choice_box.surface, (160, 128))
@@ -46,6 +51,8 @@ class PauseMenu(object):
             self.menu.update(dt)
         elif self.screen_state == 'devtools':
             self.devtools_menu.update(dt)
+        elif self.screen_state == 'help':
+            self.help_menu.update(dt)
         elif self.screen_state == 'quit':
             self.prompt.update(dt)
             if not self.prompt.has_more_stuff_to_show():
@@ -63,6 +70,8 @@ class PauseMenu(object):
             self.handle_input_menu(pressed)
         elif self.screen_state == 'devtools':
             self.handle_input_devtools(pressed)
+        elif self.screen_state == 'help':
+            self.handle_input_help_menu(pressed)
         elif self.screen_state == 'quit':
             self.prompt.handle_input(pressed)
         elif self.screen_state == 'quit_choice':
@@ -93,6 +102,10 @@ class PauseMenu(object):
             choice = self.menu.get_choice()
             if choice == 'MAP':
                 self.game.open_pause_map()
+            elif choice == 'HELP':
+                self.screen_state = 'help'
+                self.help_menu = HelpMenu(self.game)
+                self.menu.unfocus()
             elif choice == 'DEV TOOLS':
                 self.screen_state = 'devtools'
                 self.devtools_menu = Devtools(self.game)
@@ -110,4 +123,13 @@ class PauseMenu(object):
         elif pressed[K_z]:
             self.screen_state = 'menu'
             self.devtools_menu = None
+            self.menu.focus()
+
+    def handle_input_help_menu(self, pressed):
+        self.help_menu.handle_input(pressed)
+        if pressed[K_RETURN]:
+            self.game.close_pause_menu()
+        elif pressed[K_z] and self.help_menu.state == 'main':
+            self.screen_state = 'menu'
+            self.help_menu = None
             self.menu.focus()
