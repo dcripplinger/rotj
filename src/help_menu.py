@@ -252,12 +252,8 @@ class HelpMenu(object):
             for name, info in ITEMS.items()
             if info['type'] == 'helmet'
         ]
-        sorted_helmets = sorted(helmets, key=lambda k: k['armor_class'])
-        gridded_helmets = [
-            [h['name'] for h in sorted_helmets[0:10]],
-            [h['name'] for h in sorted_helmets[10:]],
-        ]
-        self.helmets_menu = MenuGrid(gridded_helmets, border=True)
+        sorted_helmets = [h['name'] for h in sorted(helmets, key=lambda k: k['armor_class'])]
+        self.helmets_menu = MenuBox(sorted_helmets, border=True)
         self.menu.unfocus()
         self.helmets_menu.focus()
 
@@ -315,8 +311,8 @@ class HelpMenu(object):
                 sorted_items[0:10],
                 sorted_items[10:],
             ]
+            self.items_submenu = MenuGrid(gridded_items, border=True)
         else:
-            gridded_items = [sorted_items]
-        self.items_submenu = MenuGrid(gridded_items, border=True)
+            self.items_submenu = MenuBox(sorted_items, border=True)
         self.items_menu.unfocus()
         self.items_submenu.focus()
