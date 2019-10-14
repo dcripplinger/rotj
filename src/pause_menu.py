@@ -33,18 +33,19 @@ class PauseMenu(object):
         self.prompt = None
 
     def draw(self):
-        self.screen.fill(BLACK)
-        self.screen.blit(self.title.surface, (0, 8))
-        self.screen.blit(self.menu.surface, (32, 24))
-        if self.screen_state == 'devtools':
-            self.screen.blit(self.devtools_menu.get_surface(), (32, 72))
-        elif self.screen_state == 'help':
-            self.screen.blit(self.help_menu.get_surface(), (32, 56))
-        elif self.screen_state in ['quit', 'quit_choice']:
-            if self.choice_box:
-                self.screen.blit(self.choice_box.surface, (160, 128))
-            if self.prompt:
-                self.screen.blit(self.prompt.surface, (0, 160))
+        if self.screen_state == 'help':
+            self.help_menu.draw()
+        else:
+            self.screen.fill(BLACK)
+            self.screen.blit(self.title.surface, (0, 8))
+            self.screen.blit(self.menu.surface, (32, 24))
+            if self.screen_state == 'devtools':
+                self.screen.blit(self.devtools_menu.get_surface(), (32, 72))
+            elif self.screen_state in ['quit', 'quit_choice']:
+                if self.choice_box:
+                    self.screen.blit(self.choice_box.surface, (160, 128))
+                if self.prompt:
+                    self.screen.blit(self.prompt.surface, (0, 160))
 
     def update(self, dt):
         if self.screen_state == 'menu':
@@ -104,7 +105,7 @@ class PauseMenu(object):
                 self.game.open_pause_map()
             elif choice == 'HELP':
                 self.screen_state = 'help'
-                self.help_menu = HelpMenu(self.game)
+                self.help_menu = HelpMenu(self.screen, self.game)
                 self.menu.unfocus()
             elif choice == 'DEV TOOLS':
                 self.screen_state = 'devtools'
