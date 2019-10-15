@@ -347,7 +347,7 @@ class HelpMenu(object):
             if info['slot'] == slot
         ]
         sorted_tactics = sorted(tactics, key=lambda k: k['min_level'])
-        listed_tactics = [t['name'] for t in sorted_tactics]
+        listed_tactics = [t['name'] for t in sorted_tactics if self.game.game_state['level'] >= t['min_level']-6]
         self.tactics_submenu = MenuBox(listed_tactics, border=True)
         self.tactics_menu.unfocus()
         self.tactics_submenu.focus()
