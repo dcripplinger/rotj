@@ -494,10 +494,17 @@ class Map(object):
                 self.lava_sound.play()
             if self.no_food_left:
                 self.no_food_delta = 0.0
+            opening_text = ""
             if self.game.cloak_steps_remaining:
                 self.game.cloak_steps_remaining -= 1
                 if not self.game.cloak_steps_remaining:
-                    self.opening_dialog = create_prompt("The cloak has worn off. We are now visible to the enemy.")
+                    opening_text += "The cloak has worn off. We are now visible to the enemy. "
+            if self.game.scout_steps_remaining:
+                self.game.scout_steps_remaining -= 1
+                if not self.game.scout_steps_remaining:
+                    opening_text += "The scout has completed his contract and gone home. Auto-Train and On-Guard disabled."
+            if opening_text:
+                self.opening_dialog = create_prompt(opening_text)
             if self.name == 'overworld':
                 self.game.mark_beaten_path(next_pos)
 

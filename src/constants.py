@@ -1586,6 +1586,16 @@ ITEMS = {
         },
     },
 
+    # scout
+    'scout': {
+        'map_usage': 'scout', # enable auto-train and avoid getting caught off guard for a while
+        'type': 'map',
+        'description': "Scout: You can hire a scout from certain people in the cities of the land northward. To deploy a scout, use him from the ITEM menu. He will go ahead of your army for a while. This makes you automatically use the Train tactic during RISK IT and ALL OUT, if you have the tactic and the requisite tactical points. It also helps you avoid getting caught off guard and always retreat successfully from random encounters.",
+        'conditions': {
+            'battle71': True,
+        },
+    },
+
     # unlock items
     'silver~key': {
         'map_usage': 'unlock', # means it attempts to unlock a locked treasure on the cell/tile you're on

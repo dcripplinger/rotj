@@ -308,6 +308,8 @@ class Battle(object):
     # score in between results in a proportional decrease in the chance of offguard being in favor of the
     # enemy.
     def get_offguard(self):
+        if self.game.scout_steps_remaining:
+            return 0
         ally_base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.allies])
         enemy_base_num = 1.0 * sum([e.max_soldiers * e.attack_points for e in self.enemies])
         random_num = random.random()
@@ -1005,7 +1007,19 @@ class Battle(object):
         if include_allies:
             enemies = self.get_live_enemies()
             for ally in self.get_live_allies():
-                move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
+                if (
+                    self.game.scout_steps_remaining
+                    and 'train' not in self.good_ally_statuses
+                    and ally.tactics
+                    and ally.tactics[4] == 'train'
+                    and ally.tactical_points >= TACTICS['train']['tactical_points']
+                ):
+                    move = {'agent': ally, 'action': self.execute_move_tactic, 'tactic': 'train'}
+                    ally.consume_tactical_points(TACTICS['train']['tactical_points'])
+                    # Do this early and redundantly so that we don't have all the allies choose this as their move
+                    self.good_ally_statuses['train'] = TACTICS['train']['duration']
+                else:
+                    move = {'agent': ally, 'action': self.execute_move_battle, 'target': random.choice(enemies)}
                 self.submit_move(move)
         self.generate_enemy_moves()
         self.ordered_moves = self.get_moves_in_order_of_agility()
@@ -1595,7 +1609,7 @@ class Battle(object):
         tactical_points = enemy.tactical_points
         heal_cost = TACTICS.get(heal_tactic, {}).get('tactical_points', 0)
         if (
-            heal_tactic and heal_cost < tactical_points and enemy.get_future_soldiers()*1.0/enemy.max_soldiers < .5
+            heal_tactic and heal_cost <= tactical_points and enemy.get_future_soldiers()*1.0/enemy.max_soldiers < .5
             and sum_dangers > enemy.get_future_soldiers() and random.random() < .7
         ):
             action = {'agent': enemy, 'action': self.execute_move_tactic, 'tactic': heal_tactic}
@@ -1611,7 +1625,7 @@ class Battle(object):
                 len(self.good_ally_statuses) > 0
                 or any([an_enemy.bad_status for an_enemy in self.enemies if an_enemy.get_future_soldiers() > 0])
             )
-            and TACTICS['dispel']['tactical_points'] + heal_cost < tactical_points
+            and TACTICS['dispel']['tactical_points'] + heal_cost <= tactical_points
             and random.random() < .2
         ):
             enemy.consume_tactical_points(TACTICS['dispel']['tactical_points'])
@@ -1623,7 +1637,7 @@ class Battle(object):
         if (
             defense_tactic
             and defense_tactic != 'train'
-            and heal_cost + defense_cost < tactical_points
+            and heal_cost + defense_cost <= tactical_points
             and defense_tactic not in self.good_enemy_statuses
             and (
                 defense_tactic not in ['firewall', 'extinguish']
@@ -1638,7 +1652,7 @@ class Battle(object):
         enemy_prob = self.get_enemy_prob(enemy, ally_target)
         if (
             (enemy.tactics[4] if enemy.tactics else None) in ['provoke', 'disable']
-            and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] < tactical_points
+            and heal_cost + TACTICS[enemy.tactics[4]]['tactical_points'] <= tactical_points
             and ally_target.bad_status is None
             and random.random() < enemy_prob
             and random.random() < .3 # we don't want to be using these all the time
@@ -1651,7 +1665,7 @@ class Battle(object):
         # confuse
         if (
             (enemy.tactics[5] if enemy.tactics else None) == 'confuse'
-            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
+            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] <= tactical_points
             and ally_target.bad_status is None
             and random.random() < enemy_prob
             and random.random() < .3 # we don't want to be using these all the time
@@ -1664,7 +1678,7 @@ class Battle(object):
         # assassin
         if (
             (enemy.tactics[5] if enemy.tactics else None) == 'assassin'
-            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] < tactical_points
+            and heal_cost + TACTICS[enemy.tactics[5]]['tactical_points'] <= tactical_points
             and random.random() < enemy_prob
             and random.random() < .5 # we don't want to be using these all the time
         ):
@@ -1678,7 +1692,7 @@ class Battle(object):
         if boost_tactic in ['ninja', 'double~tap', 'hulk~out']:
             if (
                 (boost_tactic == 'hulk~out' or boost_tactic not in random_enemy.good_statuses)
-                and heal_cost + TACTICS[boost_tactic]['tactical_points'] < tactical_points
+                and heal_cost + TACTICS[boost_tactic]['tactical_points'] <= tactical_points
                 and random.random() < .2
             ):
                 enemy.consume_tactical_points(TACTICS[enemy.tactics[5]]['tactical_points'])
@@ -1689,7 +1703,7 @@ class Battle(object):
         # plunder
         if (
             (enemy.tactics[4] if enemy.tactics else None) == 'plunder'
-            and heal_cost + TACTICS['plunder']['tactical_points'] < tactical_points
+            and heal_cost + TACTICS['plunder']['tactical_points'] <= tactical_points
             and self.plundered != -1
             and random.random() < .2
         ):
@@ -1707,7 +1721,7 @@ class Battle(object):
             and enemy.tactics
             and enemy.tactics[1]
             and self.near_water
-            and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] < tactical_points
+            and heal_cost + TACTICS[enemy.tactics[1]]['tactical_points'] <= tactical_points
             and random.random() < enemy_prob2
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[1]]['tactical_points'])
@@ -1730,7 +1744,7 @@ class Battle(object):
             maybe_do_fire_tactic_damage
             and enemy.tactics
             and enemy.tactics[0]
-            and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] < tactical_points
+            and heal_cost + TACTICS[enemy.tactics[0]]['tactical_points'] <= tactical_points
             and random.random() < enemy_prob2
         ):
             enemy.consume_tactical_points(TACTICS[enemy.tactics[0]]['tactical_points'])

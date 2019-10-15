@@ -63,6 +63,7 @@ class Game(object):
         self.current_cutscene = None
         self.next_cutscene = None
         self.cloak_steps_remaining = 0
+        self.scout_steps_remaining = 0
         self.retreat_counter = 0
         self.battle_intro = None
         self.narration = None
@@ -1222,6 +1223,8 @@ class Game(object):
         self.virtual_screen.blit(fade_box, (0,0))
 
     def try_retreat(self, agility_score, is_warlord_battle, is_story_battle):
+        if self.scout_steps_remaining and not is_story_battle:
+            return True
         prev_retreat_multiplier = 0.8
         multiplier = 1.0
         if self.retreat_counter > 0:
