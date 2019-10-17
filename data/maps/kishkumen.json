@@ -140,5 +140,53 @@
       "wander": false,
       "dialog": "We don't really make the distinction between Nephite and Lamanite in the land northward."
     }
+  },
+  {
+    "x": 14,
+    "y": 53,
+    "ai_sprite": {
+      "name": "advisor",
+      "direction": "e",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "state:not_enough_money_for_scout",
+          "text": "Come talk to me again when you have more money."
+        },
+        {
+          "condition": "state:not_enough_room_for_scout",
+          "text": "You don't have enough room in your inventory to manage a scout."
+        },
+        {
+          "condition": "bought_scout",
+          "text": "Want to hire a scout? 1200000 senines.",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "bought_scout",
+              "next_dialog": "Great. Use him in your ITEM menu."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Maybe later then."
+            }
+          ]
+        },
+        {
+          "text": "Want to hire a scout? Once you deploy a scout from the ITEM command menu, he will go ahead of your army for some time to scout the area. This allows you to avoid getting caught off guard and to use the Train tactic automatically when you use ALL OUT or RISK IT. You have to have tactical points and know the tactic for it to work though. Each scout costs 1200000 senines.",
+          "prompt": [
+            {
+              "choice": "YES",
+              "game_state_action": "bought_scout",
+              "next_dialog": "Great. Talk to me if you want to hire more scouts."
+            },
+            {
+              "choice": "NO",
+              "next_dialog": "Maybe later then."
+            }
+          ]
+        }
+      ]
+    }
   }
 ]

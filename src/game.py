@@ -45,6 +45,7 @@ from game_credits import Credits
 
 REPEAT_CONDITIONS = [
     'got_javelin',
+    'bought_scout',
     'found_title_of_liberty',
     'got_lost_and_found_item',
 ]
@@ -124,6 +125,7 @@ class Game(object):
             'got_title_of_liberty': self.handle_got_title_of_liberty,
             'found_title_of_liberty': self.handle_found_title_of_liberty,
             'got_javelin': self.handle_got_javelin,
+            'bought_scout': self.handle_bought_scout,
             'bought_key': self.handle_bought_key,
             'battle27': self.handle_battle27,
             'battle34_sober': self.handle_battle34_sober,
@@ -1329,6 +1331,15 @@ class Game(object):
     # after the colon. For example, "state:lamoni_leader" will call lamoni_leader().
     # If it's true, that "state" condition passes.
 
+    def not_enough_money_for_scout(self):
+        return self.game_state['money'] < ITEMS['scout']['cost']
+
+    def not_enough_room_for_scout(self):
+        for warlord in self.game_state['company']:
+            if len(warlord['items']) < 8:
+                return False
+        return True
+
     def got_cloak(self):
         return self.conditions_are_met('onidah_treasure2') or self.conditions_are_met('tunnels_of_the_north_treasure1')
 
@@ -1653,6 +1664,10 @@ class Game(object):
     def handle_got_javelin(self):
         self.add_to_inventory('javelin')
         self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
+
+    def handle_bought_scout(self):
+        self.add_to_inventory('scout')
+        self.update_game_state({'money': self.game_state['money'] - ITEMS['scout']['cost']})
 
     def handle_got_liahona(self):
         self.add_to_inventory('liahona')
