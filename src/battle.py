@@ -1278,19 +1278,16 @@ class Battle(object):
             for warlord in target_warlords:
                 warlord.reinforcements = False
         elif info['effect'] == 'dispel': # nightshade
-            if random.random() < 0.75:
-                is_ally_move = move['agent'] in self.allies
-                acting_team = self.allies if is_ally_move else self.enemies
-                for warlord in acting_team:
-                    warlord.bad_status = None
-                target_team = self.enemies if is_ally_move else self.allies
-                for warlord in target_team:
-                    warlord.good_statuses = {}
-                good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
-                good_target_team_statuses.clear() # set dictionary to empty
-                return move, {}
-            else:
-                return move, {'fail': True}
+            is_ally_move = move['agent'] in self.allies
+            acting_team = self.allies if is_ally_move else self.enemies
+            for warlord in acting_team:
+                warlord.bad_status = None
+            target_team = self.enemies if is_ally_move else self.allies
+            for warlord in target_team:
+                warlord.good_statuses = {}
+            good_target_team_statuses = self.good_enemy_statuses if is_ally_move else self.good_ally_statuses
+            good_target_team_statuses.clear() # set dictionary to empty
+            return move, {}
         return move, {}
 
     def execute_item_type_allies(self, move):
