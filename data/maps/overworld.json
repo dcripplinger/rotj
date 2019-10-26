@@ -4124,6 +4124,7 @@
     "battles": [
       {
         "name": "battle89",
+        "offguard": 0,
         "intro": "You've gone far enough. It ends here.",
         "exit": "How could you have withstood our attack?",
         "enemies": [
@@ -4150,6 +4151,7 @@
         ],
         "next_battle": {
           "name": "battle90",
+          "offguard": 0,
           "battle_type": "zemnarihah",
           "intro": "Moronihah. My destiny is to conquer the whole land. You can't prevent it.",
           "exit": "If I am to die, I consider it an honor for it to be by your hand.",
