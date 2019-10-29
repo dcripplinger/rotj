@@ -1672,6 +1672,45 @@ ITEMS = {
     },
 }
 
+PLACES = {
+    'Shops': {
+        'sort_order': 0,
+        'description': "Shops: Most accessible buildings in cities are shops. Each type of shop has a doormat with its symbol for easy recognition. Cities include some or all of the following shops: inn, food shop, merchant shop, armory, record office, and reserve.",
+    },
+    'Inn': {
+        'sort_order': 1,
+        'description': "Inn: Every city has an inn where you can rest to recover your soldiers and tactical points. Defeated warlords will not recover from resting at an inn. First, you must use a Resurrect item on him.",
+    },
+    'Food Shop': {
+        'sort_order': 2,
+        'description': "Food Shop: Buy food here so your soldiers don't starve while traveling. You can also get food when completing a story battle. If you run out of food, you will start losing soldiers as you walk and the screen will flash red, until you only have one soldier left per warlord."
+    },
+    'Merchant Shop': {
+        'sort_order': 3,
+        'description': "Merchant Shop: Here you can buy various items and sell back items and equipment. Different merchant shops will carry different items.",
+    },
+    'Armory': {
+        'sort_order': 4,
+        'description': "Armory: This is the place to buy new weapons, body armor, and helmets. Don't forget to equip them after you buy them.",
+    },
+    'Record Office': {
+        'sort_order': 5,
+        'description': "Record Office: At a record office, you can check how many more experience points you need to advance to the next level, and you can save your game. In most cities with palaces, you can also use the record office and choose SET HQ to set that city as your base of operations. If you set the city as your HQ and then save your game, loading the game will start you at the palace of that city.",
+    },
+    'Reserve': {
+        'sort_order': 6,
+        'description': "Reserve: The building that houses warlords on your team but not currently traveling in your company. You can check their stats, add new members to your party, delete members from your party, fire members so that they become enemies again, and pick up items from surplus. When a member goes into the reserve, his items go into surplus. Whenever you get an item, like from a treasure chest, it will go to the reserve if you don't have room to carry it. If a warlord joins you but your party is full, he will go to the reserve. EXP earned in each battle gets a multiplier based on how many members are in the reserve.",
+    },
+    'Palace': {
+        'sort_order': 7,
+        'description': "Palace: Some cities have a palace, where you can often find one of the Nephite judges. Speak to a judge to learn what to do next. The chief judge is stationed at the capital Zarahemla. He will sometimes have special instructions.",
+    },
+    'Lost and Found': {
+        'sort_order': 8,
+        'description': "Lost and Found: One of the cities in the land has a lost and found. If you drop any rare items, they will end up here. Can you find which city it is in?",
+    },
+}
+
 STATS = {
     'SOLDIERS': {
         'sort_order': -1,

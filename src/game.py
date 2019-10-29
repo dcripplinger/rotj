@@ -261,6 +261,15 @@ class Game(object):
         else:
             return music
 
+    def reserve_multiplier(self):
+        # Get a bonus to your exp when you have guys in the reserve.
+        # Grows quadratically based on number of guys in reserve,
+        # from 1.0 to around 4.0 if you get all the guys you can.
+        # (I think the max you can get isn't much higher than 160.)
+        print len(self.game_state['reserve'])
+        print 1.0 + (len(self.game_state['reserve']) / 92.0) ** 2
+        return 1.0 + (len(self.game_state['reserve']) / 92.0) ** 2
+
     def decrement_food(self):
         if self.devtools['Fasting']:
             return False
