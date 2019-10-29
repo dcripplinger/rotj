@@ -924,7 +924,7 @@ BATTLE_MUSIC = {
         'repeat': 'data/audio/music/giddianhi_repeat.wav',
     },
     'zemnarihah': {
-        'intro': 'data/audio/music/zemnarihah.wav', # hack to make sure music repeats even though it's a phase 2 battle
+        'intro': 'data/audio/music/silent.wav',
         'repeat': 'data/audio/music/zemnarihah.wav',
     },
 }

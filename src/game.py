@@ -266,8 +266,6 @@ class Game(object):
         # Grows quadratically based on number of guys in reserve,
         # from 1.0 to around 4.0 if you get all the guys you can.
         # (I think the max you can get isn't much higher than 160.)
-        print len(self.game_state['reserve'])
-        print 1.0 + (len(self.game_state['reserve']) / 92.0) ** 2
         return 1.0 + (len(self.game_state['reserve']) / 92.0) ** 2
 
     def decrement_food(self):
@@ -934,7 +932,7 @@ class Game(object):
 
     def update(self, dt):
         # handle music
-        if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+        if self.current_map and self.current_music == 'intro' and not pygame.mixer.music.get_busy():
             if self._screen_state == 'battle' or self._screen_state_after_pause == 'battle':
                 repeat_music = BATTLE_MUSIC[self.battle.battle_type]['repeat']
             elif self._screen_state == 'credits':
@@ -1352,12 +1350,15 @@ class Game(object):
     def got_cloak(self):
         return self.conditions_are_met('onidah_treasure2') or self.conditions_are_met('tunnels_of_the_north_treasure1')
 
-    def game_complete(self):
-        return self.conditions_are_met([
+    def game_complete(self, current_condition=None):
+        li = [
             'battle69',
             'battle80',
             'battle90',
-        ])
+        ]
+        if current_condition:
+            li.remove(current_condition)
+        return self.conditions_are_met(li)
 
     def lamoni_leader(self):
         for warlord in self.game_state['company']:
@@ -2736,15 +2737,15 @@ class Game(object):
         self.add_to_company(['lachoneus'])
 
     def handle_battle69(self):
-        if self.game_complete():
+        if self.game_complete(current_condition="battle69"):
             self._handle_game_complete()
 
     def handle_battle80(self):
-        if self.game_complete():
+        if self.game_complete(current_condition="battle80"):
             self._handle_game_complete()
 
     def handle_battle90(self):
-        if self.game_complete():
+        if self.game_complete(current_condition="battle90"):
             self._handle_game_complete()
 
     def _handle_game_complete(self):
