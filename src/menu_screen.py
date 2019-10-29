@@ -42,6 +42,7 @@ class MenuScreen(object):
         self.copy_menu = None
         self.paste_menu = None
         self.paste_prompt = None
+        self.controls = TextBox('~~~~~~~~~~X: select\n~~~~~~~~~~Z: cancel\n ~~~~~ARROWS: move\n~~~~~~ENTER: pause menu\nRIGHT~SHIFT: party status')
 
     def load_main_menu(self):
         if all(self.state): # if all three save slots are full
@@ -104,6 +105,7 @@ class MenuScreen(object):
 
     def draw(self):
         self.screen.fill(BLACK)
+        self.screen.blit(self.controls.surface, (32, 112))
         prompt_vert_pos = 160
         mid_menu_vert_pos = 80
         top_menu_vert_pos = 16

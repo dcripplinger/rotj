@@ -932,17 +932,20 @@ class Game(object):
 
     def update(self, dt):
         # handle music
-        if self.current_map and self.current_music == 'intro' and not pygame.mixer.music.get_busy():
+        if self.current_music == 'intro' and not pygame.mixer.music.get_busy():
             if self._screen_state == 'battle' or self._screen_state_after_pause == 'battle':
                 repeat_music = BATTLE_MUSIC[self.battle.battle_type]['repeat']
             elif self._screen_state == 'credits':
                 repeat_music = CREDITS_MUSIC['repeat']
-            else:
+            elif self.current_map:
                 repeat_music = self.get_music(self.current_map.name)['repeat']
-            pygame.mixer.music.load(repeat_music)
-            if not self.battle or self.battle.battle_name != 'nonbattle':
-                pygame.mixer.music.play(-1)
-            self.current_music = 'repeat'
+            else:
+                repeat_music = None
+            if repeat_music:
+                pygame.mixer.music.load(repeat_music)
+                if not self.battle or self.battle.battle_name != 'nonbattle':
+                    pygame.mixer.music.play(-1)
+                self.current_music = 'repeat'
 
         if self._screen_state == 'game':
             self.current_map.update(dt)
