@@ -266,7 +266,7 @@ class Game(object):
             return False
         food = copy.deepcopy(self.game_state['food'])
         soldiers = sum(warlord['soldiers'] for warlord in self.game_state['company'])
-        eaten = soldiers / 20000.0 # 20,000 steps per food unit per soldier
+        eaten = soldiers / 5000.0 # 5,000 steps per food unit per soldier
         new_food = max(0, food - eaten)
         self.update_game_state({'food': new_food})
         if new_food == 0:
