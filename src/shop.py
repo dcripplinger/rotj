@@ -422,7 +422,7 @@ class MerchantShop(Shop):
         self.state = 'dialog'
         item = self.shop_menu.get_choice()
         if 'cost' in ITEMS[item['name']] and not ITEMS[item['name']].get('rare'):
-            self.value = int(ITEMS[item['name']]['cost'] * 0.75)
+            self.value = int(ITEMS[item['name']]['cost'] * 0.5)
             self.dialog = create_prompt(
                 u"{}... I'll give you {} senines. Deal?".format(item['name'].title(), self.value),
             )
