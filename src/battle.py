@@ -2234,6 +2234,9 @@ class Battle(object):
             elif TACTICS[tactic]['slot'] == 2 and not self.near_water:
                 self.state = 'error'
                 self.right_dialog = create_prompt("Sorry, there must be a body of water nearby to do that.")
+            elif self.prev_experience and tactic == 'surrender':
+                self.state = 'error'
+                self.right_dialog = create_prompt("You cannot surrender in this battle.")
             else:
                 if TACTICS[tactic]['type'] == 'ally':
                     self.state = 'tactic_ally'
