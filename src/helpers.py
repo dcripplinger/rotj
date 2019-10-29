@@ -162,7 +162,7 @@ def get_enemy_stats(warlord, level=None):
         'attack_points': json_data['attack_points'] if not level else get_attack_points_by_level(level),
         'armor_class': json_data['armor_class'] if not level else get_armor_class_by_level(level),
         'tactics': get_tactics(json_data, level or 1),
-        'soldiers': get_max_soldiers(stats=json_data, level=level),
+        'soldiers': get_max_soldiers(stats=json_data, level=level, is_ally=False),
     }
 
 
