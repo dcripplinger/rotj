@@ -164,5 +164,15 @@
       "wander": true,
       "dialog": "Maybe now I can get back to farming."
     }
+  },
+  {
+    "x": 36,
+    "y": 11,
+    "ai_sprite": {
+      "name": "robbers",
+      "direction": "e",
+      "wander": true,
+      "dialog": "If you let me live, you can have a special sword I found. But it's not here. I put it in a treasure chest in the Tunnels of the North, south of the city Kishkumen."
+    }
   }
 ]
