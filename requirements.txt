@@ -3,3 +3,4 @@ pyscroll
 pytmx
 pyinstaller
 future
+six
