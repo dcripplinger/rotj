@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from six import string_types
 from math import ceil
 from datetime import datetime
 import os
@@ -557,7 +558,7 @@ class MenuGrid(object):
 class ShopMenu(object):
     def __init__(self, items):
         self._width = 128
-        if isinstance(items[0], basestring):
+        if isinstance(items[0], string_types):
             self.items = [{'name': item, 'cost': ITEMS[item]['cost']} for item in items]
         else:
             self.items = items

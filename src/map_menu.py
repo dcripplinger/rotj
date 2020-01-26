@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from six import string_types
 import copy
 import os
 import time
@@ -226,7 +227,7 @@ class MapMenu(object):
             self.state = 'talk'
             self.dialog_choice_menu = None
             next_dialog = action_dialog or selected_choice.get('next_dialog', 'OK')
-            if isinstance(next_dialog, basestring):
+            if isinstance(next_dialog, string_types):
                 self.prompt = create_prompt(next_dialog)
                 self.dialog_choice = None
             else: # it's a list
@@ -592,7 +593,7 @@ class MapMenu(object):
                 'lost_and_found': len(lost_and_found) and lost_and_found[0].title(),
             }
             dialog = self.map.get_dialog()
-            text = dialog if isinstance(dialog, basestring) else dialog['text']
+            text = dialog if isinstance(dialog, string_types) else dialog['text']
             text = text.format(**formatters)
             self.prompt = create_prompt(text)
             self.state = 'talk'

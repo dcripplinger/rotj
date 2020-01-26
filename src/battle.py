@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from __future__ import print_function
 import copy
 import math
 import os
@@ -277,7 +278,7 @@ class Battle(object):
         self.exit = exit
         current_narration = None
         if narration:
-            if isinstance(narration, basestring):
+            if isinstance(narration, string_types):
                 current_narration = narration
             else:
                 for n in narration:
@@ -403,7 +404,7 @@ class Battle(object):
         self.win_state = 'exit_dialog'
         self.right_dialog = None
         self.current_exit_dialog = self.game.get_dialog_for_condition(dialog_struct)
-        if isinstance(self.current_exit_dialog, basestring):
+        if isinstance(self.current_exit_dialog, string_types):
             self.exit_dialog = create_prompt(self.current_exit_dialog)
             self.exit_choice = None
             self.exit_choices = None
@@ -1504,8 +1505,8 @@ class Battle(object):
         prob_type = TACTICS[move['tactic']]['success_probability_type']
         target = target or move.get('target')
         if not target and prob_type in ['enemy_prob', 'enemy_prob2']:
-            print u"We shouldn't be having a move without a target if the prob_type is enemy_prob or enemy_prob2."
-            print u"move: {}".format(move)
+            print(u"We shouldn't be having a move without a target if the prob_type is enemy_prob or enemy_prob2.")
+            print(u"move: {}".format(move))
             raise Exception
         if prob_type == 'enemy_prob':
             intel = move['agent'].intelligence
