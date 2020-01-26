@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from __future__ import print_function
+from six import string_types
 import copy
 import math
 import os
