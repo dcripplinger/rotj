@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 
+from six import string_types
 from collections import OrderedDict
 import copy
 import math
@@ -178,7 +179,7 @@ class Game(object):
     def conditions_are_met(self, conditions):
         if conditions is None or len(conditions) == 0:
             return True
-        if isinstance(conditions, basestring):
+        if isinstance(conditions, string_types):
             conditions = {conditions: True}
         elif type(conditions) in (tuple, list):
             conditions = {condition: True for condition in conditions}
@@ -202,7 +203,7 @@ class Game(object):
         """
         is_chief_judge = False
         is_judge = False
-        if isinstance(dialog, basestring):
+        if isinstance(dialog, string_types):
             if dialog == 'judge_dialog':
                 is_judge = True
                 dialog = load_json_file_if_exists(os.path.join('data', 'maps', 'judge_dialog.json'))
@@ -716,7 +717,7 @@ class Game(object):
         company = copy.deepcopy(self.game_state['company'])
         reserve = copy.deepcopy(self.game_state['reserve'])
         level = self.game_state['level']
-        if isinstance(names, basestring):
+        if isinstance(names, string_types):
             names = [names]
         for name in names:
             if len(company) < MAX_COMPANY_SIZE:

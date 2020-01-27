@@ -2,3 +2,5 @@ pygame
 pyscroll
 pytmx
 pyinstaller
+future
+six
