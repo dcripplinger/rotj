@@ -29,6 +29,25 @@
   },
   {
     "x": 17,
+    "y": 29,
+    "ai_sprite": {
+      "name": "old_man",
+      "direction": "s",
+      "wander": false,
+      "dialog": [
+        {
+          "condition": "gained_final_exp_multiplier",
+          "text": "I pray for your victory."
+        },
+        {
+          "text": "You will need all the experience you can get to take on Zemnarihah. I bestow on you the ability to gain four times the normal amount of experience from battles. Now go. I pray for your victory.",
+          "game_state_action": "gained_final_exp_multiplier"
+        }
+      ]
+    }
+  },
+  {
+    "x": 17,
     "y": 14,
     "ai_sprite": [
       {
