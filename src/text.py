@@ -410,7 +410,7 @@ class MenuBox(object):
             return list(self.choices)
         choices = []
         for choice in self.choices:
-            if choice and choice.startswith(u'★'):
+            if choice and choice[0] in (u'★', '*'):
                 choice = choice[1:]
             choices.append(choice)
         return choices
