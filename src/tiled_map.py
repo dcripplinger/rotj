@@ -521,7 +521,7 @@ class Map(object):
                 stats = enemy['stats']
             else:
                 stats = load_stats(enemy['name'])
-                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'])
+                stats['soldiers'] = get_max_soldiers(enemy['name'], enemy['level'], is_ally=False)
                 stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
                 stats['attack_points'] = get_attack_points_by_level(enemy['level'])
                 stats['armor_class'] = get_armor_class_by_level(enemy['level'])
