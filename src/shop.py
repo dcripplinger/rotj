@@ -5,7 +5,10 @@ import math
 import pygame
 from pygame.locals import *
 
-from constants import EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM
+from constants import (
+    EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, ITEMS, MAX_ITEMS_PER_PERSON, MAX_NUM,
+    SELLING_DISCOUNT,
+)
 from helpers import get_max_soldiers
 from report import Report
 from text import create_prompt, MenuBox, ShopMenu, TextBox
@@ -422,7 +425,7 @@ class MerchantShop(Shop):
         self.state = 'dialog'
         item = self.shop_menu.get_choice()
         if 'cost' in ITEMS[item['name']] and not ITEMS[item['name']].get('rare'):
-            self.value = int(ITEMS[item['name']]['cost'] * 0.5)
+            self.value = int(ITEMS[item['name']]['cost'] * SELLING_DISCOUNT)
             self.dialog = create_prompt(
                 u"{}... I'll give you {} senines. Deal?".format(item['name'].title(), self.value),
             )

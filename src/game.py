@@ -19,7 +19,7 @@ from beginning import Beginning
 from constants import (
     BATTLE_MUSIC, BLACK, EXP_REQUIRED_BY_LEVEL, GAME_HEIGHT, GAME_WIDTH, HQ, ITEMS, MAP_MUSIC, MAX_COMPANY_SIZE,
     MAX_ITEMS_PER_PERSON, MAX_NUM, SHOP_MUSIC, TACTICS, CAMP_MUSIC, MAP_WIDTH, MAP_HEIGHT, VILLAGE_MUSIC,
-    CREDITS_MUSIC,
+    CREDITS_MUSIC, SELLING_DISCOUNT
 )
 from cutscene import Cutscene
 from helpers import (
@@ -777,7 +777,7 @@ class Game(object):
     def sell_item(self, warlord_index, item_index):
         company = copy.deepcopy(self.game_state['company'])
         item_name = company[warlord_index]['items'].pop(item_index)['name']
-        value = int(ITEMS[item_name]['cost'] * 0.75)
+        value = int(ITEMS[item_name]['cost'] * SELLING_DISCOUNT)
         self.update_game_state({
             'money': min(MAX_NUM, self.game_state['money'] + value),
             'company': company,
