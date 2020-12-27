@@ -111,7 +111,7 @@ class Beginning(object):
 
                 self.game.update_game_state({
                     'money': 0,
-                    'food': 20,
+                    'food': 180,
                     'experience': 0,
                     'company': starting_company,
                     'level': 1,

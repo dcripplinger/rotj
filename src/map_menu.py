@@ -407,7 +407,7 @@ class MapMenu(object):
         elif map_usage == 'scout':
             self.state = 'item_prompt'
             self.prompt = create_prompt("{} deployed a scout ahead of our army. Auto-Train and On-Guard enabled.".format(user))
-            self.map.game.scout_steps_remaining = 100
+            self.map.game.scout_steps_remaining = 400
             self.map.remove_item(user, self.items_menu.current_choice)
         elif map_usage == 'save':
             if self.map.name in CAVE_NAMES:
