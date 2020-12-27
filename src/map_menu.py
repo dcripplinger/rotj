@@ -2,6 +2,7 @@
 
 from six import string_types
 import copy
+import math
 import os
 import time
 
@@ -15,7 +16,7 @@ from helpers import get_map_filename
 from hero import Hero
 from report import Report
 from shop import create_shop
-from text import create_prompt, MenuBox
+from text import create_prompt, MenuBox, TextBox
 
 
 class MapMenu(object):
@@ -46,6 +47,7 @@ class MapMenu(object):
         self.shop = None
         self.save_menu = None
         self.game = self.map.game
+        self.spoils_box = None
 
     def update(self, dt):
         if self.state == 'main':
@@ -85,6 +87,15 @@ class MapMenu(object):
                     self.item_selected_menu = None
             else:
                 self.save_menu.update(dt)
+        if self.state in ['talk', 'choice']:
+            if not self.spoils_box and self.show_spoils_box and not self.prompt.has_more_stuff_to_show():
+                self.create_spoils_box()
+
+    def create_spoils_box(self):
+        money = self.game.game_state['money']
+        food = int(math.ceil(self.game.game_state['food']))
+        text = u"MONEY\n{:~>9}\nFOOD\n{:~>9}".format(money, food)
+        self.spoils_box = TextBox(text, border=True, indent=1)
 
     def handle_dialog_choice(self):
         self.state = 'choice'
@@ -127,6 +138,8 @@ class MapMenu(object):
             self.screen.blit(self.shop.surface, (0, 0))
         if self.save_menu:
             self.screen.blit(self.save_menu.surface, (176, 128))
+        if self.spoils_box:
+            self.screen.blit(self.spoils_box.surface, (160, 184))
 
     def handle_input_main(self, pressed):
         self.main_menu.handle_input(pressed)
@@ -162,6 +175,7 @@ class MapMenu(object):
         if self.prompt:
             self.prompt.shutdown()
             self.prompt = None
+            self.spoils_box = None
         return 'exit'
 
     def handle_input(self, pressed):
@@ -224,6 +238,8 @@ class MapMenu(object):
             action_dialog = None
             if 'game_state_action' in selected_choice:
                 action_dialog = self.map.set_game_state_condition(selected_choice['game_state_action'])
+            self.show_spoils_box = selected_choice.get('show_spoils_box', False)
+            self.spoils_box = None
             self.state = 'talk'
             self.dialog_choice_menu = None
             next_dialog = action_dialog or selected_choice.get('next_dialog', 'OK')
@@ -236,6 +252,7 @@ class MapMenu(object):
                         break
                 self.prompt = create_prompt(conditional_dialog['text'])
                 self.dialog_choice = conditional_dialog.get('prompt')
+                self.show_spoils_box = selected_choice.get('show_spoils_box', False)
 
     def handle_input_city(self, pressed):
         self.city_menu.handle_input(pressed)
@@ -600,6 +617,10 @@ class MapMenu(object):
             self.main_menu.unfocus()
             if isinstance(dialog, dict) and 'prompt' in dialog:
                 self.dialog_choice = dialog['prompt']
+            if isinstance(dialog, dict) and 'show_spoils_box' in dialog:
+                self.show_spoils_box = True
+            else:
+                self.show_spoils_box = False
 
     def handle_check(self):
         result_text = self.map.check_for_item()

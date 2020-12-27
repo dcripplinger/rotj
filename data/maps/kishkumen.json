@@ -164,13 +164,15 @@
             {
               "choice": "YES",
               "game_state_action": "bought_scout",
-              "next_dialog": "Great. Use him in your ITEM menu."
+              "next_dialog": "Great. Use him in your ITEM menu.",
+              "show_spoils_box": true
             },
             {
               "choice": "NO",
               "next_dialog": "Maybe later then."
             }
-          ]
+          ],
+          "show_spoils_box": true
         },
         {
           "text": "Want to hire a scout? Once you deploy a scout from the ITEM command menu, he will go ahead of your army for some time to scout the area. This allows you to avoid getting caught off guard and to use the Train tactic automatically when you use ALL OUT or RISK IT. You have to have tactical points and know the tactic for it to work though. Each scout costs 1200000 senines.",
@@ -178,13 +180,15 @@
             {
               "choice": "YES",
               "game_state_action": "bought_scout",
-              "next_dialog": "Great. Talk to me if you want to hire more scouts."
+              "next_dialog": "Great. Talk to me if you want to hire more scouts.",
+              "show_spoils_box": true
             },
             {
               "choice": "NO",
               "next_dialog": "Maybe later then."
             }
-          ]
+          ],
+          "show_spoils_box": true
         }
       ]
     }
