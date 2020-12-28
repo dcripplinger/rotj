@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="42" height="39" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="50">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="42" height="39" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="rooms" tilewidth="16" tileheight="16" tilecount="50" columns="5">
   <image source="../images/basic_16x16_tiles/rooms/tileset_rooms.png" width="80" height="160"/>
   <tile id="6">
    <properties>
@@ -13,6 +13,11 @@
    </properties>
   </tile>
   <tile id="10">
+   <properties>
+    <property name="wall" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
    <properties>
     <property name="wall" value="true"/>
    </properties>
@@ -98,7 +103,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="42" height="39">
+ <layer id="1" name="Tile Layer 1" width="42" height="39">
   <data encoding="base64" compression="zlib">
    eJzt1L0KwjAYheHUWq1pVruLu/X+r84TMBCCMU5fhL7DQwtn6Ev/BufcAAAAgF1axFe0NuvOUeZC+LLNnTpPcpO7HDNpi+cHOb+PabPs9FlLqbVZdsZnOFVaWpv1c79UWlpbj/czXvshmzyzllWuRWP6xnp1frpn5RY6ddb+j7+w7AQAAMD/eQGmkwp1
   </data>
