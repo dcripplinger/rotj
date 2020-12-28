@@ -1400,6 +1400,25 @@ class Game(object):
     def not_enough_money_for_javelin(self):
         return self.conditions_are_met('got_javelin') and self.game_state['money'] < ITEMS['javelin']['cost']
 
+    def teancum_not_ready_for_javelin(self):
+        teancum = next((w for w in self.game_state['company'] if w['name'] == 'teancum'), None)
+        inventory_full = teancum and len(teancum['items']) >= MAX_ITEMS_PER_PERSON
+        return not teancum or inventory_full
+
+    def got_javelin_but_teancum_not_present_or_missing_item_slot(self):
+        return (
+            self.conditions_are_met('got_javelin')
+            and self.battle25_and_battle26()
+            and self.teancum_not_ready_for_javelin()
+        )
+
+    def first_javelin_but_teancum_not_present_or_missing_item_slot(self):
+        return (
+            not self.conditions_are_met('got_javelin')
+            and self.battle25_and_battle26()
+            and self.teancum_not_ready_for_javelin()
+        )
+
     def have_javelin(self):
         in_surplus = 'javelin' in self.game_state['surplus']
         _, index = self._find_first_item_in_inventory('javelin')
@@ -1676,7 +1695,9 @@ class Game(object):
         self.remove_item(warlord, item_index)
 
     def handle_got_javelin(self):
-        self.add_to_inventory('javelin')
+        company = self.game_state['company']
+        teancum_index = next((i for i in range(len(company)) if company[i]['name'] == 'teancum'), None)
+        self.add_to_inventory('javelin', warlord_index=teancum_index)
         self.update_game_state({'money': self.game_state['money'] - ITEMS['javelin']['cost']})
 
     def handle_bought_scout(self):

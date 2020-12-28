@@ -75,13 +75,19 @@
           "text": "If you wish to buy another javelin, it will cost you 2000 senines to cover material expenses."
         },
         {
+          "condition": "state:got_javelin_but_teancum_not_present_or_missing_item_slot",
+          "text": "Oh, hello. If you wish to buy another javelin, Teancum needs to be in your party and needs to have room in his personal inventory."
+        },
+        {
           "condition": "got_javelin",
           "text": "Hello, Teancum. Would you like to buy another javelin for 2000 senines?",
+          "show_spoils_box": true,
           "prompt": [
             {
               "choice": "YES",
               "game_state_action": "got_javelin",
-              "next_dialog": "Great! If it gets used up or lost, I should have another one ready for you."
+              "next_dialog": "Great! If it gets used up or lost, I should have another one ready for you.",
+              "show_spoils_box": true
             },
             {
               "choice": "NO",
@@ -90,17 +96,23 @@
           ]
         },
         {
+          "condition": "state:first_javelin_but_teancum_not_present_or_missing_item_slot",
+          "text": "I have observed Teancum's fighting technique, and I designed a weapon perfect for him. I call it the javelin! Teancum can use it once in battle as an item. But if anyone else uses it, I doubt it will do much. I can sell it to you for the cost of the materials, at 2000 senines. Please see me again when Teancum is in your party and has room in his personal inventory."
+        },
+        {
           "condition": "state:not_enough_money_for_first_javelin",
           "text": "I have observed Teancum's fighting technique, and I designed a weapon perfect for him. I call it the javelin! Teancum can use it once in battle as an item. But if anyone else uses it, I doubt it will do much. I can sell it to you for the cost of the materials, at 2000 senines. Please see me again when you have enough money."
         },
         {
           "condition": "state:battle25_and_battle26",
           "text": "I have observed Teancum's fighting technique, and I designed a weapon perfect for him. I call it the javelin! Teancum can use it once in battle as an item. But if anyone else uses it, I doubt it will do much. Would you like to buy it for 2000 senines?",
+          "show_spoils_box": true,
           "prompt": [
             {
               "choice": "YES",
               "game_state_action": "got_javelin",
-              "next_dialog": "Great! If it gets used up or lost, I should have another one ready for you. You should also chat with the swordsmith."
+              "next_dialog": "Great! If it gets used up or lost, I should have another one ready for you. You should also chat with the swordsmith.",
+              "show_spoils_box": true
             },
             {
               "choice": "NO",
