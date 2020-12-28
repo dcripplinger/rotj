@@ -610,7 +610,9 @@ class Battle(object):
                     self.execute_state = 'mini_move'
         elif self.execute_state == 'mini_move':
             self.pop_and_handle_mini_move()
-            if self.mini_move:
+            if self.state in ['win', 'lose']:
+                pass # to make sure we don't set the portrait or menu box or whatever
+            elif self.mini_move:
                 self.execute_state = 'dialog'
                 self.portrait = self.portraits[self.move['agent'].name]
                 if self.move['agent'].name == 'shiz' and self.move['agent'].headless:
