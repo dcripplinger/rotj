@@ -21,7 +21,7 @@
           "condition": "got_title_of_liberty"
         },
         {
-          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Did you bring me a robe and spear?",
+          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Did you bring me an unequipped robe and spear?",
           "condition": "state:robe_and_spear",
           "prompt": [
             {
@@ -36,7 +36,7 @@
           ]
         },
         {
-          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Bring me a robe and a spear, and we should be able to make a banner you can write a message on.",
+          "text": "Master, I have an idea of how to beat Amalickiah at Zarahemla. Men will rally behind you once again if you inspire them and remind them of what they are fighting for. Bring me an unequipped robe and spear, and we should be able to make a banner you can write a message on.",
           "condition": "battle20"
         },
         {

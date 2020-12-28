@@ -783,11 +783,14 @@ class Game(object):
             'company': company,
         })
 
-    def _find_first_item_in_inventory(self, item_name):
+    def _find_first_item_in_inventory(self, item_name, equipped=None):
         company = copy.deepcopy(self.game_state['company'])
         for warlord in company:
             for index, item in enumerate(warlord['items']):
-                if item['name'] == item_name:
+                if (
+                    item['name'] == item_name
+                    and (equipped is None or item.get('equipped', False) == equipped)
+                ):
                     return warlord['name'], index
         return None, None
 
@@ -1377,11 +1380,11 @@ class Game(object):
         return False
 
     def robe_and_spear(self):
-        warlord, _index = self._find_first_item_in_inventory('robe')
+        warlord, _index = self._find_first_item_in_inventory('robe', equipped=False)
         got_robe = warlord is not None
-        warlord, _index = self._find_first_item_in_inventory('spear')
+        warlord, _index = self._find_first_item_in_inventory('spear', equipped=False)
         got_spear = warlord is not None
-        return got_robe and got_spear
+        return got_robe and got_spear and self.conditions_are_met('battle20')
 
     def liahona(self):
         warlord, _index = self._find_first_item_in_inventory('liahona')
