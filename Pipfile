@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pygame = "==2.0.1"
+pyscroll = "==2.19.2"
+PyTMX = "==3.21.7"
+PyInstaller = "==4.1"
+future = "==0.18.2"
+six = "==1.15.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8.5"
