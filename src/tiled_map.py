@@ -597,7 +597,7 @@ class Map(object):
             action = self.map_menu.handle_input(pressed)
             if action == 'exit':
                 self.map_menu = None
-                pygame.key.set_repeat(50, 50)
+                pygame.key.set_repeat(200, 50)
                 if self.battle_after_dialog:
                     self.game.start_battle(
                         self.battle_after_dialog['enemies'],

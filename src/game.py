@@ -528,7 +528,7 @@ class Game(object):
         if state in ['title', 'menu', 'battle', 'pause_menu', 'battle_intro']:
             pygame.key.set_repeat(300, 300)
         else:
-            pygame.key.set_repeat(50, 50)
+            pygame.key.set_repeat(200, 50)
 
         if state in ['change_map', 'sleep', 'fade_cutscene']:
             self.fade_out = True
