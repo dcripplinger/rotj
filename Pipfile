@@ -10,6 +10,7 @@ PyTMX = "==3.21.7"
 PyInstaller = "==4.1"
 future = "==0.18.2"
 six = "==1.15.0"
+pywin32-ctypes = "==0.2.0"
 
 [dev-packages]
 
