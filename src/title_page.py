@@ -89,12 +89,12 @@ class TitlePage(object):
     def draw(self):
         self.screen.fill((0,0,0))
         if self.current_page == 0:
-            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
+            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())//2, 16))
             self.screen.blit(self.copyright.surface, (0, 136))
             if is_half_second():
                 self.screen.blit(self.press_start.surface, (0, 112))
         elif self.current_page == 1:
-            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())/2, 16))
+            self.screen.blit(self.title_image, ((GAME_WIDTH - self.title_image.get_width())//2, 16))
             if self.time_elapsed > self.transition_times[0]+3:
                 self.to_update.add(self.intro)
                 self.screen.blit(self.intro.surface, (32, 112))

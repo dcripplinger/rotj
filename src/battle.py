@@ -1204,13 +1204,13 @@ class Battle(object):
         else:
             double_tap = None
         if not power_pill and 'shield' in good_target_team_statuses:
-            inflicted_damage = max(inflicted_damage/2, 1)
+            inflicted_damage = max(inflicted_damage//2, 1)
             if double_tap:
-                double_tap = max(double_tap/2, 1)
+                double_tap = max(double_tap//2, 1)
         if not power_pill and move['target'].good_statuses.get('defend'):
-            inflicted_damage = max(inflicted_damage/2, 1)
+            inflicted_damage = max(inflicted_damage//2, 1)
             if double_tap:
-                double_tap = max(double_tap/2, 1)
+                double_tap = max(double_tap//2, 1)
         if move['target'].get_future_soldiers() <= inflicted_damage:
             inflicted_damage = move['target'].get_future_soldiers()
             move['target'].get_damaged(inflicted_damage)
@@ -1424,7 +1424,7 @@ class Battle(object):
                 damage = int(damage * START_WITH_SHIZ_MULTIPLIER)
             if info['slot'] == 1:
                 if 'firewall' in good_target_team_statuses:
-                    damage = int(damage/2)
+                    damage = int(damage//2)
                 elif 'extinguish' in good_target_team_statuses:
                     damage = 1
             if move['target'].get_future_soldiers() <= damage:
@@ -1461,7 +1461,7 @@ class Battle(object):
                     damage = int(damage * START_WITH_SHIZ_MULTIPLIER)
                 if info['slot'] == 1:
                     if 'firewall' in good_target_team_statuses:
-                        damage = int(damage/2)
+                        damage = int(damage//2)
                     elif 'extinguish' in good_target_team_statuses:
                         damage = 1
                 if target.get_future_soldiers() <= damage:
@@ -2579,7 +2579,7 @@ class Battle(object):
         if surrender:
             prompt_text = u"{} uses Surrender.".format(self.warlord.name.title())
             for warlord in self.allies:
-                warlord.soldiers = max(1, int(warlord.soldiers / 2))
+                warlord.soldiers = max(1, int(warlord.soldiers / 2.0))
             successful = True
         else:
             prompt_text = u"{}'s army retreated. ".format(self.get_leader().name.title())
@@ -2650,7 +2650,7 @@ class Battle(object):
             self.screen.blit(ally.surface, (0, i*24+top_margin))
         for i, enemy in enumerate(self.enemies):
             enemy.draw()
-            self.screen.blit(enemy.surface, (GAME_WIDTH/2, i*24+top_margin))
+            self.screen.blit(enemy.surface, (GAME_WIDTH//2, i*24+top_margin))
         if self.portrait:
             self.screen.blit(self.portrait, self.get_portrait_position())
         if self.left_dialog:

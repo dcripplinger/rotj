@@ -22,7 +22,7 @@ class Beginning(object):
         self.map_layer = pyscroll.BufferedRenderer(map_data, self.screen.get_size())
         self.map_layer.zoom = 1
         self.group = pyscroll.group.PyscrollGroup(map_layer=self.map_layer)
-        mid = self.tmx_data.width/2
+        mid = self.tmx_data.width//2
         speed = 1.5
         self.moroni = Sprite(self.tmx_data, self.game, 'moroni', [mid,1], speed=speed, direction='s', walking=True)
         self.group.add(self.moroni)
@@ -42,8 +42,8 @@ class Beginning(object):
             self.group.draw(self.screen)
         else:
             self.screen.fill(BLACK)
-            self.screen.blit(self.pledge_image, ((GAME_WIDTH - self.pledge_image.get_width())/2, 32))
-            self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.width)/2, 160))
+            self.screen.blit(self.pledge_image, ((GAME_WIDTH - self.pledge_image.get_width())//2, 32))
+            self.screen.blit(self.prompt.surface, ((GAME_WIDTH - self.prompt.width)//2, 160))
 
     def update(self, dt):
         # This is to avoid a large dt from pausing before start_with_shiz

@@ -479,6 +479,7 @@ class Map(object):
         moved = self.hero.move(direction)
         if moved and self.name in MAPS_WITH_RANDOM_ENCOUNTERS:
             if self.try_getting_random_encounter():
+                print('random_encounter set to True')
                 self.random_encounter = True
             self.steps_for_tactical_points += 1
             if self.steps_for_tactical_points >= 5:
@@ -547,7 +548,8 @@ class Map(object):
         (x,y) = self.get_pos_in_front(self.hero.position, self.hero.direction)
         props = self.tmx_data.get_tile_properties(x, y, 0) or {}
         encounter_chance = float(props.get('encounter', DEFAULT_ENCOUNTER_CHANCE))
-        return random.random() < encounter_chance
+        myrand = random.random()
+        return myrand < encounter_chance
 
     def filter_out_allies(self, encounters):
         '''
@@ -566,8 +568,8 @@ class Map(object):
         return new_encounters
 
     def get_random_encounter_enemies(self):
-        x = int(self.hero.position[0]) / 50
-        y = int(self.hero.position[1]) / 50
+        x = int(self.hero.position[0]) // 50
+        y = int(self.hero.position[1]) // 50
         # The special (-1,-1) region means for the whole map, like in caves
         region = self.encounter_regions.get((x,y)) or self.encounter_regions.get((-1,-1))
         if not region:

@@ -895,8 +895,8 @@ class Game(object):
         multiplier = min(width_multiplier, height_multiplier)
         fitted_width = int(self.virtual_width*multiplier)
         fitted_height = int(self.virtual_height*multiplier)
-        fitted_x_pos = (width - fitted_width) / 2
-        fitted_y_pos = (height - fitted_height) / 2
+        fitted_x_pos = (width - fitted_width) // 2
+        fitted_y_pos = (height - fitted_height) // 2
         self.fitted_screen = self.real_screen.subsurface(
             (fitted_x_pos, fitted_y_pos, fitted_width, fitted_height)
         )
@@ -2026,7 +2026,7 @@ class Game(object):
                 stats = enemy['stats']
             else:
                 stats = load_stats(enemy['name'])
-                stats['soldiers'] = int(get_max_soldiers(enemy['name'], enemy['level'], is_ally=False) / 10)
+                stats['soldiers'] = int(get_max_soldiers(enemy['name'], enemy['level'], is_ally=False) // 10)
                 stats['tactical_points'] = get_max_tactical_points(enemy['name'], enemy['level'])
                 stats['attack_points'] = get_attack_points_by_level(enemy['level'])
                 stats['armor_class'] = get_armor_class_by_level(enemy['level'])

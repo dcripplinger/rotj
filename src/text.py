@@ -137,7 +137,7 @@ class TextBox(object):
         self.adjust = adjust
         self.border = border
         self.double_space = double_space
-        self.text_width = (self.width - (16 if border else 0) - 8*indent) / 8
+        self.text_width = (self.width - (16 if border else 0) - 8*indent) // 8
         if width:
             self.fix_lines()
         self.height = height if height else (

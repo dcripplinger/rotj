@@ -110,39 +110,39 @@ class MenuScreen(object):
         mid_menu_vert_pos = 80
         top_menu_vert_pos = 16
         if self.screen_state == 'main':
-            self.screen.blit(self.main_menu.surface, ((GAME_WIDTH - self.main_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.main_menu.surface, ((GAME_WIDTH - self.main_menu.get_width())//2, top_menu_vert_pos))
         elif self.screen_state in ['start', 'start_prompt']:
-            self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())//2, top_menu_vert_pos))
         elif self.screen_state == 'speed':
-            self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.start_prompt.surface, ((GAME_WIDTH - self.start_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.start_menu.surface, ((GAME_WIDTH - self.start_menu.get_width())//2, top_menu_vert_pos))
             self.screen.blit(self.speed_menu.surface, (GAME_WIDTH - self.speed_menu.get_width(), mid_menu_vert_pos))
         elif self.screen_state == 'register':
-            self.screen.blit(self.register_prompt.surface, ((GAME_WIDTH - self.register_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.register_menu.surface, ((GAME_WIDTH - self.register_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.register_prompt.surface, ((GAME_WIDTH - self.register_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.register_menu.surface, ((GAME_WIDTH - self.register_menu.get_width())//2, top_menu_vert_pos))
         elif self.screen_state == 'erase':
-            self.screen.blit(self.erase_prompt.surface, ((GAME_WIDTH - self.erase_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.erase_menu.surface, ((GAME_WIDTH - self.erase_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.erase_prompt.surface, ((GAME_WIDTH - self.erase_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.erase_menu.surface, ((GAME_WIDTH - self.erase_menu.get_width())//2, top_menu_vert_pos))
         elif self.screen_state == 'confirm_erase':
-            self.screen.blit(self.erase_prompt.surface, ((GAME_WIDTH - self.erase_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.erase_menu.surface, ((GAME_WIDTH - self.erase_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.erase_prompt.surface, ((GAME_WIDTH - self.erase_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.erase_menu.surface, ((GAME_WIDTH - self.erase_menu.get_width())//2, top_menu_vert_pos))
             self.screen.blit(
                 self.confirm_erase_menu.surface,
-                ((GAME_WIDTH - self.confirm_erase_menu.get_width())/2, mid_menu_vert_pos),
+                ((GAME_WIDTH - self.confirm_erase_menu.get_width())//2, mid_menu_vert_pos),
             )
         elif self.screen_state == 'name':
-            self.screen.blit(self.name_blurb.surface, ((GAME_WIDTH - self.name_blurb.width)/2, top_menu_vert_pos))
-            self.screen.blit(self.name_field.surface, ((GAME_WIDTH - self.name_field.width)/2, top_menu_vert_pos + 16))
-            self.screen.blit(self.name_underline.surface, ((GAME_WIDTH - self.name_underline.width)/2, top_menu_vert_pos + 24))
-            self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())/2, top_menu_vert_pos + 40))
+            self.screen.blit(self.name_blurb.surface, ((GAME_WIDTH - self.name_blurb.width)//2, top_menu_vert_pos))
+            self.screen.blit(self.name_field.surface, ((GAME_WIDTH - self.name_field.width)//2, top_menu_vert_pos + 16))
+            self.screen.blit(self.name_underline.surface, ((GAME_WIDTH - self.name_underline.width)//2, top_menu_vert_pos + 24))
+            self.screen.blit(self.name_menu.surface, ((GAME_WIDTH - self.name_menu.get_width())//2, top_menu_vert_pos + 40))
         elif self.screen_state in ['copy', 'copy_prompt']:
-            self.screen.blit(self.copy_prompt.surface, ((GAME_WIDTH - self.copy_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())/2, top_menu_vert_pos))
+            self.screen.blit(self.copy_prompt.surface, ((GAME_WIDTH - self.copy_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())//2, top_menu_vert_pos))
         elif self.screen_state == 'paste':
-            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())/2, top_menu_vert_pos))
-            self.screen.blit(self.paste_prompt.surface, ((GAME_WIDTH - self.paste_prompt.width)/2, prompt_vert_pos))
-            self.screen.blit(self.paste_menu.surface, ((GAME_WIDTH - self.paste_menu.get_width())/2, mid_menu_vert_pos))
+            self.screen.blit(self.copy_menu.surface, ((GAME_WIDTH - self.copy_menu.get_width())//2, top_menu_vert_pos))
+            self.screen.blit(self.paste_prompt.surface, ((GAME_WIDTH - self.paste_prompt.width)//2, prompt_vert_pos))
+            self.screen.blit(self.paste_menu.surface, ((GAME_WIDTH - self.paste_menu.get_width())//2, mid_menu_vert_pos))
 
     def update(self, dt):
         if self.screen_state == 'unstarted':
