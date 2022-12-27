@@ -18,10 +18,10 @@
     "default": {
         "altgraph": {
             "hashes": [
-                "sha256:743628f2ac6a7c26f5d9223c91ed8ecbba535f506f4b6f558885a8a56a105857",
-                "sha256:ebf2269361b47d97b3b88e696439f6e4cbc607c17c51feb1754f90fb79839158"
+                "sha256:ad33358114df7c9416cdb8fa1eaa5852166c505118717021c6a8c7c7abbd03dd",
+                "sha256:c8ac1ca6772207179ed8003ce7687757c04b0b71536f81e2ac5755c6226458fe"
             ],
-            "version": "==0.17.2"
+            "version": "==0.17.3"
         },
         "future": {
             "hashes": [
@@ -37,13 +37,6 @@
             ],
             "index": "pypi",
             "version": "==1.14"
-        },
-        "pefile": {
-            "hashes": [
-                "sha256:344a49e40a94e10849f0fe34dddc80f773a12b40675bf2f7be4b8be578bdd94a"
-            ],
-            "markers": "sys_platform == 'win32'",
-            "version": "==2021.9.3"
         },
         "pygame": {
             "hashes": [
@@ -101,10 +94,11 @@
         },
         "pyinstaller-hooks-contrib": {
             "hashes": [
-                "sha256:29f0bd8fbb2ff6f2df60a0c147e5b5ad65ae5c1a982d90641a5f712de03fa161",
-                "sha256:61b667f51b2525377fae30793f38fd9752a08032c72b209effabf707c840cc38"
+                "sha256:1a125838a22d7b35a18993c6e56d3c5cc3ad7da00954f95bc5606523939203f2",
+                "sha256:5ae8da3a92cf20e37b3e00604d0c3468896e7d746e5c1449473597a724331b0b"
             ],
-            "version": "==2022.0"
+            "markers": "python_version >= '3.7'",
+            "version": "==2022.14"
         },
         "pyscroll": {
             "hashes": [
@@ -130,11 +124,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:2404879cda71495fc4d5cbc445ed52fdaddf352b36e40be8dcc63147cb4edabe",
-                "sha256:68eb94073fc486091447fcb0501efd6560a0e5a1839ba249e5ff3c4c93f05f90"
+                "sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31",
+                "sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f"
             ],
-            "markers": "python_version >= '3.7'",
-            "version": "==60.5.0"
+            "index": "pypi",
+            "version": "==65.5.1"
         },
         "six": {
             "hashes": [
