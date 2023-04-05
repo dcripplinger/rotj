@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-from six import string_types
 import json
 import os
 import shutil
@@ -19,7 +18,7 @@ RESOURCES_DIR = 'data'
 
 
 def unpretty(string_or_strings):
-    if isinstance(string_or_strings, string_types):
+    if isinstance(string_or_strings, str):
         return _unpretty_string(string_or_strings)
     else:
         return [_unpretty_string(s) for s in string_or_strings]
@@ -50,7 +49,7 @@ def get_tactic_for_level(level):
 
 
 def get_tactics(stats_or_warlord, level, pretty=True):
-    if isinstance(stats_or_warlord, string_types):
+    if isinstance(stats_or_warlord, str):
         stats = load_stats(stats_or_warlord)
     else:
         stats = stats_or_warlord
@@ -243,7 +242,7 @@ def sort_items(old_list):
     return sorted(old_list, key=_item_sort_key)
 
 def _item_sort_key(item):
-    if isinstance(item, string_types):
+    if isinstance(item, str):
         return _item_sort_key_by_name(item)
     return _item_sort_key_by_name(item['name'])
 

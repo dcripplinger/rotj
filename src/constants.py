@@ -1683,7 +1683,7 @@ PLACES = {
     },
     'Food Shop': {
         'sort_order': 2,
-        'description': "Food Shop: Buy food here so your soldiers don't starve while traveling. You can also get food when completing a story battle. If you run out of food, you will start losing soldiers as you walk and the screen will flash red, until you only have one soldier left per warlord."
+        'description': "Food Shop: Buy food here so your soldiers don't starve while traveling. You can also get food when completing a story battle. If you run out of food, you will start losing soldiers as you walk and the screen will flash red, until you only have one soldier left per warlord. See PARTY STATS - FOOD for more info."
     },
     'Merchant Shop': {
         'sort_order': 3,
@@ -1699,7 +1699,7 @@ PLACES = {
     },
     'Reserve': {
         'sort_order': 6,
-        'description': "Reserve: The building that houses warlords on your team but not currently traveling in your company. You can check their stats, add new members to your party, delete members from your party, fire members so that they become enemies again, and pick up items from surplus. When a member goes into the reserve, his items go into surplus. Whenever you get an item, like from a treasure chest, it will go to the reserve if you don't have room to carry it. If a warlord joins you but your party is full, he will go to the reserve. EXP earned in each battle gets a multiplier based on how many members are in the reserve.",
+        'description': "Reserve: Houses warlords on your team but not currently traveling in your party. You can check their stats, add new members to your party, delete members from your party, fire members so that they become enemies again, and pick up items from surplus. When a member goes into the reserve, his items go into surplus. Whenever you pick up an item but can't carry it, it goes to surplus. If a warlord joins you but your party is full, he will go to the reserve.",
     },
     'Palace': {
         'sort_order': 7,
@@ -1708,6 +1708,49 @@ PLACES = {
     'Lost and Found': {
         'sort_order': 8,
         'description': "Lost and Found: One of the cities in the land has a lost and found. If you drop any rare items, they will end up here. Can you find which city it is in?",
+    },
+}
+
+PARTY_STATS = {
+    'MENU ACCESS': {
+        'sort_order': 0,
+        'description': "You can view the stats of your party by pressing RIGHT SHIFT while in traveling mode. It shows your current LEADER, total accrued EXP, your party's skill level labeled as LVL, current FOOD, and current MONEY. It also shows the current and max SOLDIERS for each member of your party, your current strategist STRAT, your strategist's maximum tactical points labeled as MAX TP, and your strategist's remaining tactical points labeled as TP LEFT.",
+    },
+    'LEADER': {
+        'sort_order': 1,
+        'description': "Your LEADER is the first member of your party. Choosing your party's leader has no battle effects, but it does affect who performs commands such as TALK.",
+    },
+    'EXP': {
+        'sort_order': 2,
+        'description': "Your party's total accrued EXP in the game. You earn EXP from battles. EXP earned in a battle is based on the number of enemy soldiers, and there is a bonus for warlords. There is an EXP multiplier based on the number of warlords you have in the reserve. It becomes noticeable after 70, becomes 2x at about 90, and can reach around 10x if you capture all capturable warlords, which is around 160 in the game.",
+    },
+    'LVL': {
+        'sort_order': 3,
+        'description': "Your party's skill level. You can gain higher skill levels by gaining EXP in battles. Unlocking a new LVL allows some warlords to get more soldiers and learn new tactics.",
+    },
+    'FOOD': {
+        'sort_order': 4,
+        'description': "Your party's current amount of food. Food is consumed as you walk outside and in caves, based on the number of soldiers in your party. You get a 1 percent discount on food consumption for each warlord in the reserve. See PLACES - Food Shop for more info.",
+    },
+    'MONEY': {
+        'sort_order': 5,
+        'description': "Your party's current amount of money. You mainly earn money from battles, and you can spend it on weapons, armor, items, and food in the cities.",
+    },
+    'SOLDIERS': {
+        'sort_order': 6,
+        'description': "The main box in the party stats screen shows your party members with how many soldiers they currently have and their max soldiers.",
+    },
+    'STRAT': {
+        'sort_order': 7,
+        'description': 'Your selected strategist for your party. If you have more than 5 party members, your strategist will not appear in battles. All tactics and TP available in a battle are based on just your strategist.',
+    },
+    'MAX TP': {
+        'sort_order': 8,
+        'description': 'The max tactical points of your strategist and thus of your party when entering battles.',
+    },
+    'TP LEFT': {
+        'sort_order': 9,
+        'description': 'The current remaining tactical points of your strategist and thus of your party when entering battles. Walking slowly restores TP, and resting at an inn fully restores SOLDIERS and TP.',
     },
 }
 

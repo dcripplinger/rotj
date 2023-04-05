@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-from six import string_types
 from collections import OrderedDict
 import copy
 import math
@@ -27,7 +26,7 @@ from helpers import (
     get_armor_class_by_level,
     get_attack_points_by_level,
     get_intelligence,
-    get_max_soldiers,
+    get_max_soldiers,   
     get_max_tactical_points,
     get_tactic_for_level,
     get_tactics,
@@ -179,7 +178,7 @@ class Game(object):
     def conditions_are_met(self, conditions):
         if conditions is None or len(conditions) == 0:
             return True
-        if isinstance(conditions, string_types):
+        if isinstance(conditions, str):
             conditions = {conditions: True}
         elif type(conditions) in (tuple, list):
             conditions = {condition: True for condition in conditions}
@@ -203,7 +202,7 @@ class Game(object):
         """
         is_chief_judge = False
         is_judge = False
-        if isinstance(dialog, string_types):
+        if isinstance(dialog, str):
             if dialog == 'judge_dialog':
                 is_judge = True
                 dialog = load_json_file_if_exists(os.path.join('data', 'maps', 'judge_dialog.json'))
@@ -264,17 +263,18 @@ class Game(object):
 
     def reserve_multiplier(self):
         # Get a bonus to your exp when you have guys in the reserve.
-        # Grows quadratically based on number of guys in reserve,
-        # from 1.0 to around 4.0 if you get all the guys you can.
+        # Grows quartically based on number of guys in reserve,
+        # from 1.0 to around 10.0 if you get all the guys you can.
         # (I think the max you can get isn't much higher than 160.)
-        return 1.0 + (len(self.game_state['reserve']) / 92.0) ** 2
+        return 1.0 + (len(self.game_state['reserve']) / 92.0) ** 4
 
     def decrement_food(self):
         if self.devtools['Fasting']:
             return False
         food = copy.deepcopy(self.game_state['food'])
         soldiers = sum(warlord['soldiers'] for warlord in self.game_state['company'])
-        eaten = soldiers / 5000.0 # 5,000 steps per food unit per soldier
+        reserve_discount = 0.01 * max(len(self.game_state['reserve']), 100)
+        eaten = (1.0 - reserve_discount) * soldiers / 5000.0 # 5,000 steps per food unit per soldier, before the reserve_discount
         new_food = max(0, food - eaten)
         self.update_game_state({'food': new_food})
         if new_food == 0:
@@ -717,7 +717,7 @@ class Game(object):
         company = copy.deepcopy(self.game_state['company'])
         reserve = copy.deepcopy(self.game_state['reserve'])
         level = self.game_state['level']
-        if isinstance(names, string_types):
+        if isinstance(names, str):
             names = [names]
         for name in names:
             if len(company) < MAX_COMPANY_SIZE:

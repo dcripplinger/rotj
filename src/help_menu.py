@@ -5,7 +5,7 @@ import os
 import pygame
 from pygame.locals import *
 
-from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, STATS, TACTICS, PLACES
+from constants import BLACK, GAME_WIDTH, GAME_HEIGHT, ITEMS, STATS, TACTICS, PLACES, PARTY_STATS
 from text import create_prompt, MenuBox, MenuGrid
 
 
@@ -47,12 +47,14 @@ class HelpMenu(object):
             'TACTICS',
             'ITEMS',
             'STATS',
+            'PARTY STATS',
             'PLACES',
         ]
         self.menu = MenuBox(items, current_choice=0, border=True, title='Help')
         self.menu.focus()
         self.weapons_menu = None
         self.stats_menu = None
+        self.party_stats_menu = None
         self.places_menu = None
         self.body_armor_menu = None
         self.helmets_menu = None
@@ -69,6 +71,8 @@ class HelpMenu(object):
             self.screen.blit(self.weapons_menu.surface, (48, 0))
         if self.stats_menu:
             self.screen.blit(self.stats_menu.surface, (48, 0))
+        if self.party_stats_menu:
+            self.screen.blit(self.party_stats_menu.surface, (48, 0))
         if self.places_menu:
             self.screen.blit(self.places_menu.surface, (48, 0))
         if self.body_armor_menu:
@@ -95,6 +99,8 @@ class HelpMenu(object):
             self.weapons_menu.update(dt)
         elif self.state == 'stats':
             self.stats_menu.update(dt)
+        elif self.state == 'party_stats':
+            self.party_stats_menu.update(dt)
         elif self.state == 'places':
             self.places_menu.update(dt)
         elif self.state == 'body_armor':
@@ -120,8 +126,10 @@ class HelpMenu(object):
                 choice = self.menu.get_choice()
                 if choice == 'WEAPONS':
                     self.create_weapons_menu()
-                if choice == 'STATS':
+                elif choice == 'STATS':
                     self.create_stats_menu()
+                elif choice == 'PARTY STATS':
+                    self.create_party_stats_menu()
                 if choice == 'PLACES':
                     self.create_places_menu()
                 elif choice == 'BODY ARMOR':
@@ -166,6 +174,24 @@ class HelpMenu(object):
                 self.stats_menu.unfocus()
             elif pressed[K_z]:
                 self.stats_menu = None
+                self.menu.focus()
+                self.state = 'main'
+        elif self.state == 'party_stats':
+            if self.description:
+                self.description.handle_input(pressed)
+                if (pressed[K_x] or pressed[K_z]) and not self.description.has_more_stuff_to_show():
+                    self.description.shutdown()
+                    self.description = None
+                    self.party_stats_menu.focus()
+                return
+            self.party_stats_menu.handle_input(pressed)
+            if pressed[K_x]:
+                self.select_sound.play()
+                choice = self.party_stats_menu.get_choice()
+                self.description = create_prompt(PARTY_STATS[choice]['description'])
+                self.party_stats_menu.unfocus()
+            elif pressed[K_z]:
+                self.party_stats_menu = None
                 self.menu.focus()
                 self.state = 'main'
         elif self.state == 'places':
@@ -310,6 +336,14 @@ class HelpMenu(object):
         self.stats_menu = MenuBox([s['name'] for s in sorted_stats], border=True)
         self.menu.unfocus()
         self.stats_menu.focus()
+
+    def create_party_stats_menu(self):
+        self.state = 'party_stats'
+        party_stats = [{'name': name, 'sort_order': info['sort_order']} for name, info in PARTY_STATS.items()]
+        sorted_party_stats = sorted(party_stats, key=lambda k: k['sort_order'])
+        self.party_stats_menu = MenuBox([s['name'] for s in sorted_party_stats], border=True)
+        self.menu.unfocus()
+        self.party_stats_menu.focus()
 
     def create_places_menu(self):
         self.state = 'places'
