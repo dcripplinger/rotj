@@ -340,6 +340,9 @@ class TextBox(object):
 
     def shutdown(self):
         if not self.silent:
+            # I don't see why we need to call init() again, but otherwise pygame
+            # barfs errors
+            pygame.mixer.init()
             self.typing_sound.stop()
 
     def handle_input(self, pressed):
