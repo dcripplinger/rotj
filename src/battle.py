@@ -133,11 +133,16 @@ class Battle(object):
         self.allies = []
         self.corianton_runs_away = False
         is_story_battle = self.battle_type in ['story', 'giddianhi', 'zemnarihah']
-        for i, ally in enumerate(allies):
-            if is_story_battle and ally['name'] == 'corianton':
-                self.corianton_runs_away = True
-                self.game.set_game_state_condition('corianton_runs_away')
-                continue
+        # Corianton has to be removed before allies are assigned indices
+        if is_story_battle and 'corianton' in [ally['name'] for ally in allies]:
+            self.corianton_runs_away = True
+            self.game.set_game_state_condition('corianton_runs_away')
+            new_allies = [
+                ally for ally in allies if ally['name'] != 'corianton'
+            ]
+        else:
+            new_allies = allies
+        for i, ally in enumerate(new_allies):
             json_stats = load_stats(ally['name'])
             equips = self.game.get_equips(ally['name'])
             self.allies.append(Ally({
@@ -226,8 +231,8 @@ class Battle(object):
         self.menu = None
         self.portraits = {}
         self.portraits.update({
-            warlord['name']: load_image(os.path.join(u'portraits', u'{}.png'.format(warlord['name'])))
-            for warlord in allies
+            warlord.name : load_image(os.path.join(u'portraits', u'{}.png'.format(warlord.name)))
+            for warlord in self.allies
         })
         self.portraits.update({
             warlord['name']: pygame.transform.flip(load_image(os.path.join(u'portraits', u'{}.png'.format(warlord['name']))), True, False)
